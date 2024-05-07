@@ -9,6 +9,7 @@ import { ResetPasswordStep2 } from "../modules/Auth/ResetPassword/Components/Res
 import { ResetPasswordStep3 } from "../modules/Auth/ResetPassword/Components/ResetPasswordStep3/ResetPasswordStep3";
 import { AuthLayout } from "../Layouts/AuthLayout/AuthLayout";
 import Clients from "../components/Clients/Clients";
+import Orders from "../components/Orders/Orders";
 export const Router = observer(() => {
   const isAuth = authStore.isAuth;
 
@@ -41,6 +42,7 @@ export const Router = observer(() => {
     <Routes>
       <Route path="" element={<MainLayout />}>
         <Route path="/admin/clients" element={<Clients />} />
+        <Route path="/admin/orders" element={<Orders />} />
       </Route>
       <Route path="*" element={<Navigate to="/admin/clients" />} />
       <Route path="" element={<Navigate to="/admin/clients" />} />
