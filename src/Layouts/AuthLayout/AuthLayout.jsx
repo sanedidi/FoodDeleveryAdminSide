@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import s from "./styles.module.scss";
 import React from "react";
+import { GroupsIcon } from "../../components/SvgComponents/SvgComponents";
 export const AuthLayout = () => {
   return (
     <Box className={s.login}>
