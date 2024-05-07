@@ -1,0 +1,107 @@
+.percentageBox {
+  background-color: #f5f5f5;
+  width: 989px;
+  height: 127px;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 10px;
+}
+.beginingDate {
+  color: #d87750;
+  font-size: 11px;
+  font-weight: 500;
+}
+.forWho {
+  color: #262626;
+  font-size: 23px;
+  font-weight: 600;
+}
+.lineBox {
+  margin-top: 10px;
+  width: 899px;
+  height: 8px;
+  background-color: #bbf6f4;
+  border-radius: 8px;
+}
+.linkCourse {
+  color: blue;
+  font-size: 15px;
+}
+.Link {
+  font-size: 15px;
+
+  color: #262626;
+}
+.line {
+  background-color: #1ac19d;
+  width: 740px;
+  height: 8px;
+  border-radius: 8px;
+}
+.CourseImgBox {
+  margin-top: 20px;
+}
+.CourseImgBox img {
+  width: 989px;
+}
+.inofoCourse {
+  margin-bottom: 60px;
+  width: 989px;
+}
+.titleCourse {
+  padding-top: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #262626;
+}
+.abouteCourse p {
+  padding-top: 10px;
+
+  // font-weight: 700;
+  // color: #222222;
+}
+.aboutRoulse {
+  margin: 10px;
+  background: #f5f5f5;
+  padding: 20px;
+  text-align: center;
+  font-weight: 400;
+  color: #222222;
+  display: flex;
+  justify-content: center;
+}
+.rule {
+  padding: 20px;
+  font-size: 20px;
+}
+
+.homework {
+  width: 996px;
+  margin-top: 20px;
+  font-size: 15px;
+  color: #262626;
+}
+.homworkBox {
+  margin-left: 20px;
+}
+.btnDiv {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+.bleckBtn {
+  width: 300px;
+  height: 50px;
+  color: black;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  font-size: 19px;
+}
+.whitheBtn {
+  font-size: 19px;
+  width: 300px;
+  height: 50px;
+  color: #f5f5f5;
+  background-color: #222222;
+  border-radius: 8px;
+}

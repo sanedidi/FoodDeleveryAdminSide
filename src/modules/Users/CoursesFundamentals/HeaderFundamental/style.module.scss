@@ -1,0 +1,33 @@
+.headerContiner {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px solid #e5e9eb;
+  padding: 25px;
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid transparent;
+  border-bottom-color: #f5ebeb;
+  background-color: #fff;
+  z-index: 1px;
+}
+.nav {
+  position: relative;
+}
+.headerContiner p {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  color: #2b86f1;
+}
+.headerContiner button {
+  width: 106px;
+  height: 27px;
+  border-radius: 28px;
+  padding: 6px, 16px, 6px, 16px;
+  background: #ffd9d9;
+  color: #cf0000;
+  font-size: 12px;
+  line-height: 12.52px;
+}

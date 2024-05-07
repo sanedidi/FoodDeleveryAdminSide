@@ -1,0 +1,11 @@
+.order{
+    background-color: rgba(224, 238, 255, 1);
+    padding: 20px;
+    &__wrapper{
+    }
+    &__tabel{
+        background-color: #fff;
+        border-radius: 8px;
+        scroll-behavior: smooth;
+    }
+}

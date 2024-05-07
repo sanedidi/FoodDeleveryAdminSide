@@ -1,0 +1,59 @@
+.title {
+    margin-bottom: 40px;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 48px; 
+    letter-spacing: -0.792px;
+}
+
+.list {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+
+.item {
+    position: relative;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.006em;
+    background-color: #0067F4;
+}
+
+.numberBlue {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 2px;
+    left: 2px;
+    border: 2px solid #fff;
+    width: 44px;
+    height: 44px;
+    color: #fff;
+    border-radius: 50%;
+    background-color: #0067F4;
+}
+
+.item:not(:last-child)::before {
+    position: absolute;
+    top: 24px;
+    left: 52px;
+    background-color: #0067F4;
+    width: 217px;
+    height: 4px;
+    content: "";
+}
+
+.btnWrapper {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+}

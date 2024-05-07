@@ -1,0 +1,10 @@
+.content {
+    width: 100%;
+    margin: 78px 0;
+    .table {
+        background-color: white;
+    }
+    .wrapper:not(:last-child) {
+        margin-bottom: 18px;
+    }
+}

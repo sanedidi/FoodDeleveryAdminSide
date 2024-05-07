@@ -1,0 +1,21 @@
+.btnSubmit {
+    margin-bottom: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: -0.006em;
+}
+
+
+.btnSubmit:disabled {
+    background-color: #6E8BB7B2;
+}
+
+.btnSubmit:hover {
+    background-color: #3382f1;
+}

@@ -1,0 +1,44 @@
+.arrowIcons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 500;
+  color: #0e8784;
+  margin-bottom: 10px;
+}
+
+.groupList {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  justify-content: space-between;
+  padding: 10px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0px;
+  color: #0067f4;
+  width: 120px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.wrapper:not(:last-child) {
+  margin-bottom: 18px;
+}
+.input {
+  margin-top: 18px;
+}
+.input::placeholder {
+  color: rgba(0, 0, 0, 0.801);
+  font-weight: 500;
+  // margin-top: 18px;
+}

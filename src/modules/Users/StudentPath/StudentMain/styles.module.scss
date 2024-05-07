@@ -1,0 +1,197 @@
+.MyCourse {
+  padding: 30px;
+}
+//
+.headerWrap {
+  display: flex;
+  gap: 30px;
+}
+.headerIcons {
+  margin-top: -210px;
+  display: flex;
+  gap: 20px;
+  width: 100px;
+}
+.headerIcons button {
+  color: transparent;
+}
+
+.headerPart1 {
+  width: 1121px;
+  height: 200px;
+}
+
+.haderText {
+  padding: 35px;
+  width: 1102px;
+  height: 203px;
+  background-color: #403ef5;
+  border-radius: 24px;
+  padding: 32px, 16px, 32px, 32px;
+}
+.kindSpheres {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+}
+.AboutINformation {
+  font-size: 13px;
+  font-weight: 400;
+  color: #ffffff;
+}
+.btn {
+  width: 124px;
+  height: 44px;
+  border-radius: 6px;
+  padding: 20px, 24px, 12px, 24px;
+  margin-top: 40px;
+  background: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #403ef5;
+}
+
+//
+.wraperCourse {
+  gap: 60px;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.wraperItem {
+  display: flex;
+  flex-wrap: wrap;
+}
+.nameCourse {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 30px;
+}
+.MyCourseBox {
+  margin-top: 30px;
+  display: flex;
+  text-align: center;
+}
+.myCorsePart1 {
+  padding: 35px;
+  width: 525px;
+  padding: 20px, 24px, 12px, 24px;
+  gap: 20px;
+  box-shadow: 4px 11px 23px -8px rgba(34, 60, 80, 0.53);
+  border: 1px solid transparent;
+  border-radius: 16px;
+}
+.wrapInfo {
+  display: flex;
+  padding: 10px;
+  gap: 10px;
+}
+.titlePart1 {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+}
+.titleCourse {
+  font-size: 17;
+  font-weight: 700;
+  color: #262626;
+}
+.percent {
+  width: 90px;
+  height: 10px;
+  border-radius: 20px;
+  background-color: #bbf6f4;
+}
+.percentLine {
+  width: 30px;
+  height: 10px;
+  border-radius: 20px;
+  background-color: #1ac19d;
+}
+.infoCorse {
+  text-align: start;
+  margin-top: 20px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #747474;
+  width: 248px;
+}
+.wrapImeCourse img {
+  width: 131px;
+  height: 88px;
+}
+.aboutTimeProcess {
+  display: flex;
+  gap: 14px;
+}
+.timePros {
+  background: #f4f3f1;
+  width: 105px;
+  padding: 5px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 4px 4px 4px 3px rgba(34, 60, 80, 0.2);
+}
+.timeDate {
+  display: flex;
+
+  padding-top: 4px;
+  gap: 5px;
+}
+.dateBtn {
+  margin-top: 25px;
+  background: #413ef5cb;
+  width: 402px;
+  border-radius: 8px;
+  height: 40px;
+  color: #ffffff;
+  font-size: 15px;
+}
+.inputNameCourse {
+  padding-left: 40px;
+  width: 555px;
+  height: 44px;
+  border: 1px solid #f5ebeb;
+  border-radius: 6px;
+  padding: 12px, 128px, 12px, 12px;
+}
+.inputCooseingCourse {
+  padding-left: 10px;
+
+  width: 223px;
+  height: 44px;
+  border: 1px solid #f5ebeb;
+  border-radius: 6px;
+  padding: 12px, 128px, 12px, 12px;
+}
+.infoTimeP {
+  font-size: 11px;
+}
+.btnSearch {
+  width: 94px;
+  height: 44px;
+  background-color: #403ef5;
+  padding: 12px, 24px, 12px, 24px;
+  color: #ffffff;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+.getDate {
+  gap: 20px;
+  display: flex;
+  position: relative;
+}
+.searIcon {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+}
+.expen {
+  position: absolute;
+  left: 777px;
+  top: 20px;
+}
+.EveryCourse {
+  margin-bottom: 30px;
+}
+//

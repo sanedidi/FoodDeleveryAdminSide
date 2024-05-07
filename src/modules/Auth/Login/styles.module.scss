@@ -1,0 +1,58 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  @media (max-width:860px) {
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+  }
+  &__wrapper {
+    box-shadow: 0px 2px 2px 0px #00000040;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    width: 100%;
+    max-width: 550px;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  &__title {
+    font-size: clamp(1.5rem, 1.318rem + 0.91vw, 2rem);
+    font-weight: 700;
+  }
+  &__top {
+  }
+  &__btm {
+    margin-top: 20px;
+    display: flex;
+    padding-top: 20px;
+    flex-direction: column;
+    gap: 30px;
+    border-top: 1px solid #e7e7e7;
+    label {
+      font-family: Inter;
+      font-size: clamp(1rem, 0.818rem + 0.91vw, 1.5rem);
+      font-weight: 500;
+    }
+  }
+  &__text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 550px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0px 2px 2px 0px #00000040;
+
+    p {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+.locationWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.title {
+  display: flex;
+  margin-left: 700px;
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 20px;
+}
+.branchTitle {
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 17px;
+}
+.locationBranch {
+  margin-top: 10px;
+  background-color: rgb(147, 180, 243);
+  border-radius: 12px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}

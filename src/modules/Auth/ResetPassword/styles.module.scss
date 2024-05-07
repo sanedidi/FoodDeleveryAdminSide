@@ -1,0 +1,36 @@
+.title {
+    margin-bottom: 40px;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 48px; 
+    letter-spacing: -0.792px;
+}
+
+.text {
+    margin-bottom: 32px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: -0.006em;
+    text-align: left;    
+}
+
+.link {
+    text-align: center;
+    margin-bottom: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: -0.006em;
+}
+
+.btnWrapper {
+    display: flex;
+    flex-direction: column;
+}

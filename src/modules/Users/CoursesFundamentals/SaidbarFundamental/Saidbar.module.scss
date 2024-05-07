@@ -1,0 +1,77 @@
+.saidbarFundamentals {
+  top: 76px;
+  width: 303px;
+  position: fixed;
+  height: 90vh;
+  border-right: 1px solid #f5ebeb;
+  background-color: #fff;
+  color: #262626;
+}
+.mainlyTitle {
+  font-size: 15px;
+  font-weight: 600;
+}
+.aboutCourse {
+  width: 100%;
+  border-bottom: 1px solid #f5ebeb;
+}
+.mainlyCorse {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.aboutVD {
+  display: flex;
+  gap: 7px;
+  //   background-color: red;
+}
+.wrapVD p {
+  padding-top: 3px;
+  padding-left: 2px;
+}
+.wrapVD {
+  margin-top: 10px;
+  padding: 8px 8px 8px 20px;
+  font-size: 13px;
+}
+
+.wrapVD:hover {
+  transition: 0.5s;
+  padding: 10px 10px 10px 10px;
+  background-color: #403ef51f;
+  color: #403ef5;
+}
+//
+
+.sidepanel {
+  height: 0;
+  position: fixed;
+  z-index: 1;
+  height: 250px;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidepanel .closebtn {
+  position: absolute;
+
+  top: 25px;
+  font-size: 36px;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}

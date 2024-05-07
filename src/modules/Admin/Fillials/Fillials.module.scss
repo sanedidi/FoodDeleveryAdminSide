@@ -1,0 +1,41 @@
+.UseFillialsProps__menu {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  svg {
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+.header {
+  &__btn_fill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid rgba(231, 231, 231, 1);
+    padding: 8px;
+    border-radius: 8px;
+    color: rgba(14, 115, 252, 1);
+  }
+  &__btn_add {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px;
+    border-radius: 8px;
+    color: #fff;
+    background-color: rgba(14, 115, 252, 1);
+  }
+  &__refresh {
+    font-size: 20px;
+  }
+  &__fill {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  &__add {
+    font-size: 16px;
+    font-weight: 500;
+  }
+}

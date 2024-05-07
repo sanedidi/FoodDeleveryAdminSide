@@ -1,0 +1,28 @@
+.header{
+    &__btn_del{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        span{
+            color: rgba(247, 116, 121, 1);
+            font-size: 16px;
+        }
+        svg{
+            font-size: 30px;
+            color: rgba(247, 116, 121, 1);
+        }
+    }
+    &__btn_create{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        span{
+            font-size: 16px;
+            
+        }
+        svg{
+            font-size: 30px;
+            
+        }
+    }
+}

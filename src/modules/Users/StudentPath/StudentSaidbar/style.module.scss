@@ -1,0 +1,110 @@
+.sidbarTop {
+  font-family: Inter;
+  max-width: 100%;
+  position: fixed;
+  height: 100%;
+  border-right: 1px solid #f5ebeb;
+  border-bottom: 1px solid #f5ebeb;
+  background-color: #fff;
+}
+.sidbrTop {
+  padding: 25px;
+}
+.LMS {
+  font-size: 20px;
+  color: #403ef5;
+  font-weight: 600;
+  line-height: 24px;
+}
+.sidbarCours {
+  display: flex;
+  gap: 10px;
+  padding-top: 30px;
+}
+.sidbarCours p {
+  font-size: 15px;
+  color: #9a9a9a;
+}
+.sidbarCours :hover {
+  color: #5755f1;
+  transition: 0.5s;
+}
+.sidbarExzam :hover {
+  color: #5755f1;
+  transition: 0.5s;
+}
+.logOut:hover {
+  color: #f15555;
+  transition: 0.5s;
+}
+.sidbarExzam {
+  display: flex;
+  padding-top: 20px;
+  gap: 10px;
+}
+.sidbarExzam p {
+  font-size: 15px;
+  color: #9a9a9a;
+}
+.logOut {
+  display: flex;
+  padding-top: 20px;
+  gap: 10px;
+
+  color: #9a9a9a;
+}
+
+.IconLogOut {
+  font-size: 23px;
+}
+.btnLog {
+  font-size: 15px;
+}
+
+.line {
+  margin-top: 30px;
+  border-bottom: 1px solid #f5ebeb;
+  width: 233px;
+  margin-left: -25px;
+}
+
+///
+
+.FooterWraper {
+  position: relative;
+  padding: 10px;
+  display: flex;
+  text-align: center;
+  gap: 10px;
+}
+.SaidbarFooterWrap {
+  left: 0;
+  bottom: 1px;
+  max-width: 100%;
+  z-index: 20;
+  border-top: 1px solid #f5ebeb;
+  position: fixed;
+  padding-left: 27px;
+  padding-top: 10px;
+  background-color: #fff;
+}
+.userImgWrap {
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  width: 25px;
+  height: 25px;
+}
+.userImgWrap img {
+  width: 20px;
+  width: 20px;
+}
+.userName {
+  font-size: 15px;
+  color: #2b86f1;
+  margin-top: 3px;
+}
+.btn {
+  color: transparent;
+  margin-top: 3px;
+}

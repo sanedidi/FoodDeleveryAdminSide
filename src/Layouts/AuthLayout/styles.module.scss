@@ -1,0 +1,26 @@
+.login {
+  background-color: #DAEAF9;
+  &__wrapper {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    @media (max-width:860px) {
+      grid-template-columns: 1fr;
+      
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  &__title {
+    font-family: Inter;
+    font-size: 128px;
+    font-weight: 700;
+    line-height: 154.91px;
+    text-align: center;
+    color: #0E73FC;
+  }
+  &__wrapperLeft{
+  }
+}

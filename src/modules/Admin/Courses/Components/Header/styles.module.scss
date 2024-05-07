@@ -1,0 +1,37 @@
+.header {
+    max-width: 2400px;
+    width: 100%;
+    position: fixed;
+    left: 280px;
+    top: 0;
+    z-index: 20;
+    font-family: Inter;
+    padding: 10px 285px 12px 5px;
+    border-bottom: 2px solid #E5E9EB;
+    background-color: #fff;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wrapperLeft {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    margin-left: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.006em;  
+}
+
+.btn {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #D9D9D9;
+}

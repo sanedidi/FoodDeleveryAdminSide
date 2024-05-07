@@ -1,0 +1,46 @@
+.dashbord {
+  font-family: 'Inter';
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    gap: 20px;
+  }
+  &__item {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #e5e9eb;
+    border-radius: 16px;
+    :not(:last-child) {
+      margin-right: 22px;
+    }
+  }
+  &__wrapperText {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  &__count {
+    display: block;
+    margin-bottom: 19px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29px;
+    letter-spacing: 1px;
+    color: #0067f4;
+  }
+  
+  &__subtitle {
+    color: #202224;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0px;
+  }
+  &__icons {
+    font-size: 32px;
+  }
+}
