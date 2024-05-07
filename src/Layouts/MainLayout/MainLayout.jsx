@@ -1,14 +1,15 @@
 import { Outlet } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
-import cls from "./styles.module.scss";
-import Test from '../../components/test/test'
+import React from "react";
+import s from "./styles.module.scss";
+import SideBar from "../../components/SideBar/SideBar";
 export const MainLayout = () => {
   return (
     <>
-      <Box className={cls.content}>
-        <Test />
-        <Box className={cls.wrapper} id="outlet">
-          <Outlet className={cls.outlet} />
+      <Box className={s.mainLayOut}>
+        <SideBar />
+        <Box className={s.mainLayOut__wrapper} id="outlet">
+          <Outlet className={s.outlet} />
         </Box>
       </Box>
     </>

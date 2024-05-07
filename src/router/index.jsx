@@ -8,7 +8,7 @@ import { ResetPassword } from "../modules/Auth/ResetPassword/ResetPassword";
 import { ResetPasswordStep2 } from "../modules/Auth/ResetPassword/Components/ResetPasswordStep2/ResetPasswordStep2";
 import { ResetPasswordStep3 } from "../modules/Auth/ResetPassword/Components/ResetPasswordStep3/ResetPasswordStep3";
 import { AuthLayout } from "../Layouts/AuthLayout/AuthLayout";
-import Test from "../components/test/test";
+import Clients from "../components/Clients/Clients";
 export const Router = observer(() => {
   const isAuth = authStore.isAuth;
 
@@ -39,11 +39,12 @@ export const Router = observer(() => {
 
   return (
     <Routes>
-      <Route path="" element={<MainLayout />}></Route>
-      <Route path="/admin/test" element={<Test />} />
-      <Route path="*" element={<Navigate to="/admin/test" />} />
-      <Route path="" element={<Navigate to="/admin/test" />} />
+      <Route path="" element={<MainLayout />}>
+        <Route path="/admin/clients" element={<Clients />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/admin/clients" />} />
+      <Route path="" element={<Navigate to="/admin/clients" />} />
     </Routes>
   );
 });
-export default Router
+export default Router;
