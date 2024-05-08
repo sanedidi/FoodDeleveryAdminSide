@@ -1,63 +1,73 @@
-import React from "react";
+// SideBar.js
+import React, { useState } from "react";
 import s from "./SideBar.module.scss";
-import { Box } from "@chakra-ui/react";
-import { LogoIcon, SettingsIcon } from "../SvgComponents/SvgComponents";
+import { LogoIcon } from "../SvgComponents/SvgComponents";
 import useSideBarProps from "./useSideBarProps";
 import { Link } from "react-router-dom";
+import PersistentDrawerLeft from "../CustomSideBar/CustomSideBar";
+
 const SideBar = () => {
-  const { sideBarLinks, settings, open, setOpen, isPath } = useSideBarProps();
-  const handleLinkClick = (path) => {
-    setActiveAdminLink(path);
-    if (path === "admin/category") {
-      setOpen(true);
+  const { sideBarLinks, settings } = useSideBarProps();
+  const [showHeader, setShowHeader] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setOpen(!open);
+    if (window.location.pathname === "/admin/clients") {
+      setShowHeader(false);
     } else {
-      setOpen(false);
+      setShowHeader(true);
     }
   };
+
+
+  const handleLinkClick = (path) => {
+    if (path === "/admin/clients") {
+      setOpen(true);
+      setShowHeader(false);
+    } else {
+      setOpen(false);
+      setShowHeader(true);
+    }
+  };
+
   return (
-    <Box className={s.sidebar}>
-      <Box className={s.sidebar__main_wrapper}>
-        <Box className={s.sidebar__wrapper}>
-          <Box className={s.sidebar__main_top}>
-            <Box className={s.sidebar__top}>
-              <Box className={s.sidebar__logo}>
+    <div className={s.sidebar}>
+      <div className={s.sidebar__main_wrapper}>
+        <div className={s.sidebar__wrapper}>
+          <div className={s.sidebar__main_top}>
+            <div className={s.sidebar__top}>
+              <div className={s.sidebar__logo}>
                 <LogoIcon width={"36"} height={"36"} />
-              </Box>
-            </Box>
-            <Box className={s.sidebar__bottom}>
-              {sideBarLinks.map((el, index) => {
-                return (
-                  <Box className={s.sidebar__links} key={index}>
-                    <Link
-                      to={el.path}
-                      className={`${s.sidebar__navLink} ${
-                        pathname.includes(el.path) ? s.active : ""
-                      }`}
-                      onClick={() => handleLinkClick(el.path)}
-                    >
-                      <Box>{el.icon}</Box>
-                    </Link>
-                  </Box>
-                );
-              })}
-            </Box>
-          </Box>
-          <Box className={s.sidebar__main_bottom}>
-            {settings.map((el, index) => {
-              return (
-                <Box
-                  className={el.id === 1 ? s.sidebar__set : s.sidebar__acc}
-                  key={index}
-                >
-                  {el.icon}
-                </Box>
-              );
-            })}
-          </Box>
-        </Box>
-        <Box>vsdvsd</Box>
-      </Box>
-    </Box>
+              </div>
+            </div>
+            <div className={s.sidebar__bottom}>
+              {sideBarLinks.map((el, index) => (
+                <div className={s.sidebar__links} key={index}>
+                  <Link to={el.path} onClick={() => handleLinkClick(el.path)}>
+                    <div>{el.icon}</div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className={s.sidebar__main_bottom}>
+            {settings.map((el, index) => (
+              <div
+                className={el.id === 1 ? s.sidebar__set : s.sidebar__acc}
+                key={index}
+              >
+                {el.icon}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <PersistentDrawerLeft
+        handleDrawerToggle={open}
+        hideHeader={!showHeader}
+      />
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 import { Box } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import { AddModal } from 'components/AddModal';
 import { Link } from 'react-router-dom';
 import { Button, ButtonGroup } from '@chakra-ui/react';
 
@@ -29,7 +28,6 @@ export const Header = ({
           </Link>
         </Box>
       </Box>
-      <AddModal handleAccept={handleAccept} register={register} isOpen={isOpen} onClose={onClose} />
     </header>
   );
 };
