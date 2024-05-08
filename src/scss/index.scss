@@ -1,7 +1,7 @@
 // @import './fonts.scss';
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import './variables.scss';
-@import './mixins.scss';
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import "./variables.scss";
+@import "./mixins.scss";
 
 /* GENERAL */
 html {
@@ -23,85 +23,78 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   background-color: #fff;
 }
+* {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+aside,
+nav,
+footer,
+header,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
 
 img {
-  max-width: 100%;
-  height: auto;
+  vertical-align: top;
 }
 
-#root {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  border-radius: 0;
-  background: #eeeeee;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 0;
-  background: #a09595;
-}
-
-.css-3e6n3d {
-  margin-left: 0 !important;
-}
-.css-1mufel7 {
-  margin: 0 !important;
-}
-
-
-
-._table_1r9j9_1 {
-  margin: 0 !important;
-}
-
-._table_vqu7w_20 {
-  margin: 0 !important;
-}
-
-.css-xumdn4 {
-  border: 0.1px solid rgba(229, 233, 235, 1) !important;
-  border-radius: 8px !important;
-}
-.css-xumdn4 {
-  padding: 10px !important;
-}
-.css-1xpribl {
-  margin-top: 10px;
-}
-
-.rc-table-cell {
-  border: 1px solid #e7e7e7;
-}
-.rc-table._table_a5o98_1 {
-  border-radius: 20px !important;
-}
-.rc-table ._table_a5o98_1 {
-  padding: 20px;
-}
-.ioicon {
-  display: block;
-  margin: 0 auto;
-}
-._table_a5o98_1 th,
-._table_a5o98_1 td {
-  text-align: center !important;
-}
-
-.chakra-button {
-  padding: 0 40px !important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
 }
