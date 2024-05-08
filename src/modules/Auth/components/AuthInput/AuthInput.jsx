@@ -21,7 +21,7 @@ export const AuthInput = React.forwardRef(
       id,
       ...props
     },
-    ref // Include ref parameter here
+    ref 
   ) => {
     return (
       <Box className={s.wrapper}>

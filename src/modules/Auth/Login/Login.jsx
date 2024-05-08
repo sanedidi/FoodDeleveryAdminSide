@@ -28,15 +28,15 @@ export const Login = () => {
           <Box className={s.form__btm}>
             <AuthInput
               label="Имя пользователя"
-              id="email"
-              type="email"
+              id="login"
+              type="access_token"
               placeholder="Введите e-mail"
               src={EmailOutline}
               alt="email"
               register={register}
-              name="email"
+              name="login"
               user={"s.form__input_title"}
-              error={errors.email}
+              error={errors.login}
               required
             />
             <AuthInputPassword
