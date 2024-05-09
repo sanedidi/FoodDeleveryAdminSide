@@ -305,3 +305,30 @@ export const UserIcon = ({ width, height }) => {
     </svg>
   );
 };
+export const ChevronIcon = ({ width, height }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 28 26"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="28" height="26" rx="8" fill="#F5F6FA" />
+      <path
+        d="M13 18L8 13L13 8"
+        stroke="black"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M20 18L15 13L20 8"
+        stroke="black"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+};

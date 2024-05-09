@@ -1,5 +1,6 @@
 .sidebar {
   display: flex;
+  transition: all 1s;
   &__main_wrapper {
     display: flex;
   }
@@ -12,9 +13,7 @@
     border-right: 1px solid #e7e7e7;
     gap: 10px;
   }
-  &__main {
-    display: none;
-  }
+
   &__main_open {
     display: block;
   }
@@ -48,5 +47,28 @@
     width: 100%;
     margin: 0 auto;
     padding: 5px 0;
+  }
+  &__wrapper_left {
+    display: none;
+    width: clamp(6.25rem, 1.705rem + 22.73vw, 18.75rem);
+    border-right: 1px solid #e7e7e7;
+  }
+  &__wrapper_left_active {
+    display: block;
+    width: clamp(6.25rem, 1.705rem + 22.73vw, 18.75rem);
+    border-right: 1px solid #e7e7e7;
+  }
+
+  &__left_top {
+    border-bottom: 1px solid #e7e7e7;
+    padding: 15px;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  &__left_btn{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 }

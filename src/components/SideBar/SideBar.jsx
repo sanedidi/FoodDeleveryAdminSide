@@ -4,10 +4,16 @@ import s from "./SideBar.module.scss";
 import { LogoIcon } from "../SvgComponents/SvgComponents";
 import useSideBarProps from "./useSideBarProps";
 import { Link } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
+import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 
 const SideBar = () => {
   const { sideBarLinks, settings } = useSideBarProps();
+  const [isClientsActive, setIsClientsActive] = useState(false);
 
+  const handleLinkClick = (path) => {
+    setIsClientsActive(path === "/admin/clients");
+  };
 
   return (
     <div className={s.sidebar}>
@@ -22,7 +28,15 @@ const SideBar = () => {
             <div className={s.sidebar__bottom}>
               {sideBarLinks.map((el, index) => (
                 <div className={s.sidebar__links} key={index}>
-                  <Link to={el.path} onClick={() => handleLinkClick(el.path)}>
+                  <Link
+                    to={el.path}
+                    onClick={() => handleLinkClick(el.path)}
+                    className={
+                      el.path === "/admin/clients" && isClientsActive
+                        ? "active"
+                        : ""
+                    }
+                  >
                     <div>{el.icon}</div>
                   </Link>
                 </div>
@@ -40,8 +54,29 @@ const SideBar = () => {
             ))}
           </div>
         </div>
+        <div
+          className={
+            !isClientsActive
+              ? s.sidebar__wrapper_left
+              : s.sidebar__wrapper_left_active
+          }
+        >
+          <div className={s.sidebar__left_top}>
+            <Box className={s.sidebar__left_btn} onClick={() => setIsClientsActive(!isClientsActive)}>
+            <h2>Каталог</h2>
+              {isClientsActive ? (
+                <button className={s.chevronR} variant="ghost">
+                  <FiChevronsLeft className={s.sidebar__chevnor} />
+                </button>
+              ) : (
+                <button variant="ghost">
+                  <FiChevronsRight style={{ display: 'none' }} />
+                </button>
+              )}
+            </Box>
+          </div>
+        </div>
       </div>
-    
     </div>
   );
 };
