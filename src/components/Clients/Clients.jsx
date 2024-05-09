@@ -3,7 +3,7 @@ import {Header} from '../Header/Header'
 const Clients = () => {
   return (
     <>
-      <Header title={"Клиенты"}  />
+      <Header title={"Клиенты"} headerBtn1={"qwdqwd"}  />
     <div>
     </div>
     </>
