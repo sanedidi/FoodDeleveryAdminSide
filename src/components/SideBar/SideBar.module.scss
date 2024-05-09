@@ -1,8 +1,10 @@
 .sidebar {
   display: flex;
   transition: all 1s;
+  @media (max-width:500px) {
+    display: block;
+  }
   &__main_wrapper {
-    // display: flex;
   }
   &__wrapper {
     height: 100vh;
@@ -15,6 +17,8 @@
     @media (max-width:500px) {
       flex-direction: row;
       height: max-content;
+      border: none;
+      width: 100%;
     }
   }
 
@@ -38,6 +42,8 @@
     width: 100%;
     @media (max-width:500px) {
       flex-direction: row;
+      justify-content: flex-end;
+      gap: 10px;
     }
   }
   &__logo {
@@ -51,7 +57,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 30px;
+    gap: clamp(0.313rem, -0.256rem + 2.84vw, 1.875rem);
     @media (max-width:500px) {
       flex-direction: row;
     }
@@ -65,6 +71,8 @@
     padding: 5px 0;
     @media (max-width:500px) {
       border: none;
+      margin: 0;
+      width: max-content;
     }
   }
   &__wrapper_left {
