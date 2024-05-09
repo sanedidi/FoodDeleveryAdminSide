@@ -1,6 +1,12 @@
 .mainLayOut {
   display: flex;
-  &__wrapper{
+  @media (max-width: 500px) {
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    height: 100dvh;
+    overflow-y: scroll;
+  }
+  &__wrapper {
     width: 100%;
   }
 }
