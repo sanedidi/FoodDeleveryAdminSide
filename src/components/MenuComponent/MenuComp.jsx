@@ -1,16 +1,27 @@
-import React from 'react';
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Portal,
-} from '@chakra-ui/react';
+import React from "react";
+import { Menu, MenuButton, MenuList, MenuItem, Portal } from "@chakra-ui/react";
 
-const MenuComp = ({ MenuBtn, ListMenu, ListMenu1, ListMenu3 }) => {
+export const MenuComp = ({
+  MenuBtn,
+  ListMenu,
+  ListMenu1,
+  ListMenu3,
+  MenuSvg,
+  MenuSvg1,
+  MenuClass,
+}) => {
   return (
     <Menu>
-      <MenuButton>{MenuBtn}</MenuButton>
+      <MenuButton>
+        <div
+          className={MenuClass}
+          style={{ display: "flex", alignItems: "center", gap: "5px" }}
+        >
+          {MenuSvg1}
+          {MenuBtn}
+          {MenuSvg}
+        </div>
+      </MenuButton>
       <Portal>
         <MenuList>
           <MenuItem>{ListMenu}</MenuItem>

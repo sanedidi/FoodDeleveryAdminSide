@@ -10,15 +10,15 @@ const theme = createTheme();
 
 function App() {
   return (
-    <ChakraProvider>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <ChakraProvider>
         <BrowserRouter>
           <QueryClientProvider client={queryClient}>
             <Router />
           </QueryClientProvider>
         </BrowserRouter>
-      </ThemeProvider>
-    </ChakraProvider>
+      </ChakraProvider>
+    </ThemeProvider>
   );
 }
 
