@@ -23,6 +23,17 @@ const SideBar = () => {
             <div className={s.sidebar__top}>
               <div className={s.sidebar__logo}>
                 <LogoIcon width={"36"} height={"36"} />
+                <div onClick={() => setIsClientsActive(!isClientsActive)} className={s.sidebar__pp}>
+                  {isClientsActive ? (
+                    <button className={s.chevronR} variant="ghost">
+                      <FiChevronsLeft className={s.sidebar__chevnor} />
+                    </button>
+                  ) : (
+                    <button className={setIsClientsActive ? s.gg : s.ff} variant="ghost">
+                      <FiChevronsRight />
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
             <div className={s.sidebar__bottom}>
@@ -62,17 +73,11 @@ const SideBar = () => {
           }
         >
           <div className={s.sidebar__left_top}>
-            <Box className={s.sidebar__left_btn} onClick={() => setIsClientsActive(!isClientsActive)}>
-            <h2>Каталог</h2>
-              {isClientsActive ? (
-                <button className={s.chevronR} variant="ghost">
-                  <FiChevronsLeft className={s.sidebar__chevnor} />
-                </button>
-              ) : (
-                <button variant="ghost">
-                  <FiChevronsRight style={{ display: 'none' }} />
-                </button>
-              )}
+            <Box
+              className={s.sidebar__left_btn}
+              onClick={() => setIsClientsActive(!isClientsActive)}
+            >
+              <h2>Каталог</h2>
             </Box>
           </div>
         </div>
