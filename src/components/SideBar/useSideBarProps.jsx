@@ -18,16 +18,24 @@ const useSideBarProps = () => {
       icon: <BarIcon width={26} height={26} />,
       path: "/admin/dashboard",
     },
-    { id: 2, icon: <ShopIcon width={26} height={26} />, path: "" },
+    { id: 2, icon: <ShopIcon width={26} height={26} />, path: "/admin/orders" },
     {
       id: 3,
       icon: <ClientsIcon width={26} height={26} />,
       path: "/admin/clients",
     },
     { id: 4, icon: <GroupsIcon width={26} height={26} />, path: "" },
-    { id: 5, icon: <LocationIcon width={26} height={26} />, path: "" },
-    { id: 6, icon: <RestaurantIcon width={26} height={26} />, path: "" },
-    { id: 7, icon: <DateIcon width={26} height={26} />, path: "" },
+    {
+      id: 5,
+      icon: <LocationIcon width={26} height={26} />,
+      path: "/admin/fillials",
+    },
+    {
+      id: 6,
+      icon: <RestaurantIcon width={26} height={26} />,
+      path: "/admin/categories",
+    },
+    { id: 7, icon: <DateIcon width={26} height={26} />, path: "/admin/calendar" },
   ];
   const settings = [
     { id: 1, icon: <SettingsIcon width={26} height={26} />, path: "" },

@@ -1,8 +1,11 @@
+import { Header } from 'components/Header/Header'
 import React from 'react'
-import dd from 'ass'
 const Categories = () => {
   return (
-    <div>Categories</div>
+    <>
+    <Header title={'Товары'} />
+    <div>Products</div>
+    </>
   )
 }
 

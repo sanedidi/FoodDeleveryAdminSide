@@ -12,7 +12,7 @@ const SideBar = () => {
   const [isClientsActive, setIsClientsActive] = useState(false);
 
   const handleLinkClick = (path) => {
-    setIsClientsActive(path === "/admin/clients");
+    setIsClientsActive(path === "/admin/categories");
   };
 
   return (
@@ -43,7 +43,7 @@ const SideBar = () => {
                     to={el.path}
                     onClick={() => handleLinkClick(el.path)}
                     className={
-                      el.path === "/admin/clients" && isClientsActive
+                      el.path === "/admin/categories" && isClientsActive
                         ? "active"
                         : ""
                     }
