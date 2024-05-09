@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { Link } from 'react-router-dom';
-import { Button, ButtonGroup } from '@chakra-ui/react';
+import React from 'react';
 
 export const Header = ({
   onOpen,

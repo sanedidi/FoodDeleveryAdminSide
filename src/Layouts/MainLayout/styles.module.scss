@@ -1,3 +1,6 @@
 .mainLayOut {
   display: flex;
+  &__wrapper{
+    width: 100%;
+  }
 }

@@ -33,16 +33,10 @@ const useSideBarProps = () => {
     { id: 1, icon: <SettingsIcon width={26} height={26} />, path: "" },
     { id: 2, icon: <UserIcon width={26} height={26} />, path: "" },
   ];
-  const [open, setOpen] = useState(false);
-  const isPath = () => {
-      setOpen = !open;
-  };
+
   return {
     sideBarLinks,
     settings,
-    open,
-    setOpen,
-    isPath
   };
 };
 

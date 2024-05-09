@@ -1,8 +1,11 @@
 import React from 'react'
+import {Header} from '../Header/Header'
 const Clients = () => {
   return (
     <>
-    <div>Clients</div>
+    <div>
+      <Header title={"Клиенты"}  />
+    </div>
     </>
   )
 }

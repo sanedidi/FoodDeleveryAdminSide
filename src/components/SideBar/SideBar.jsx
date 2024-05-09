@@ -4,32 +4,10 @@ import s from "./SideBar.module.scss";
 import { LogoIcon } from "../SvgComponents/SvgComponents";
 import useSideBarProps from "./useSideBarProps";
 import { Link } from "react-router-dom";
-import PersistentDrawerLeft from "../CustomSideBar/CustomSideBar";
 
 const SideBar = () => {
   const { sideBarLinks, settings } = useSideBarProps();
-  const [showHeader, setShowHeader] = useState(true);
-  const [open, setOpen] = useState(false);
 
-  const toggleDrawer = () => {
-    setOpen(!open);
-    if (window.location.pathname === "/admin/clients") {
-      setShowHeader(false);
-    } else {
-      setShowHeader(true);
-    }
-  };
-
-
-  const handleLinkClick = (path) => {
-    if (path === "/admin/clients") {
-      setOpen(true);
-      setShowHeader(false);
-    } else {
-      setOpen(false);
-      setShowHeader(true);
-    }
-  };
 
   return (
     <div className={s.sidebar}>
@@ -63,10 +41,7 @@ const SideBar = () => {
           </div>
         </div>
       </div>
-      <PersistentDrawerLeft
-        handleDrawerToggle={open}
-        hideHeader={!showHeader}
-      />
+    
     </div>
   );
 };
