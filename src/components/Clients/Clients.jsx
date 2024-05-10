@@ -9,10 +9,11 @@ import {
 } from "components/SvgComponents/SvgComponents";
 import CustomInput from "components/Custom/CustomInput/CustomInput";
 import MenuComp from "components/MenuComponent/MenuComp";
+import useClientsProps from "./useClientsProps";
 
 export const Clients = () => {
-  const [currentTime, setCurrentTime] = useState("");
-  const [currentDate, setCurrentDate] = useState("");
+  const { currentTime, setCurrentTime, currentDate, setCurrentDate } =
+    useClientsProps();
 
   useEffect(() => {
     const fetchTimeAndDate = async () => {
@@ -22,16 +23,16 @@ export const Clients = () => {
         );
         const data = await response.json();
         const { datetime } = data;
-        setCurrentTime(datetime.slice(11, 16)); // Получение времени в формате чч:мм
-        setCurrentDate(datetime.slice(0, 10)); // Получение даты в формате гггг-мм-дд
+        setCurrentTime(datetime.slice(11, 16));
+        setCurrentDate(datetime.slice(0, 10));
       } catch (error) {
         console.error("Error fetching time and date:", error);
       }
     };
 
     fetchTimeAndDate();
-  }, []); // Пустой массив вторым аргументом для запуска эффекта только при монтировании компонента
-
+  }, []);
+  
   return (
     <>
       <Header
@@ -59,8 +60,8 @@ export const Clients = () => {
               MenuBtn={
                 <>
                   <span className={s.clients__time}>
-                    {currentDate} 
-                    __   
+                    {currentDate}
+                    __
                     {currentTime}
                   </span>
                 </>
