@@ -443,3 +443,29 @@ export const CalendarIcon = () => {
     </svg>
   );
 };
+export const ArrowUpIcon = () => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M10 15.8346V4.16797"
+        stroke="#0E73FC"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M4.16797 10.0013L10.0013 4.16797L15.8346 10.0013"
+        stroke="#0E73FC"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+};

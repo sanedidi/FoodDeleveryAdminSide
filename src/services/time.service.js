@@ -7,5 +7,6 @@ const TimeServices = {
 };
 
 export const useTimeService = () => {
-  return useMutation({ mutationFn: (data) => TimeServices.getTime(data) });
-};
+    return useMutation({ mutationFn: (data) => TimeServices.getTime(data) });
+  };
+  

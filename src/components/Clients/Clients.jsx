@@ -3,6 +3,7 @@ import { Header } from "../Header/Header";
 import s from "./Clients.module.scss";
 import {
   ArroDownIcon,
+  ArrowUpIcon,
   CalendarIcon,
   PlusIcon,
   SearchIcon,
@@ -32,7 +33,7 @@ export const Clients = () => {
 
     fetchTimeAndDate();
   }, []);
-  
+
   return (
     <>
       <Header
@@ -70,6 +71,9 @@ export const Clients = () => {
               ListMenu1={"????????"}
               ListMenu3={"?????????"}
             />
+          </div>
+          <div className={s.clients__import}>
+            <MenuComp MenuSvg1={<ArrowUpIcon />} ListMenu={"?????????"} />
           </div>
         </div>
       </div>
