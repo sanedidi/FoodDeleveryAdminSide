@@ -27,9 +27,7 @@ const useCategoriesProps = () => {
     {
       title: "Фото",
       width: 120,
-      render: (item) => (
-        <img src={item?.photo} alt="" width={20} height={20} />
-      ),
+      render: (item) => <img src={item?.photo} alt="" width={20} height={20} />,
     },
   ];
 

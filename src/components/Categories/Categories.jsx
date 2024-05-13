@@ -30,7 +30,7 @@ const Categories = () => {
           </>
         }
         headerBtn2={
-          <Link to={"/"} className="header_btn1">
+          <Link to={'/admin/categories/add'} className="header_btn1">
             <PlusIcon /> Добавить
           </Link>
         }
@@ -62,7 +62,7 @@ const Categories = () => {
           }
         />
         <div className={s.categories__wrapper}>
-          <CustomTable columns={columns} data={data}/>
+          <CustomTable columns={columns} data={data} />
         </div>
       </div>
     </>

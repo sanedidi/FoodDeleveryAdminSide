@@ -503,3 +503,71 @@ export const DownloadIcon = () => {
     </svg>
   );
 };
+export const FolderIcon = () => {
+  return (
+    <svg
+      width="48"
+      height="20"
+      viewBox="0 0 48 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M15.8327 10H4.16602"
+        stroke="#D9D9D9"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M9.99935 15.8346L4.16602 10.0013L9.99935 4.16797"
+        stroke="#D9D9D9"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M46.3327 15.8333C46.3327 16.2754 46.1571 16.6993 45.8445 17.0118C45.532 17.3244 45.108 17.5 44.666 17.5H31.3327C30.8907 17.5 30.4667 17.3244 30.1542 17.0118C29.8416 16.6993 29.666 16.2754 29.666 15.8333V4.16667C29.666 3.72464 29.8416 3.30072 30.1542 2.98816C30.4667 2.67559 30.8907 2.5 31.3327 2.5H35.4993L37.166 5H44.666C45.108 5 45.532 5.17559 45.8445 5.48816C46.1571 5.80072 46.3327 6.22464 46.3327 6.66667V15.8333Z"
+        fill="#D9D9D9"
+        stroke="#D9D9D9"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+};
+export const CreateIcon = () => {
+  return (
+    <svg
+      width="48"
+      height="20"
+      viewBox="0 0 48 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M15.8327 10H4.16602"
+        stroke="#D9D9D9"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M9.99935 15.8346L4.16602 10.0013L9.99935 4.16797"
+        stroke="#D9D9D9"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M46.3327 15.8333C46.3327 16.2754 46.1571 16.6993 45.8445 17.0118C45.532 17.3244 45.108 17.5 44.666 17.5H31.3327C30.8907 17.5 30.4667 17.3244 30.1542 17.0118C29.8416 16.6993 29.666 16.2754 29.666 15.8333V4.16667C29.666 3.72464 29.8416 3.30072 30.1542 2.98816C30.4667 2.67559 30.8907 2.5 31.3327 2.5H35.4993L37.166 5H44.666C45.108 5 45.532 5.17559 45.8445 5.48816C46.1571 5.80072 46.3327 6.22464 46.3327 6.66667V15.8333Z"
+        fill="#D9D9D9"
+        stroke="#D9D9D9"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+};
