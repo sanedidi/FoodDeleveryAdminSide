@@ -1,4 +1,3 @@
-// SideBar.js
 import React, { useState } from "react";
 import s from "./SideBar.module.scss";
 import { LogoIcon } from "../SvgComponents/SvgComponents";
@@ -8,81 +7,98 @@ import { Box } from "@chakra-ui/react";
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 
 const SideBar = () => {
-  const { sideBarLinks, settings } = useSideBarProps();
+  const { sideBarLinks, settings, CatalogLinks } = useSideBarProps();
+  const [activePath, setActivePath] = useState("");
   const [isClientsActive, setIsClientsActive] = useState(false);
 
   const handleLinkClick = (path) => {
+    setActivePath(path);
     setIsClientsActive(path === "/admin/categories");
   };
 
   return (
-    <div className={s.sidebar}>
-      <div className={s.sidebar__main_wrapper}>
-        <div className={s.sidebar__wrapper}>
-          <div className={s.sidebar__main_top}>
-            <div className={s.sidebar__top}>
-              <div className={s.sidebar__logo}>
+    <Box className={s.sidebar}>
+      <Box className={s.sidebar__main_wrapper}>
+        <Box className={s.sidebar__wrapper}>
+          <Box className={s.sidebar__main_top}>
+            <Box className={s.sidebar__top}>
+              <Box className={s.sidebar__logo}>
                 <LogoIcon width={"36"} height={"36"} />
-                <div onClick={() => setIsClientsActive(!isClientsActive)} className={s.sidebar__pp}>
+                <Box
+                  onClick={() => setIsClientsActive(!isClientsActive)}
+                  className={s.sidebar__pp}
+                >
                   {isClientsActive ? (
-                    <button  className={s.chevronR} variant="ghost">
-                      <FiChevronsLeft  className={s.sidebar__chevnor} />
+                    <button className={s.chevronR} variant="ghost">
+                      <FiChevronsLeft className={s.sidebar__chevnor} />
                     </button>
                   ) : (
-                    <button className={setIsClientsActive ? s.gg : s.ff} variant="ghost">
+                    <button
+                      className={setIsClientsActive ? s.gg : s.ff}
+                      variant="ghost"
+                    >
                       <FiChevronsRight />
                     </button>
                   )}
-                </div>
-              </div>
-            </div>
-            <div className={s.sidebar__bottom}>
+                </Box>
+              </Box>
+            </Box>
+            <Box className={s.sidebar__bottom}>
               {sideBarLinks.map((el, index) => (
-                <div className={s.sidebar__links} key={index}>
-                  <Link
-                    to={el.path}
-                    onClick={() => handleLinkClick(el.path)}
-                    className={
-                      el.path === "/admin/categories" && isClientsActive
-                        ? "active"
-                        : ""
-                    }
-                  >
-                    <div>{el.icon}</div>
+                <Box className={s.sidebar__links} key={index}>
+                  <Link to={el.path} onClick={() => handleLinkClick(el.path)}>
+                    <Box className={el.path === activePath ? "active" : ""}>
+                      {el.icon}
+                    </Box>
                   </Link>
-                </div>
+                </Box>
               ))}
-            </div>
-          </div>
-          <div className={s.sidebar__main_bottom}>
+            </Box>
+          </Box>
+          <Box className={s.sidebar__main_bottom}>
             {settings.map((el, index) => (
-              <div
+              <Box
                 className={el.id === 1 ? s.sidebar__set : s.sidebar__acc}
                 key={index}
               >
                 {el.icon}
-              </div>
+              </Box>
             ))}
-          </div>
-        </div>
-        <div
+          </Box>
+        </Box>
+        <Box
           className={
             !isClientsActive
               ? s.sidebar__wrapper_left
               : s.sidebar__wrapper_left_active
           }
         >
-          <div className={s.sidebar__left_top}>
+          <Box className={s.sidebar__left_top}>
             <Box
               className={s.sidebar__left_btn}
               onClick={() => setIsClientsActive(!isClientsActive)}
             >
               <h2>Каталог</h2>
             </Box>
-          </div>
-        </div>
-      </div>
-    </div>
+          </Box>
+          <Box className={s.sidebar__sec_links}>
+            {isClientsActive &&
+              CatalogLinks.map((link, index) => (
+                <Link
+                  key={index}
+                  onClick={() => handleLinkClick(link.path)}
+                  className={`${link.path === activePath ? s.ActiveLink : ""} ${
+                    s.sidebar__catalog_links
+                  }`}
+                  to={link.path}
+                >
+                  {link.link}
+                </Link>
+              ))}
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

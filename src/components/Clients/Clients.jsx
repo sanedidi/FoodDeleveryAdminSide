@@ -11,6 +11,7 @@ import {
 import CustomInput from "components/Custom/CustomInput/CustomInput";
 import MenuComp from "components/MenuComponent/MenuComp";
 import useClientsProps from "./useClientsProps";
+import { Link } from "react-router-dom";
 
 export const Clients = () => {
   const { currentTime, setCurrentTime, currentDate, setCurrentDate } =
@@ -40,10 +41,10 @@ export const Clients = () => {
         title={"Клиенты"}
         headerBtn1={
           <>
-            <button className={s.clients__header_btn}>
+            <Link to={'/'} className={s.clients__header_btn}>
               {" "}
               <PlusIcon /> Добавить клиента
-            </button>
+            </Link>
           </>
         }
       />
