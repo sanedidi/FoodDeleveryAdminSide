@@ -24,15 +24,21 @@ const useCategoriesProps = () => {
       width: 480,
       dataIndex: "name",
     },
+    {
+      title: "Фото",
+      width: 120,
+      render: (item) => (
+        <img src={item?.photo} alt="" width={20} height={20} />
+      ),
+    },
   ];
-  console.log();
+
   return {
     data: getCat?.Data?.category?.map((item, index) => ({
       key: item?.id || index,
       ...item,
     })),
     columns,
-
     categories,
     setCategories,
     getCat,

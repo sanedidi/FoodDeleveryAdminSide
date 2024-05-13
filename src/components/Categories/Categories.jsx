@@ -62,7 +62,7 @@ const Categories = () => {
           }
         />
         <div className={s.categories__wrapper}>
-          <CustomTable columns={columns} data={data} />
+          <CustomTable columns={columns} data={data}/>
         </div>
       </div>
     </>
