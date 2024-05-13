@@ -119,7 +119,6 @@ export const useCoursesDetailsProps = () => {
   // Moduleeeeeeeesss and Lessons
   const [openItem, setOpenItem] = useState('')
   const [activeModuleId, setActiveModuleId] = useState('')
-  console.log(activeModuleId)
 
   // Modules Modal
   const [isOpenModuleAdd, setOpenModuleAdd] = useState(false);

@@ -75,7 +75,6 @@ export const ProfileDetail = () => {
                     type="file"
                     ref={fileInputRef}
                     className={cls.fileInput} 
-                    onChange={(e) => console.log(e.target.files[0])}
                 />
                 <button className={cls.btnDelete}>Удалить фото</button>
               </Box>

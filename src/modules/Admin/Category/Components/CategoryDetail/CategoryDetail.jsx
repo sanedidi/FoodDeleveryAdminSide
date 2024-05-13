@@ -13,7 +13,6 @@ export const CategoryDetail = ({ title }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Image:', image);
   };
 
   return (

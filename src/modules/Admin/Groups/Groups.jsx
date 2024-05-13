@@ -35,7 +35,6 @@ export const Groups = () => {
     onChange,
     setActiveGroupId,
   } = useGroupsProps();
-  console.log(data);
   return (
     <Box margin="68px 0">
       <Header

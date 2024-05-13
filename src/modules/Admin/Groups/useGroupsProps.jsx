@@ -43,7 +43,6 @@ export const useGroupsProps = () => {
   const [isOpenE, setIsOpen] = useState(false);
   const onCloseE = () => setIsOpen(false);
   const onOpenE = () => setIsOpen(true);
-  // console.log(currentRecords);
   const [state, setState] = useState({
     isOpen: false,
     courseSearch: '',

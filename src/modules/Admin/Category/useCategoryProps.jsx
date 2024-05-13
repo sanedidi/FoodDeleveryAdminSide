@@ -96,7 +96,6 @@ export const useCategoryProps = () => {
         number: index + 1,
       };
     }) || [];
-  console.log(data);
 
   return {
     data,

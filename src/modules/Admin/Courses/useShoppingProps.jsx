@@ -24,7 +24,6 @@ export const useShoppingProps = () => {
 
   const getCourses = useGetSearchCourse({ search: courseSearch });
   const { data: courses, refetch } = useGetCourses();
-  // console.log(courses);
 
   // const handleOpen = () => setState((prev) => ({ ...prev, onOpen: true }));
   // const handleClose = () => {

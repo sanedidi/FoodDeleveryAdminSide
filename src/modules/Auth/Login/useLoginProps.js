@@ -28,7 +28,6 @@ export const useLoginProps = () => {
         });
       },
       onError: (error) => {
-        console.log(error);
         setError('email', { message: error?.response?.data?.detail });
         setError('password', { message: error?.response?.data?.detail });
       },
