@@ -1,5 +1,5 @@
 import { Header } from "components/Header/Header";
-import React from "react";
+import React, { useEffect } from "react";
 import s from "./Categories.module.scss";
 import {
   DownloadIcon,
@@ -11,7 +11,13 @@ import UnderHeader from "components/UnderHeader/UnderHeader";
 import CustomInput from "components/Custom/CustomInput/CustomInput";
 import { SearchIcon } from "@chakra-ui/icons";
 import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
+import useCategoriesProps from "./useCategoriesProps";
+import { useGetCategoriesService } from "services/categories.service";
+import { CustomTable } from "components/Custom/CustomTable/CustomTable";
+
 const Categories = () => {
+  const { columns, data } = useCategoriesProps();
+
   return (
     <>
       <Header
@@ -56,7 +62,7 @@ const Categories = () => {
           }
         />
         <div className={s.categories__wrapper}>
-            
+          <CustomTable columns={columns} data={data} />
         </div>
       </div>
     </>

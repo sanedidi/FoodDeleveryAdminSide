@@ -1,12 +1,17 @@
-import { useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import request from "./httpRequest/index";
 
 const CategoriesService = {
-  getCategories: (data) =>
-    request.get("https://food-delivery-api-n6as.onrender.com/v1/categories", data),
+  getCategories: (params) =>
+    request
+      .get("https://food-delivery-api-n6as.onrender.com/v1/categories", {
+        params,
+      })
+      .then((res) => res?.data),
 };
-
-export const useTimeService = () => {
-    return useMutation({ mutationFn: (data) => TimeServices.getTime(data) });
-  };
-  
+export const useGetCategoriesService = (params) => {
+  return useQuery({
+    queryKey: ["category", params],
+    queryFn: () => CategoriesService.getCategories(params),
+  });
+};
