@@ -19,9 +19,14 @@ export const Header = ({
     <header id="header" className={s.header}>
       <Box className={s.header__wrapper}>
         <h1 className={s.header__title}>{title}</h1>
-        <Box gap={10} className={s.header__wrapperLeft}>
-          <Box style={{display:"flex"}}>{headerBtn1}</Box>
-          <Box>{headerBtn2}</Box>
+        <Box
+          gap={10}
+          style={{ display: "flex" }}
+          alignItems={"center"}
+          className={s.header__wrapperLeft}
+        >
+          <Box style={{ display: "flex", height: "34px" }}>{headerBtn1}</Box>
+          <Box style={{ maxHeight: "34px" }}>{headerBtn2}</Box>
         </Box>
       </Box>
     </header>

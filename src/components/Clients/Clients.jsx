@@ -39,9 +39,9 @@ export const Clients = () => {
     <>
       <Header
         title={"Клиенты"}
-        headerBtn1={
+        headerBtn2={
           <>
-            <Link to={'/'} className={s.clients__header_btn}>
+            <Link to={"/"} className="header_btn1">
               {" "}
               <PlusIcon /> Добавить клиента
             </Link>

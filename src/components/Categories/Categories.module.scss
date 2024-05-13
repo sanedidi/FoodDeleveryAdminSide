@@ -1,0 +1,23 @@
+.header_btn1 {
+  padding: 5px 10px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  background-color: #0e73fc;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+}
+.categories {
+  &__btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 8px;
+    border: 1px solid #e5e9eb;
+    background-color: #fff;
+    color: #0e73fc !important;
+    font-size: 15.2px;
+  }
+}
