@@ -38,7 +38,7 @@ const useCategoriesProps = () => {
       width: 480,
       render: (item) => (
         <img
-          src={item?.photo}
+          src={`https://${item?.photo}`}
           alt="sdre"
           width={20}
           height={20}

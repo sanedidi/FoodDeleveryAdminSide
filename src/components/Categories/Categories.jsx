@@ -14,7 +14,7 @@ import useCategoriesProps from "./useCategoriesProps";
 import { CustomTable } from "components/Custom/CustomTable/CustomTable";
 
 import { Header } from "components/Header/Header";
-import html2canvas from "html2canvas"; 
+import html2canvas from "html2canvas";
 
 const Categories = () => {
   const { columns, data, setSearchQuery } = useCategoriesProps();
@@ -26,7 +26,7 @@ const Categories = () => {
         canvas.toBlob((blob) => {
           const link = document.createElement("a");
           link.href = URL.createObjectURL(blob);
-          link.download = "categories.png"; 
+          link.download = "categories.png";
           link.click();
         }, "image/png");
       });
@@ -60,7 +60,7 @@ const Categories = () => {
           }
           thirdItem={
             <CustomBtn
-              Onclick={() => handleDownload()} // Исправлено с Onclick на onClick
+              Onclick={() => handleDownload()}
               BtnContent={
                 <>
                   <DownloadIcon />
