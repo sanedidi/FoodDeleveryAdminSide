@@ -30,7 +30,7 @@ const Categories = () => {
         saveAs(dataUrl, "categories.png");
       })
       .catch(function (error) {
-        console.error("Oops, something went wrong!", error);
+        console.error(error);
       });
   };
 
@@ -60,7 +60,7 @@ const Categories = () => {
           }
           thirdItem={
             <CustomBtn
-              Onclick={() => handleDownload()} 
+              Onclick={() => handleDownload()}
               BtnContent={
                 <>
                   <DownloadIcon />
