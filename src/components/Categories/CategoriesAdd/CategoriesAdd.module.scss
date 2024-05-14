@@ -61,24 +61,6 @@
     width: 100%;
     justify-content: space-between;
   }
-  .gg {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-color: #eeeeee;
-    justify-content: center;
-    color: #666464;
-    padding: 12px;
-    border: 1px solid #666464;
-    border-radius: 8px;
-    height: 118px;
-  }
-  &__upload_left {
-    p {
-      color: #0e73fc;
-      font-size: 14px;
-      font-weight: 400;
-    }
-  }
+ 
+
 }

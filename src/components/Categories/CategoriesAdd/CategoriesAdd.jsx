@@ -119,9 +119,6 @@ export const CategoriesAdd = () => {
               </div>
               <form onSubmit={handleSubmit} className={s.categoriesAdd__upload}>
                 <div className={s.categoriesAdd__upload_left}>
-                  <PlusIconDown />
-                  Макс размер 4 МБ
-                  <p>Добавить фото</p>
                   <input
                     className={s.dd}
                     placeholder=""
@@ -131,7 +128,6 @@ export const CategoriesAdd = () => {
                   />
                 </div>
                 <div className={s.categoriesAdd__right}>
-                  <h2>Название</h2>{" "}
                   <input
                     type="text"
                     value={name}
