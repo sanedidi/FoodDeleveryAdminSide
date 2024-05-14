@@ -1,5 +1,4 @@
-import { Header } from "components/Header/Header";
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import s from "./Categories.module.scss";
 import {
   DownloadIcon,
@@ -12,25 +11,40 @@ import CustomInput from "components/Custom/CustomInput/CustomInput";
 import { SearchIcon } from "@chakra-ui/icons";
 import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
 import useCategoriesProps from "./useCategoriesProps";
-import { useGetCategoriesService } from "services/categories.service";
 import { CustomTable } from "components/Custom/CustomTable/CustomTable";
+import * as htmlToImage from "html-to-image";
+import { saveAs } from "file-saver";
+
+import { Header } from "components/Header/Header";
 
 const Categories = () => {
   const { columns, data } = useCategoriesProps();
+  const categoriesWrapperRef = useRef(null);
+
+  const handleDownload = () => {
+    const node = document.querySelector(`.${s.categories__wrapper}`);
+
+    htmlToImage
+      .toPng(node)
+      .then(function (dataUrl) {
+        saveAs(dataUrl, "categories.png");
+      })
+      .catch(function (error) {
+        console.error("Oops, something went wrong!", error);
+      });
+  };
 
   return (
     <>
       <Header
         headerBtn1={
-          <>
-            <button className={`${s.header_btn1}  ${s.categories__btn}`}>
-              <ReloadIcon />
-              Обновить CRM филиал
-            </button>
-          </>
+          <div className={`${s.header_btn1}  ${s.categories__btn}`}>
+            <ReloadIcon />
+            Обновить CRM филиал
+          </div>
         }
         headerBtn2={
-          <Link to={'/admin/categories/add'} className="header_btn1">
+          <Link to={"/admin/categories/add"} className="header_btn1">
             <PlusIcon /> Добавить
           </Link>
         }
@@ -39,29 +53,30 @@ const Categories = () => {
       <div className={s.categories}>
         <UnderHeader
           firstItem={
-            <>
-              <CustomInput
-                InputIcon={<SearchIcon style={{ color: "#0e73fc" }} />}
-                InputPlaceHolder={"Поиск..."}
-              />
-            </>
+            <CustomInput
+              InputIcon={<SearchIcon style={{ color: "#0e73fc" }} />}
+              InputPlaceHolder={"Поиск..."}
+            />
           }
           thirdItem={
-            <>
-              <CustomBtn
-                BtnContent={
-                  <>
-                    <DownloadIcon />
-                    <p style={{ color: "black", fontWeight: "400" }}>Скачать</p>
-                  </>
-                }
-                BgColor={"white"}
-                BtnBorder={"1px solid #E5E9EB"}
-              />
-            </>
+            <CustomBtn
+              Onclick={() => handleDownload()} 
+              BtnContent={
+                <>
+                  <DownloadIcon />
+                  <p style={{ color: "black", fontWeight: "400" }}>Скачать</p>
+                </>
+              }
+              BgColor={"white"}
+              BtnBorder={"1px solid #E5E9EB"}
+            />
           }
         />
-        <div className={s.categories__wrapper}>
+        <div
+          className={s.categories__wrapper}
+          id="categoriesWrapper"
+          ref={categoriesWrapperRef}
+        >
           <CustomTable columns={columns} data={data} />
         </div>
       </div>
