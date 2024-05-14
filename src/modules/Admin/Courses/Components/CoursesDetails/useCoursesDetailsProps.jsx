@@ -144,7 +144,6 @@ export const useCoursesDetailsProps = () => {
   const { data: getModuleById, isSuccess: isSuccessModules } = useGetModuleById({ moduleId: activeModuleId });
   const { mutate: updateModule } = useUpdateModuleById({ moduleId: activeModuleId });
   const { mutate: deleteModule } = useDeleteModuleById({ moduleId: activeModuleId });
-  // console.log( modules?.modules?.[0]?.id)
 
   const handleCreateModule = (data) => {
     createModule({ 
@@ -232,7 +231,6 @@ export const useCoursesDetailsProps = () => {
     });
   };
 
-  console.log(activeModuleId)
 
   // Lessons СRUD
   const [activeLessonId, setActiveLessonId] = useState('')

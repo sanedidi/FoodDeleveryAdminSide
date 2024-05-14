@@ -12,26 +12,25 @@ import { SearchIcon } from "@chakra-ui/icons";
 import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
 import useCategoriesProps from "./useCategoriesProps";
 import { CustomTable } from "components/Custom/CustomTable/CustomTable";
-import * as htmlToImage from "html-to-image";
-import { saveAs } from "file-saver";
 
 import { Header } from "components/Header/Header";
+import html2canvas from "html2canvas"; 
 
 const Categories = () => {
-  const { columns, data, setSearchQuery } = useCategoriesProps(); // Destructure setSearchQuery from the hook
+  const { columns, data, setSearchQuery } = useCategoriesProps();
   const categoriesWrapperRef = useRef(null);
 
   const handleDownload = () => {
-    const node = document.querySelector(`.${s.categories__wrapper}`);
-
-    htmlToImage
-      .toPng(node)
-      .then(function (dataUrl) {
-        saveAs(dataUrl, "categories.png");
-      })
-      .catch(function (error) {
-        console.error(error);
+    if (categoriesWrapperRef.current) {
+      html2canvas(categoriesWrapperRef.current).then((canvas) => {
+        canvas.toBlob((blob) => {
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "categories.png"; 
+          link.click();
+        }, "image/png");
       });
+    }
   };
 
   return (
@@ -61,7 +60,7 @@ const Categories = () => {
           }
           thirdItem={
             <CustomBtn
-              Onclick={() => handleDownload()}
+              Onclick={() => handleDownload()} // Исправлено с Onclick на onClick
               BtnContent={
                 <>
                   <DownloadIcon />
@@ -73,11 +72,7 @@ const Categories = () => {
             />
           }
         />
-        <div
-          className={s.categories__wrapper}
-          id="categoriesWrapper"
-          ref={categoriesWrapperRef}
-        >
+        <div className={s.categories__wrapper} ref={categoriesWrapperRef}>
           <CustomTable columns={columns} data={data} />
         </div>
       </div>

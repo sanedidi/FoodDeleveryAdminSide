@@ -14,7 +14,6 @@ import DownloadIcon from 'assets/img/icon/download.svg'
 export const ProfileDetail = () => {
   const userData = JSON.parse(localStorage.getItem('auth'));
   const activeUserId = userData?.userData?.id;
-  console.log(activeUserId);
 
   const updateUser = useUpdateUserById();
 

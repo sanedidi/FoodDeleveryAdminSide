@@ -13,6 +13,7 @@ import UseCAtegoriesAddProps from "./UseCAtegoriesAddProps";
 import CustomInput from "components/Custom/CustomInput/CustomInput";
 import { usePostCategory } from "services/categories.service";
 import axios from "axios";
+
 export const CategoriesAdd = () => {
   const { lang } = UseCAtegoriesAddProps();
   const [activeLang, setActiveLang] = useState("");
@@ -21,6 +22,10 @@ export const CategoriesAdd = () => {
 
   const handleMainImageChange = (event) => {
     setMainImage(event.target.files[0]);
+  };
+
+  const handleLangClick = (lang) => { // Перенесено сюда изнутри handleSubmit
+    setActiveLang(lang);
   };
 
   const handleSubmit = async (event) => {
@@ -44,10 +49,6 @@ export const CategoriesAdd = () => {
     } catch (error) {
       alert("Error:", error);
     }
-
-    const handleLangClick = (lang) => {
-      setActiveLang(lang);
-    };
   };
 
   return (

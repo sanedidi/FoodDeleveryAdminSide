@@ -19,7 +19,6 @@ const useCategoriesProps = () => {
   const filteredData = getCat?.Data?.category?.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  console.log(filteredData)
 
   const columns = [
     {
@@ -43,9 +42,7 @@ const useCategoriesProps = () => {
           alt="sdre"
           width={20}
           height={20}
-          onError={(e) => {
-            console.log("Error loading image:", e);
-          }}
+          
         />
       ),
     },

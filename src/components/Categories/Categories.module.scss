@@ -22,10 +22,12 @@
   }
   &__wrapper {
     padding: 10px;
-    height: 100%;
     background-color: #e0eeff;
+    border-radius: 8px;
+    max-height: 400px;
+    overflow-y: scroll;
   }
-  &__menu{
+  &__menu {
     display: flex;
     align-items: center;
     justify-content: space-between;
