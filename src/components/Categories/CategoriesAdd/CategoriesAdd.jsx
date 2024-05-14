@@ -5,20 +5,51 @@ import { Box } from "@chakra-ui/react";
 import {
   CreateIcon,
   FolderIcon,
-  PlusIcon,
   PlusIconDown,
 } from "components/SvgComponents/SvgComponents";
 import { Link } from "react-router-dom";
 import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
 import UseCAtegoriesAddProps from "./UseCAtegoriesAddProps";
 import CustomInput from "components/Custom/CustomInput/CustomInput";
+import { usePostCategory } from "services/categories.service";
+import axios from "axios";
 export const CategoriesAdd = () => {
   const { lang } = UseCAtegoriesAddProps();
-  const [activeLang, setActiveLang] = useState(""); // State to hold the active language
+  const [activeLang, setActiveLang] = useState("");
+  const [name, setName] = useState("");
+  const [mainImage, setMainImage] = useState(null);
 
-  const handleLangClick = (lang) => {
-    setActiveLang(lang);
+  const handleMainImageChange = (event) => {
+    setMainImage(event.target.files[0]);
   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("photo", mainImage);
+
+    try {
+      const response = await axios.post(
+        "https://food-delivery-api-n6as.onrender.com/v1/category",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      alert("Success", response);
+    } catch (error) {
+      alert("Error:", error);
+    }
+
+    const handleLangClick = (lang) => {
+      setActiveLang(lang);
+    };
+  };
+
   return (
     <>
       <Header
@@ -86,19 +117,30 @@ export const CategoriesAdd = () => {
                   );
                 })}
               </div>
-              <div className={s.categoriesAdd__upload}>
+              <form onSubmit={handleSubmit} className={s.categoriesAdd__upload}>
                 <div className={s.categoriesAdd__upload_left}>
-                  <button>
-                    <PlusIconDown />
-                    Макс размер 4 МБ
-                    <p>Добавить фото</p>
-                  </button>
+                  <PlusIconDown />
+                  Макс размер 4 МБ
+                  <p>Добавить фото</p>
+                  <input
+                    className={s.dd}
+                    placeholder=""
+                    type="file"
+                    onChange={handleMainImageChange}
+                    accept="image/*"
+                  />
                 </div>
                 <div className={s.categoriesAdd__right}>
-                  <h2>Название</h2>
-                  <CustomInput />
+                  <h2>Название</h2>{" "}
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Name"
+                  />
                 </div>
-              </div>
+                <button type="submit">Submit</button>
+              </form>
             </div>
           </div>
         </div>

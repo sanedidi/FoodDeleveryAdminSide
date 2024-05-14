@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import request from "./httpRequest/index";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 const CategoriesService = {
   getCategories: (params) =>
@@ -22,6 +22,7 @@ export const useGetCategoriesService = (params) => {
     queryFn: () => CategoriesService.getCategories(params),
   });
 };
+
 export const usePostCategory = () => {
   return useMutation({
     mutationFn: (data) => CategoriesService.PostCategory(data), // Здесь должны быть переданы данные для отправки
