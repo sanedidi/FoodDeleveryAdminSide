@@ -18,7 +18,7 @@ import { saveAs } from "file-saver";
 import { Header } from "components/Header/Header";
 
 const Categories = () => {
-  const { columns, data } = useCategoriesProps();
+  const { columns, data, setSearchQuery } = useCategoriesProps(); // Destructure setSearchQuery from the hook
   const categoriesWrapperRef = useRef(null);
 
   const handleDownload = () => {
@@ -56,6 +56,7 @@ const Categories = () => {
             <CustomInput
               InputIcon={<SearchIcon style={{ color: "#0e73fc" }} />}
               InputPlaceHolder={"Поиск..."}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           }
           thirdItem={

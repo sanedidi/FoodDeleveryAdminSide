@@ -10,29 +10,17 @@ import { Show } from "@chakra-ui/react";
 import { FaEye } from "react-icons/fa6";
 import { IoEye } from "react-icons/io5";
 import { CategoryFilterIcon } from "components/SvgComponents/SvgComponents";
+
 const useCategoriesProps = () => {
   const [categories, setCategories] = useState([]);
-
   const { data: getCat } = useGetCategoriesService();
-  // const columns = [
-  //   {
-  //     title: "№",
-  //     dataIndex: "id",
-  //     key: "count",
-  //     width: 88,
-  //   },
-  //   {
-  //     title: "Товар",
-  //     key: "name",
-  //     width: 480,
-  //     dataIndex: "name",
-  //   },
-  //   {
-  //     title: "Фото",
-  //     width: 480,
-  //     render: (item) => <img src={item?.photo} alt="" width={20} height={20} />,
-  //   },
-  // ];
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredData = getCat?.Data?.category?.filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  console.log(filteredData)
+
   const columns = [
     {
       title: "No",
@@ -63,7 +51,7 @@ const useCategoriesProps = () => {
     },
     {
       title: (
-        <div style={{margin:"0 auto", width:"max-content"}}>
+        <div style={{ margin: "0 auto", width: "max-content" }}>
           <CategoryFilterIcon />
         </div>
       ),
@@ -122,7 +110,7 @@ const useCategoriesProps = () => {
   ];
 
   return {
-    data: getCat?.Data?.category?.map((item, index) => ({
+    data: filteredData?.map((item, index) => ({
       key: item?.id || index,
       ...item,
     })),
@@ -130,6 +118,7 @@ const useCategoriesProps = () => {
     categories,
     setCategories,
     getCat,
+    setSearchQuery,
   };
 };
 
