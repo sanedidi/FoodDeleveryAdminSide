@@ -24,7 +24,7 @@ export const CategoriesAdd = () => {
     setMainImage(event.target.files[0]);
   };
 
-  const handleLangClick = (lang) => { // Перенесено сюда изнутри handleSubmit
+  const handleLangClick = (lang) => {
     setActiveLang(lang);
   };
 
