@@ -41,7 +41,7 @@ export const Products = () => {
           </Box>
         }
         headerBtn2={
-          <Link to={"/admin/categories/add"} className="header_btn1">
+          <Link to={"/admin/categories/products/add"} className="header_btn1">
             <PlusIcon /> Добавить
           </Link>
         }

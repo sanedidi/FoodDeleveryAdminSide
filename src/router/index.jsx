@@ -16,6 +16,7 @@ import Locations from "components/Locations/Locations";
 import Calendar from "components/Calendar/Calendar";
 import { CategoriesAdd } from "components/Categories/CategoriesAdd";
 import { Products } from "components/Products";
+import ProductsAdd from "components/Products/ProductsAdd/ProductsAdd";
 export const Router = observer(() => {
   const isAuth = authStore.isAuth;
 
@@ -55,6 +56,10 @@ export const Router = observer(() => {
         <Route path="/admin/calendar" element={<Calendar />} />
         <Route path="/admin/categories/add" element={<CategoriesAdd />} />
         <Route path="/admin/categories/products" element={<Products />} />
+        <Route
+          path="/admin/categories/products/add"
+          element={<ProductsAdd />}
+        />
       </Route>
       <Route path="*" element={<Navigate to="/admin/dashboard" />} />
       <Route path="" element={<Navigate to="/admin/dashboard" />} />
