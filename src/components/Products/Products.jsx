@@ -12,7 +12,10 @@ import {
 } from "components/SvgComponents/SvgComponents";
 import { Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { CustomTable } from "components/Custom/CustomTable/CustomTable";
+import useProductsProps from "./useProductsProps";
 export const Products = () => {
+  const { data, columns } = useProductsProps();
   return (
     <>
       <Header
@@ -44,7 +47,12 @@ export const Products = () => {
         }
       />
       <UnderHeader
-        firstItem={<CustomInput InputIcon={<Search2Icon color={"blue"} />} />}
+        firstItem={
+          <CustomInput
+            onChange={(e) => console.log(e.target.value)}
+            InputIcon={<Search2Icon color={"blue"} />}
+          />
+        }
         secondItem={
           <CustomBtn
             BgColor={"white"}
@@ -70,13 +78,15 @@ export const Products = () => {
                 style={{ display: "flex", alignItems: "center", gap: "5px" }}
               >
                 <DownloadIcon color={"blue"} />
-                <p style={{ color: "#000", fontWeight: "500" }}>Фильтр</p>
+                <p style={{ color: "#000", fontWeight: "500" }}>Скачать</p>
               </Box>
             }
           />
         }
       />
-      <div>Products</div>
+      <Box className={s.products__wrapper}>
+        <CustomTable columns={columns} data={data} />
+      </Box>
     </>
   );
 };
