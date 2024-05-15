@@ -1,9 +1,10 @@
 import { Button } from "@chakra-ui/react";
 import React from "react";
 
-const CustomBtn = ({ BgColor, BtnContent, Onclick, BtnBorder }) => {
+const CustomBtn = ({ BgColor, BtnContent, Onclick, BtnBorder, type }) => {
   return (
     <Button
+    type={type}
       border={BtnBorder}
       onClick={Onclick}
       colorScheme={BgColor}

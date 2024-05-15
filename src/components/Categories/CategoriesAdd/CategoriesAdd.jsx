@@ -13,6 +13,7 @@ import UseCAtegoriesAddProps from "./UseCAtegoriesAddProps";
 import CustomInput from "components/Custom/CustomInput/CustomInput";
 import { usePostCategory } from "services/categories.service";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 export const CategoriesAdd = () => {
   const { lang } = UseCAtegoriesAddProps();
@@ -45,14 +46,31 @@ export const CategoriesAdd = () => {
           },
         }
       );
-      alert("Success", response);
+
+      if (response.data && response.data.errors) {
+        const errors = response.data.errors;
+
+        switch (true) {
+          case errors.name === "":
+            toast.error("Введите название");
+            break;
+          case errors.photo === null:
+            toast.error("Загрузите фото");
+            break;
+          default:
+            toast.error("Ошибка при создании категории");
+        }
+      } else {
+        toast.success("Категория успешно создана");
+      }
     } catch (error) {
-      alert("Error:", error);
+      toast.error("Заполните Поле или Загрузите Фото! ");
     }
   };
 
   return (
     <>
+      <Toaster />
       <Header
         title={
           <Box
@@ -88,7 +106,6 @@ export const CategoriesAdd = () => {
             </Link>
           </Box>
         }
-        headerBtn2={<CustomBtn BtnContent={"Сохранить"} BgColor={"blue"} />}
       />
       <div className={s.categoriesAdd}>
         <div className={s.categoriesAdd__underHead}>
@@ -120,23 +137,36 @@ export const CategoriesAdd = () => {
               </div>
               <form onSubmit={handleSubmit} className={s.categoriesAdd__upload}>
                 <div className={s.categoriesAdd__upload_left}>
-                  <input
-                    className={s.dd}
-                    placeholder=""
-                    type="file"
-                    onChange={handleMainImageChange}
-                    accept="image/*"
-                  />
+                  <div className={s.input_box}>
+                    <div className={s["drag-file-area"]}>
+                      <label className={s.label}>
+                        <input
+                          type="file"
+                          className={s["default-file-input"]}
+                          onChange={handleMainImageChange}
+                        />
+                        <span className={s["browse-files-text"]}>
+                          <PlusIconDown />
+                          макс размер 4 мб
+                        </span>{" "}
+                      </label>{" "}
+                    </div>{" "}
+                  </div>
                 </div>
                 <div className={s.categoriesAdd__right}>
-                  <input
+                  <CustomInput
                     type="text"
                     value={name}
+                    InputPlaceHolder={"Название..."}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Name"
                   />
                 </div>
-                <button type="submit">Submit</button>
+                <CustomBtn
+                  type="submit"
+                  BtnContent={"Сохранить"}
+                  BgColor={"blue"}
+                />
               </form>
             </div>
           </div>
