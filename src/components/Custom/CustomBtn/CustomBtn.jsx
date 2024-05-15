@@ -4,7 +4,7 @@ import React from "react";
 const CustomBtn = ({ BgColor, BtnContent, Onclick, BtnBorder, type }) => {
   return (
     <Button
-    type={type}
+      type={type}
       border={BtnBorder}
       onClick={Onclick}
       colorScheme={BgColor}

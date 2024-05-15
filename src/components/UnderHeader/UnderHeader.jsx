@@ -6,7 +6,7 @@ const UnderHeader = ({ firstItem, secondItem, thirdItem }) => {
     <Box className={s.underHeader}>
       <div className={s.underHeader__wrapper}>
         <div className={s.underHeader__firstItem}>{firstItem}</div>
-        <div className={s.underHeader__firstItem}>
+        <div style={{display:"flex", alignItems:"center", gap:"5px"}} className={s.underHeader__firstItem}>
           {secondItem}
           {thirdItem}
         </div>

@@ -15,6 +15,7 @@ import { CustomTable } from "components/Custom/CustomTable/CustomTable";
 
 import { Header } from "components/Header/Header";
 import html2canvas from "html2canvas";
+import { Box } from "@chakra-ui/react";
 
 const Categories = () => {
   const { columns, data, setSearchQuery } = useCategoriesProps();
@@ -37,10 +38,22 @@ const Categories = () => {
     <>
       <Header
         headerBtn1={
-          <div className={`${s.header_btn1}  ${s.categories__btn}`}>
-            <ReloadIcon />
-            Обновить CRM филиал
-          </div>
+          <CustomBtn
+            BgColor={"white"}
+            type={"button"}
+            BtnBorder={"1px solid #E5E9EB"}
+            BtnContent={
+              <Box
+                style={{ display: "flex", alignItems: "center", gap: "5px" }}
+              >
+                <ReloadIcon />
+                <p style={{ color: "blue", fontWeight: "500" }}>
+                  {" "}
+                  Обновить CRM филиал
+                </p>
+              </Box>
+            }
+          />
         }
         headerBtn2={
           <Link to={"/admin/categories/add"} className="header_btn1">
@@ -49,7 +62,7 @@ const Categories = () => {
         }
         title={"Категории"}
       />
-      <div className={s.categories}>
+      <Box className={s.categories}>
         <UnderHeader
           firstItem={
             <CustomInput
@@ -72,10 +85,10 @@ const Categories = () => {
             />
           }
         />
-        <div className={s.categories__wrapper} ref={categoriesWrapperRef}>
+        <Box className={s.categories__wrapper} ref={categoriesWrapperRef}>
           <CustomTable columns={columns} data={data} />
-        </div>
-      </div>
+        </Box>
+      </Box>
     </>
   );
 };
