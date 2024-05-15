@@ -16,13 +16,27 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
 export const CategoriesAdd = () => {
-  const { lang } = UseCAtegoriesAddProps();
-  const [activeLang, setActiveLang] = useState("");
-  const [name, setName] = useState("");
-  const [mainImage, setMainImage] = useState(null);
+  const {
+    lang,
+    activeLang,
+    setActiveLang,
+    name,
+    setName,
+    mainImage,
+    setMainImage,
+    imagePreview,
+    setImagePreview,
+  } = UseCAtegoriesAddProps();
 
   const handleMainImageChange = (event) => {
-    setMainImage(event.target.files[0]);
+    const file = event.target.files[0];
+    setMainImage(file);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleLangClick = (lang) => {
@@ -64,7 +78,7 @@ export const CategoriesAdd = () => {
         toast.success("Категория успешно создана");
       }
     } catch (error) {
-      toast.error("Заполните Поле или Загрузите Фото! ");
+      toast.error("Ошибка: " + error.message);
     }
   };
 
@@ -106,20 +120,21 @@ export const CategoriesAdd = () => {
             </Link>
           </Box>
         }
+        headerBtn2={<CustomBtn BtnContent={"Сохранить"} BgColor={"blue"} />}
       />
-      <div className={s.categoriesAdd}>
-        <div className={s.categoriesAdd__underHead}>
-          <div className={s.categoriesAdd__text}>
+      <Box className={s.categoriesAdd}>
+        <Box className={s.categoriesAdd__underHead}>
+          <Box className={s.categoriesAdd__text}>
             <p>Общие Сведения</p>
-          </div>
-        </div>
-        <div className={s.categoriesAdd__main_cont}>
-          <div className={s.categoriesAdd__cont}>
-            <div className={s.categoriesAdd__top}>
+          </Box>
+        </Box>
+        <Box className={s.categoriesAdd__main_cont}>
+          <Box className={s.categoriesAdd__cont}>
+            <Box className={s.categoriesAdd__top}>
               <h1>Общие настройки</h1>
-            </div>
-            <div className={s.categoriesAdd__bottom}>
-              <div className={s.categoriesAdd__bottom_lang}>
+            </Box>
+            <Box className={s.categoriesAdd__bottom}>
+              <Box className={s.categoriesAdd__bottom_lang}>
                 {lang.map((el, index) => {
                   return (
                     <button
@@ -134,11 +149,11 @@ export const CategoriesAdd = () => {
                     </button>
                   );
                 })}
-              </div>
+              </Box>
               <form onSubmit={handleSubmit} className={s.categoriesAdd__upload}>
-                <div className={s.categoriesAdd__upload_left}>
-                  <div className={s.input_box}>
-                    <div className={s["drag-file-area"]}>
+                <Box className={s.categoriesAdd__upload_left}>
+                  <Box className={s.input_box}>
+                    <Box className={s["drag-file-area"]}>
                       <label className={s.label}>
                         <input
                           type="file"
@@ -150,10 +165,10 @@ export const CategoriesAdd = () => {
                           макс размер 4 мб
                         </span>{" "}
                       </label>{" "}
-                    </div>{" "}
-                  </div>
-                </div>
-                <div className={s.categoriesAdd__right}>
+                    </Box>{" "}
+                  </Box>
+                </Box>
+                <Box className={s.categoriesAdd__right}>
                   <CustomInput
                     type="text"
                     value={name}
@@ -161,17 +176,20 @@ export const CategoriesAdd = () => {
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Name"
                   />
-                </div>
+                </Box>
                 <CustomBtn
                   type="submit"
                   BtnContent={"Сохранить"}
                   BgColor={"blue"}
                 />
               </form>
-            </div>
-          </div>
-        </div>
-      </div>
+            </Box>
+          </Box>
+          <Box className={s.preview}>
+            {imagePreview && <img src={imagePreview} alt="Preview" />}
+          </Box>
+        </Box>
+      </Box>
     </>
   );
 };

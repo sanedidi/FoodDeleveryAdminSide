@@ -12,9 +12,11 @@
     font-weight: 500;
   }
   &__main_cont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-content: space-between;
     padding: 16px;
-    width: 100%;
-    max-width: 720px;
   }
   &__cont {
     display: flex;
@@ -64,7 +66,6 @@
   }
 }
 
-
 .drag-file-area {
   width: 100%;
   background-color: #eeeeee;
@@ -72,7 +73,6 @@
   border-radius: 8px;
   border: 1px solid #666464;
 }
-
 
 .drag-file-area label {
   font-size: 19px;

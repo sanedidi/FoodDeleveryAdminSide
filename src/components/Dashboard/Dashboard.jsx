@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "components/Header/Header";
 import { PlusIcon } from "components/SvgComponents/SvgComponents";
-import axios from "axios"; 
-import s from './Dashboard.module.scss'
+import axios from "axios";
+import s from "./Dashboard.module.scss";
+import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
 
 const Dashboard = () => {
   const [name, setName] = useState("");
@@ -18,7 +19,7 @@ const Dashboard = () => {
 
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("photo", mainImage); 
+    formData.append("photo", mainImage);
 
     try {
       const response = await axios.post(
@@ -43,29 +44,19 @@ const Dashboard = () => {
         headerBtn1={
           <>
             <Link to={"/"} className={s.clients__header_btn}>
-              <PlusIcon /> Добавить клиента
+              <CustomBtn
+                BtnContent={
+                  <>
+                    {" "}
+                    <PlusIcon /> Добавить 
+                  </>
+                }
+                BgColor={"blue"}
+              />
             </Link>
           </>
         }
       />
-      <div>
-        <form onSubmit={handleSubmit}> 
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Name"
-          />
-          <input
-            type="file"
-            onChange={handleMainImageChange}
-            accept="image/*"
-          />
-          <button type="submit"> 
-            Submit
-          </button>
-        </form>
-      </div>
     </>
   );
 };
