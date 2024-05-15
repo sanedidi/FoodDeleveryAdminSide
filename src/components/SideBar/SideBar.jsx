@@ -2,18 +2,27 @@ import React, { useState } from "react";
 import s from "./SideBar.module.scss";
 import { LogoIcon } from "../SvgComponents/SvgComponents";
 import useSideBarProps from "./useSideBarProps";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 
 const SideBar = () => {
-  const { sideBarLinks, settings, CatalogLinks } = useSideBarProps();
-  const [activePath, setActivePath] = useState("");
-  const [isClientsActive, setIsClientsActive] = useState(false);
+  const {
+    isClientsActive,
+    setIsClientsActive,
+    sideBarLinks,
+    settings,
+    activePath,
+    setActivePath,
+    CatalogLinks,
+  } = useSideBarProps();
+  const location = useLocation();
+
+  const isActive = location.pathname === "/admin/categories";
 
   const handleLinkClick = (path) => {
     setActivePath(path);
-    setIsClientsActive(path === "/admin/categories");
+    setIsClientsActive(path === "/admin/categories" || isActive);
   };
 
   return (

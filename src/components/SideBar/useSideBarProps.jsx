@@ -131,7 +131,7 @@ const useSideBarProps = () => {
   ];
   const CatalogLinks = [
     { link: "Категория", path: "/admin/categories" },
-    { link: "Товары", path: "/admin/products" },
+    { link: "Товары", path: "/admin/categories/products" },
     { link: "Атрибуты товаров", path: "/admin/atributes" },
     { link: "Бренды", path: "/admin/brands" },
     { link: "Единица измерения", path: "/admin/quant" },
@@ -139,10 +139,15 @@ const useSideBarProps = () => {
     { link: "Отдел", path: "/admin/otdel" },
     { link: "Прейскурант", path: "./admin/preys" },
   ];
+  const [activePath, setActivePath] = useState("");
+  const [isClientsActive, setIsClientsActive] = useState(false);
+
   return {
     sideBarLinks,
     settings,
     CatalogLinks,
+    activePath, setActivePath,
+    isClientsActive, setIsClientsActive,
   };
 };
 

@@ -54,7 +54,7 @@ export const Router = observer(() => {
         <Route path="/admin/fillials" element={<Locations />} />
         <Route path="/admin/calendar" element={<Calendar />} />
         <Route path="/admin/categories/add" element={<CategoriesAdd />} />
-        <Route path="/admin/products" element={<Products />} />
+        <Route path="/admin/categories/products" element={<Products />} />
       </Route>
       <Route path="*" element={<Navigate to="/admin/dashboard" />} />
       <Route path="" element={<Navigate to="/admin/dashboard" />} />

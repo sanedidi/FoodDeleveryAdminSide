@@ -2,18 +2,15 @@ import React, { useState } from "react";
 import s from "./CategoriesAdd.module.scss";
 import { Header } from "components/Header/Header";
 import { Box } from "@chakra-ui/react";
-import {
-  CreateIcon,
-  FolderIcon,
-  PlusIconDown,
-} from "components/SvgComponents/SvgComponents";
-import { Link } from "react-router-dom";
+import { PlusIconDown } from "components/SvgComponents/SvgComponents";
+import { Link, useNavigate } from "react-router-dom";
 import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
 import UseCAtegoriesAddProps from "./UseCAtegoriesAddProps";
 import CustomInput from "components/Custom/CustomInput/CustomInput";
 import { usePostCategory } from "services/categories.service";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import HeaderBox from "../components/HeaderBox";
 
 export const CategoriesAdd = () => {
   const {
@@ -27,7 +24,7 @@ export const CategoriesAdd = () => {
     imagePreview,
     setImagePreview,
   } = UseCAtegoriesAddProps();
-
+  const navigate = useNavigate();
   const handleMainImageChange = (event) => {
     const file = event.target.files[0];
     setMainImage(file);
@@ -76,6 +73,7 @@ export const CategoriesAdd = () => {
         }
       } else {
         toast.success("Категория успешно создана");
+        navigate("/admin/categories/");
       }
     } catch (error) {
       toast.error("Ошибка: " + error.message);
@@ -85,111 +83,84 @@ export const CategoriesAdd = () => {
   return (
     <>
       <Toaster />
-      <Header
-        title={
-          <Box
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              fontWeight: "400",
-            }}
-          >
-            <Link
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                fontSize: "18px",
-              }}
-              to={"/admin/categories"}
-            >
-              <FolderIcon />
-              Категории
-            </Link>
-            <Link
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                fontSize: "18px",
-              }}
-            >
-              <CreateIcon />
-              Создать
-            </Link>
-          </Box>
-        }
-        headerBtn2={<CustomBtn BtnContent={"Сохранить"} BgColor={"blue"} />}
-      />
-      <Box className={s.categoriesAdd}>
-        <Box className={s.categoriesAdd__underHead}>
-          <Box className={s.categoriesAdd__text}>
-            <p>Общие Сведения</p>
-          </Box>
-        </Box>
-        <Box className={s.categoriesAdd__main_cont}>
-          <Box className={s.categoriesAdd__cont}>
-            <Box className={s.categoriesAdd__top}>
-              <h1>Общие настройки</h1>
+      <form onSubmit={handleSubmit}>
+        <Header
+          title={<HeaderBox />}
+          headerBtn2={
+            <CustomBtn
+              type="submit"
+              BtnContent={"Сохранить"}
+              BgColor={"blue"}
+            />
+          }
+        />
+        <Box className={s.categoriesAdd}>
+          <Box className={s.categoriesAdd__underHead}>
+            <Box className={s.categoriesAdd__text}>
+              <p>Общие Сведения</p>
             </Box>
-            <Box className={s.categoriesAdd__bottom}>
-              <Box className={s.categoriesAdd__bottom_lang}>
-                {lang.map((el, index) => {
-                  return (
-                    <button
-                      key={index}
-                      className={`${s.categoriesAdd__language} ${
-                        activeLang === el.lang ? s.activeLang : ""
-                      }`}
-                      onClick={() => handleLangClick(el.lang)}
-                    >
-                      <h2>{el.lang}</h2>
-                      <span>{el.icon}</span>
-                    </button>
-                  );
-                })}
+          </Box>
+          <Box className={s.categoriesAdd__main_cont}>
+            <Box className={s.categoriesAdd__cont}>
+              <Box className={s.categoriesAdd__top}>
+                <h1>Общие настройки</h1>
               </Box>
-              <form onSubmit={handleSubmit} className={s.categoriesAdd__upload}>
-                <Box className={s.categoriesAdd__upload_left}>
-                  <Box className={s.input_box}>
-                    <Box className={s["drag-file-area"]}>
-                      <label className={s.label}>
-                        <input
-                          type="file"
-                          className={s["default-file-input"]}
-                          onChange={handleMainImageChange}
-                        />
-                        <span className={s["browse-files-text"]}>
-                          <PlusIconDown />
-                          макс размер 4 мб
-                        </span>{" "}
-                      </label>{" "}
-                    </Box>{" "}
+              <Box className={s.categoriesAdd__bottom}>
+                <Box className={s.categoriesAdd__bottom_lang}>
+                  {lang.map((el, index) => {
+                    return (
+                      <button
+                        key={index}
+                        className={`${s.categoriesAdd__language} ${
+                          activeLang === el.lang ? s.activeLang : ""
+                        }`}
+                        onClick={() => handleLangClick(el.lang)}
+                      >
+                        <h2>{el.lang}</h2>
+                        <span>{el.icon}</span>
+                      </button>
+                    );
+                  })}
+                </Box>
+                <form
+                  onSubmit={handleSubmit}
+                  className={s.categoriesAdd__upload}
+                >
+                  <Box className={s.categoriesAdd__upload_left}>
+                    <Box className={s.input_box}>
+                      <Box className={s["drag-file-area"]}>
+                        <label className={s.label}>
+                          <input
+                            type="file"
+                            className={s["default-file-input"]}
+                            onChange={handleMainImageChange}
+                          />
+                          <span className={s["browse-files-text"]}>
+                            <PlusIconDown />
+                            макс размер 4 мб
+                          </span>{" "}
+                        </label>{" "}
+                      </Box>{" "}
+                    </Box>
                   </Box>
-                </Box>
-                <Box className={s.categoriesAdd__right}>
-                  <CustomInput
-                    type="text"
-                    value={name}
-                    InputPlaceHolder={"Название..."}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Name"
-                  />
-                </Box>
-                <CustomBtn
-                  type="submit"
-                  BtnContent={"Сохранить"}
-                  BgColor={"blue"}
-                />
-              </form>
+                  <Box className={s.categoriesAdd__right}>
+                    <CustomInput
+                      type="text"
+                      value={name}
+                      InputPlaceHolder={"Название..."}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Name"
+                    />
+                  </Box>
+                </form>
+              </Box>
+            </Box>
+            <Box className={s.preview}>
+              {imagePreview && <img src={imagePreview} alt="Preview" />}
             </Box>
           </Box>
-          <Box className={s.preview}>
-            {imagePreview && <img src={imagePreview} alt="Preview" />}
-          </Box>
         </Box>
-      </Box>
+      </form>
     </>
   );
 };
