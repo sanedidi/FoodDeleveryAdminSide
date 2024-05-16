@@ -9,13 +9,18 @@ const CategoriesService = {
         params,
       })
       .then((res) => res?.data),
-  PostCategory: () =>
+  postCategory: (data) =>
     request
-      .post(
-        "https://food-delivery-api-n6as.onrender.com/swagger/index.html#/category/post_v1_category"
+      .post("https://food-delivery-api-n6as.onrender.com/v1/category", data)
+      .then((res) => res?.data),
+  deleteCategory: (categoryId) =>
+    request
+      .delete(
+        `https://food-delivery-api-n6as.onrender.com/v1/category/${categoryId}`
       )
       .then((res) => res?.data),
 };
+
 export const useGetCategoriesService = (params) => {
   return useQuery({
     queryKey: ["category", params],
@@ -25,6 +30,12 @@ export const useGetCategoriesService = (params) => {
 
 export const usePostCategory = () => {
   return useMutation({
-    mutationFn: (data) => CategoriesService.PostCategory(data), // Здесь должны быть переданы данные для отправки
+    mutationFn: (data) => CategoriesService.postCategory(data),
+  });
+};
+
+export const useDeleteCategory = () => {
+  return useMutation({
+    mutationFn: (categoryId) => CategoriesService.deleteCategory(categoryId),
   });
 };

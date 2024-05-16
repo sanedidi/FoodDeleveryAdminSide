@@ -3,21 +3,39 @@ import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
 import MenuComp from "components/MenuComponent/MenuComp";
 import React, { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
-import { useGetCategoriesService } from "services/categories.service";
+import {
+  useGetCategoriesService,
+  useDeleteCategory,
+} from "services/categories.service";
 import s from "./Categories.module.scss";
-import { DetailsOutlined, ShowChart } from "@mui/icons-material";
-import { Show } from "@chakra-ui/react";
-import { FaEye } from "react-icons/fa6";
-import { IoEye } from "react-icons/io5";
 import { CategoryFilterIcon } from "components/SvgComponents/SvgComponents";
+import { IoEye } from "react-icons/io5";
+import { Skeleton, Stack } from "@chakra-ui/react";
+import CategoryImage from "./components/CategoryImage";
 
 const useCategoriesProps = () => {
   const [categories, setCategories] = useState([]);
-  const { data: getCat } = useGetCategoriesService();
+  const { data: getCat, refetch } = useGetCategoriesService();
   const [searchQuery, setSearchQuery] = useState("");
+  const { mutate: deleteCategory } = useDeleteCategory({
+    onSuccess: () => refetch(),
+  });
 
   const filteredData = getCat?.Data?.category?.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleDeleteCategory = async (categoryId) => {
+    await deleteCategory(categoryId);
+    refetch();
+  };
+
+  const skeleton = (
+    <Stack>
+      <Skeleton height="20px" />
+      <Skeleton height="20px" />
+      <Skeleton height="20px" />
+    </Stack>
   );
 
   const columns = [
@@ -36,15 +54,7 @@ const useCategoriesProps = () => {
     {
       title: "Фото",
       width: 480,
-      render: (item) => (
-        <img
-          src={`https://${item?.photo}`}
-          alt="sdre"
-          width={20}
-          height={20}
-          
-        />
-      ),
+      render: (item) => <CategoryImage item={item} />,
     },
     {
       title: (
@@ -82,7 +92,10 @@ const useCategoriesProps = () => {
                 />
               }
               ListMenu={
-                <div className={s.categories__menu}>
+                <div
+                  className={s.categories__menu}
+                  onClick={() => handleDeleteCategory(item.id)}
+                >
                   Удалить
                   <DeleteIcon color={"#0E73FC"} />
                 </div>
@@ -107,10 +120,12 @@ const useCategoriesProps = () => {
   ];
 
   return {
-    data: filteredData?.map((item, index) => ({
-      key: item?.id || index,
-      ...item,
-    })),
+    data: getCat
+      ? filteredData?.map((item, index) => ({
+          key: item?.id || index,
+          ...item,
+        }))
+      : skeleton,
     columns,
     categories,
     setCategories,

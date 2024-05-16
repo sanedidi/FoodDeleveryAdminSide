@@ -6,7 +6,7 @@ const ProductsService = {
   getProducts: (params) =>
     request
       .get(
-        `https://food-delivery-api-n6as.onrender.com/v1/order_product/${id}`,
+        `https://food-delivery-api-n6as.onrender.com/v1/order_product/`,
         {
           params,
         }

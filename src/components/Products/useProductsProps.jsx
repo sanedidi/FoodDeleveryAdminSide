@@ -6,13 +6,14 @@ import React, { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { IoEye } from "react-icons/io5";
 import { useGetProductsService } from "services/products.service";
-
+import s from '../Categories/Categories.module.scss'
 const useProductsProps = () => {
   const { data: getCat } = useGetProductsService();
   const [searchQuery, setSearchQuery] = useState("");
   const filteredData = getCat?.Data?.category?.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+  console.log(getCat)
 
   const columns = [
     {

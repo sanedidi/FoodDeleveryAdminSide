@@ -111,6 +111,7 @@ export const CategoriesAdd = () => {
                     return (
                       <button
                         key={index}
+                        type="button"
                         className={`${s.categoriesAdd__language} ${
                           activeLang === el.lang ? s.activeLang : ""
                         }`}
