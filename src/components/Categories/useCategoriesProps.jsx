@@ -1,19 +1,30 @@
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
-import MenuComp from "components/MenuComponent/MenuComp";
-import React, { useState } from "react";
-import { AiOutlineEllipsis } from "react-icons/ai";
+import { TrashIcon } from "components/SvgComponents/SvgComponents";
 import {
-  useGetCategoriesService,
+  AiOutlineEllipsis,
+  CategoryFilterIcon,
+  CategoryImage,
+  CustomBtn,
+  DeleteIcon,
+  EditIcon,
+  IoEye,
+  MenuComp,
+  React,
+  Skeleton,
+  Stack,
+  s,
   useDeleteCategory,
-} from "services/categories.service";
-import s from "./Categories.module.scss";
-import { CategoryFilterIcon } from "components/SvgComponents/SvgComponents";
-import { IoEye } from "react-icons/io5";
-import { Skeleton, Stack } from "@chakra-ui/react";
-import CategoryImage from "./components/CategoryImage";
-
+  useDisclosure,
+  useGetCategoriesService,
+  useState,
+  CustomModal,
+} from "./imports";
+import { Box } from "@chakra-ui/react";
 const useCategoriesProps = () => {
+  const {
+    isOpen: isOpenModal,
+    onOpen: onOpenModal,
+    onClose: onCloseModal,
+  } = useDisclosure();
   const [categories, setCategories] = useState([]);
   const { data: getCat, refetch } = useGetCategoriesService();
   const [searchQuery, setSearchQuery] = useState("");
@@ -24,7 +35,6 @@ const useCategoriesProps = () => {
   const filteredData = getCat?.Data?.category?.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
   const handleDeleteCategory = async (categoryId) => {
     await deleteCategory(categoryId);
     refetch();
@@ -85,25 +95,57 @@ const useCategoriesProps = () => {
                       color="#0E73FC"
                     />
                   }
-                  Onclick={() => {
-                    onOpenE();
+                  onClick={() => {
                     setActiveGroupId(item?.id);
+                    onOpenModal();
                   }}
                 />
               }
               ListMenu={
-                <div
+                <button
                   className={s.categories__menu}
-                  onClick={() => handleDeleteCategory(item.id)}
+                  onClick={() => {
+                    // handleDeleteCategory(item.id);
+                    onOpenModal();
+                  }}
                 >
                   Удалить
                   <DeleteIcon color={"#0E73FC"} />
-                </div>
+                </button>
               }
               ListMenu1={
                 <div className={s.categories__menu}>
                   Изменить
                   <EditIcon color={"#0E73FC"} />
+                  <CustomModal
+                    isOpenModal={isOpenModal}
+                    onCloseModal={onCloseModal}
+                    modalTitle={
+                      <Box
+                        margin={"0 auto"}
+                        textAlign={"center"}
+                        width={"max-content"}
+                      >
+                        <TrashIcon />
+                      </Box>
+                    }
+                    modalContent={
+                      <Box
+                        fontWeight={"600"}
+                        fontSize={"20px"}
+                        textAlign={"center"}
+                      >
+                        Вы уверены, что хотите удалить этот товар?
+                      </Box>
+                    }
+                    secondaryBtnText={<Box>Нет</Box>}
+                    ModalBtnBgColor={"blue"}
+                    primaryBtnText="Да"
+                    onPrimaryBtnClick={() => {
+                      handleDeleteCategory(item.id);
+                      onCloseModal();
+                    }}
+                  />
                 </div>
               }
               ListMenu3={
