@@ -20,6 +20,7 @@ import {
 } from "./imports";
 import Edit from "./components/Edit";
 import { TrashIcon } from "components/SvgComponents/SvgComponents";
+import { useEditCategoriesService } from "services/categories.service";
 
 const useCategoriesProps = () => {
   const {
@@ -40,11 +41,26 @@ const useCategoriesProps = () => {
     onSuccess: () => refetch(),
   });
 
+  const { mutate: editCategory } = useEditCategoriesService({
+    onSuccess: () => {
+      // Handle success, e.g., show a success message
+    },
+    onError: (error) => {
+      // Handle error, e.g., show an error message
+      console.error("Error editing category:", error);
+    },
+  });
+
   const filteredData = getCat?.Data?.category?.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
   const handleDeleteCategory = async (categoryId) => {
     await deleteCategory(categoryId);
+    refetch();
+  };
+
+  const handleUpdateCategory = async (categoryId, updatedCategoryData) => {
+    await editCategory(categoryId, updatedCategoryData);
     refetch();
   };
 
@@ -120,7 +136,12 @@ const useCategoriesProps = () => {
                 </button>
               }
               ListMenu1={
-                <button onClick={onOpenModal1} className={s.categories__menu}>
+                <button
+                  onClick={() => {
+                    onOpenModal1();
+                  }}
+                  className={s.categories__menu}
+                >
                   Изменить
                   <EditIcon color={"#0E73FC"} />
                 </button>
@@ -137,7 +158,10 @@ const useCategoriesProps = () => {
               onCloseModal={onCloseModal1}
               modalContent={
                 <Box>
-                  <Edit />
+                  <Edit
+                    category={item}
+                    onUpdateCategory={handleUpdateCategory}
+                  />
                 </Box>
               }
               secondaryBtnText={<Box>Нет</Box>}
