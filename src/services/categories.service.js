@@ -9,6 +9,12 @@ const CategoriesService = {
         params,
       })
       .then((res) => res?.data),
+  editCategories: (params) =>
+    request
+      .get(`https://food-delivery-api-n6as.onrender.com/v1/category/${id}`, {
+        params,
+      })
+      .then((res) => res?.data),
   postCategory: (data) =>
     request
       .post("https://food-delivery-api-n6as.onrender.com/v1/category", data)
@@ -25,6 +31,12 @@ export const useGetCategoriesService = (params) => {
   return useQuery({
     queryKey: ["category", params],
     queryFn: () => CategoriesService.getCategories(params),
+  });
+};
+export const useEditCategoriesService = (params) => {
+  return useQuery({
+    queryKey: ["category", params],
+    queryFn: () => CategoriesService.editCategories(params),
   });
 };
 
