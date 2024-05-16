@@ -25,7 +25,7 @@ export const CategoriesAdd = () => {
     setImagePreview,
   } = UseCAtegoriesAddProps();
   const navigate = useNavigate();
-  const handleMainImageChange = (event) => {
+   const handleMainImageChange = (event) => {
     const file = event.target.files[0];
     setMainImage(file);
 

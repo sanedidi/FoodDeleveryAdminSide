@@ -1,4 +1,7 @@
 .categoriesAdd {
+  &_modal {
+    padding: 0;
+  }
   &__underHead {
     background-color: #fff;
   }
@@ -17,6 +20,8 @@
     gap: 10px;
     justify-content: space-between;
     padding: 16px;
+  }
+  &__main_cont_modal {
   }
   &__cont {
     display: flex;
@@ -88,6 +93,11 @@
   color: #666464;
   font-weight: bolder;
   cursor: pointer;
+  &.active {
+    color: #fff;
+    border: 1px solid rgb(46, 138, 46);
+    background-color: rgb(46, 138, 46);
+  }
 }
 .browse-files span {
   position: relative;

@@ -14,6 +14,7 @@ import CategoryImage from "./components/CategoryImage";
 import s from "./Categories.module.scss";
 import { useDisclosure } from "@chakra-ui/react";
 import CustomModal from "components/Custom/CustomModal/CustomModal";
+import { Box } from "@chakra-ui/react";
 export {
   DeleteIcon,
   EditIcon,
@@ -32,4 +33,5 @@ export {
   s,
   useDisclosure,
   CustomModal,
+  Box
 };

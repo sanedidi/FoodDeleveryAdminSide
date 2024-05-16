@@ -1,30 +1,38 @@
-import { TrashIcon } from "components/SvgComponents/SvgComponents";
+import React from "react";
 import {
-  AiOutlineEllipsis,
-  CategoryFilterIcon,
+  Box,
+  useDisclosure,
+  useState,
+  CustomModal,
   CategoryImage,
+  CategoryFilterIcon,
   CustomBtn,
+  AiOutlineEllipsis,
   DeleteIcon,
   EditIcon,
   IoEye,
   MenuComp,
-  React,
   Skeleton,
   Stack,
   s,
   useDeleteCategory,
-  useDisclosure,
   useGetCategoriesService,
-  useState,
-  CustomModal,
 } from "./imports";
-import { Box } from "@chakra-ui/react";
+import Edit from "./components/Edit";
+import { TrashIcon } from "components/SvgComponents/SvgComponents";
+
 const useCategoriesProps = () => {
   const {
-    isOpen: isOpenModal,
-    onOpen: onOpenModal,
-    onClose: onCloseModal,
+    isOpen: isOpenModal1,
+    onOpen: onOpenModal1,
+    onClose: onCloseModal1,
   } = useDisclosure();
+  const {
+    isOpen: isOpenModal2,
+    onOpen: onOpenModal2,
+    onClose: onCloseModal2,
+  } = useDisclosure();
+
   const [categories, setCategories] = useState([]);
   const { data: getCat, refetch } = useGetCategoriesService();
   const [searchQuery, setSearchQuery] = useState("");
@@ -96,8 +104,7 @@ const useCategoriesProps = () => {
                     />
                   }
                   onClick={() => {
-                    setActiveGroupId(item?.id);
-                    onOpenModal();
+                    onOpenModal1();
                   }}
                 />
               }
@@ -105,8 +112,7 @@ const useCategoriesProps = () => {
                 <button
                   className={s.categories__menu}
                   onClick={() => {
-                    // handleDeleteCategory(item.id);
-                    onOpenModal();
+                    onOpenModal2();
                   }}
                 >
                   Удалить
@@ -114,39 +120,10 @@ const useCategoriesProps = () => {
                 </button>
               }
               ListMenu1={
-                <div className={s.categories__menu}>
+                <button onClick={onOpenModal1} className={s.categories__menu}>
                   Изменить
                   <EditIcon color={"#0E73FC"} />
-                  <CustomModal
-                    isOpenModal={isOpenModal}
-                    onCloseModal={onCloseModal}
-                    modalTitle={
-                      <Box
-                        margin={"0 auto"}
-                        textAlign={"center"}
-                        width={"max-content"}
-                      >
-                        <TrashIcon />
-                      </Box>
-                    }
-                    modalContent={
-                      <Box
-                        fontWeight={"600"}
-                        fontSize={"20px"}
-                        textAlign={"center"}
-                      >
-                        Вы уверены, что хотите удалить этот товар?
-                      </Box>
-                    }
-                    secondaryBtnText={<Box>Нет</Box>}
-                    ModalBtnBgColor={"blue"}
-                    primaryBtnText="Да"
-                    onPrimaryBtnClick={() => {
-                      handleDeleteCategory(item.id);
-                      onCloseModal();
-                    }}
-                  />
-                </div>
+                </button>
               }
               ListMenu3={
                 <div className={s.categories__menu}>
@@ -154,6 +131,47 @@ const useCategoriesProps = () => {
                   <IoEye color={"#0E73FC"} />
                 </div>
               }
+            />
+            <CustomModal
+              isOpenModal={isOpenModal1}
+              onCloseModal={onCloseModal1}
+              modalContent={
+                <Box>
+                  <Edit />
+                </Box>
+              }
+              secondaryBtnText={<Box>Нет</Box>}
+              ModalBtnBgColor={"blue"}
+              primaryBtnText="Да"
+              onPrimaryBtnClick={() => {
+                handleDeleteCategory(item.id);
+                onCloseModal1();
+              }}
+            />
+            <CustomModal
+              isOpenModal={isOpenModal2}
+              onCloseModal={onCloseModal2}
+              modalTitle={
+                <Box
+                  margin={"0 auto"}
+                  textAlign={"center"}
+                  width={"max-content"}
+                >
+                  <TrashIcon />
+                </Box>
+              }
+              modalContent={
+                <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
+                  Вы уверены, что хотите удалить этот товар?
+                </Box>
+              }
+              secondaryBtnText={<Box>Нет</Box>}
+              ModalBtnBgColor={"blue"}
+              primaryBtnText="Да"
+              onPrimaryBtnClick={() => {
+                handleDeleteCategory(item.id);
+                onCloseModal2();
+              }}
             />
           </div>
         );

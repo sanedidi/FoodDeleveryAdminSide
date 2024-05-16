@@ -21,11 +21,11 @@ const CustomModal = ({
   onPrimaryBtnClick,
 }) => {
   return (
-    <Modal isOpen={isOpenModal} onClose={onCloseModal}>
+    <Modal size={"xl"} isOpen={isOpenModal} onClose={onCloseModal}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{modalTitle}</ModalHeader>
-        <ModalCloseButton />
+        {modalTitle ? <ModalHeader>{modalTitle}</ModalHeader> : null}
+
         <ModalBody>{modalContent}</ModalBody>
         <ModalFooter
           width={"100%"}
@@ -33,12 +33,20 @@ const CustomModal = ({
           display={"flex"}
           gap={"10px"}
         >
-          <CustomBtn
-            BgColor={ModalBtnBgColor}
-            Onclick={onCloseModal}
-            BtnContent={secondaryBtnText}
-          />
-          <CustomBtn Onclick={onPrimaryBtnClick} BtnContent={primaryBtnText} />
+          {secondaryBtnText ? (
+            <CustomBtn
+              BgColor={ModalBtnBgColor}
+              Onclick={onCloseModal}
+              BtnContent={secondaryBtnText}
+            />
+          ) : null}
+
+          {primaryBtnText ? (
+            <CustomBtn
+              Onclick={onPrimaryBtnClick}
+              BtnContent={primaryBtnText}
+            />
+          ) : null}
         </ModalFooter>
       </ModalContent>
     </Modal>

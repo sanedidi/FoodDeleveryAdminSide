@@ -14,4 +14,15 @@
     border-right: 2px solid #e7e7e7;
     padding-right: 20px;
   }
+  &__wrapperLeft{
+    @media (max-width:500px) {
+      display: none !important;
+    }
+  }
+  &__bur{
+    display: none;
+    @media (max-width:500px) {
+      display: block;
+    }
+  }
 }
