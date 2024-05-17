@@ -11,6 +11,7 @@ import { usePostCategory } from "services/categories.service";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import HeaderBox from "../components/HeaderBox";
+import { Lang } from "components/lang";
 
 export const CategoriesAdd = () => {
   const {
@@ -107,21 +108,7 @@ export const CategoriesAdd = () => {
               </Box>
               <Box className={s.categoriesAdd__bottom}>
                 <Box className={s.categoriesAdd__bottom_lang}>
-                  {lang.map((el, index) => {
-                    return (
-                      <button
-                        key={index}
-                        type="button"
-                        className={`${s.categoriesAdd__language} ${
-                          activeLang === el.lang ? s.activeLang : ""
-                        }`}
-                        onClick={() => handleLangClick(el.lang)}
-                      >
-                        <h2>{el.lang}</h2>
-                        <span>{el.icon}</span>
-                      </button>
-                    );
-                  })}
+                 <Lang />
                 </Box>
                 <form
                   onSubmit={handleSubmit}

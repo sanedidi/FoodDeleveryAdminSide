@@ -103,6 +103,7 @@
     position: absolute;
     top: 22px;
     left: 53px;
+    z-index: 9999;
     @media (max-width: 500px) {
       display: none;
     }

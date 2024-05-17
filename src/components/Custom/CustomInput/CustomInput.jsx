@@ -1,9 +1,19 @@
-import React from 'react';
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
-export const CustomInput = ({ width, padding, bgColor, onChange, InputIcon, InputPlaceHolder }) => {
+import React from "react";
+import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+
+const CustomInput = ({
+  width,
+  padding,
+  bgColor,
+  onChange,
+  InputIcon,
+  InputPlaceHolder,
+}) => {
   return (
-    <InputGroup style={{display:"flex", alignItems:"center"}}>
-      <InputLeftElement pointerEvents="none">{InputIcon}</InputLeftElement>
+    <InputGroup style={{ display: "flex", alignItems: "center" }}>
+      {InputIcon && (
+        <InputLeftElement pointerEvents="none">{InputIcon}</InputLeftElement>
+      )}
       <Input
         width={width}
         padding={padding}

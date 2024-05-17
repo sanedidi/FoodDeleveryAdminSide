@@ -1,0 +1,20 @@
+.lang {
+  width: max-content;
+  
+  display: flex;
+  justify-content: center;
+  &__language {
+    display: flex;
+    gap: 5px;
+    flex-direction: row-reverse;
+    align-items: center;
+    color: #7384a2;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 16px;
+    transition: all 0.2s;
+    &.activeLang {
+      border-bottom: 1px solid #0052b4;
+      color: #0e73fc;
+    }}
+}

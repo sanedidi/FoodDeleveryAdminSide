@@ -1,39 +1,27 @@
 import { Box } from "@chakra-ui/react";
-import { ArrowLeftIcon } from "components/SvgComponents/SvgComponents";
 import React, { useState } from "react";
 import s from "./ProductsAdd.module.scss";
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { MainProd } from "../components/mainProd";
 
-const ProductsAdd = () => {
-
+export const ProductsAdd = () => {
   return (
     <>
-      <header id="header" className={s.header}>
-        <Box className={s.header__wrapper}>
-          <Box
-            style={{
-              fontWeight: "400",
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-            }}
-          >
-            <h2 className={s.header__title}>
-              {" "}
-              <ArrowLeftIcon /> Добавить
-            </h2>
-         
-          </Box>
-          <Box
-            gap={10}
-            style={{ display: "flex" }}
-            alignItems={"center"}
-            className={s.header__wrapperLeft}
-          >
-            <Box style={{ display: "flex", height: "34px" }}></Box>
-            <Box style={{ maxHeight: "34px" }}></Box>
-          </Box>
-        </Box>
-      </header>
+      <Tabs className={s.tabs}>
+        <TabList className={s.tabs__list}>
+          <Tab>One</Tab>
+          <Tab>Two</Tab>
+        </TabList>
+
+        <TabPanels>
+          <TabPanel>
+            <MainProd />
+          </TabPanel>
+          <TabPanel>
+            <p>two!</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </>
   );
 };
