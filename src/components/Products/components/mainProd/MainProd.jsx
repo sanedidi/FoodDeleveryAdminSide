@@ -3,7 +3,23 @@ import { React, s } from "./imports.js";
 import { Box, InputRightElement } from "@chakra-ui/react";
 import CustomInput from "components/Custom/CustomInput/CustomInput.jsx";
 import CustomSelect from "components/Custom/CustomSelect/CustomSelect.jsx";
+import { CustomBtn } from "components/Categories/imports.js";
+import { useState } from "react";
 export const MainProd = () => {
+  const [article, setArticle] = useState("");
+
+  const generateRandomNumber = () => {
+    const randomNumber = Math.floor(100000 + Math.random() * 900000);
+    setArticle(randomNumber.toString());
+  };
+  const handleArticleChange = (event) => {
+    let value = event.target.value;
+    if (value.length > 6) {
+      value = value.slice(0, 6);
+    }
+    setArticle(value);
+  };
+
   return (
     <Box className={s.prod}>
       <Box className={s.prod__left}>
@@ -49,10 +65,18 @@ export const MainProd = () => {
           </Box>
           <Box className={s.prod__name}>
             <h2 className={s.prod__bottom_title}>*Артикул </h2>
-            <CustomInput
-              bgColor={"transparent"}
-              InputPlaceHolder={"Введите Название"}
-            />
+            <Box className={s.prod__gen}>
+              <CustomInput
+                value={article}
+                onChange={handleArticleChange}
+                bgColor={"transparent"}
+                InputPlaceHolder={"Введите Артикул"}
+              />
+              <CustomBtn
+                BtnContent={<p className={s.prod_btn_text}>Генерировать</p>}
+                Onclick={generateRandomNumber}
+              />
+            </Box>
           </Box>
         </Box>
       </Box>

@@ -51,4 +51,12 @@
     gap: 5px;
     width: 100%;
   }
+  &__gen {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    width: 100%;
+  }
+  &_btn_text {
+    color: #6e7c87;
+  }
 }

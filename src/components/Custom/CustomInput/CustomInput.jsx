@@ -8,6 +8,7 @@ const CustomInput = ({
   onChange,
   InputIcon,
   InputPlaceHolder,
+  value
 }) => {
   return (
     <InputGroup style={{ display: "flex", alignItems: "center" }}>
@@ -15,6 +16,7 @@ const CustomInput = ({
         <InputLeftElement pointerEvents="none">{InputIcon}</InputLeftElement>
       )}
       <Input
+      value={value}
         width={width}
         padding={padding}
         backgroundColor={bgColor}
