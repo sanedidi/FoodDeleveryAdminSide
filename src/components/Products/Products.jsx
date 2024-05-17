@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { CustomTable } from "components/Custom/CustomTable/CustomTable";
 import useProductsProps from "./useProductsProps";
 export const Products = () => {
-  const { data, columns } = useProductsProps();
+  const { data, columns, setSearchQuery } = useProductsProps();
   return (
     <>
       <Header
@@ -49,7 +49,7 @@ export const Products = () => {
       <UnderHeader
         firstItem={
           <CustomInput
-            onChange={(e) => console.log(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
             InputIcon={<Search2Icon color={"blue"} />}
           />
         }

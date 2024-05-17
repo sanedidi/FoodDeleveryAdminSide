@@ -15,7 +15,14 @@ import s from "./Categories.module.scss";
 import { useDisclosure } from "@chakra-ui/react";
 import CustomModal from "components/Custom/CustomModal/CustomModal";
 import { Box } from "@chakra-ui/react";
+import UseCategoriesAddProps from "./CategoriesAdd/UseCAtegoriesAddProps";
+import axios from "axios";
+import { authStore } from "store/auth.store";
+
 export {
+  authStore,
+  axios,
+  UseCategoriesAddProps,
   DeleteIcon,
   EditIcon,
   CustomBtn,

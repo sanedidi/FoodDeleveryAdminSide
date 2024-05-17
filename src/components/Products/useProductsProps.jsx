@@ -8,13 +8,12 @@ import { IoEye } from "react-icons/io5";
 import { useGetProductsService } from "services/products.service";
 import s from '../Categories/Categories.module.scss'
 const useProductsProps = () => {
-  const { data: getCat } = useGetProductsService();
+  const { data: gg } = useGetProductsService();
   const [searchQuery, setSearchQuery] = useState("");
-  const filteredData = getCat?.Data?.category?.filter((item) =>
+  const filteredData = gg?.Data?.category?.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  console.log(getCat)
-
+  console.log(gg)
   const columns = [
     {
       title: "No",
@@ -24,8 +23,8 @@ const useProductsProps = () => {
     },
     {
       title: "Продукт",
-      dataIndex: "category_name",
-      key: "category_name",
+      dataIndex: "name",
+      key: "name",
       width: 120,
     },
     {
@@ -107,6 +106,7 @@ const useProductsProps = () => {
   return {
     data: filteredData?.map((item, index) => ({
       key: item?.id || index,
+      number: index + 1,
       ...item,
     })),
     columns,

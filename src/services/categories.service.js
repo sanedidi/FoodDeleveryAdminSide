@@ -11,7 +11,7 @@ const CategoriesService = {
       .then((res) => res?.data),
   editCategories: (params) =>
     request
-      .get(`https://food-delivery-api-n6as.onrender.com/v1/category/${id}`, {
+      .put(`https://food-delivery-api-n6as.onrender.com/v1/category/${id}`, {
         params,
       })
       .then((res) => res?.data),

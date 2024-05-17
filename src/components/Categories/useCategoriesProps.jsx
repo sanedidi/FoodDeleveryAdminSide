@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   useDisclosure,
@@ -10,59 +9,76 @@ import {
   AiOutlineEllipsis,
   DeleteIcon,
   EditIcon,
-  IoEye,
   MenuComp,
   Skeleton,
   Stack,
-  s,
+  React,
+  UseCategoriesAddProps,
   useDeleteCategory,
   useGetCategoriesService,
+  axios,
+  authStore,
 } from "./imports";
-import Edit from "./components/Edit";
-import { TrashIcon } from "components/SvgComponents/SvgComponents";
-import { useEditCategoriesService } from "services/categories.service";
 
 const useCategoriesProps = () => {
-  const {
-    isOpen: isOpenModal1,
-    onOpen: onOpenModal1,
-    onClose: onCloseModal1,
-  } = useDisclosure();
-  const {
-    isOpen: isOpenModal2,
-    onOpen: onOpenModal2,
-    onClose: onCloseModal2,
-  } = useDisclosure();
+  const { mainImage, name, setActiveLang, setMainImage, setName } =
+    UseCategoriesAddProps();
+  const handleMainImageChange = (event) => {
+    const file = event.target.files[0];
+    setMainImage(file);
+  };
 
-  const [categories, setCategories] = useState([]);
-  const { data: getCat, refetch } = useGetCategoriesService();
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  console.log(selectedCategoryId);
+  const [isOpenModal1, setIsOpenModal1] = useState(false);
+  const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [categories, setCategories] = useState([]);
+  const onOpenModal1 = () => setIsOpenModal1(true);
+  const onCloseModal1 = () => setIsOpenModal1(false);
+  const onOpenModal2 = () => setIsOpenModal2(true);
+  const onCloseModal2 = () => setIsOpenModal2(false);
+  const { data: getCat, refetch } = useGetCategoriesService();
+  const handleDeleteCategory = async (categoryId) => {
+    deleteCategory(categoryId);
+    refetch();
+  };
+
   const { mutate: deleteCategory } = useDeleteCategory({
     onSuccess: () => refetch(),
   });
 
-  const { mutate: editCategory } = useEditCategoriesService({
-    onSuccess: () => {
-      // Handle success, e.g., show a success message
-    },
-    onError: (error) => {
-      // Handle error, e.g., show an error message
-      console.error("Error editing category:", error);
-    },
-  });
+  const updateCategory = async ({ id, name, photo }) => {
+    try {
+      const formData = new FormData();
+      formData.append("id", id);
+      formData.append("name", name);
+      formData.append("photo", photo);
 
+      const response = await axios.put(
+        `https://food-delivery-api-n6as.onrender.com/v1/category/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      alert("Update Successful");
+      return response.data;
+    } catch (error) {
+      console.log("Update Failed", error);
+      throw error;
+    }
+  };
+
+  const handleEditCategory = (categoryId) => {
+    setSelectedCategoryId(categoryId);
+    onOpenModal1();
+  };
   const filteredData = getCat?.Data?.category?.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  const handleDeleteCategory = async (categoryId) => {
-    await deleteCategory(categoryId);
-    refetch();
-  };
-
-  const handleUpdateCategory = async (categoryId, updatedCategoryData) => {
-    await editCategory(categoryId, updatedCategoryData);
-    refetch();
-  };
 
   const skeleton = (
     <Stack>
@@ -71,12 +87,11 @@ const useCategoriesProps = () => {
       <Skeleton height="20px" />
     </Stack>
   );
-
   const columns = [
     {
       title: "No",
       key: "number",
-      dataIndex: "number",
+      dataIndex: "category_number",
       width: 0,
     },
     {
@@ -126,9 +141,10 @@ const useCategoriesProps = () => {
               }
               ListMenu={
                 <button
-                  className={s.categories__menu}
+                  className="categories__menu"
                   onClick={() => {
                     onOpenModal2();
+                    setSelectedCategoryId(item.id);
                   }}
                 >
                   Удалить
@@ -139,70 +155,20 @@ const useCategoriesProps = () => {
                 <button
                   onClick={() => {
                     onOpenModal1();
+                    setSelectedCategoryId(item.id);
                   }}
-                  className={s.categories__menu}
+                  className="categories__menu"
                 >
                   Изменить
                   <EditIcon color={"#0E73FC"} />
                 </button>
               }
-              ListMenu3={
-                <div className={s.categories__menu}>
-                  Показать
-                  <IoEye color={"#0E73FC"} />
-                </div>
-              }
-            />
-            <CustomModal
-              isOpenModal={isOpenModal1}
-              onCloseModal={onCloseModal1}
-              modalContent={
-                <Box>
-                  <Edit
-                    category={item}
-                    onUpdateCategory={handleUpdateCategory}
-                  />
-                </Box>
-              }
-              secondaryBtnText={<Box>Нет</Box>}
-              ModalBtnBgColor={"blue"}
-              primaryBtnText="Да"
-              onPrimaryBtnClick={() => {
-                handleDeleteCategory(item.id);
-                onCloseModal1();
-              }}
-            />
-            <CustomModal
-              isOpenModal={isOpenModal2}
-              onCloseModal={onCloseModal2}
-              modalTitle={
-                <Box
-                  margin={"0 auto"}
-                  textAlign={"center"}
-                  width={"max-content"}
-                >
-                  <TrashIcon />
-                </Box>
-              }
-              modalContent={
-                <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
-                  Вы уверены, что хотите удалить этот товар?
-                </Box>
-              }
-              secondaryBtnText={<Box>Нет</Box>}
-              ModalBtnBgColor={"blue"}
-              primaryBtnText="Да"
-              onPrimaryBtnClick={() => {
-                handleDeleteCategory(item.id);
-                onCloseModal2();
-              }}
             />
           </div>
         );
       },
     },
   ];
-
   return {
     data: getCat
       ? filteredData?.map((item, index) => ({
@@ -215,7 +181,14 @@ const useCategoriesProps = () => {
     setCategories,
     getCat,
     setSearchQuery,
+    isOpenModal1,
+    isOpenModal2,
+    onCloseModal1,
+    onCloseModal2,
+    updateCategory,
+    selectedCategoryId,
+    handleDeleteCategory,
+    setSelectedCategoryId,
   };
 };
-
 export default useCategoriesProps;

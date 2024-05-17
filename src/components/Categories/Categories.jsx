@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import s from "./Categories.module.scss";
 import {
   DownloadIcon,
   PlusIcon,
+  PlusIconDown,
   ReloadIcon,
+  TrashIcon,
 } from "components/SvgComponents/SvgComponents";
 import { Link } from "react-router-dom";
 import UnderHeader from "components/UnderHeader/UnderHeader";
@@ -15,10 +17,38 @@ import { CustomTable } from "components/Custom/CustomTable/CustomTable";
 
 import { Header } from "components/Header/Header";
 import html2canvas from "html2canvas";
-import { Box } from "@chakra-ui/react";
+import { Box, useDisclosure } from "@chakra-ui/react";
+import { CustomModal } from "./imports";
+import UseCAtegoriesAddProps from "./CategoriesAdd/UseCAtegoriesAddProps";
+import { Done } from "@mui/icons-material";
 
 const Categories = () => {
-  const { columns, data, setSearchQuery } = useCategoriesProps();
+  const handleMainImageChange = (event) => {
+    const file = event.target.files[0];
+    setMainImage(file);
+  };
+  const {
+    isOpenModal1,
+    isOpenModal2,
+    onCloseModal1,
+    onCloseModal2,
+    updateCategory,
+    setSearchQuery,
+    columns,
+    data,
+    selectedCategoryId,
+    handleDeleteCategory,
+  } = useCategoriesProps();
+  const {
+    lang,
+    activeLang,
+    mainImage,
+    name,
+    setActiveLang,
+    setMainImage,
+    setName,
+  } = UseCAtegoriesAddProps();
+
   const categoriesWrapperRef = useRef(null);
 
   const handleDownload = () => {
@@ -89,8 +119,124 @@ const Categories = () => {
           <CustomTable columns={columns} data={data} />
         </Box>
       </Box>
+      <CustomModal
+        isOpenModal={isOpenModal1}
+        onCloseModal={onCloseModal1}
+        modalContent={
+          <Box>
+            <Box className="categoriesAdd_modal">
+              <Box className="categoriesAdd__main_cont_modal">
+                <Box className="categoriesAdd__cont">
+                  <Box className="categoriesAdd__top">
+                    <h1>Общие настройки</h1>
+                  </Box>
+                  <Box className="categoriesAdd__bottom_modal">
+                    <Box className="categoriesAdd__bottom_lang">
+                      {lang.map((el, index) => {
+                        return (
+                          <button
+                            key={index}
+                            type="button"
+                            className={`categoriesAdd__language ${
+                              activeLang === el.lang ? "activeLang" : ""
+                            }`}
+                          >
+                            <h2>{el.lang}</h2>
+                            <span>{el.icon}</span>
+                          </button>
+                        );
+                      })}
+                    </Box>
+                    <form className="categoriesAdd__upload">
+                      <Box className="categoriesAdd__upload_left">
+                        {mainImage ? (
+                          <Box className="drag-file-area">
+                            <label className="label">
+                              <div
+                                type="file"
+                                className="default-file-input"
+                                onChange={handleMainImageChange}
+                              >
+                                skvnd
+                              </div>
+                              <span
+                                className={`browse-files-text ${
+                                  mainImage ? "active" : "" // Updated class name
+                                }`}
+                              >
+                                <Done />
+                                Загружено
+                              </span>{" "}
+                            </label>{" "}
+                          </Box>
+                        ) : (
+                          <Box className="input_box">
+                            <Box className="drag-file-area">
+                              <label className="label">
+                                <input
+                                  type="file"
+                                  className="default-file-input" // Updated class name
+                                  onChange={handleMainImageChange}
+                                />
+                                <span className="browse-files-text">
+                                  <PlusIconDown />
+                                  Макс. размер 4 МБ
+                                </span>{" "}
+                              </label>{" "}
+                            </Box>
+                          </Box>
+                        )}
+                      </Box>
+                      <Box className="categoriesAdd__right">
+                        <CustomInput
+                          type="text"
+                          value={name}
+                          InputPlaceHolder={"Название..."}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="Name"
+                        />
+                      </Box>
+                    </form>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        }
+        secondaryBtnText={<Box>Нет</Box>}
+        ModalBtnBgColor={"blue"}
+        primaryBtnText="Да"
+        onPrimaryBtnClick={() => {
+          updateCategory({
+            id: selectedCategoryId,
+            name,
+            photo: mainImage,
+          });
+          onCloseModal1();
+        }}
+      />
+      <CustomModal
+        isOpenModal={isOpenModal2}
+        onCloseModal={onCloseModal2}
+        modalTitle={
+          <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
+            <TrashIcon />
+          </Box>
+        }
+        modalContent={
+          <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
+            Вы уверены, что хотите удалить этот товар?
+          </Box>
+        }
+        secondaryBtnText={<Box>Нет</Box>}
+        ModalBtnBgColor={"blue"}
+        primaryBtnText="Да"
+        onPrimaryBtnClick={() => {
+          handleDeleteCategory(selectedCategoryId);
+          onCloseModal2();
+        }}
+      />
     </>
   );
 };
-
 export default Categories;
