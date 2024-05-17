@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import s from "./Categories.module.scss";
+import s from "./CategoriesAdd/CategoriesAdd.module.scss";
 import {
   DownloadIcon,
   PlusIcon,
@@ -124,10 +124,11 @@ const Categories = () => {
         onCloseModal={onCloseModal1}
         modalContent={
           <Box>
-            <Box className="categoriesAdd_modal">
-              <Box className="categoriesAdd__main_cont_modal">
-                <Box className="categoriesAdd__cont">
-                  <Box className="categoriesAdd__top">
+            <Box className={s.categoriesAdd_modal}>
+              <Box className={s.categoriesAdd__underHead_modal}>
+                <Box className={s.categoriesAdd__cont}>
+                <Box className={s.categoriesAdd__cont}>
+
                     <h1>Общие настройки</h1>
                   </Box>
                   <Box className="categoriesAdd__bottom_modal">
@@ -150,18 +151,18 @@ const Categories = () => {
                     <form className="categoriesAdd__upload">
                       <Box className="categoriesAdd__upload_left">
                         {mainImage ? (
-                          <Box className="drag-file-area">
-                            <label className="label">
+                          <Box className={s["drag-file-area"]}>
+                            <label className={s["label"]}>
                               <div
                                 type="file"
-                                className="default-file-input"
+                                className={s["default-file-input"]}
                                 onChange={handleMainImageChange}
                               >
                                 skvnd
                               </div>
                               <span
                                 className={`browse-files-text ${
-                                  mainImage ? "active" : "" // Updated class name
+                                  mainImage ? "active" : ""
                                 }`}
                               >
                                 <Done />
@@ -170,15 +171,15 @@ const Categories = () => {
                             </label>{" "}
                           </Box>
                         ) : (
-                          <Box className="input_box">
-                            <Box className="drag-file-area">
+                          <Box className={s["input_box"]}>
+                            <Box className={s["drag-file-area"]}>
                               <label className="label">
                                 <input
                                   type="file"
-                                  className="default-file-input" // Updated class name
+                                  className={s["default-file-input"]} // Updated class name
                                   onChange={handleMainImageChange}
                                 />
-                                <span className="browse-files-text">
+                                <span className={s["browse-files-text"]}>
                                   <PlusIconDown />
                                   Макс. размер 4 МБ
                                 </span>{" "}

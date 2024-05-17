@@ -1,8 +1,5 @@
 import {
-  Box,
-  useDisclosure,
   useState,
-  CustomModal,
   CategoryImage,
   CategoryFilterIcon,
   CustomBtn,
@@ -13,23 +10,13 @@ import {
   Skeleton,
   Stack,
   React,
-  UseCategoriesAddProps,
   useDeleteCategory,
   useGetCategoriesService,
   axios,
-  authStore,
 } from "./imports";
 
 const useCategoriesProps = () => {
-  const { mainImage, name, setActiveLang, setMainImage, setName } =
-    UseCategoriesAddProps();
-  const handleMainImageChange = (event) => {
-    const file = event.target.files[0];
-    setMainImage(file);
-  };
-
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-  console.log(selectedCategoryId);
   const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
