@@ -3,7 +3,6 @@ import { React, s } from "./imports.js";
 import { Box, InputRightElement } from "@chakra-ui/react";
 import CustomInput from "components/Custom/CustomInput/CustomInput.jsx";
 import CustomSelect from "components/Custom/CustomSelect/CustomSelect.jsx";
-import { Button } from "antd";
 export const MainProd = () => {
   return (
     <Box className={s.prod}>
@@ -54,11 +53,6 @@ export const MainProd = () => {
               bgColor={"transparent"}
               InputPlaceHolder={"Введите Название"}
             />
-            <InputRightElement width='4.5rem'>
-        <Button h='1.75rem' size='sm' onClick={handleClick}>
-          
-        </Button>
-      </InputRightElement>
           </Box>
         </Box>
       </Box>
