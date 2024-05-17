@@ -2,6 +2,7 @@ import Lang from "components/lang/Lang.jsx";
 import { React, s } from "./imports.js";
 import { Box } from "@chakra-ui/react";
 import CustomInput from "components/Custom/CustomInput/CustomInput.jsx";
+import CustomSelect from "components/Custom/CustomSelect/CustomSelect.jsx";
 export const MainProd = () => {
   return (
     <Box className={s.prod}>
@@ -38,11 +39,8 @@ export const MainProd = () => {
             </div>
           </Box>
           <Box className={s.prod__name}>
-            <h2 className={s.prod__bottom_title}>*Название </h2>
-            <CustomInput
-              bgColor={"transparent"}
-              InputPlaceHolder={"Введите Название"}
-            />
+            <h2 className={s.prod__bottom_title}>*Категории </h2>
+            <CustomSelect placeHolder={'Выберите категории'}  option1={"22"} option2={"ss"} option3={"sdb"} />
           </Box>
         </Box>
       </Box>
