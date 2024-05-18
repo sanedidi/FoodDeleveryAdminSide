@@ -116,7 +116,7 @@ export const MainProd = () => {
                   defaultValue={[colourOptions[0]]}
                   isMulti
                   options={colourOptions}
-                /> 
+                />  
               </Box>
             </Box>
           </Box>
