@@ -19,5 +19,5 @@ export {
   useState,
   makeAnimated,
   Textarea,
-  Box
+  Box,
 };

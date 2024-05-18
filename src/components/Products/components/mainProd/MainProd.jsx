@@ -21,7 +21,7 @@ export const MainProd = () => {
   ];
   const colourOptions1 = [
     { value: "chocolate", label: "Делимый" },
-    { value: "strawberry", label: "Не делимый" },
+    { value: "strawberry", label: "Не делимый " },
   ];
   const colourOptions3 = [
     { value: "chocolate", label: "Делимый" },
