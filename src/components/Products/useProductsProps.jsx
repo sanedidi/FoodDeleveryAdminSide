@@ -1,23 +1,35 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
 import MenuComp from "components/MenuComponent/MenuComp";
 import { CategoryFilterIcon } from "components/SvgComponents/SvgComponents";
-import React, { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { IoEye } from "react-icons/io5";
 import s from "../Categories/Categories.module.scss";
-import { useGetProductService } from "services/products.service";
 
 const useProductsProps = () => {
-  const { id: gg } = useGetProductService();
+  const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  console.log(gg);
-  const filteredData = gg?.Data?.filter((item) =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+
+  const API_URL = "https://food-delivery-api-n6as.onrender.com/v1/products";
+
+  const getProducts = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setProducts(response.data.Data.products);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  console.log(gg);
-
+  const CategoryName = filteredProducts?.map((e) => e.CategoryData.name);
   const columns = [
     {
       title: "No",
@@ -27,15 +39,21 @@ const useProductsProps = () => {
     },
     {
       title: "Продукт",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "name",
+      key: "name",
       width: 120,
     },
     {
       title: "Категория",
-      dataIndex: "category_name",
-      key: "category_name",
+      dataIndex: "category_id",
+      key: "category_id",
       width: 120,
+      render: (categoryId) => {
+        const product = filteredProducts.find(
+          (prod) => prod.category_id === categoryId
+        );
+        return product ? product.CategoryData.name : "";
+      },
     },
     {
       title: "Цена Продажи",
@@ -104,10 +122,11 @@ const useProductsProps = () => {
   ];
 
   return {
-    data: filteredData?.map((item, index) => ({
-      key: item?.id || index,
+    data: filteredProducts.map((item, index) => ({
+      key: item.id || index,
       number: index + 1,
       ...item,
+      CategoryName: item.CategoryData.name,
     })),
     columns,
     setSearchQuery,

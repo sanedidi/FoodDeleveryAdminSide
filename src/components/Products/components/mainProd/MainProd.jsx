@@ -5,9 +5,22 @@ import CustomInput from "components/Custom/CustomInput/CustomInput.jsx";
 import CustomSelect from "components/Custom/CustomSelect/CustomSelect.jsx";
 import { CustomBtn } from "components/Categories/imports.js";
 import { useState } from "react";
+import makeAnimated from "react-select/animated";
 import { Textarea } from "@chakra-ui/react";
+
+import Select from "react-select";
 export const MainProd = () => {
   const [article, setArticle] = useState("");
+  const colourOptions = [
+    { value: "chocolate", label: "Chocolate" },
+    { value: "strawberry", label: "Strawberry" },
+    { value: "vanilla", label: "Vanilla" },
+  ];
+  const colourOptions1 = [
+    { value: "chocolate", label: "Делимый" },
+    { value: "strawberry", label: "Не делимый" },
+  ];
+  const animatedComponents = makeAnimated();
 
   const generateRandomNumber = () => {
     const randomNumber = Math.floor(100000 + Math.random() * 900000);
@@ -68,7 +81,6 @@ export const MainProd = () => {
               />
             </div>
           </Box>
-        
           <Box className={s.prod__name}>
             <h2 className={s.prod__bottom_title}>*Артикул </h2>
             <Box className={s.prod__gen}>
@@ -84,7 +96,30 @@ export const MainProd = () => {
               />
             </Box>
           </Box>
-          
+          <Box className={s.prod__name}>
+            <Box className={s.prod__choice}>
+              <Box className={s.prod__item}>
+                <h2 className={s.prod__bottom_title}>Делимый / Не делимый </h2>
+
+                <Select
+                  closeMenuOnSelect={true}
+                  components={animatedComponents}
+                  defaultValue={(colourOptions[0], colourOptions[5])}
+                  options={colourOptions1}
+                />
+              </Box>
+              <Box className={s.prod__item}>
+                <h2 className={s.prod__bottom_title}>*Тег </h2>
+                <Select
+                  closeMenuOnSelect={false}
+                  components={animatedComponents}
+                  defaultValue={[colourOptions[0]]}
+                  isMulti
+                  options={colourOptions}
+                />
+              </Box>
+            </Box>
+          </Box>
         </Box>
       </Box>
     </Box>

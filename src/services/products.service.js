@@ -4,8 +4,8 @@ import axios from "axios";
 const ProductsService = {
   getProducts: (params) =>
     axios
-      .get(`/api/v1/product/`, { params })
-      .then((res) => res?.data),
+      .get(`https://food-delivery-api-n6as.onrender.com/v1/products`, { params })
+      .then((res) => res?.data.product),
 };
 
 export const useGetProductService = (params) => {
