@@ -8,6 +8,7 @@ import { useState } from "react";
 import makeAnimated from "react-select/animated";
 import { Textarea } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
+import Select from "react-select";
 
 export {
   React,
@@ -20,4 +21,5 @@ export {
   makeAnimated,
   Textarea,
   Box,
+  Select
 };

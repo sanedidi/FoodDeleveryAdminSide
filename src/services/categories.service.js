@@ -25,6 +25,7 @@ const CategoriesService = {
         `https://food-delivery-api-n6as.onrender.com/v1/category/${categoryId}`
       )
       .then((res) => res?.data),
+      
 };
 
 export const useGetCategoriesService = (params) => {
