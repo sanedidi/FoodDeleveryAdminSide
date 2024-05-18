@@ -107,7 +107,7 @@ export const MainProd = () => {
                   defaultValue={(colourOptions[0], colourOptions[5])}
                   options={colourOptions1}
                 />
-              </Box>
+              </Box> 
               <Box className={s.prod__item}>
                 <h2 className={s.prod__bottom_title}>*Тег </h2>
                 <Select
