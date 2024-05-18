@@ -1,6 +1,8 @@
 .prod {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  max-height: 84vh;
+  overflow-y: scroll;
   &__left {
     background-color: #fff;
     border-radius: 8px;

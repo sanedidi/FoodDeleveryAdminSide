@@ -5,6 +5,7 @@ import CustomInput from "components/Custom/CustomInput/CustomInput.jsx";
 import CustomSelect from "components/Custom/CustomSelect/CustomSelect.jsx";
 import { CustomBtn } from "components/Categories/imports.js";
 import { useState } from "react";
+import { Textarea } from "@chakra-ui/react";
 export const MainProd = () => {
   const [article, setArticle] = useState("");
 
@@ -38,6 +39,19 @@ export const MainProd = () => {
               InputPlaceHolder={"Введите Название"}
             />
           </Box>
+          <Box className={s.prod__name}>
+            <h2 className={s.prod__bottom_title}>*Описание </h2>
+            <Textarea placeholder="Here is a sample placeholder" />
+          </Box>
+          <Box className={s.prod__name}>
+            <h2 className={s.prod__bottom_title}>*Категории </h2>
+            <CustomSelect
+              placeHolder={"Выберите категории"}
+              option1={"22"}
+              option2={"ss"}
+              option3={"sdb"}
+            />
+          </Box>
           <Box className={s.prod__price}>
             <div className={s.prod__price_input}>
               <h2 className={s.prod__bottom_title}>Цена прихода </h2>
@@ -54,15 +68,7 @@ export const MainProd = () => {
               />
             </div>
           </Box>
-          <Box className={s.prod__name}>
-            <h2 className={s.prod__bottom_title}>*Категории </h2>
-            <CustomSelect
-              placeHolder={"Выберите категории"}
-              option1={"22"}
-              option2={"ss"}
-              option3={"sdb"}
-            />
-          </Box>
+        
           <Box className={s.prod__name}>
             <h2 className={s.prod__bottom_title}>*Артикул </h2>
             <Box className={s.prod__gen}>
@@ -78,6 +84,7 @@ export const MainProd = () => {
               />
             </Box>
           </Box>
+          
         </Box>
       </Box>
     </Box>

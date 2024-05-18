@@ -1,21 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import request from "./httpRequest/index";
-import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 const ProductsService = {
   getProducts: (params) =>
-    request
-      .get(
-        `https://food-delivery-api-n6as.onrender.com/v1/order_product/`,
-        {
-          params,
-        }
-      )
+    axios
+      .get(`/api/v1/product/`, { params })
       .then((res) => res?.data),
 };
-export const useGetProductsService = (params) => {
+
+export const useGetProductService = (params) => {
   return useQuery({
-    queryKey: ["category", params],
+    queryKey: ["products", params],
     queryFn: () => ProductsService.getProducts(params),
   });
 };

@@ -5,15 +5,19 @@ import { CategoryFilterIcon } from "components/SvgComponents/SvgComponents";
 import React, { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { IoEye } from "react-icons/io5";
-import { useGetProductsService } from "services/products.service";
-import s from '../Categories/Categories.module.scss'
+import s from "../Categories/Categories.module.scss";
+import { useGetProductService } from "services/products.service";
+
 const useProductsProps = () => {
-  const { data: gg } = useGetProductsService();
+  const { id: gg } = useGetProductService();
   const [searchQuery, setSearchQuery] = useState("");
-  const filteredData = gg?.Data?.category?.filter((item) =>
+  console.log(gg);
+  const filteredData = gg?.Data?.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  console.log(gg)
+
+  console.log(gg);
+
   const columns = [
     {
       title: "No",
@@ -23,8 +27,8 @@ const useProductsProps = () => {
     },
     {
       title: "Продукт",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "id",
+      key: "id",
       width: 120,
     },
     {
@@ -73,10 +77,6 @@ const useProductsProps = () => {
                     color="#0E73FC"
                   />
                 }
-                Onclick={() => {
-                  onOpenE();
-                  setActiveGroupId(item?.id);
-                }}
               />
             }
             ListMenu={
