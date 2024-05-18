@@ -1,12 +1,15 @@
-import Lang from "components/lang/Lang.jsx";
-import { React, s } from "./imports.js";
-import { Box, InputRightElement } from "@chakra-ui/react";
-import CustomInput from "components/Custom/CustomInput/CustomInput.jsx";
-import CustomSelect from "components/Custom/CustomSelect/CustomSelect.jsx";
-import { CustomBtn } from "components/Categories/imports.js";
-import { useState } from "react";
-import makeAnimated from "react-select/animated";
-import { Textarea } from "@chakra-ui/react";
+import {
+  React,
+  s,
+  CustomBtn,
+  CustomInput,
+  CustomSelect,
+  Lang,
+  Textarea,
+  makeAnimated,
+  useState,
+  Box,
+} from "./imports.js";
 
 import Select from "react-select";
 export const MainProd = () => {
@@ -17,6 +20,10 @@ export const MainProd = () => {
     { value: "vanilla", label: "Vanilla" },
   ];
   const colourOptions1 = [
+    { value: "chocolate", label: "Делимый" },
+    { value: "strawberry", label: "Не делимый" },
+  ];
+  const colourOptions3 = [
     { value: "chocolate", label: "Делимый" },
     { value: "strawberry", label: "Не делимый" },
   ];
@@ -66,20 +73,20 @@ export const MainProd = () => {
             />
           </Box>
           <Box className={s.prod__price}>
-            <div className={s.prod__price_input}>
+            <Box className={s.prod__price_input}>
               <h2 className={s.prod__bottom_title}>Цена прихода </h2>
               <CustomInput
                 bgColor={"transparent"}
                 InputPlaceHolder={"Напишите сумму"}
               />
-            </div>
-            <div className={s.prod__price_input}>
+            </Box>
+            <Box className={s.prod__price_input}>
               <h2 className={s.prod__bottom_title}>Цена продаж </h2>
               <CustomInput
                 bgColor={"transparent"}
                 InputPlaceHolder={"Напишите сумму"}
               />
-            </div>
+            </Box>
           </Box>
           <Box className={s.prod__name}>
             <h2 className={s.prod__bottom_title}>*Артикул </h2>
@@ -96,21 +103,21 @@ export const MainProd = () => {
               />
             </Box>
           </Box>
-          <Box className={s.prod__name}> 
+          <Box className={s.prod__name}>
             <Box className={s.prod__choice}>
-              <Box className={s.prod__item}> 
+              <Box className={s.prod__item}>
                 <h2 className={s.prod__bottom_title}>Делимый / Не делимый </h2>
 
-                <Select 
+                <Select
                   closeMenuOnSelect={true}
                   components={animatedComponents}
                   defaultValue={(colourOptions[0], colourOptions[5])}
                   options={colourOptions1}
-                />  
-              </Box> 
+                />
+              </Box>
               <Box className={s.prod__item}>
                 <h2 className={s.prod__bottom_title}>*Тег </h2>
-                <Select 
+                <Select
                   closeMenuOnSelect={false}
                   components={animatedComponents}
                   defaultValue={[colourOptions[0]]}
@@ -120,8 +127,52 @@ export const MainProd = () => {
               </Box>
             </Box>
           </Box>
+          <Box className={s.prod__name}>
+            <h2 className={s.prod__bottom_title}>*Единица измерения </h2>
+            <Box className={s.prod__dd}>
+              <Select
+                closeMenuOnSelect={true}
+                components={animatedComponents}
+                defaultValue={(colourOptions[0], colourOptions[5])}
+                options={colourOptions3}
+              />
+            </Box>
+          </Box>
+          <Box className={s.prod__main_inputs}>
+            <Box className={s.prod__inputs}>
+              <h2 className={s.prod__bottom_title}> Код единицы измерения </h2>
+              <CustomInput
+                bgColor={"transparent"}
+                InputPlaceHolder={"Введите код"}
+              />
+            </Box>
+            <Box className={s.prod__inputs}>
+              <h2 className={s.prod__bottom_title}> Код ИКПУ </h2>
+              <CustomInput
+                bgColor={"transparent"}
+                InputPlaceHolder={"Введите код"}
+              />
+            </Box>
+            <Box className={s.prod__inputs}>
+              <h2 className={s.prod__bottom_title}> Код упаковки </h2>
+              <CustomInput
+                bgColor={"transparent"}
+                InputPlaceHolder={"Введите код"}
+              />
+            </Box>
+          </Box>
+          <Box className={s.prod__name}>
+            <h2 className={s.prod__bottom_title}>*Филлиалы </h2>
+            <CustomSelect
+              placeHolder={"Выберите Филлиалы"}
+              option1={"22"}
+              option2={"ss"}
+              option3={"sdb"}
+            />
+          </Box>
         </Box>
       </Box>
+      <Box className={s.prod__right}></Box>
     </Box>
   );
 };

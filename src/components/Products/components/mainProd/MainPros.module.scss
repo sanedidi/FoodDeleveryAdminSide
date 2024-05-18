@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   max-height: 84vh;
+  gap: 10px;
   overflow-y: scroll;
   &__left {
     background-color: #fff;
@@ -54,23 +55,38 @@
     width: 100%;
   }
   &__gen {
-    display: grid; 
+    display: grid;
     grid-template-columns: 4fr 1fr;
     width: 100%;
   }
   &_btn_text {
     color: #6e7c87;
   }
-  &__choice{
-    display: grid; 
+  &__choice {
+    display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 10px;
-    width: 100%;  
+    width: 100%;
   }
-  &__item{
+  &__item {
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+  &__dd {
+    width: 100%;
+  }
+  &__main_inputs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+  }
+  &__right {
+    background-color: #fff;
+    height: 100%;
+    max-height: 240px;
   }
 }
