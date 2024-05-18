@@ -1,1 +1,1 @@
-export {MainProd} from './MainProd'
+export {MainProd} from './MainProd' 

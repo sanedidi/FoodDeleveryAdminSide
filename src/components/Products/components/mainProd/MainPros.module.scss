@@ -54,7 +54,7 @@
     width: 100%;
   }
   &__gen {
-    display: grid;
+    display: grid; 
     grid-template-columns: 4fr 1fr;
     width: 100%;
   }
@@ -62,7 +62,7 @@
     color: #6e7c87;
   }
   &__choice{
-    display: grid;
+    display: grid; 
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 10px;

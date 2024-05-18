@@ -3,4 +3,4 @@ import s from './MainPros.module.scss'
 export {
     React,
     s
-}
+} 

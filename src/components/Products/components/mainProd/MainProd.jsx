@@ -96,21 +96,21 @@ export const MainProd = () => {
               />
             </Box>
           </Box>
-          <Box className={s.prod__name}>
+          <Box className={s.prod__name}> 
             <Box className={s.prod__choice}>
-              <Box className={s.prod__item}>
+              <Box className={s.prod__item}> 
                 <h2 className={s.prod__bottom_title}>Делимый / Не делимый </h2>
 
-                <Select
+                <Select 
                   closeMenuOnSelect={true}
                   components={animatedComponents}
                   defaultValue={(colourOptions[0], colourOptions[5])}
                   options={colourOptions1}
-                />
+                />  
               </Box> 
               <Box className={s.prod__item}>
                 <h2 className={s.prod__bottom_title}>*Тег </h2>
-                <Select
+                <Select 
                   closeMenuOnSelect={false}
                   components={animatedComponents}
                   defaultValue={[colourOptions[0]]}
