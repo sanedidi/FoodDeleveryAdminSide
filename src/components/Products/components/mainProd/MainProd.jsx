@@ -18,7 +18,7 @@ const animatedComponents = makeAnimated();
 const MainProd = () => {
   const [article, setArticle] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({ 
     branch_id: "",
     category_id: "",
     description: "",
