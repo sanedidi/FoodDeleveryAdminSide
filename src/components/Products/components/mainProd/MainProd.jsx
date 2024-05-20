@@ -111,7 +111,7 @@ export const MainProd = () => {
   };
   const handleCheckboxChange = (e) => {
     const { checked } = e.target;
-    setFormData({ ...formData, status: checked }); // Устанавливаем значение status в зависимости от состояния чекбокса
+    setFormData({ ...formData, status: checked });
   };
 
   return (
