@@ -21,11 +21,11 @@ export const Products = () => {
   const [isLoading, setIsLoading] = useState(false); // State to track loading state
 
   const handleRefresh = () => {
-    setIsLoading(true); // Set loading state to true
-    // Simulate loading delay
-    setTimeout(() => {
-      setIsLoading(false); // Set loading state to false after data is loaded
-    }, 1000);
+    setIsLoading(true);
+    () => {
+      setIsLoading(false);
+    },
+      100;
   };
 
   return (
@@ -62,6 +62,7 @@ export const Products = () => {
       <UnderHeader
         firstItem={
           <CustomInput
+            InputPlaceHolder={"Поиск..."}
             onChange={(e) => setSearchQuery(e.target.value)}
             InputIcon={<Search2Icon color={"blue"} />}
           />
