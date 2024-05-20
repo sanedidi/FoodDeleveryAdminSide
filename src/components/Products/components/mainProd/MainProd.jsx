@@ -1,24 +1,20 @@
 import axios from "axios";
 import {
   Box,
-  CustomBtn,
-  CustomInput,
-  CustomSelect,
   Lang,
-  React,
   Select,
-  Textarea,
   makeAnimated,
   s,
   useState,
+  useEffect,
+  CustomInput,
 } from "./imports";
 
 const animatedComponents = makeAnimated();
 
-const MainProd = () => {
-  const [article, setArticle] = useState("");
+export const MainProd = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [formData, setFormData] = useState({ 
+  const [formData, setFormData] = useState({
     branch_id: "",
     category_id: "",
     description: "",
@@ -29,15 +25,31 @@ const MainProd = () => {
     sale_price: "",
     storage_code: "",
     tax_code: "",
-    tags: [],
-    unit_code: "",
+    status: false,
   });
 
-  const colourOptions = [
-    { value: "option1", label: "Option 1" },
-    { value: "option2", label: "Option 2" },
-    { value: "option3", label: "Option 3" },
-  ];
+  const [branches, setBranches] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://food-delivery-api-n6as.onrender.com/v1/branches")
+      .then((response) => {
+        setBranches(response.data.Data.branches);
+      })
+      .catch((error) => {
+        console.error("Error fetching branches:", error);
+      });
+
+    axios
+      .get("https://food-delivery-api-n6as.onrender.com/v1/categories")
+      .then((response) => {
+        setCategories(response.data.Data.category);
+      })
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+      });
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,17 +62,34 @@ const MainProd = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (
+      !formData.name ||
+      !formData.description ||
+      !formData.category_id ||
+      !formData.branch_id ||
+      !selectedFile
+    ) {
+      alert("Please fill in all the required fields.");
+      return;
+    }
+
+    if (
+      isNaN(formData.income_price) ||
+      isNaN(formData.sale_price) ||
+      isNaN(formData.quantity)
+    ) {
+      alert("Please enter valid numeric values for price and quantity.");
+      return;
+    }
+
     const data = new FormData();
     for (const key in formData) {
-      if (Array.isArray(formData[key])) {
-        formData[key].forEach((value, index) => {
-          data.append(`${key}[${index}]`, value);
-        });
-      } else {
-        data.append(key, formData[key]);
-      }
+      data.append(key, formData[key]);
     }
     data.append("photo", selectedFile);
+
+    console.log("Submitting form data:", Object.fromEntries(data.entries()));
 
     try {
       const response = await axios.post(
@@ -74,20 +103,31 @@ const MainProd = () => {
       );
       console.log("Product created:", response.data);
     } catch (error) {
-      console.error("Error creating product:", error);
+      console.error(
+        "Error creating product:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
-
-  const generateRandomNumber = () => {
-    return Math.floor(Math.random() * 1000000).toString();
+  const handleCheckboxChange = (e) => {
+    const { checked } = e.target;
+    setFormData({ ...formData, status: checked }); // Устанавливаем значение status в зависимости от состояния чекбокса
   };
 
   return (
     <Box className={s.prod}>
       <Box className={s.prod__left}>
         <Box className={s.prod__top}>
-          <h2 className={s.prod__title}>Товар</h2>
-          <p className={s.prod__text}>Активный</p>
+          <h2 className={s.prod__title}>Product</h2>
+          <Box>
+            <input
+              type="checkbox"
+              id="toggle"
+              className={s.checkbox}
+              onChange={handleCheckboxChange} // Добавляем обработчик события для чекбокса
+            />
+            <label for="toggle" className={s.switch}></label>
+          </Box>
         </Box>
         <Box className={s.prod__lang}>
           <Lang />
@@ -95,27 +135,33 @@ const MainProd = () => {
         <Box className={s.prod__bottom}>
           <form onSubmit={handleSubmit}>
             <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Название </h2>
+              <h2 className={s.prod__bottom_title}>*Name</h2>
               <input
-                style={{ backgroundColor: "transparent" }}
-                placeholder="Введите Название"
+                placeholder="Enter Name"
                 name="name"
                 onChange={handleInputChange}
               />
             </Box>
             <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Описание </h2>
+              <h2 className={s.prod__bottom_title}>*Description</h2>
               <textarea
-                placeholder="Введите Описание"
+                placeholder="Enter Description"
                 name="description"
                 onChange={handleInputChange}
               />
             </Box>
             <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Категории </h2>
+              <h2 className={s.prod__bottom_title}>*Category</h2>
               <Select
-                placeholder="Выберите категории"
-                options={colourOptions}
+                placeholder="Select Category"
+                options={
+                  Array.isArray(categories)
+                    ? categories.map((category) => ({
+                        value: category.id,
+                        label: category.name,
+                      }))
+                    : []
+                }
                 name="category_id"
                 onChange={(selectedOption) =>
                   setFormData({
@@ -125,156 +171,87 @@ const MainProd = () => {
                 }
               />
             </Box>
+            <Box className={s.prod__name}>
+              <h2 className={s.prod__bottom_title}>*Branch</h2>
+              <Select
+                placeholder="Select Branch"
+                options={
+                  Array.isArray(branches)
+                    ? branches.map((branch) => ({
+                        value: branch.id,
+                        label: `${branch.name} (ID: ${branch.id})`,
+                      }))
+                    : []
+                }
+                name="branch_id"
+                onChange={(selectedOption) =>
+                  setFormData({
+                    ...formData,
+                    branch_id: selectedOption.value,
+                  })
+                }
+              />
+            </Box>
             <Box className={s.prod__price}>
               <Box className={s.prod__price_input}>
-                <h2 className={s.prod__bottom_title}>Цена прихода </h2>
+                <h2 className={s.prod__bottom_title}>Income Price</h2>
                 <input
                   style={{ backgroundColor: "transparent" }}
-                  placeholder="Напишите сумму"
+                  placeholder="Enter income price"
                   name="income_price"
+                  type="number"
+                  onChange={handleInputChange}
+                />
+                <input
+                  style={{ backgroundColor: "transparent" }}
+                  placeholder="цуацуа"
+                  name="packaging_code"
+                  type="number"
                   onChange={handleInputChange}
                 />
               </Box>
               <Box className={s.prod__price_input}>
-                <h2 className={s.prod__bottom_title}>Цена продаж </h2>
+                <h2 className={s.prod__bottom_title}>Sale Price</h2>
                 <input
                   style={{ backgroundColor: "transparent" }}
-                  placeholder="Напишите сумму"
+                  placeholder="Enter sale price"
                   name="sale_price"
+                  type="number"
+                  onChange={handleInputChange}
+                />
+                <input
+                  style={{ backgroundColor: "transparent" }}
+                  placeholder="quantity"
+                  name="quantity"
+                  type="number"
                   onChange={handleInputChange}
                 />
               </Box>
             </Box>
             <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>Количество</h2>
+              <h2 className={s.prod__bottom_title}>*Storage Code</h2>
               <input
                 style={{ backgroundColor: "transparent" }}
-                placeholder="Введите количество"
-                name="quantity"
+                placeholder="Enter storage code"
+                name="storage_code"
                 onChange={handleInputChange}
               />
             </Box>
             <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Артикул </h2>
-              <Box className={s.prod__gen}>
-                <input
-                  value={article}
-                  name="article"
-                  onChange={(e) => setArticle(e.target.value)}
-                  style={{ backgroundColor: "transparent" }}
-                  placeholder="Введите Артикул"
-                />
-                <button
-                  type="button"
-                  onClick={() => setArticle(generateRandomNumber())}
-                >
-                  Генерировать
-                </button>
-              </Box>
-            </Box>
-            <Box className={s.prod__name}>
-              <Box className={s.prod__choice}>
-                <Box className={s.prod__item}>
-                  <h2 className={s.prod__bottom_title}>
-                    Делимый / Не делимый{" "}
-                  </h2>
-                  <Select
-                    closeMenuOnSelect={true}
-                    components={animatedComponents}
-                    defaultValue={colourOptions[0]}
-                    options={colourOptions}
-                    name="divisible"
-                    onChange={(selectedOption) =>
-                      setFormData({
-                        ...formData,
-                        divisible: selectedOption.value,
-                      })
-                    }
-                  />
-                </Box>
-                <Box className={s.prod__item}>
-                  <h2 className={s.prod__bottom_title}>*Тег </h2>
-                  <Select
-                    closeMenuOnSelect={false}
-                    components={animatedComponents}
-                    defaultValue={[colourOptions[0]]}
-                    isMulti
-                    options={colourOptions}
-                    name="tags"
-                    onChange={(selectedOptions) =>
-                      setFormData({
-                        ...formData,
-                        tags: selectedOptions.map((option) => option.value),
-                      })
-                    }
-                  />
-                </Box>
-              </Box>
-            </Box>
-            <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Единица измерения </h2>
-              <Box className={s.prod__dd}>
-                <Select
-                  closeMenuOnSelect={true}
-                  components={animatedComponents}
-                  defaultValue={colourOptions[0]}
-                  options={colourOptions}
-                  name="unit"
-                  onChange={(selectedOption) =>
-                    setFormData({ ...formData, unit: selectedOption.value })
-                  }
-                />
-              </Box>
-            </Box>
-            <Box className={s.prod__main_inputs}>
-              <Box className={s.prod__inputs}>
-                <h2 className={s.prod__bottom_title}>
-                  {" "}
-                  Код единицы измерения{" "}
-                </h2>
-                <input
-                  style={{ backgroundColor: "transparent" }}
-                  placeholder="Введите код"
-                  name="unit_code"
-                  onChange={handleInputChange}
-                />
-              </Box>
-              <Box className={s.prod__inputs}>
-                <h2 className={s.prod__bottom_title}> Код ИКПУ </h2>
-                <input
-                  style={{ backgroundColor: "transparent" }}
-                  placeholder="Введите код"
-                  name="tax_code"
-                  onChange={handleInputChange}
-                />
-              </Box>
-              <Box className={s.prod__inputs}>
-                <h2 className={s.prod__bottom_title}> Код упаковки </h2>
-                <input
-                  style={{ backgroundColor: "transparent" }}
-                  placeholder="Введите код"
-                  name="packaging_code"
-                  onChange={handleInputChange}
-                />
-              </Box>
-            </Box>
-            <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Филлиалы </h2>
-              <Select
-                placeholder="Выберите Филлиалы"
-                options={colourOptions}
-                name="branch_id"
-                onChange={(selectedOption) =>
-                  setFormData({ ...formData, branch_id: selectedOption.value })
-                }
+              <h2 className={s.prod__bottom_title}>*Tax Code</h2>
+              <input
+                style={{ backgroundColor: "transparent" }}
+                placeholder="Enter tax code"
+                name="tax_code"
+                onChange={handleInputChange}
               />
             </Box>
             <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Фото </h2>
+              <h2 className={s.prod__bottom_title}>*Photo</h2>
               <input type="file" name="photo" onChange={handleFileChange} />
             </Box>
             <Box className={s.prod__name}>
-              <button type="submit">Отправить</button>
+              <button type="submit">Submit</button>
             </Box>
           </form>
         </Box>

@@ -1,6 +1,9 @@
+https://food-delivery-api-n6as.onrender.com/v1/categories
+https://food-delivery-api-n6as.onrender.com/v1/branches
 
 
    <CustomModal
+
                     isOpenModal={isOpenModal1}
                     onCloseModal={onCloseModal1}
                     modalTitle={
