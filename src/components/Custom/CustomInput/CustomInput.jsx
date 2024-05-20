@@ -1,7 +1,7 @@
 import React from "react";
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 
-const CustomInput = ({
+export const CustomInput = ({
   width,
   padding,
   bgColor,
@@ -11,6 +11,7 @@ const CustomInput = ({
   value,
   name,
   className,
+  type,
 }) => {
   return (
     <InputGroup style={{ display: "flex", alignItems: "center" }}>
@@ -26,6 +27,7 @@ const CustomInput = ({
         placeholder={InputPlaceHolder}
         name={name}
         className={className}
+        type={type}
       />
     </InputGroup>
   );

@@ -6,6 +6,7 @@ const useMainProdProps = () => {
   const [categories, setCategories] = useState([]);
 
   const [formData, setFormData] = useState({
+    articul: "",
     branch_id: "",
     category_id: "",
     description: "",

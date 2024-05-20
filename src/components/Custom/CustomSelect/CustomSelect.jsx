@@ -1,6 +1,6 @@
 import React from "react";
 import { Select } from "@chakra-ui/react";
-const CustomSelect = ({
+export const CustomSelect = ({
   options,
   option1,
   option2,

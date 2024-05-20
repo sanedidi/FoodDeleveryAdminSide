@@ -96,15 +96,18 @@ export const MainProd = () => {
       );
     }
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    console.log(`Updated formData:`, { ...formData, [name]: value });
   };
+
   return (
     <Box className={s.prod}>
       <Box className={s.prod__left}>
         <Box className={s.prod__top}>
-          <h2 className={s.prod__title}>Product</h2>
+          <h2 className={s.prod__title}>Продукт </h2>
           <Box>
             <input
               type="checkbox"
@@ -122,16 +125,16 @@ export const MainProd = () => {
         <Box className={s.prod__bottom}>
           <form onSubmit={handleSubmit}>
             <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Name</h2>
+              <h2 className={s.prod__bottom_title}> Название</h2>
               <CustomInput
-                InputPlaceHolder={"Enter Name"}
+                InputPlaceHolder={"Введите название"}
                 name="name"
                 className={s.prod__we}
                 onChange={handleInputChange}
               />
             </Box>
             <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Description</h2>
+              <h2 className={s.prod__bottom_title}>Описание</h2>
               <Textarea
                 placeholder="Enter Description"
                 name="description"
@@ -139,9 +142,9 @@ export const MainProd = () => {
               />
             </Box>
             <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Category</h2>
+              <h2 className={s.prod__bottom_title}>Категория</h2>
               <Select
-                placeholder="Select Category"
+                placeholder="Выберите Категорию"
                 options={
                   Array.isArray(categories)
                     ? categories.map((category) => ({
@@ -160,14 +163,14 @@ export const MainProd = () => {
               />
             </Box>
             <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Branch</h2>
+              <h2 className={s.prod__bottom_title}>Филлиалы</h2>
               <Select
-                placeholder="Select Branch"
+                placeholder="Выбирите Филлиал"
                 options={
                   Array.isArray(branches)
                     ? branches.map((branch) => ({
                         value: branch.id,
-                        label: `${branch.name} (ID: ${branch.id})`,
+                        label: `${branch.address}`,
                       }))
                     : []
                 }
@@ -183,43 +186,51 @@ export const MainProd = () => {
             <Box className={s.prod__price}>
               <Box className={s.prod__price_input}>
                 <h2 className={s.prod__bottom_title}>Income Price</h2>
-                <input
-                  style={{ backgroundColor: "transparent" }}
-                  placeholder="Enter income price"
+                <CustomInput
+                  InputPlaceHolder="Enter income price"
                   name="income_price"
                   type="number"
                   onChange={handleInputChange}
                 />
-                <input
-                  style={{ backgroundColor: "transparent" }}
-                  placeholder="цуацуа"
-                  name="packaging_code"
+                <CustomInput
+                  InputPlaceHolder="Enter articul"
+                  name="articul"
                   type="number"
                   onChange={handleInputChange}
                 />
               </Box>
               <Box className={s.prod__price_input}>
                 <h2 className={s.prod__bottom_title}>Sale Price</h2>
-                <input
-                  style={{ backgroundColor: "transparent" }}
-                  placeholder="Enter sale price"
+                <CustomInput
+                  InputPlaceHolder="Enter sale price"
                   name="sale_price"
-                  type="number"
-                  onChange={handleInputChange}
-                />
-                <input
-                  style={{ backgroundColor: "transparent" }}
-                  placeholder="quantity"
-                  name="quantity"
                   type="number"
                   onChange={handleInputChange}
                 />
               </Box>
             </Box>
+            <Box className={s.prod__price_input}>
+              <h2 className={s.prod__bottom_title}>Packing Code</h2>
+              <CustomInput
+                InputPlaceHolder="packaging_code"
+                name="packaging_code"
+                type="number"
+                onChange={handleInputChange}
+              />
+            </Box>
+            <Box>
+              <h2 className={s.prod__bottom_title}>*Количество</h2>
+              <CustomInput
+                style={{ backgroundColor: "transparent" }}
+                placeholder="quantity"
+                name="quantity"
+                type="number"
+                onChange={handleInputChange}
+              />
+            </Box>
             <Box className={s.prod__name}>
               <h2 className={s.prod__bottom_title}>*Storage Code</h2>
               <input
-                style={{ backgroundColor: "transparent" }}
                 placeholder="Enter storage code"
                 name="storage_code"
                 onChange={handleInputChange}
