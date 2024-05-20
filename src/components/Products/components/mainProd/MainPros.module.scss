@@ -1,5 +1,4 @@
 .prod {
-
   &.empty {
     background-color: red;
   }
@@ -88,9 +87,49 @@
     gap: 10px;
   }
   &__right {
+    height: max-content;
+    padding: 16px;
+    border-radius: 8px;
     background-color: #fff;
-    height: 100%;
-    max-height: 240px;
+  }
+  &__inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  &__test {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  &__photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    height: 160px;
+    width: 100%;
+    cursor: pointer;
+    max-width: 160px;
+    background-color: #eef0f2;
+  }
+  &__preview {
+    display: flex;
+    justify-content: space-between;
+    height: 160px;
+  }
+  &__tws {
+    padding: 5px;
+    img {
+      border-radius: 8px;
+      border: 1px solid #e7e7e7;
+      width: 100%;
+      max-width: 160px;
+      height: 160px;
+      object-fit: cover;
+    }
+    display: flex;
   }
 }
 .switch {

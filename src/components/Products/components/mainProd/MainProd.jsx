@@ -9,12 +9,16 @@ import {
   useEffect,
   CustomInput,
   Textarea,
+  CustomBtn,
 } from "./imports";
 import useMainProdProps from "./useMainProdProps";
+import { useNavigate } from "react-router-dom";
+import { PLusCIrcleIcon } from "components/SvgComponents/SvgComponents";
 
 const animatedComponents = makeAnimated();
 
 export const MainProd = () => {
+  const navigate = useNavigate();
   const {
     branches,
     setBranches,
@@ -24,9 +28,11 @@ export const MainProd = () => {
     setFormData,
     categories,
     setCategories,
-    handleFileChange,
+    handleFileChange: handleFileChangeProps,
     handleCheckboxChange,
   } = useMainProdProps();
+
+  const [previewURL, setPreviewURL] = useState(null); // State for photo preview URL
 
   useEffect(() => {
     axios
@@ -47,6 +53,16 @@ export const MainProd = () => {
         console.error("Error fetching categories:", error);
       });
   }, []);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      setPreviewURL(URL.createObjectURL(file)); // Set preview URL
+    }
+    handleFileChangeProps(e);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -76,8 +92,6 @@ export const MainProd = () => {
     }
     data.append("photo", selectedFile);
 
-    console.log("Submitting form data:", Object.fromEntries(data.entries()));
-
     try {
       const response = await axios.post(
         "https://food-delivery-api-n6as.onrender.com/v1/product",
@@ -88,7 +102,7 @@ export const MainProd = () => {
           },
         }
       );
-      console.log("Product created:", response.data);
+      navigate("/admin/categories/products");
     } catch (error) {
       console.error(
         "Error creating product:",
@@ -100,32 +114,31 @@ export const MainProd = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-    console.log(`Updated formData:`, { ...formData, [name]: value });
   };
 
   return (
-    <Box className={s.prod}>
-      <Box className={s.prod__left}>
-        <Box className={s.prod__top}>
-          <h2 className={s.prod__title}>Продукт </h2>
-          <Box>
-            <input
-              type="checkbox"
-              id="status"
-              className={s.checkbox}
-              onChange={handleCheckboxChange}
-              checked={formData.status}
-            />
-            <label htmlFor="status" className={s.switch}></label>
+    <Box>
+      <form className={s.prod} onSubmit={handleSubmit}>
+        <Box className={s.prod__left}>
+          <Box className={s.prod__top}>
+            <h2 className={s.prod__title}>Продукт </h2>
+            <Box>
+              <input
+                type="checkbox"
+                id="status"
+                className={s.checkbox}
+                onChange={handleCheckboxChange}
+                checked={formData.status}
+              />
+              <label htmlFor="status" className={s.switch}></label>
+            </Box>
           </Box>
-        </Box>
-        <Box className={s.prod__lang}>
-          <Lang />
-        </Box>
-        <Box className={s.prod__bottom}>
-          <form onSubmit={handleSubmit}>
+          <Box className={s.prod__lang}>
+            <Lang />
+          </Box>
+          <Box className={s.prod__bottom}>
             <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}> Название</h2>
+              <h2 className={s.prod__bottom_title}>Название</h2>
               <CustomInput
                 InputPlaceHolder={"Введите название"}
                 name="name"
@@ -142,7 +155,7 @@ export const MainProd = () => {
               />
             </Box>
             <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>Категория</h2>
+              <h2 className={s.prod__bottom_title}>Категории</h2>
               <Select
                 placeholder="Выберите Категорию"
                 options={
@@ -185,29 +198,60 @@ export const MainProd = () => {
             </Box>
             <Box className={s.prod__price}>
               <Box className={s.prod__price_input}>
-                <h2 className={s.prod__bottom_title}>Income Price</h2>
+                <h2 className={s.prod__bottom_title}>Цена прихода</h2>
                 <CustomInput
-                  InputPlaceHolder="Enter income price"
+                  InputPlaceHolder="Введите цену прихода"
                   name="income_price"
-                  type="number"
-                  onChange={handleInputChange}
-                />
-                <CustomInput
-                  InputPlaceHolder="Enter articul"
-                  name="articul"
                   type="number"
                   onChange={handleInputChange}
                 />
               </Box>
               <Box className={s.prod__price_input}>
-                <h2 className={s.prod__bottom_title}>Sale Price</h2>
+                <h2 className={s.prod__bottom_title}>Цена продаж</h2>
                 <CustomInput
-                  InputPlaceHolder="Enter sale price"
+                  InputPlaceHolder="Введите цену продаж"
                   name="sale_price"
                   type="number"
                   onChange={handleInputChange}
                 />
               </Box>
+            </Box>
+            <Box className={s.prod__name}>
+              <h2 className={s.prod__bottom_title}>Артикул</h2>
+              <CustomInput
+                InputPlaceHolder="Enter articul"
+                name="articul"
+                type="number"
+                onChange={handleInputChange}
+              />
+            </Box>
+            <Box className={s.prod__inputs}>
+              <div className={s.prod__input}>
+                <h2 className={s.prod__bottom_title}>*Количество</h2>
+                <CustomInput
+                  style={{ backgroundColor: "transparent" }}
+                  placeholder="quantity"
+                  name="quantity"
+                  type="number"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className={s.prod__input}>
+                <h2 className={s.prod__bottom_title}>*Storage Code</h2>
+                <CustomInput
+                  InputPlaceHolder="Enter storage code"
+                  name="storage_code"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className={s.prod__input}>
+                <h2 className={s.prod__bottom_title}>*Tax Code</h2>
+                <CustomInput
+                  InputPlaceHolder="Enter tax code"
+                  name="tax_code"
+                  onChange={handleInputChange}
+                />
+              </div>
             </Box>
             <Box className={s.prod__price_input}>
               <h2 className={s.prod__bottom_title}>Packing Code</h2>
@@ -218,44 +262,46 @@ export const MainProd = () => {
                 onChange={handleInputChange}
               />
             </Box>
-            <Box>
-              <h2 className={s.prod__bottom_title}>*Количество</h2>
-              <CustomInput
-                style={{ backgroundColor: "transparent" }}
-                placeholder="quantity"
-                name="quantity"
-                type="number"
-                onChange={handleInputChange}
-              />
-            </Box>
-            <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Storage Code</h2>
-              <input
-                placeholder="Enter storage code"
-                name="storage_code"
-                onChange={handleInputChange}
-              />
-            </Box>
-            <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Tax Code</h2>
-              <input
-                style={{ backgroundColor: "transparent" }}
-                placeholder="Enter tax code"
-                name="tax_code"
-                onChange={handleInputChange}
-              />
-            </Box>
-            <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>*Photo</h2>
-              <input type="file" name="photo" onChange={handleFileChange} />
-            </Box>
-            <Box className={s.prod__name}>
-              <button type="submit">Submit</button>
-            </Box>
-          </form>
+          </Box>
         </Box>
-      </Box>
-      <Box className={s.prod__right}></Box>
+        <Box className={s.prod__right}>
+          <Box className={s.prod__name}>
+            <div className={s.prod__preview}>
+              <label className={s.prod__photo}>
+                <input
+                  style={{ display: "none" }}
+                  type="file"
+                  name="photo"
+                  onChange={handleFileChange}
+                />
+                <span>
+                  <PLusCIrcleIcon />{" "}
+                </span>
+              </label>
+              <div className={s.prod__tws}>
+            {previewURL && (
+              <img
+                src={previewURL}
+                alt="Selected file preview"
+                style={{ width: "100%", height: "auto", marginBottom: "10px" }}
+              />
+            )}
+          </div>
+            </div>
+
+            <CustomBtn
+              BtnContent={
+                <>
+                  <p style={{ color: "#000" }}>Сохранить</p>
+                </>
+              }
+              BgColor={"transparent"}
+              type="submit"
+              BtnBorder={"1px solid #e7e7e7"}
+            />
+          </Box>
+        </Box>
+      </form>
     </Box>
   );
 };
