@@ -112,8 +112,8 @@ export const MainProd = () => {
   const handleCheckboxChange = (e) => {
     const { checked } = e.target;
     setFormData({ ...formData, status: checked });
+    console.log("Form Data:", formData);
   };
-
   return (
     <Box className={s.prod}>
       <Box className={s.prod__left}>
@@ -122,11 +122,12 @@ export const MainProd = () => {
           <Box>
             <input
               type="checkbox"
-              id="toggle"
+              id="status"
               className={s.checkbox}
-              onChange={handleCheckboxChange} // Добавляем обработчик события для чекбокса
+              onChange={handleCheckboxChange}
+              checked={formData.status} // Устанавливаем значение флажка на основе status
             />
-            <label for="toggle" className={s.switch}></label>
+            <label htmlFor="status" className={s.switch}></label>
           </Box>
         </Box>
         <Box className={s.prod__lang}>
