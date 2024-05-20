@@ -1,5 +1,5 @@
 import { Header } from "components/Header/Header";
-import React from "react";
+import React, { useState } from "react";
 import s from "./Products.module.scss";
 import UnderHeader from "components/UnderHeader/UnderHeader";
 import CustomInput from "components/Custom/CustomInput/CustomInput";
@@ -10,12 +10,24 @@ import {
   PlusIcon,
   ReloadIcon,
 } from "components/SvgComponents/SvgComponents";
-import { Box } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { CustomTable } from "components/Custom/CustomTable/CustomTable";
 import useProductsProps from "./useProductsProps";
+import { Skeleton } from "antd";
+
 export const Products = () => {
   const { data, columns, setSearchQuery } = useProductsProps();
+  const [isLoading, setIsLoading] = useState(false); // State to track loading state
+
+  const handleRefresh = () => {
+    setIsLoading(true); // Set loading state to true
+    // Simulate loading delay
+    setTimeout(() => {
+      setIsLoading(false); // Set loading state to false after data is loaded
+    }, 1000);
+  };
+
   return (
     <>
       <Header
@@ -23,6 +35,7 @@ export const Products = () => {
         headerBtn1={
           <Box className={s.Products__btn}>
             <CustomBtn
+              Onclick={handleRefresh}
               BgColor={"white"}
               type={"button"}
               BtnBorder={"1px solid #E5E9EB"}
@@ -85,7 +98,19 @@ export const Products = () => {
         }
       />
       <Box className={s.products__wrapper}>
-        <CustomTable columns={columns} data={data} />
+        {isLoading ? (
+          <Stack className={s.skeletonWrapper}>
+            <Skeleton height="40px" />
+            <Skeleton height="40px" />
+            <Skeleton height="40px" />
+            <Skeleton height="40px" />
+            <Skeleton height="40px" />
+            <Skeleton height="40px" />
+            <Skeleton height="40px" />
+          </Stack>
+        ) : (
+          <CustomTable key={isLoading} columns={columns} data={data} />
+        )}
       </Box>
     </>
   );

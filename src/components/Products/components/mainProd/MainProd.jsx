@@ -14,6 +14,7 @@ import {
 import useMainProdProps from "./useMainProdProps";
 import { useNavigate } from "react-router-dom";
 import { PLusCIrcleIcon } from "components/SvgComponents/SvgComponents";
+import toast, { Toaster } from "react-hot-toast";
 
 const animatedComponents = makeAnimated();
 
@@ -102,7 +103,10 @@ export const MainProd = () => {
           },
         }
       );
-      navigate("/admin/categories/products");
+      toast.success("Продукт успешно сохранен!");
+      setTimeout(() => {
+        navigate("/admin/categories/products");
+      }, 1000);
     } catch (error) {
       console.error(
         "Error creating product:",
@@ -118,6 +122,7 @@ export const MainProd = () => {
 
   return (
     <Box>
+      <Toaster />
       <form className={s.prod} onSubmit={handleSubmit}>
         <Box className={s.prod__left}>
           <Box className={s.prod__top}>
@@ -279,14 +284,18 @@ export const MainProd = () => {
                 </span>
               </label>
               <div className={s.prod__tws}>
-            {previewURL && (
-              <img
-                src={previewURL}
-                alt="Selected file preview"
-                style={{ width: "100%", height: "auto", marginBottom: "10px" }}
-              />
-            )}
-          </div>
+                {previewURL && (
+                  <img
+                    src={previewURL}
+                    alt="Selected file preview"
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      marginBottom: "10px",
+                    }}
+                  />
+                )}
+              </div>
             </div>
 
             <CustomBtn

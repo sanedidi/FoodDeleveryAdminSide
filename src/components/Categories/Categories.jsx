@@ -17,12 +17,15 @@ import { CustomTable } from "components/Custom/CustomTable/CustomTable";
 
 import { Header } from "components/Header/Header";
 import html2canvas from "html2canvas";
-import { Box, useDisclosure } from "@chakra-ui/react";
+import { Box, Stack, useDisclosure } from "@chakra-ui/react";
 import { CustomModal } from "./imports";
 import UseCAtegoriesAddProps from "./CategoriesAdd/UseCAtegoriesAddProps";
 import { Done } from "@mui/icons-material";
+import { Lang } from "components/lang";
+import { Skeleton } from "antd";
 
 const Categories = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const handleMainImageChange = (event) => {
     const file = event.target.files[0];
     setMainImage(file);
@@ -63,12 +66,20 @@ const Categories = () => {
       });
     }
   };
+  const handleRefresh = () => {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  };
 
   return (
     <>
       <Header
         headerBtn1={
           <CustomBtn
+            Onclick={handleRefresh}
             BgColor={"white"}
             type={"button"}
             BtnBorder={"1px solid #E5E9EB"}
@@ -116,7 +127,13 @@ const Categories = () => {
           }
         />
         <Box className={s.categories__wrapper} ref={categoriesWrapperRef}>
-          <CustomTable columns={columns} data={data} />
+          {isLoading ? (
+            <Stack>
+              <Skeleton height="40px" />
+            </Stack>
+          ) : (
+            <CustomTable key={isLoading} columns={columns} data={data} />
+          )}
         </Box>
       </Box>
       <CustomModal
@@ -127,28 +144,11 @@ const Categories = () => {
             <Box className={s.categoriesAdd_modal}>
               <Box className={s.categoriesAdd__underHead_modal}>
                 <Box className={s.categoriesAdd__cont}>
-                <Box className={s.categoriesAdd__cont}>
-
-                    <h1>Общие настройки</h1>
-                  </Box>
-                  <Box className="categoriesAdd__bottom_modal">
+                  <Box className={s.categories__bottom_modal}>
                     <Box className="categoriesAdd__bottom_lang">
-                      {lang.map((el, index) => {
-                        return (
-                          <button
-                            key={index}
-                            type="button"
-                            className={`categoriesAdd__language ${
-                              activeLang === el.lang ? "activeLang" : ""
-                            }`}
-                          >
-                            <h2>{el.lang}</h2>
-                            <span>{el.icon}</span>
-                          </button>
-                        );
-                      })}
+                      <Lang />
                     </Box>
-                    <form className="categoriesAdd__upload">
+                    <form className={s.categoriesAdd__upload}>
                       <Box className="categoriesAdd__upload_left">
                         {mainImage ? (
                           <Box className={s["drag-file-area"]}>

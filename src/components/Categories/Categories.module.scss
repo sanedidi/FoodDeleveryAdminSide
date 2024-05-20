@@ -36,4 +36,9 @@
     width: 100%;
     font-size: 15px;
   }
+  &__bottom_modal{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 }

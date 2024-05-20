@@ -17,16 +17,16 @@ export const MenuComp = ({
           className={MenuClass}
           style={{ display: "flex", alignItems: "center", gap: "5px" }}
         >
-          {MenuSvg1}
+          {MenuSvg1 && MenuSvg1}
           {MenuBtn}
-          {MenuSvg}
+          {MenuSvg && MenuSvg}
         </div>
       </MenuButton>
       <Portal>
-        <MenuList >
-          <MenuItem>{ListMenu}</MenuItem>
-          <MenuItem>{ListMenu1}</MenuItem>
-          <MenuItem>{ListMenu3}</MenuItem>
+        <MenuList>
+          {ListMenu && <MenuItem>{ListMenu}</MenuItem>}
+          {ListMenu1 && <MenuItem>{ListMenu1}</MenuItem>}
+          {ListMenu3 && <MenuItem>{ListMenu3}</MenuItem>}
         </MenuList>
       </Portal>
     </Menu>

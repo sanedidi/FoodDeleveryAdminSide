@@ -1,5 +1,7 @@
 .products{
     &__wrapper{
+        height:80vh;
+        overflow-y: scroll;
         padding: 16px;
     }
 }
