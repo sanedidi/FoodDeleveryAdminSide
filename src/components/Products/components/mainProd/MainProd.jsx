@@ -8,28 +8,25 @@ import {
   useState,
   useEffect,
   CustomInput,
+  Textarea,
 } from "./imports";
+import useMainProdProps from "./useMainProdProps";
 
 const animatedComponents = makeAnimated();
 
 export const MainProd = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [formData, setFormData] = useState({
-    branch_id: "",
-    category_id: "",
-    description: "",
-    income_price: "",
-    name: "",
-    packaging_code: "",
-    quantity: "",
-    sale_price: "",
-    storage_code: "",
-    tax_code: "",
-    status: false,
-  });
-
-  const [branches, setBranches] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const {
+    branches,
+    setBranches,
+    selectedFile,
+    setSelectedFile,
+    formData,
+    setFormData,
+    categories,
+    setCategories,
+    handleFileChange,
+    handleCheckboxChange,
+  } = useMainProdProps();
 
   useEffect(() => {
     axios
@@ -50,16 +47,6 @@ export const MainProd = () => {
         console.error("Error fetching categories:", error);
       });
   }, []);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -109,10 +96,9 @@ export const MainProd = () => {
       );
     }
   };
-  const handleCheckboxChange = (e) => {
-    const { checked } = e.target;
-    setFormData({ ...formData, status: checked });
-    console.log("Form Data:", formData);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
   return (
     <Box className={s.prod}>
@@ -125,7 +111,7 @@ export const MainProd = () => {
               id="status"
               className={s.checkbox}
               onChange={handleCheckboxChange}
-              checked={formData.status} // Устанавливаем значение флажка на основе status
+              checked={formData.status}
             />
             <label htmlFor="status" className={s.switch}></label>
           </Box>
@@ -137,15 +123,16 @@ export const MainProd = () => {
           <form onSubmit={handleSubmit}>
             <Box className={s.prod__name}>
               <h2 className={s.prod__bottom_title}>*Name</h2>
-              <input
-                placeholder="Enter Name"
+              <CustomInput
+                InputPlaceHolder={"Enter Name"}
                 name="name"
+                className={s.prod__we}
                 onChange={handleInputChange}
               />
             </Box>
             <Box className={s.prod__name}>
               <h2 className={s.prod__bottom_title}>*Description</h2>
-              <textarea
+              <Textarea
                 placeholder="Enter Description"
                 name="description"
                 onChange={handleInputChange}

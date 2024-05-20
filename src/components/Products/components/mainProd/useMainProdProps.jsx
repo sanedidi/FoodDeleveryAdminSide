@@ -1,39 +1,45 @@
 import React from "react";
 import { useState } from "./imports";
 const useMainProdProps = () => {
-  const [article, setArticle] = useState("");
-  const colourOptions = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
-  const colourOptions1 = [
-    { value: "chocolate", label: "Делимый" },
-    { value: "strawberry", label: "Не делимый " },
-  ];
-  const colourOptions3 = [
-    { value: "chocolate", label: "Делимый" },
-    { value: "strawberry", label: "Не делимый" },
-  ];
-  const generateRandomNumber = () => {
-    const randomNumber = Math.floor(100000 + Math.random() * 900000);
-    setArticle(randomNumber.toString());
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [branches, setBranches] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  const [formData, setFormData] = useState({
+    branch_id: "",
+    category_id: "",
+    description: "",
+    income_price: "",
+    name: "",
+    packaging_code: "",
+    quantity: "",
+    sale_price: "",
+    storage_code: "",
+    tax_code: "",
+    status: false,
+  });
+
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
   };
-  const handleArticleChange = (event) => {
-    let value = event.target.value;
-    if (value.length > 6) {
-      value = value.slice(0, 6);
-    }
-    setArticle(value);
+
+  const handleCheckboxChange = (e) => {
+    const { checked } = e.target;
+    setFormData({ ...formData, status: checked });
+    console.log("Form Data:", formData);
   };
+
   return {
-    article,
-    setArticle,
-    colourOptions,
-    colourOptions1,
-    colourOptions3,
-    generateRandomNumber,
-    handleArticleChange,
+    selectedFile,
+    setSelectedFile,
+    formData,
+    setFormData,
+    branches,
+    setBranches,
+    categories,
+    setCategories,
+    handleFileChange,
+    handleCheckboxChange,
   };
 };
 

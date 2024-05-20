@@ -10,7 +10,7 @@ const CustomInput = ({
   InputPlaceHolder,
   value,
   name,
-  CLassName,
+  className,
 }) => {
   return (
     <InputGroup style={{ display: "flex", alignItems: "center" }}>
@@ -25,7 +25,7 @@ const CustomInput = ({
         onChange={onChange}
         placeholder={InputPlaceHolder}
         name={name}
-        className={CLassName}
+        className={className}
       />
     </InputGroup>
   );
