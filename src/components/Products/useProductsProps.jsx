@@ -125,7 +125,10 @@ const useProductsProps = () => {
             ListMenu={
               <div className={s.categories__menu}>
                 <div
-                  onClick={() => onOpenModal2()} // Исправлено
+                  onClick={() => {
+                    onOpenModal2();
+                    setSelectedProductId(item.id);
+                  }}
                   className={s.categories__menu}
                 >
                   Удалить
@@ -138,8 +141,6 @@ const useProductsProps = () => {
                 onClick={() => handleEditProduct(item.id)}
                 className={s.categories__menu}
               >
-                {" "}
-                {/* Вызов функции редактирования */}
                 Изменить
                 <EditIcon color={"#0E73FC"} />
               </div>
@@ -169,7 +170,7 @@ const useProductsProps = () => {
     selectedProductId,
     name,
     setName,
-    handleDeleteProduct, // Добавлено удаление продукта
+    handleDeleteProduct,
   };
 };
 

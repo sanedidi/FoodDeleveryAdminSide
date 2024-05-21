@@ -45,12 +45,10 @@ export const Products = () => {
 
   const deleteProduct = async () => {
     try {
-      // Удаление продукта
       await axios.delete(
         `https://food-delivery-api-n6as.onrender.com/v1/product/${selectedProductId}`
       );
       console.log("Product deleted successfully");
-      // Обновление списка продуктов после удаления
       setIsOpenModal2(false);
     } catch (error) {
       console.error("Error deleting product:", error);
@@ -149,7 +147,6 @@ export const Products = () => {
                       </Box>
                       <form className={s.categoriesAdd__upload}>
                         <Box className="categoriesAdd__right">
-                          {/* Form Inputs */}
                         </Box>
                       </form>
                     </Box>
@@ -183,7 +180,6 @@ export const Products = () => {
           primaryBtnText="Да"
           onPrimaryBtnClick={() => {
             deleteProduct();
-            setSelectedProductId(selectedProductId); 
           }}
         />
       </>
