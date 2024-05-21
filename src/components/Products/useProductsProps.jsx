@@ -6,13 +6,13 @@ import MenuComp from "components/MenuComponent/MenuComp";
 import { CategoryFilterIcon } from "components/SvgComponents/SvgComponents";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import s from "../Categories/Categories.module.scss";
+
 const useProductsProps = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
-  const [name, setName] = useState("");
 
   const onOpenModal1 = () => setIsOpenModal1(true);
   const onCloseModal1 = () => setIsOpenModal1(false);
@@ -26,9 +26,7 @@ const useProductsProps = () => {
 
   const handleDeleteProduct = async (productId) => {
     try {
-      const response = await axios.delete(
-        `https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`
-      );
+      const response = await axios.delete(`https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`);
       console.log(response.data);
       getProducts();
     } catch (error) {
@@ -49,7 +47,7 @@ const useProductsProps = () => {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [products]);
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -74,9 +72,7 @@ const useProductsProps = () => {
       key: "category_id",
       width: 120,
       render: (categoryId) => {
-        const product = filteredProducts.find(
-          (prod) => prod.category_id === categoryId
-        );
+        const product = filteredProducts.find((prod) => prod.category_id === categoryId);
         return product ? product.CategoryData.name : "";
       },
     },
@@ -168,9 +164,6 @@ const useProductsProps = () => {
     onCloseModal2,
     setSelectedProductId,
     selectedProductId,
-    name,
-    setName,
-    handleDeleteProduct,
   };
 };
 

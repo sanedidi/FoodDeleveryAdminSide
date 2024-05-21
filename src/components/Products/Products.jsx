@@ -35,6 +35,8 @@ export const Products = () => {
     selectedProductId,
   } = useProductsProps();
   const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
 
   const handleRefresh = () => {
     setIsLoading(true);
@@ -55,6 +57,27 @@ export const Products = () => {
     }
   };
 
+  const paginatedData = data.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
+  const totalPages = Math.ceil(data.length / pageSize);
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    } else {
+      console.log("Нет предыдущей страницы");
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    } else {
+      console.log("Нет следующей страницы");
+    }
+  };
   return (
     <>
       <Header
@@ -129,7 +152,24 @@ export const Products = () => {
         {isLoading ? (
           <Skeleton active />
         ) : (
-          <CustomTable key={isLoading} columns={columns} data={data} />
+          <>
+            <CustomTable
+              key={isLoading}
+              columns={columns}
+              data={paginatedData}
+            />
+            <Box className={s.pagination}>
+              <button onClick={handlePrevPage} disabled={currentPage === 1}>
+                Previous
+              </button>
+              <button
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </Box>
+          </>
         )}
       </Box>
       <>
@@ -146,8 +186,7 @@ export const Products = () => {
                         <Lang />
                       </Box>
                       <form className={s.categoriesAdd__upload}>
-                        <Box className="categoriesAdd__right">
-                        </Box>
+                        <Box className="categoriesAdd__right"></Box>
                       </form>
                     </Box>
                   </Box>
