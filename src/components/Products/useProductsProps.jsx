@@ -109,12 +109,6 @@ const useProductsProps = () => {
                 <EditIcon color={"#0E73FC"} />
               </div>
             }
-            ListMenu3={
-              <div className={s.categories__menu}>
-                Показать
-                <IoEye color={"#0E73FC"} />
-              </div>
-            }
           />
         </div>
       ),
