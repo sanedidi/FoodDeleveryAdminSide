@@ -45,7 +45,7 @@ export const MainProd = () => {
         console.error("Error fetching branches:", error);
       });
 
-    axiosalert
+    axios
       .get("https://food-delivery-api-n6as.onrender.com/v1/categories")
       .then((response) => {
         setCategories(response.data.Data.category);
@@ -227,22 +227,22 @@ export const MainProd = () => {
               />
             </Box>
             <Box className={s.prod__inputs}>
-              <div className={s.prod__input}>
+              <Box className={s.prod__input}>
                 <h2 className={s.prod__bottom_title}>*Storage Code</h2>
                 <CustomInput
                   InputPlaceHolder="Enter storage code"
                   name="storage_code"
                   onChange={handleInputChange}
                 />
-              </div>
-              <div className={s.prod__input}>
+              </Box>
+              <Box className={s.prod__input}>
                 <h2 className={s.prod__bottom_title}>*Tax Code</h2>
                 <CustomInput
                   InputPlaceHolder="Enter tax code"
                   name="tax_code"
                   onChange={handleInputChange}
                 />
-              </div>
+              </Box>
             </Box>
             <Box className={s.prod__price_input}>
               <h2 className={s.prod__bottom_title}>Packing Code</h2>
@@ -257,7 +257,7 @@ export const MainProd = () => {
         </Box>
         <Box className={s.prod__right}>
           <Box className={s.prod__name}>
-            <div className={s.prod__preview}>
+            <Box className={s.prod__preview}>
               <label className={s.prod__photo}>
                 <input
                   style={{ display: "none" }}
@@ -269,7 +269,7 @@ export const MainProd = () => {
                   <PLusCIrcleIcon />{" "}
                 </span>
               </label>
-              <div className={s.prod__tws}>
+              <Box className={s.prod__tws}>
                 {previewURL && (
                   <img
                     src={previewURL}
@@ -281,16 +281,16 @@ export const MainProd = () => {
                     }}
                   />
                 )}
-              </div>
-            </div>
+              </Box>
+            </Box>
 
             <CustomBtn
               BtnContent={
                 <>
-                  <p style={{ color: "#000" }}>Сохранить</p>
+                  <p style={{ color: "#fff" }}>Сохранить</p>
                 </>
               }
-              BgColor={"transparent"}
+              BgColor={"blue"}
               type="submit"
               BtnBorder={"1px solid #e7e7e7"}
             />

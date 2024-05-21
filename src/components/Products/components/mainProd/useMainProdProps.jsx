@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "./imports";
+import { useState } from "react";
+
 const useMainProdProps = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [branches, setBranches] = useState([]);
@@ -25,8 +25,7 @@ const useMainProdProps = () => {
 
   const handleCheckboxChange = (e) => {
     const { checked } = e.target;
-    setFormData({ ...formData, status: checked });
-    console.log("Form Data:", formData);
+    setFormData((prevFormData) => ({ ...prevFormData, status: checked }));
   };
 
   return {
