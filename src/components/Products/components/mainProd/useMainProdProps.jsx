@@ -13,7 +13,6 @@ const useMainProdProps = () => {
     income_price: "",
     name: "",
     packaging_code: "",
-    quantity: "",
     sale_price: "",
     storage_code: "",
     tax_code: "",

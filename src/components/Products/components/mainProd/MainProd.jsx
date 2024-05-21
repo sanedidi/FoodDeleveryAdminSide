@@ -33,7 +33,7 @@ export const MainProd = () => {
     handleCheckboxChange,
   } = useMainProdProps();
 
-  const [previewURL, setPreviewURL] = useState(null); // State for photo preview URL
+  const [previewURL, setPreviewURL] = useState(null); 
 
   useEffect(() => {
     axios
@@ -45,7 +45,7 @@ export const MainProd = () => {
         console.error("Error fetching branches:", error);
       });
 
-    axios
+    axiosalert
       .get("https://food-delivery-api-n6as.onrender.com/v1/categories")
       .then((response) => {
         setCategories(response.data.Data.category);
@@ -59,7 +59,7 @@ export const MainProd = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setPreviewURL(URL.createObjectURL(file)); // Set preview URL
+      setPreviewURL(URL.createObjectURL(file)); 
     }
     handleFileChangeProps(e);
   };
@@ -74,16 +74,12 @@ export const MainProd = () => {
       !formData.branch_id ||
       !selectedFile
     ) {
-      alert("Please fill in all the required fields.");
+      toast.error("Please fill in all the required fields.");
       return;
     }
 
-    if (
-      isNaN(formData.income_price) ||
-      isNaN(formData.sale_price) ||
-      isNaN(formData.quantity)
-    ) {
-      alert("Please enter valid numeric values for price and quantity.");
+    if (isNaN(formData.income_price) || isNaN(formData.sale_price)) {
+      toast.error("Please enter valid numeric values for price.");
       return;
     }
 
@@ -231,16 +227,6 @@ export const MainProd = () => {
               />
             </Box>
             <Box className={s.prod__inputs}>
-              <div className={s.prod__input}>
-                <h2 className={s.prod__bottom_title}>*Количество</h2>
-                <CustomInput
-                  style={{ backgroundColor: "transparent" }}
-                  placeholder="quantity"
-                  name="quantity"
-                  type="number"
-                  onChange={handleInputChange}
-                />
-              </div>
               <div className={s.prod__input}>
                 <h2 className={s.prod__bottom_title}>*Storage Code</h2>
                 <CustomInput
