@@ -26,7 +26,7 @@ const useProductsProps = () => {
 
   const handleDeleteProduct = async (productId) => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`
       );
       getProducts();
@@ -168,6 +168,6 @@ const useProductsProps = () => {
     setSelectedProductId,
     selectedProductId,
   };
-};
+};  
 
 export default useProductsProps;
