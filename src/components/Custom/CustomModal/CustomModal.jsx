@@ -40,7 +40,6 @@ const CustomModal = ({
               BtnContent={secondaryBtnText}
             />
           ) : null}
-
           {primaryBtnText ? (
             <CustomBtn
               Onclick={onPrimaryBtnClick}

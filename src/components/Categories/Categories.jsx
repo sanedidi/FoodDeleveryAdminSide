@@ -176,7 +176,7 @@ const Categories = () => {
                               <label className="label">
                                 <input
                                   type="file"
-                                  className={s["default-file-input"]} // Updated class name
+                                  className={s["default-file-input"]} 
                                   onChange={handleMainImageChange}
                                 />
                                 <span className={s["browse-files-text"]}>

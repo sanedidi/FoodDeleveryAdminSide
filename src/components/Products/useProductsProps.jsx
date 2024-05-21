@@ -5,12 +5,36 @@ import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
 import MenuComp from "components/MenuComponent/MenuComp";
 import { CategoryFilterIcon } from "components/SvgComponents/SvgComponents";
 import { AiOutlineEllipsis } from "react-icons/ai";
-import { IoEye } from "react-icons/io5";
 import s from "../Categories/Categories.module.scss";
-
 const useProductsProps = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isOpenModal1, setIsOpenModal1] = useState(false);
+  const [isOpenModal2, setIsOpenModal2] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [name, setName] = useState("");
+
+  const onOpenModal1 = () => setIsOpenModal1(true);
+  const onCloseModal1 = () => setIsOpenModal1(false);
+  const onOpenModal2 = () => setIsOpenModal2(true);
+  const onCloseModal2 = () => setIsOpenModal2(false);
+
+  const handleEditProduct = (productId) => {
+    setSelectedProductId(productId);
+    onOpenModal1();
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      const response = await axios.delete(
+        `https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`
+      );
+      console.log(response.data);
+      getProducts();
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
 
   const API_URL = "https://food-delivery-api-n6as.onrender.com/v1/products";
 
@@ -26,10 +50,11 @@ const useProductsProps = () => {
   useEffect(() => {
     getProducts();
   }, []);
+
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  const CategoryName = filteredProducts?.map((e) => e.CategoryData.name);
+
   const columns = [
     {
       title: "No",
@@ -99,12 +124,22 @@ const useProductsProps = () => {
             }
             ListMenu={
               <div className={s.categories__menu}>
-                Удалить
-                <DeleteIcon color={"#0E73FC"} />
+                <div
+                  onClick={() => onOpenModal2()} // Исправлено
+                  className={s.categories__menu}
+                >
+                  Удалить
+                  <DeleteIcon color={"#0E73FC"} />
+                </div>
               </div>
             }
             ListMenu1={
-              <div className={s.categories__menu}>
+              <div
+                onClick={() => handleEditProduct(item.id)}
+                className={s.categories__menu}
+              >
+                {" "}
+                {/* Вызов функции редактирования */}
                 Изменить
                 <EditIcon color={"#0E73FC"} />
               </div>
@@ -124,6 +159,17 @@ const useProductsProps = () => {
     })),
     columns,
     setSearchQuery,
+    isOpenModal1,
+    setIsOpenModal1,
+    isOpenModal2,
+    setIsOpenModal2,
+    onCloseModal1,
+    onCloseModal2,
+    setSelectedProductId,
+    selectedProductId,
+    name,
+    setName,
+    handleDeleteProduct, // Добавлено удаление продукта
   };
 };
 
