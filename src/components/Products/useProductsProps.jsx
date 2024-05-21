@@ -13,6 +13,10 @@ const useProductsProps = () => {
   const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onOpenModal1 = () => setIsOpenModal1(true);
   const onCloseModal1 = () => setIsOpenModal1(false);
@@ -38,18 +42,25 @@ const useProductsProps = () => {
   const API_URL = "https://food-delivery-api-n6as.onrender.com/v1/products";
 
   const getProducts = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get(API_URL);
       setProducts(response.data.Data.products);
+      setTotalPages(response.data.Data.totalPages);
     } catch (error) {
       console.error("Error fetching products:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     getProducts();
-  }, [products]);
+  }, [currentPage, pageSize, products]);
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -151,13 +162,20 @@ const useProductsProps = () => {
   ];
 
   return {
+    columns,
     data: filteredProducts.map((item, index) => ({
       key: item.id || index,
-      number: index + 1,
+      number: (currentPage - 1) * pageSize + index + 1,
       ...item,
-      CategoryName: item.CategoryData.name,
     })),
-    columns,
+    paginationData: {
+      current: currentPage,
+      pageSize: pageSize,
+      totalPages: totalPages,
+    },
+    setSearchQuery,
+    isLoading,
+    handlePageChange,
     setSearchQuery,
     isOpenModal1,
     setIsOpenModal1,

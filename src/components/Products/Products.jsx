@@ -29,10 +29,9 @@ export const Products = () => {
     isOpenModal2,
     setIsOpenModal1,
     setIsOpenModal2,
-    setSelectedProductId,
-    onCloseModal1,
-    onCloseModal2,
     selectedProductId,
+    paginationData,
+    handlePageChange,
   } = useProductsProps();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -129,12 +128,21 @@ export const Products = () => {
           <Skeleton active />
         ) : (
           <>
-            <CustomTable
-              key={isLoading}
-              columns={columns}
-              data={data}  // Передаем все данные без ограничений
-            />
-            {/* Удаляем логику пагинации */}
+            <CustomTable key={isLoading} columns={columns} data={data} />
+            <Box className={s.pagination}>
+            <ul>
+          {Array.from({ length: paginationData.totalPages }, (_, index) => (
+            <li key={index}>
+              <button
+                className={paginationData.current === index + 1 ? s.active : ""}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
+            </Box>
           </>
         )}
       </Box>
