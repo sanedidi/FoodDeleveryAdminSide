@@ -26,9 +26,7 @@ const useProductsProps = () => {
 
   const handleDeleteProduct = async (productId) => {
     try {
-      const response = await axios.delete(
-        `https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`
-      );
+      const response = await axios.delete(`https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`);
       console.log(response.data);
       getProducts();
     } catch (error) {
@@ -74,9 +72,7 @@ const useProductsProps = () => {
       key: "category_id",
       width: 120,
       render: (categoryId) => {
-        const product = filteredProducts.find(
-          (prod) => prod.category_id === categoryId
-        );
+        const product = filteredProducts.find((prod) => prod.category_id === categoryId);
         return product ? product.CategoryData.name : "";
       },
     },
