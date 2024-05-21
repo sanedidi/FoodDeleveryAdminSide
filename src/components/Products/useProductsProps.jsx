@@ -168,6 +168,6 @@ const useProductsProps = () => {
     setSelectedProductId,
     selectedProductId,
   };
-};  
+};
 
 export default useProductsProps;
