@@ -61,3 +61,88 @@ https://food-delivery-api-n6as.onrender.com/v1/product/{id}  put
                       onCloseModal2();
                     }}
                   />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##################################################################################################################
+
+
+
+   <Select
+                    placeholder="Выбирите Филлиал"
+                    options={
+                      Array.isArray(branches)
+                        ? branches.map((branch) => ({
+                          value: branch.id,
+                          label: `${branch.address}`,
+                        }))
+                        : []
+                    }
+                    name="branch_id"
+                    onChange={(selectedOption) =>
+                      setProductData({
+                        ...productData,
+                        branch_id: selectedOption.value,
+                      })
+                    }
+                  />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

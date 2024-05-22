@@ -92,54 +92,51 @@ export const ProductsEdit = () => {
   return (
     <>
       <Header title="Редактировать" headerBtn1={<CustomBtn BgColor="blue" BtnContent="Сохранить" onClick={handleSubmit} />} />
-      <Box>
-        <Box>
-          <form className={s.edit} onSubmit={handleSubmit}>
-            <Box className={s.edit__left}>
-              <Box className={s.edit__top}>
-                <h2 className={s.edit__title}>Продукт</h2>
-                <Box>
-                  <input
-                    type="checkbox"
-                    id="status"
-                    name="status"
-                    checked={productData.status}
-                    onChange={handleInputChange}
-                    className={s.checkbox}
-                  />
-                  <label htmlFor="status" className={s.switch}></label>
-                </Box>
-              </Box>
-              <Box className={s.edit__lang}>
-                <Lang />
-              </Box>
-              <Box className={s.edit__bottom}>
-                <Box className={s.edit__name}>
-                  <h2 className={s.edit__bottom_title}>Название</h2>
-                  <CustomInput
-                    InputPlaceHolder="Введите название"
-                    name="name"
-                    value={productData.name}
-                    onChange={handleInputChange}
-                    className={s.edit__we}
-                  />
-                </Box>
-                <Box className={s.edit__name}>
-                  <h2 className={s.edit__bottom_title}>Описание</h2>
-                  <Textarea
-                    placeholder="Введите описание"
-                    name="description"
-                    value={productData.description}
-                    onChange={handleInputChange}
-                  />
-                </Box>
+      <Box className={s.edit__wrapper}>
+        <form className={s.edit} onSubmit={handleSubmit}>
+          <Box className={s.edit__left}>
+            <Box className={s.edit__top}>
+              <h2 className={s.edit__title}>Продукт</h2>
+              <Box>
+                <input
+                  type="checkbox"
+                  id="status"
+                  name="status"
+                  checked={productData.status}
+                  onChange={handleInputChange}
+                  className={s.checkbox}
+                />
+                <label htmlFor="status" className={s.switch}></label>
               </Box>
             </Box>
-            <Box className={s.edit__right}>
-              <Box className={s.edit__info}>
-                <h2 className={s.edit__info_title}>Информация</h2>
-                <Box className={s.edit__bottom}>
-                  <Box className={s.edit__info_items}>
+            <Box className={s.edit__lang}>
+              <Lang />
+            </Box>
+            <Box className={s.edit__bottom}>
+              <Box className={s.edit__name}>
+                <h2 className={s.edit__bottom_title}>Название</h2>
+                <CustomInput
+                  InputPlaceHolder="Введите название"
+                  name="name"
+                  value={productData.name}
+                  onChange={handleInputChange}
+                  className={s.edit__we}
+                />
+              </Box>
+              <Box className={s.edit__name}>
+                <h2 className={s.edit__bottom_title}>Описание</h2>
+                <Textarea
+                  placeholder="Введите описание"
+                  name="description"
+                  value={productData.description}
+                  onChange={handleInputChange}
+                />
+              </Box>
+            </Box>
+            <Box className={s.edit__info}>
+              <Box className={s.edit__bottom}>
+                <Box className={s.edit__info_items}>
+                  <Box className={s.edit__cat} >
                     <Select
                       placeholder="Выберите Категорию"
                       options={
@@ -157,31 +154,31 @@ export const ProductsEdit = () => {
                         })
                       }
                     />
-                    <Select
-                      placeholder="Выбирите Филлиал"
-                      options={
-                        Array.isArray(branches)
-                          ? branches.map((branch) => ({
-                            value: branch.id,
-                            label: `${branch.address}`,
-                          }))
-                          : []
-                      }
-                      name="branch_id"
-                      onChange={(selectedOption) =>
-                        setProductData({
-                          ...productData,
-                          branch_id: selectedOption.value,
-                        })
-                      }
-                    />
+                  </Box>
+                  <div className={s.edit__price}>
 
+                    <CustomInput
+                      InputPlaceHolder="income_price"
+                      name="income_price"
+                      value={productData.income_price}
+                      onChange={handleInputChange}
+                    />
+                    <CustomInput
+                      InputPlaceHolder="sale_price"
+                      name="sale_price"
+                      value={productData.sale_price}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className={s.edit__art}>
                     <CustomInput
                       InputPlaceHolder="Артикул"
                       name="articul"
                       value={productData.articul}
                       onChange={handleInputChange}
                     />
+                  </div>
+                  <div className={s.edit__inputs}>
                     <CustomInput
                       InputPlaceHolder="Код хранилища"
                       name="storage_code"
@@ -194,40 +191,63 @@ export const ProductsEdit = () => {
                       value={productData.tax_code}
                       onChange={handleInputChange}
                     />
+
+
                     <CustomInput
                       InputPlaceHolder="Код упаковки"
                       name="packaging_code"
                       value={productData.packaging_code}
                       onChange={handleInputChange}
                     />
-                    <Box className={s.edit__image}>
-                      <h2 className={s.edit__bottom_title}>Фото</h2>
-                      <input
-                        type="file"
-                        name="photo"
-                        accept="photo/*"
-                        onChange={handleInputChange}
-                      />
-                      {productData.image && (
-                        <img src={URL.createObjectURL(productData.image)} alt="Продукт" className={s.edit__image_preview} />
-                      )}
-                    </Box>
-                  </Box>
+                  </div>
+                  <Select
+                    placeholder="Выбирите Филлиал"
+                    options={
+                      Array.isArray(branches)
+                        ? branches.map((branch) => ({
+                          value: branch.id,
+                          label: `${branch.address}`,
+                        }))
+                        : []
+                    }
+                    name="branch_id"
+                    onChange={(selectedOption) =>
+                      setProductData({
+                        ...productData,
+                        branch_id: selectedOption.value,
+                      })
+                    }
+                  />
                 </Box>
               </Box>
             </Box>
-            <CustomBtn
-              BtnContent={
-                <>
-                  <p style={{ color: "#fff" }}>Сохранить</p>
-                </>
-              }
-              BgColor={"blue"}
-              type="submit"
-              BtnBorder={"1px solid #e7e7e7"}
-            />
-          </form>
-        </Box>
+          </Box>
+          <Box className={s.edit__right}>
+            <Box className={s.edit__image}>
+              <h2 className={s.edit__bottom_title}>Фото</h2>
+              <input
+                type="file"
+                name="photo"
+                accept="photo/*"
+                onChange={handleInputChange}
+              />
+              {productData.image && (
+                <img src={URL.createObjectURL(productData.image)} alt="Продукт" className={s.edit__image_preview} />
+              )}
+              <CustomBtn
+                BtnContent={
+                  <>
+                    <p style={{ color: "#fff" }}>Сохранить</p>
+                  </>
+                }
+                BgColor={"blue"}
+                type="submit"
+                BtnBorder={"1px solid #e7e7e7"}
+              />
+            </Box>
+          </Box>
+
+        </form>
       </Box>
     </>
   );
