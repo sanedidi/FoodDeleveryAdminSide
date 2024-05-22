@@ -7,9 +7,10 @@ import s from './ProductsEdit.module.scss';
 import useProductsAddProps from '../ProductsAdd/useProductsAddProps';
 
 export const ProductsEdit = () => {
-  const { categories, setCategories } = useProductsAddProps()
   const { productId } = useParams();
   const [branches, setBranches] = useState([]);
+  const [categories, setCategories] = useState([]);
+
 
   const [productData, setProductData] = useState({
     name: '',
@@ -40,8 +41,8 @@ export const ProductsEdit = () => {
       try {
         const categoriesResponse = await axios.get(`https://food-delivery-api-n6as.onrender.com/v1/categories`);
         const branchesResponse = await axios.get(`https://food-delivery-api-n6as.onrender.com/v1/branches`);
-        setCategories(categoriesResponse.data.Data);
-        setBranches(branchesResponse.data.Data);
+        setCategories(categoriesResponse.data.Data.category);
+        setBranches(branchesResponse.data.Data.branches);
       } catch (error) {
         console.error('Ошибка при получении категорий или филиалов:', error);
       }
@@ -145,10 +146,9 @@ export const ProductsEdit = () => {
                         Array.isArray(categories)
                           ? categories.map((category) => ({
                             value: category.id,
-                            label: category.name,
+                            label: `${category.name}`,
                           }))
-                          : []
-                      }
+                          : []}
                       name="category_id"
                       onChange={(selectedOption) =>
                         setProductData({

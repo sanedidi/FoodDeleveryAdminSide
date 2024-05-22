@@ -1,7 +1,6 @@
 import React from 'react'
 
 const useProductsEditProps = () => {
-    const [categories, setCategories] = useState([]);
     const [branches, setBranches] = useState([]);
     const [productData, setProductData] = useState({
         name: '',
@@ -16,8 +15,8 @@ const useProductsEditProps = () => {
         packaging_code: '',
         status: false,
         photo: null
-      });
-      
+    });
+
     return {
         categories, setCategories,
         branches, setBranches,
