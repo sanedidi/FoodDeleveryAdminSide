@@ -1,5 +1,4 @@
 import React from "react";
-import s from "./MainPros.module.scss";
 import Lang from "components/lang/Lang.jsx";
 import CustomInput from "components/Custom/CustomInput/CustomInput.jsx";
 import CustomSelect from "components/Custom/CustomSelect/CustomSelect.jsx";
@@ -12,7 +11,6 @@ import Select from "react-select";
 import { useEffect } from "react";
 export {
   React,
-  s,
   Lang,
   CustomSelect,
   CustomInput,

@@ -4,7 +4,7 @@ import s from "./ProductsAdd.module.scss";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { MainProd } from "../components/mainProd";
 import { Header } from "components/Header/Header";
-import { CustomBtn } from "../components/mainProd/imports";
+import { CustomBtn } from "../components/mainProd/as";
 import { Link } from "react-router-dom";
 
 export const ProductsAdd = () => {

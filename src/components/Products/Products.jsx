@@ -16,7 +16,7 @@ import { CustomTable } from "components/Custom/CustomTable/CustomTable";
 import { Skeleton } from "antd";
 import { CustomModal } from "components/Categories/imports";
 import useProductsProps from "./useProductsProps";
-import { Lang } from "./components/mainProd/imports";
+import { Lang } from "./components/mainProd/as";
 import s from "./Products.module.scss";
 import axios from "axios";
 

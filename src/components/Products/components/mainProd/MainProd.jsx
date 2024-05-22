@@ -1,20 +1,21 @@
-import axios from "axios";
 import {
   Box,
   Lang,
   Select,
   makeAnimated,
-  s,
   useState,
   useEffect,
   CustomInput,
   Textarea,
   CustomBtn,
-} from "./imports";
+  toast,
+  Toaster,
+  axios,
+} from "public/imports.js";
+import s from "./MainPros.module.scss";
 import useMainProdProps from "./useMainProdProps";
 import { useNavigate } from "react-router-dom";
 import { PLusCIrcleIcon } from "components/SvgComponents/SvgComponents";
-import toast, { Toaster } from "react-hot-toast";
 
 const animatedComponents = makeAnimated();
 
@@ -33,7 +34,7 @@ export const MainProd = () => {
     handleCheckboxChange,
   } = useMainProdProps();
 
-  const [previewURL, setPreviewURL] = useState(null); 
+  const [previewURL, setPreviewURL] = useState(null);
 
   useEffect(() => {
     axios
@@ -59,7 +60,7 @@ export const MainProd = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setPreviewURL(URL.createObjectURL(file)); 
+      setPreviewURL(URL.createObjectURL(file));
     }
     handleFileChangeProps(e);
   };
