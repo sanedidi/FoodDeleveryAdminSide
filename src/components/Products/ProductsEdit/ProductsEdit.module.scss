@@ -1,4 +1,10 @@
 .edit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-height: 84vh;
+  gap: 10px;
+  overflow-y: scroll;
+
   &__wrapper {
     padding: 16px;
   }
@@ -7,11 +13,6 @@
     background-color: red;
   }
 
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  max-height: 84vh;
-  gap: 10px;
-  overflow-y: scroll;
 
   &__left {
     background-color: #fff;
@@ -154,11 +155,24 @@
       width: 100%;
       max-width: 160px;
       height: 160px;
+
+      input {
+        z-index: 9999;
+        position: relative;
+      }
+
       object-fit: cover;
     }
 
     display: flex;
   }
+
+  &__info_items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
 }
 
 .switch {

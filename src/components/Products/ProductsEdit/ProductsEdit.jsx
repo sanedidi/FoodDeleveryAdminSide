@@ -132,9 +132,8 @@ export const ProductsEdit = () => {
                   onChange={handleInputChange}
                 />
               </Box>
-            </Box>
-            <Box className={s.edit__info}>
-              <Box className={s.edit__bottom}>
+
+              <Box className={s.edit__info}>
                 <Box className={s.edit__info_items}>
                   <Box className={s.edit__cat} >
                     <Select
@@ -155,7 +154,7 @@ export const ProductsEdit = () => {
                       }
                     />
                   </Box>
-                  <div className={s.edit__price}>
+                  <Box className={s.edit__price}>
 
                     <CustomInput
                       InputPlaceHolder="income_price"
@@ -169,16 +168,34 @@ export const ProductsEdit = () => {
                       value={productData.sale_price}
                       onChange={handleInputChange}
                     />
-                  </div>
-                  <div className={s.edit__art}>
+                  </Box>
+                  <Box className={s.edit__art}>
                     <CustomInput
                       InputPlaceHolder="Артикул"
                       name="articul"
                       value={productData.articul}
                       onChange={handleInputChange}
                     />
-                  </div>
-                  <div className={s.edit__inputs}>
+                  </Box>
+                  <Select
+                    placeholder="Выбирите Филлиал"
+                    options={
+                      Array.isArray(branches)
+                        ? branches.map((branch) => ({
+                          value: branch.id,
+                          label: `${branch.address}`,
+                        }))
+                        : []
+                    }
+                    name="branch_id"
+                    onChange={(selectedOption) =>
+                      setProductData({
+                        ...productData,
+                        branch_id: selectedOption.value,
+                      })
+                    }
+                  />
+                  <Box className={s.edit__inputs}>
                     <CustomInput
                       InputPlaceHolder="Код хранилища"
                       name="storage_code"
@@ -199,28 +216,12 @@ export const ProductsEdit = () => {
                       value={productData.packaging_code}
                       onChange={handleInputChange}
                     />
-                  </div>
-                  <Select
-                    placeholder="Выбирите Филлиал"
-                    options={
-                      Array.isArray(branches)
-                        ? branches.map((branch) => ({
-                          value: branch.id,
-                          label: `${branch.address}`,
-                        }))
-                        : []
-                    }
-                    name="branch_id"
-                    onChange={(selectedOption) =>
-                      setProductData({
-                        ...productData,
-                        branch_id: selectedOption.value,
-                      })
-                    }
-                  />
+                  </Box>
+
                 </Box>
               </Box>
             </Box>
+
           </Box>
           <Box className={s.edit__right}>
             <Box className={s.edit__image}>
