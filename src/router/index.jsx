@@ -17,9 +17,9 @@ import Calendar from "components/Calendar/Calendar";
 import { CategoriesAdd } from "components/Categories/CategoriesAdd";
 import { Products } from "components/Products";
 import ProductsAdd from "components/Products/ProductsAdd/ProductsAdd";
+import { ProductsEdit } from "components/Products/ProductsEdit";
 export const Router = observer(() => {
   const isAuth = authStore.isAuth;
-
   const role = JSON.parse(localStorage.getItem("auth"));
   const type = role?.userData?.data?.user_type;
 
@@ -30,14 +30,8 @@ export const Router = observer(() => {
           <Route path="/auth" element={<Login />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/resetPassword" element={<ResetPassword />} />
-          <Route
-            path="/auth/resetPassword/Step2"
-            element={<ResetPasswordStep2 />}
-          />
-          <Route
-            path="/auth/resetPassword/Step2/Step3"
-            element={<ResetPasswordStep3 />}
-          />
+          <Route path="/auth/resetPassword/Step2" element={<ResetPasswordStep2 />} />
+          <Route path="/auth/resetPassword/Step2/Step3" element={<ResetPasswordStep3 />} />
           <Route path="*" element={<Navigate to="/auth/login" />} />
           <Route path="" element={<Navigate to="/auth/login" />} />
         </Route>
@@ -56,10 +50,8 @@ export const Router = observer(() => {
         <Route path="/admin/calendar" element={<Calendar />} />
         <Route path="/admin/categories/add" element={<CategoriesAdd />} />
         <Route path="/admin/categories/products" element={<Products />} />
-        <Route
-          path="/admin/categories/products/add"
-          element={<ProductsAdd />}
-        />
+        <Route path="/admin/categories/products/add" element={<ProductsAdd />} />
+        <Route path="/admin/categories/products/edit/:productId" element={<ProductsEdit />} />
       </Route>
       <Route path="*" element={<Navigate to="/admin/dashboard" />} />
       <Route path="" element={<Navigate to="/admin/dashboard" />} />

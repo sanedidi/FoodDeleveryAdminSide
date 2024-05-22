@@ -6,6 +6,7 @@ import MenuComp from "components/MenuComponent/MenuComp";
 import { CategoryFilterIcon } from "components/SvgComponents/SvgComponents";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import s from "../Categories/Categories.module.scss";
+import { Link } from "react-router-dom";
 
 const useProductsProps = () => {
   const [products, setProducts] = useState([]);
@@ -147,13 +148,10 @@ const useProductsProps = () => {
               </div>
             }
             ListMenu1={
-              <div
-                onClick={() => handleEditProduct(item.id)}
-                className={s.categories__menu}
-              >
+              <Link to={`/admin/categories/products/edit/${item.id}`} className={s.categories__menu}>
                 Изменить
                 <EditIcon color={"#0E73FC"} />
-              </div>
+              </Link>
             }
           />
         </div>

@@ -2,15 +2,33 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "components/*": ["components/*"],
-      "modules/*": ["modules/*"],
-      "store/*": ["store/*"],
-      "assets/*": ["assets/*"],
-      "utils/*": ["utils/*"],
-      "api": ["services/api"],
-      "services/*": ["services/*"],
-      "hooks/*": ["hooks/*"],
-      "public/*": ["public/*"]
+      "components/*": [
+        "components/*"
+      ],
+      "modules/*": [
+        "modules/*"
+      ],
+      "store/*": [
+        "store/*"
+      ],
+      "assets/*": [
+        "assets/*"
+      ],
+      "utils/*": [
+        "utils/*"
+      ],
+      "api": [
+        "services/api"
+      ],
+      "services/*": [
+        "services/*"
+      ],
+      "hooks/*": [
+        "hooks/*"
+      ],
+      "public/*": [
+        "../public/*"
+      ] // добавляем алиас public
     }
   }
 }

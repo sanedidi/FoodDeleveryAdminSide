@@ -7,7 +7,7 @@ import { CustomInput } from "../src/components/Custom/CustomInput/CustomInput";
 import CustomModal from "../src/components/Custom/CustomModal/CustomModal";
 import Lang from "components/lang/Lang.jsx";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
+import { CustomBtn } from "components/Custom/CustomBtn";
 import MenuComp from "components/MenuComponent/MenuComp";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import {
@@ -24,6 +24,8 @@ import { authStore } from "store/auth.store";
 import Select from "react-select";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { PLusCIrcleIcon } from 'components/SvgComponents/SvgComponents'
+
 export {
   React,
   useEffect,
@@ -53,4 +55,5 @@ export {
   Select,
   toast,
   Toaster,
+  PLusCIrcleIcon
 };
