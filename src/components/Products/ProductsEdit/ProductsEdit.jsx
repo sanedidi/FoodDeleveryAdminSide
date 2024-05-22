@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Header } from 'components/Header/Header';
-import { CustomBtn, Box, CustomInput, Lang, Textarea } from 'public/imports';
+import { CustomBtn, Box, CustomInput, Lang, Textarea, Select } from 'public/imports';
 import s from './ProductsEdit.module.scss';
+import useProductsAddProps from '../ProductsAdd/useProductsAddProps';
 
 export const ProductsEdit = () => {
+  const { categories, setCategories } = useProductsAddProps()
   const { productId } = useParams();
+  const [branches, setBranches] = useState([]);
+
   const [productData, setProductData] = useState({
     name: '',
     description: '',
@@ -18,45 +22,75 @@ export const ProductsEdit = () => {
     storage_code: '',
     tax_code: '',
     packaging_code: '',
-    status: false
+    status: false,
+    photo: null
   });
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(`https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`);
-        setProductData(response.data);
+        setProductData(response.data.Data);
       } catch (error) {
-        console.error('Error fetching product data:', error);
+        console.error('Ошибка при получении данных продукта:', error);
+      }
+    };
+
+    const fetchCategoriesAndBranches = async () => {
+      try {
+        const categoriesResponse = await axios.get(`https://food-delivery-api-n6as.onrender.com/v1/categories`);
+        const branchesResponse = await axios.get(`https://food-delivery-api-n6as.onrender.com/v1/branches`);
+        setCategories(categoriesResponse.data.Data);
+        setBranches(branchesResponse.data.Data);
+      } catch (error) {
+        console.error('Ошибка при получении категорий или филиалов:', error);
       }
     };
 
     if (productId) {
       fetchProduct();
     }
+    fetchCategoriesAndBranches();
   }, [productId]);
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setProductData({
-      ...productData,
-      [name]: type === 'checkbox' ? checked : value
-    });
+    const { name, value, type, checked, files } = e.target;
+    if (type === 'file') {
+      setProductData({
+        ...productData,
+        [name]: files[0]
+      });
+    } else {
+      setProductData({
+        ...productData,
+        [name]: type === 'checkbox' ? checked : value
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    for (const key in productData) {
+      formData.append(key, productData[key]);
+    }
+
     try {
-      await axios.put(`https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`, productData);
-      // Handle successful update (e.g., redirect or show a message)
+      await axios.put(`https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log('Изменения успешно отправлены!');
     } catch (error) {
-      console.error('Error updating product:', error);
+      console.error('Ошибка при обновлении продукта:', error);
     }
   };
 
   return (
     <>
-      <Header title="Edit" headerBtn1={<CustomBtn BgColor="blue" BtnContent="Save" onClick={handleSubmit} />} />
+      <Header title="Редактировать" headerBtn1={<CustomBtn BgColor="blue" BtnContent="Сохранить" onClick={handleSubmit} />} />
       <Box>
         <Box>
           <form className={s.edit} onSubmit={handleSubmit}>
@@ -92,13 +126,12 @@ export const ProductsEdit = () => {
                 <Box className={s.edit__name}>
                   <h2 className={s.edit__bottom_title}>Описание</h2>
                   <Textarea
-                    placeholder="Enter Description"
+                    placeholder="Введите описание"
                     name="description"
                     value={productData.description}
                     onChange={handleInputChange}
                   />
                 </Box>
-                {/* Repeat similar structure for other fields */}
               </Box>
             </Box>
             <Box className={s.edit__right}>
@@ -106,18 +139,43 @@ export const ProductsEdit = () => {
                 <h2 className={s.edit__info_title}>Информация</h2>
                 <Box className={s.edit__bottom}>
                   <Box className={s.edit__info_items}>
-                    <CustomInput
-                      InputPlaceHolder="Категория"
+                    <Select
+                      placeholder="Выберите Категорию"
+                      options={
+                        Array.isArray(categories)
+                          ? categories.map((category) => ({
+                            value: category.id,
+                            label: category.name,
+                          }))
+                          : []
+                      }
                       name="category_id"
-                      value={productData.category_id}
-                      onChange={handleInputChange}
+                      onChange={(selectedOption) =>
+                        setProductData({
+                          ...productData,
+                          category_id: selectedOption.value,
+                        })
+                      }
                     />
-                    <CustomInput
-                      InputPlaceHolder="Филиал"
+                    <Select
+                      placeholder="Выбирите Филлиал"
+                      options={
+                        Array.isArray(branches)
+                          ? branches.map((branch) => ({
+                            value: branch.id,
+                            label: `${branch.address}`,
+                          }))
+                          : []
+                      }
                       name="branch_id"
-                      value={productData.branch_id}
-                      onChange={handleInputChange}
+                      onChange={(selectedOption) =>
+                        setProductData({
+                          ...productData,
+                          branch_id: selectedOption.value,
+                        })
+                      }
                     />
+
                     <CustomInput
                       InputPlaceHolder="Артикул"
                       name="articul"
@@ -142,14 +200,37 @@ export const ProductsEdit = () => {
                       value={productData.packaging_code}
                       onChange={handleInputChange}
                     />
+                    <Box className={s.edit__image}>
+                      <h2 className={s.edit__bottom_title}>Фото</h2>
+                      <input
+                        type="file"
+                        name="photo"
+                        accept="photo/*"
+                        onChange={handleInputChange}
+                      />
+                      {productData.image && (
+                        <img src={URL.createObjectURL(productData.image)} alt="Продукт" className={s.edit__image_preview} />
+                      )}
+                    </Box>
                   </Box>
                 </Box>
               </Box>
             </Box>
+            <CustomBtn
+              BtnContent={
+                <>
+                  <p style={{ color: "#fff" }}>Сохранить</p>
+                </>
+              }
+              BgColor={"blue"}
+              type="submit"
+              BtnBorder={"1px solid #e7e7e7"}
+            />
           </form>
         </Box>
       </Box>
     </>
   );
 };
-export default ProductsEdit
+
+export default ProductsEdit;
