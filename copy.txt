@@ -1,6 +1,6 @@
 https://food-delivery-api-n6as.onrender.com/v1/categories
 https://food-delivery-api-n6as.onrender.com/v1/branches
-
+https://food-delivery-api-n6as.onrender.com/v1/product/{id}  put
 
    <CustomModal
 
