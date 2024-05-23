@@ -1,7 +1,17 @@
-.products{
-    &__wrapper{
-        height:80vh;
+.products {
+    &__wrapper {
+        height: 80vh;
         overflow-y: scroll;
         padding: 16px;
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        margin: 16px;
+    }
+
+    &__pagination {
+        display: block;
+        margin-top: auto;
+        background-color: red;
     }
 }

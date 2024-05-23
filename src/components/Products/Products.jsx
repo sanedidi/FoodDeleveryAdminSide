@@ -129,19 +129,8 @@ export const Products = () => {
         ) : (
           <>
             <CustomTable key={isLoading} columns={columns} data={data} />
-            <Box className={s.pagination}>
-            <ul>
-          {Array.from({ length: paginationData.totalPages }, (_, index) => (
-            <li key={index}>
-              <button
-                className={paginationData.current === index + 1 ? s.active : ""}
-                onClick={() => handlePageChange(index + 1)}
-              >
-                {index + 1}
-              </button>
-            </li>
-          ))}
-        </ul>
+            <Box className={s.products__pagination}>
+              asac
             </Box>
           </>
         )}

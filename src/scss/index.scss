@@ -30,6 +30,7 @@ body {
   line-height: normal;
   background-color: #fff;
 }
+
 * {
   padding: 0px;
   margin: 0px;
@@ -98,12 +99,15 @@ h6 {
   font-weight: inherit;
   font-size: inherit;
 }
+
 .MuiDrawer-root {
   height: 100dvh;
 }
+
 .MuiPaper-root {
   position: relative !important;
 }
+
 .clients__menu {
   border: 1px solid #e7e7e7;
   padding: 7px 10px;
@@ -111,6 +115,7 @@ h6 {
   font-weight: 400;
   border-radius: 8px;
 }
+
 .active {
   background-color: #0e73f6;
   border-radius: 8px;
@@ -128,12 +133,16 @@ h6 {
   font-weight: 500;
   font-size: 16px;
 }
+
 .table {
   border: 1px solid #e7e7e7;
 }
+
 td {
   border-right: 1px solid #e7e7e7 !important;
+  border-left: 1px solid #e7e7e7 !important;
 }
+
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -149,9 +158,11 @@ td {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
 .header_btn1 {
   justify-content: center;
 }
+
 .css-hdd9l7 {
   background: var(--chakra-colors-blackAlpha-600) !important;
 }
