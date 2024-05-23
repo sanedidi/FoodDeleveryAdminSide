@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Header } from 'components/Header/Header';
-import { CustomBtn, Box, CustomInput, Lang, Textarea, Select } from 'public/imports';
+import { CustomBtn, Box, CustomInput, Lang, Textarea, Select, toast, Toaster } from 'public/imports';
 import s from './ProductsEdit.module.scss';
 
 export const ProductsEdit = () => {
   const { productId } = useParams();
   const [branches, setBranches] = useState([]);
   const [categories, setCategories] = useState([]);
-
+  const navigate = useNavigate()
   const [productData, setProductData] = useState({
     name: '',
     description: '',
@@ -23,10 +23,10 @@ export const ProductsEdit = () => {
     packaging_code: '',
     status: false,
     photo: null,
-    image_url: '', // Поле для текущего URL фотографии продукта
+    image_url: '',
   });
 
-  const [newPhoto, setNewPhoto] = useState(null); // Поле для нового фото
+  const [newPhoto, setNewPhoto] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -35,7 +35,7 @@ export const ProductsEdit = () => {
         const product = response.data.Data;
         setProductData({
           ...product,
-          image_url: product.image_url || '', // Установите image_url если оно существует
+          image_url: product.image_url || '',
         });
       } catch (error) {
         console.error('Ошибка при получении данных продукта:', error);
@@ -66,7 +66,7 @@ export const ProductsEdit = () => {
         ...productData,
         [name]: files[0]
       });
-      setNewPhoto(URL.createObjectURL(files[0])); // Обновите предварительный просмотр нового фото
+      setNewPhoto(URL.createObjectURL(files[0]));
     } else {
       setProductData({
         ...productData,
@@ -77,29 +77,33 @@ export const ProductsEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const formData = new FormData();
     for (const key in productData) {
       formData.append(key, productData[key]);
     }
-  
+
     try {
       await axios.put(`https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log('Изменения успешно отправлены!');
-      // Обнуляем значение photo после успешной загрузки новой фотографии
+      toast.success("Продукт успешно обновлен!")
+      setTimeout(() => {
+        navigate("/admin/categories/products/")
+      }, 1000)
       setProductData({ ...productData, photo: null });
     } catch (error) {
-      console.error('Ошибка при обновлении продукта:', error);
+      toast.error("Что то пошло не так попробуйте еще раз!")
+
     }
   };
 
   return (
     <>
       <Header title="Редактировать" headerBtn1={<CustomBtn BgColor="blue" BtnContent="Сохранить" onClick={handleSubmit} />} />
+      <Toaster />
       <Box className={s.edit__wrapper}>
         <form className={s.edit} onSubmit={handleSubmit}>
           <Box className={s.edit__left}>
@@ -234,19 +238,19 @@ export const ProductsEdit = () => {
               </Box>
               <Box className={s.edit__images_container}>
                 <Box className={s.edit__current_image}>
-                  <h3>Текущая фотография</h3>
                   {productData.photo && (
                     <img src={`https://${productData.photo}`} alt="Текущий продукт" className={s.edit__image_preview} />
                   )}
                 </Box>
                 <Box className={s.edit__new_image}>
-                  <h3>Новое фото</h3>
-                  <input
-                    type="file"
-                    name="photo"
-                    accept="image/*"
-                    onChange={handleInputChange}
-                  />
+                  <label>
+                    <input
+                      type="file"
+                      name="photo"
+                      accept="image/*"
+                      onChange={handleInputChange}
+                    />
+                  </label>
                   {newPhoto && (
                     <img src={newPhoto} alt="Новое фото" className={s.edit__image_preview} />
                   )}

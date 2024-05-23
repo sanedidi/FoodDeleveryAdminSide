@@ -12,24 +12,12 @@ export const CustomTable = ({
 }) => {
   return (
     <div className={clsx(s.tableWrapper, className)}>
-      {isLoading || !data.length ? (
-        <Stack className={s.skeletonWrapper}>
-          <Skeleton height="40px" />
-          <Skeleton height="40px" />
-          <Skeleton height="40px" />
-          <Skeleton height="40px" />
-          <Skeleton height="40px" />
-          <Skeleton height="40px" />
-          <Skeleton height="40px" />
-        </Stack>
-      ) : (
-        <Table
-          className={clsx(s.table)}
-          columns={columns}
-          data={data}
-          {...props}
-        />
-      )}
+      <Table
+        className={clsx(s.table)}
+        columns={columns}
+        data={data}
+        {...props}
+      />
     </div>
   );
 };

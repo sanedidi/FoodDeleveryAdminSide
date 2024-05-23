@@ -166,3 +166,9 @@ td {
 .css-hdd9l7 {
   background: var(--chakra-colors-blackAlpha-600) !important;
 }
+
+.pagination{
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+}

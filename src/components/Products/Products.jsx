@@ -129,28 +129,24 @@ export const Products = () => {
         }
       />
       <Box className={s.products__wrapper}>
-        {isLoading ? (
-          <Skeleton active />
-        ) : (
-          <>
-            <CustomTable key={isLoading} columns={columns} data={data} />
-            <Box className={s.products__pagination}>
-              <ReactPaginate
-                previousLabel={"< previous"}
-                nextLabel={"next >"}
-                breakLabel={"..."}
-                breakClassName={"break-me"}
-                pageCount={totalPages}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={(event) => handlePageChange(event.selected + 1)}
-                containerClassName={"pagination"}
-                subContainerClassName={"pages pagination"}
-                activeClassName={"active"}
-              />
-            </Box>
-          </>
-        )}
+        <CustomTable key={isLoading} columns={columns} data={data} />
+        <Box className={s.products__pagination}>
+          <ReactPaginate
+            previousLabel={"< previous"}
+            nextLabel={"next >"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={totalPages}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={(event) => handlePageChange(event.selected + 1)}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+            className={s.products_pag}
+          />
+        </Box>
+
       </Box>
       <>
         <CustomModal

@@ -10,8 +10,10 @@
     }
 
     &__pagination {
-        display: block;
         margin-top: auto;
-        background-color: red;
+    }
+    &__edit{
+        display: flex;
+        align-items: center;
     }
 }
