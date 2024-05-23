@@ -221,7 +221,7 @@ export const MainProd = () => {
             <Box className={s.prod__name}>
               <h2 className={s.prod__bottom_title}>Артикул</h2>
               <CustomInput
-                InputPlaceHolder="Enter articul"
+                InputPlaceHolder="Введите артикул "
                 name="articul"
                 type="number"
                 onChange={handleInputChange}
@@ -229,7 +229,9 @@ export const MainProd = () => {
             </Box>
             <Box className={s.prod__inputs}>
               <Box className={s.prod__input}>
-                <h2 className={s.prod__bottom_title}>*Storage Code</h2>
+                <h2 className={s.prod__bottom_title}>
+                  *Код единицы измерения{" "}
+                </h2>
                 <CustomInput
                   InputPlaceHolder="Enter storage code"
                   name="storage_code"
@@ -237,15 +239,14 @@ export const MainProd = () => {
                 />
               </Box>
               <Box className={s.prod__input}>
-                <h2 className={s.prod__bottom_title}>*Tax Code</h2>
+                <h2 className={s.prod__bottom_title}>*Код упаковки</h2>
                 <CustomInput
-                  InputPlaceHolder="Enter tax code"
+                  InputPlaceHolder="Введите код упаковки"
                   name="tax_code"
                   onChange={handleInputChange}
                 />
               </Box>
-            </Box>
-            <Box className={s.prod__price_input}>
+            <Box className={s.prod__input}>
               <h2 className={s.prod__bottom_title}>Packing Code</h2>
               <CustomInput
                 InputPlaceHolder="packaging_code"
@@ -253,6 +254,7 @@ export const MainProd = () => {
                 type="number"
                 onChange={handleInputChange}
               />
+            </Box>
             </Box>
           </Box>
         </Box>

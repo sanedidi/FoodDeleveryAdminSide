@@ -30,8 +30,14 @@ export const Router = observer(() => {
           <Route path="/auth" element={<Login />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/resetPassword" element={<ResetPassword />} />
-          <Route path="/auth/resetPassword/Step2" element={<ResetPasswordStep2 />} />
-          <Route path="/auth/resetPassword/Step2/Step3" element={<ResetPasswordStep3 />} />
+          <Route
+            path="/auth/resetPassword/Step2"
+            element={<ResetPasswordStep2 />}
+          />
+          <Route
+            path="/auth/resetPassword/Step2/Step3"
+            element={<ResetPasswordStep3 />}
+          />
           <Route path="*" element={<Navigate to="/auth/login" />} />
           <Route path="" element={<Navigate to="/auth/login" />} />
         </Route>
@@ -50,8 +56,14 @@ export const Router = observer(() => {
         <Route path="/admin/calendar" element={<Calendar />} />
         <Route path="/admin/categories/add" element={<CategoriesAdd />} />
         <Route path="/admin/categories/products" element={<Products />} />
-        <Route path="/admin/categories/products/add" element={<ProductsAdd />} />
-        <Route path="/admin/categories/products/edit/:productId" element={<ProductsEdit />} />
+        <Route
+          path="/admin/categories/products/add"
+          element={<ProductsAdd />}
+        />
+        <Route
+          path="/admin/categories/products/edit/:productId"
+          element={<ProductsEdit />}
+        />
       </Route>
       <Route path="*" element={<Navigate to="/admin/dashboard" />} />
       <Route path="" element={<Navigate to="/admin/dashboard" />} />

@@ -170,6 +170,7 @@ export const ProductsEdit = () => {
               <Box className={s.edit__info}>
                 <Box className={s.edit__info_items}>
                   <Box className={s.edit__cat}>
+                    <h2 className={s.edit__bottom_title}>Категории</h2>
                     <Select
                       placeholder="Выберите Категорию"
                       options={
@@ -190,20 +191,27 @@ export const ProductsEdit = () => {
                     />
                   </Box>
                   <Box className={s.edit__price}>
-                    <CustomInput
-                      InputPlaceHolder="income_price"
-                      name="income_price"
-                      value={productData.income_price}
-                      onChange={handleInputChange}
-                    />
-                    <CustomInput
-                      InputPlaceHolder="sale_price"
-                      name="sale_price"
-                      value={productData.sale_price}
-                      onChange={handleInputChange}
-                    />
+                    <div className={s.edit__input}>
+                      <h2 className={s.edit__bottom_title}>Цена прихода</h2>
+                      <CustomInput
+                        InputPlaceHolder="income_price"
+                        name="income_price"
+                        value={productData.income_price}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className={s.edit__input}>
+                      <h2 className={s.edit__bottom_title}>Цена продаж</h2>
+                      <CustomInput
+                        InputPlaceHolder="sale_price"
+                        name="sale_price"
+                        value={productData.sale_price}
+                        onChange={handleInputChange}
+                      />
+                    </div>
                   </Box>
                   <Box className={s.edit__art}>
+                    <h2 className={s.edit__bottom_title}>Артикул</h2>
                     <CustomInput
                       InputPlaceHolder="Артикул"
                       name="articul"
@@ -211,43 +219,55 @@ export const ProductsEdit = () => {
                       onChange={handleInputChange}
                     />
                   </Box>
-                  <Select
-                    placeholder="Выберите Филиал"
-                    options={
-                      Array.isArray(branches)
-                        ? branches.map((branch) => ({
-                            value: branch.id,
-                            label: `${branch.address}`,
-                          }))
-                        : []
-                    }
-                    name="branch_id"
-                    onChange={(selectedOption) =>
-                      setProductData({
-                        ...productData,
-                        branch_id: selectedOption.value,
-                      })
-                    }
-                  />
+                  <Box className={s.edit__cat}>
+                    <h2 className={s.edit__bottom_title}>Филлиал</h2>
+                    <Select
+                      placeholder="Выберите Филлиал"
+                      options={
+                        Array.isArray(branches)
+                          ? branches.map((branch) => ({
+                              value: branch.id,
+                              label: `${branch.address}`,
+                            }))
+                          : []
+                      }
+                      name="branch_id"
+                      onChange={(selectedOption) =>
+                        setProductData({
+                          ...productData,
+                          branch_id: selectedOption.value,
+                        })
+                      }
+                    />
+                  </Box>
                   <Box className={s.edit__inputs}>
-                    <CustomInput
-                      InputPlaceHolder="Код хранилища"
-                      name="storage_code"
-                      value={productData.storage_code}
-                      onChange={handleInputChange}
-                    />
-                    <CustomInput
-                      InputPlaceHolder="Код налога"
-                      name="tax_code"
-                      value={productData.tax_code}
-                      onChange={handleInputChange}
-                    />
-                    <CustomInput
-                      InputPlaceHolder="Код упаковки"
-                      name="packaging_code"
-                      value={productData.packaging_code}
-                      onChange={handleInputChange}
-                    />
+                    <div className={s.edit__input}>
+                      <h2 className={s.edit__bottom_title}>Код хранилища</h2>
+                      <CustomInput
+                        InputPlaceHolder="Код хранилища"
+                        name="storage_code"
+                        value={productData.storage_code}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className={s.edit__input}>
+                      <h2 className={s.edit__bottom_title}>Код налога</h2>
+                      <CustomInput
+                        InputPlaceHolder="Код налога"
+                        name="tax_code"
+                        value={productData.tax_code}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className={s.edit__input}>
+                      <h2 className={s.edit__bottom_title}>Код упаковки</h2>
+                      <CustomInput
+                        InputPlaceHolder="Код упаковки"
+                        name="packaging_code"
+                        value={productData.packaging_code}
+                        onChange={handleInputChange}
+                      />
+                    </div>
                   </Box>
                 </Box>
               </Box>
@@ -285,13 +305,13 @@ export const ProductsEdit = () => {
                     />
                   )}
                 </Box>
-                  {newPhoto && (
-                    <img
-                      src={newPhoto}
-                      alt="Новое фото"
-                      className={s.edit__image_preview}
-                    />
-                  )}
+                {newPhoto && (
+                  <img
+                    src={newPhoto}
+                    alt="Новое фото"
+                    className={s.edit__image_preview}
+                  />
+                )}
               </Box>
               <CustomBtn
                 BtnContent={
