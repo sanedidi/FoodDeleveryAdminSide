@@ -4,13 +4,11 @@ import axios from 'axios';
 import { Header } from 'components/Header/Header';
 import { CustomBtn, Box, CustomInput, Lang, Textarea, Select } from 'public/imports';
 import s from './ProductsEdit.module.scss';
-import useProductsAddProps from '../ProductsAdd/useProductsAddProps';
 
 export const ProductsEdit = () => {
   const { productId } = useParams();
   const [branches, setBranches] = useState([]);
   const [categories, setCategories] = useState([]);
-
 
   const [productData, setProductData] = useState({
     name: '',
@@ -24,14 +22,21 @@ export const ProductsEdit = () => {
     tax_code: '',
     packaging_code: '',
     status: false,
-    photo: null
+    photo: null,
+    image_url: '', // Поле для текущего URL фотографии продукта
   });
+
+  const [newPhoto, setNewPhoto] = useState(null); // Поле для нового фото
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(`https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`);
-        setProductData(response.data.Data);
+        const product = response.data.Data;
+        setProductData({
+          ...product,
+          image_url: product.image_url || '', // Установите image_url если оно существует
+        });
       } catch (error) {
         console.error('Ошибка при получении данных продукта:', error);
       }
@@ -61,6 +66,7 @@ export const ProductsEdit = () => {
         ...productData,
         [name]: files[0]
       });
+      setNewPhoto(URL.createObjectURL(files[0])); // Обновите предварительный просмотр нового фото
     } else {
       setProductData({
         ...productData,
@@ -71,12 +77,12 @@ export const ProductsEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const formData = new FormData();
     for (const key in productData) {
       formData.append(key, productData[key]);
     }
-
+  
     try {
       await axios.put(`https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`, formData, {
         headers: {
@@ -84,6 +90,8 @@ export const ProductsEdit = () => {
         }
       });
       console.log('Изменения успешно отправлены!');
+      // Обнуляем значение photo после успешной загрузки новой фотографии
+      setProductData({ ...productData, photo: null });
     } catch (error) {
       console.error('Ошибка при обновлении продукта:', error);
     }
@@ -96,7 +104,7 @@ export const ProductsEdit = () => {
         <form className={s.edit} onSubmit={handleSubmit}>
           <Box className={s.edit__left}>
             <Box className={s.edit__top}>
-              <h2 className={s.edit__title}>Продукт</h2>
+              <h2 className={s.edit__title}>Товар</h2>
               <Box>
                 <input
                   type="checkbox"
@@ -135,7 +143,7 @@ export const ProductsEdit = () => {
 
               <Box className={s.edit__info}>
                 <Box className={s.edit__info_items}>
-                  <Box className={s.edit__cat} >
+                  <Box className={s.edit__cat}>
                     <Select
                       placeholder="Выберите Категорию"
                       options={
@@ -144,7 +152,8 @@ export const ProductsEdit = () => {
                             value: category.id,
                             label: `${category.name}`,
                           }))
-                          : []}
+                          : []
+                      }
                       name="category_id"
                       onChange={(selectedOption) =>
                         setProductData({
@@ -155,7 +164,6 @@ export const ProductsEdit = () => {
                     />
                   </Box>
                   <Box className={s.edit__price}>
-
                     <CustomInput
                       InputPlaceHolder="income_price"
                       name="income_price"
@@ -178,7 +186,7 @@ export const ProductsEdit = () => {
                     />
                   </Box>
                   <Select
-                    placeholder="Выбирите Филлиал"
+                    placeholder="Выберите Филиал"
                     options={
                       Array.isArray(branches)
                         ? branches.map((branch) => ({
@@ -208,8 +216,6 @@ export const ProductsEdit = () => {
                       value={productData.tax_code}
                       onChange={handleInputChange}
                     />
-
-
                     <CustomInput
                       InputPlaceHolder="Код упаковки"
                       name="packaging_code"
@@ -217,24 +223,35 @@ export const ProductsEdit = () => {
                       onChange={handleInputChange}
                     />
                   </Box>
-
                 </Box>
               </Box>
             </Box>
-
           </Box>
           <Box className={s.edit__right}>
             <Box className={s.edit__image}>
-              <h2 className={s.edit__bottom_title}>Фото</h2>
-              <input
-                type="file"
-                name="photo"
-                accept="photo/*"
-                onChange={handleInputChange}
-              />
-              {productData.image && (
-                <img src={URL.createObjectURL(productData.image)} alt="Продукт" className={s.edit__image_preview} />
-              )}
+              <Box className={s.edit__top}>
+                <h2 className={s.edit__title}>Фото</h2>
+              </Box>
+              <Box className={s.edit__images_container}>
+                <Box className={s.edit__current_image}>
+                  <h3>Текущая фотография</h3>
+                  {productData.photo && (
+                    <img src={`https://${productData.photo}`} alt="Текущий продукт" className={s.edit__image_preview} />
+                  )}
+                </Box>
+                <Box className={s.edit__new_image}>
+                  <h3>Новое фото</h3>
+                  <input
+                    type="file"
+                    name="photo"
+                    accept="image/*"
+                    onChange={handleInputChange}
+                  />
+                  {newPhoto && (
+                    <img src={newPhoto} alt="Новое фото" className={s.edit__image_preview} />
+                  )}
+                </Box>
+              </Box>
               <CustomBtn
                 BtnContent={
                   <>
@@ -247,7 +264,6 @@ export const ProductsEdit = () => {
               />
             </Box>
           </Box>
-
         </form>
       </Box>
     </>

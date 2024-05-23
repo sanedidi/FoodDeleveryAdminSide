@@ -45,7 +45,13 @@ const useProductsProps = () => {
   const getProducts = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(API_URL);
+      const response = await axios.get(API_URL, {
+        params: {
+          page: currentPage,
+          limit: pageSize,
+        },
+      });
+      console.log("API Response:", response.data.Data);
       setProducts(response.data.Data.products);
       setTotalPages(response.data.Data.totalPages);
     } catch (error) {
@@ -57,11 +63,12 @@ const useProductsProps = () => {
 
   useEffect(() => {
     getProducts();
-  }, [currentPage, pageSize, products]);
+  }, [currentPage, pageSize]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );

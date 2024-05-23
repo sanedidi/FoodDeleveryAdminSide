@@ -19,6 +19,7 @@ import useProductsProps from "./useProductsProps";
 import { Lang } from "./components/mainProd/as";
 import s from "./Products.module.scss";
 import axios from "axios";
+import ReactPaginate from "react-paginate";
 
 export const Products = () => {
   const {
@@ -30,10 +31,14 @@ export const Products = () => {
     setIsOpenModal1,
     setIsOpenModal2,
     selectedProductId,
-    paginationData,
     handlePageChange,
+    paginationData, isLoading,
+    setSelectedProductId,
+    onCloseModal1,
+    onCloseModal2
   } = useProductsProps();
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { current, pageSize, totalPages } = paginationData;
 
   const handleRefresh = () => {
     setIsLoading(true);
@@ -130,7 +135,19 @@ export const Products = () => {
           <>
             <CustomTable key={isLoading} columns={columns} data={data} />
             <Box className={s.products__pagination}>
-              asac
+              <ReactPaginate
+                previousLabel={"< previous"}
+                nextLabel={"next >"}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={totalPages}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={(event) => handlePageChange(event.selected + 1)}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}
+              />
             </Box>
           </>
         )}
