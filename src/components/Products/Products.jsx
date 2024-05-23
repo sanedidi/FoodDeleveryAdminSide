@@ -22,8 +22,6 @@ import axios from "axios";
 import ReactPaginate from "react-paginate";
 
 export const Products = () => {
-  const [productsPerPage, setProductsPerPage] = useState(10);
-
   const {
     data,
     columns,
@@ -34,16 +32,27 @@ export const Products = () => {
     setIsOpenModal2,
     selectedProductId,
     handlePageChange,
-    paginationData, isLoading,
+    paginationData,
+    isLoading,
     setSelectedProductId,
     onCloseModal1,
-    onCloseModal2, currentPage, setCurrentPage
+    onCloseModal2,
+    currentPage,
+    setCurrentPage,
+    pageSize,
+    setPageSize,
+    setIsLoading,
   } = useProductsProps();
 
-  const { current, pageSize, totalPages } = paginationData;
+  const { current, totalPages } = paginationData;
+
   const handleProductsPerPageChange = (perPage) => {
-    setProductsPerPage(perPage);
-    setCurrentPage(1); // Переключение на первую страницу при изменении количества продуктов на странице
+    if (perPage === 10) {
+      setPageSize(20);
+    } else {
+      setPageSize(-10);
+    }
+    setCurrentPage(1);
   };
   const handleRefresh = () => {
     setIsLoading(true);
@@ -144,15 +153,17 @@ export const Products = () => {
             pageCount={totalPages}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
-            onPageChange={(event) => handlePageChange(event.selected + 1)}
+            onPageChange={handlePageChange}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
             className={s.products_pag}
           />
-          <button onClick={() => handleProductsPerPageChange(20)}>Показать по 20</button>
-        </Box>
 
+          <button onClick={() => handleProductsPerPageChange(10)}>
+            Показать по 20
+          </button>
+        </Box>
       </Box>
       <>
         <CustomModal

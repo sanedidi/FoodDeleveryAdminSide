@@ -15,8 +15,8 @@ const useProductsProps = () => {
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(20); // Показывать по 20 продуктов на странице
-  const [totalPages, setTotalPages] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalPages, setTotalPages] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
 
   const onOpenModal1 = () => setIsOpenModal1(true);
@@ -67,17 +67,15 @@ const useProductsProps = () => {
     }, 5000);
 
     return () => clearInterval(intervalId);
-  }, [currentPage, pageSize]); 
+  }, [currentPage, pageSize]);
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
+  const handlePageChange = (selectedPage) => {
+    setCurrentPage(selectedPage.selected + 1);
   };
-
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  
   const columns = [
     {
       title: "No",
@@ -160,7 +158,10 @@ const useProductsProps = () => {
               </div>
             }
             ListMenu1={
-              <Link to={`/admin/categories/products/edit/${item.id}`} className={s.categories__menu}>
+              <Link
+                to={`/admin/categories/products/edit/${item.id}`}
+                className={s.categories__menu}
+              >
                 Изменить
                 <EditIcon color={"#0E73FC"} />
               </Link>
@@ -194,8 +195,12 @@ const useProductsProps = () => {
     onCloseModal1,
     onCloseModal2,
     setSelectedProductId,
-    selectedProductId,currentPage, setCurrentPage
+    selectedProductId,
+    currentPage,
+    setCurrentPage,
+    pageSize,
+    setPageSize,
+    setIsLoading,
   };
 };
-
 export default useProductsProps;
