@@ -22,6 +22,8 @@ import axios from "axios";
 import ReactPaginate from "react-paginate";
 
 export const Products = () => {
+  const [productsPerPage, setProductsPerPage] = useState(10);
+
   const {
     data,
     columns,
@@ -35,11 +37,14 @@ export const Products = () => {
     paginationData, isLoading,
     setSelectedProductId,
     onCloseModal1,
-    onCloseModal2
+    onCloseModal2, currentPage, setCurrentPage
   } = useProductsProps();
 
   const { current, pageSize, totalPages } = paginationData;
-
+  const handleProductsPerPageChange = (perPage) => {
+    setProductsPerPage(perPage);
+    setCurrentPage(1); // Переключение на первую страницу при изменении количества продуктов на странице
+  };
   const handleRefresh = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -145,6 +150,7 @@ export const Products = () => {
             activeClassName={"active"}
             className={s.products_pag}
           />
+          <button onClick={() => handleProductsPerPageChange(20)}>Показать по 20</button>
         </Box>
 
       </Box>
