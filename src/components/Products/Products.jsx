@@ -20,6 +20,7 @@ import { Lang } from "./components/mainProd/as";
 import s from "./Products.module.scss";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
+import toast, { Toaster } from "react-hot-toast";
 
 export const Products = () => {
   const {
@@ -44,16 +45,16 @@ export const Products = () => {
     setIsLoading,
   } = useProductsProps();
 
-  const { current, totalPages } = paginationData;
+  // const { current, totalPages } = paginationData;
 
-  const handleProductsPerPageChange = (perPage) => {
-    if (perPage === 10) {
-      setPageSize(20);
-    } else {
-      setPageSize(-10);
-    }
-    setCurrentPage(1);
-  };
+  // const handleProductsPerPageChange = (perPage) => {
+  //   if (perPage === 10) {
+  //     setPageSize(20);
+  //   } else {
+  //     setPageSize(10);
+  //   }
+  //   setCurrentPage(1);
+  // };
   const handleRefresh = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -66,10 +67,10 @@ export const Products = () => {
       await axios.delete(
         `https://food-delivery-api-n6as.onrender.com/v1/product/${selectedProductId}`
       );
-      console.log("Product deleted successfully");
+      toast.success("Продукт удален успешно");
       setIsOpenModal2(false);
     } catch (error) {
-      console.error("Error deleting product:", error);
+      toast.error("Что то пошло не так повторите попытку!");
     }
   };
 
@@ -103,6 +104,7 @@ export const Products = () => {
           </Link>
         }
       />
+      <Toaster />
       <UnderHeader
         firstItem={
           <CustomInput
@@ -144,7 +146,7 @@ export const Products = () => {
       />
       <Box className={s.products__wrapper}>
         <CustomTable key={isLoading} columns={columns} data={data} />
-        <Box className={s.products__pagination}>
+        {/* <Box className={s.products__pagination}>
           <ReactPaginate
             previousLabel={"< previous"}
             nextLabel={"next >"}
@@ -159,11 +161,10 @@ export const Products = () => {
             activeClassName={"active"}
             className={s.products_pag}
           />
-
           <button onClick={() => handleProductsPerPageChange(10)}>
             Показать по 20
           </button>
-        </Box>
+        </Box> */}
       </Box>
       <>
         <CustomModal
