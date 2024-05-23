@@ -63,8 +63,18 @@ export const ProductsEdit = () => {
       }
     };
 
+    const generateRandomArticul = () => {
+      const randomArticul = Math.floor(100000 + Math.random() * 900000).toString();
+      setProductData((prevData) => ({
+        ...prevData,
+        articul: randomArticul,
+      }));
+    };
+
     if (productId) {
       fetchProduct();
+    } else {
+      generateRandomArticul();
     }
     fetchCategoriesAndBranches();
   }, [productId]);
