@@ -24,7 +24,9 @@ import { authStore } from "store/auth.store";
 import Select from "react-select";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
-import { PLusCIrcleIcon } from 'components/SvgComponents/SvgComponents'
+import { PLusCIrcleIcon } from "components/SvgComponents/SvgComponents";
+import { Header } from "components/Header/Header";
+import { useNavigate, useParams } from "react-router-dom";
 
 export {
   React,
@@ -55,5 +57,8 @@ export {
   Select,
   toast,
   Toaster,
-  PLusCIrcleIcon
+  PLusCIrcleIcon,
+  Header,
+  useNavigate,
+  useParams,
 };

@@ -12,7 +12,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import HeaderBox from "../components/HeaderBox";
 import { Lang } from "components/lang";
-
+import {} from "public/imports";
 export const CategoriesAdd = () => {
   const {
     lang,
@@ -26,7 +26,7 @@ export const CategoriesAdd = () => {
     setImagePreview,
   } = UseCAtegoriesAddProps();
   const navigate = useNavigate();
-   const handleMainImageChange = (event) => {
+  const handleMainImageChange = (event) => {
     const file = event.target.files[0];
     setMainImage(file);
 
@@ -87,13 +87,7 @@ export const CategoriesAdd = () => {
       <form onSubmit={handleSubmit}>
         <Header
           title={<HeaderBox />}
-          headerBtn2={
-            <CustomBtn
-              type="submit"
-              BtnContent={"Сохранить"}
-              BgColor={"blue"}
-            />
-          }
+          headerBtn2={<CustomBtn BtnContent={"назад"} BgColor={"blue"} />}
         />
         <Box className={s.categoriesAdd}>
           <Box className={s.categoriesAdd__underHead}>
@@ -108,39 +102,40 @@ export const CategoriesAdd = () => {
               </Box>
               <Box className={s.categoriesAdd__bottom}>
                 <Box className={s.categoriesAdd__bottom_lang}>
-                 <Lang />
+                  <Lang />
                 </Box>
-                <form
-                  onSubmit={handleSubmit}
-                  className={s.categoriesAdd__upload}
-                >
-                  <Box className={s.categoriesAdd__upload_left}>
-                    <Box className={s.input_box}>
-                      <Box className={s["drag-file-area"]}>
-                        <label className={s.label}>
-                          <input
-                            type="file"
-                            className={s["default-file-input"]}
-                            onChange={handleMainImageChange}
-                          />
-                          <span className={s["browse-files-text"]}>
-                            <PlusIconDown />
-                            макс размер 4 мб
-                          </span>{" "}
-                        </label>{" "}
-                      </Box>{" "}
-                    </Box>
+
+                <Box className={s.categoriesAdd__upload_left}>
+                  <Box className={s.input_box}>
+                    <Box className={s["drag-file-area"]}>
+                      <label className={s.label}>
+                        <input
+                          type="file"
+                          className={s["default-file-input"]}
+                          onChange={handleMainImageChange}
+                        />
+                        <span className={s["browse-files-text"]}>
+                          <PlusIconDown />
+                          макс размер 4 мб
+                        </span>{" "}
+                      </label>{" "}
+                    </Box>{" "}
                   </Box>
-                  <Box className={s.categoriesAdd__right}>
-                    <CustomInput
-                      type="text"
-                      value={name}
-                      InputPlaceHolder={"Название..."}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Name"
-                    />
-                  </Box>
-                </form>
+                </Box>
+                <Box className={s.categoriesAdd__right}>
+                  <CustomInput
+                    type="text"
+                    value={name}
+                    InputPlaceHolder={"Название..."}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Name"
+                  />
+                  <CustomBtn
+                    BgColor={"blue"}
+                    type="submit"
+                    BtnContent={"Сохранить"}
+                  />
+                </Box>
               </Box>
             </Box>
             <Box className={s.preview}>

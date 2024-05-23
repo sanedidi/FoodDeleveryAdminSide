@@ -2,6 +2,11 @@
   &_modal {
     padding: 0;
   }
+  &__right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
   &__underHead {
     background-color: #fff;
   }
@@ -23,6 +28,7 @@
   }
   &__main_cont_modal {
   }
+
   &__cont {
     display: flex;
     flex-direction: column;
@@ -70,7 +76,7 @@
     justify-content: space-between;
   }
 }
-.categories__bottom_modal  {
+.categories__bottom_modal {
   display: flex !important;
   flex-direction: column;
   gap: 10px;
