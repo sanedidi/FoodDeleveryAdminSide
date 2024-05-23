@@ -1,18 +1,19 @@
-import React, { useState } from "react";
 import s from "./CategoriesAdd.module.scss";
-import { Header } from "components/Header/Header";
-import { Box } from "@chakra-ui/react";
-import { PlusIconDown } from "components/SvgComponents/SvgComponents";
-import { Link, useNavigate } from "react-router-dom";
-import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
 import UseCAtegoriesAddProps from "./UseCAtegoriesAddProps";
-import CustomInput from "components/Custom/CustomInput/CustomInput";
-import { usePostCategory } from "services/categories.service";
-import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
 import HeaderBox from "../components/HeaderBox";
-import { Lang } from "components/lang";
-import {} from "public/imports";
+import {
+  Lang,
+  axios,
+  toast,
+  Toaster,
+  CustomBtn,
+  CustomInput,
+  useNavigate,
+  PlusIconDown,
+  Box,
+  Header,
+  React,
+} from "public/imports";
 export const CategoriesAdd = () => {
   const {
     lang,
