@@ -6,6 +6,8 @@ import { MainProd } from "../components/mainProd";
 import { Header } from "components/Header/Header";
 import { CustomBtn } from "../components/mainProd/as";
 import { Link } from "react-router-dom";
+import HeaderBox from "components/Categories/components/HeaderBox";
+import { CreateIcon, FolderIcon } from "components/SvgComponents/SvgComponents";
 
 export const ProductsAdd = () => {
   const handleSubmit = async (e) => {
@@ -60,7 +62,15 @@ export const ProductsAdd = () => {
   return (
     <>
       <Header
-        title={"Продукты"}
+        title={
+          <HeaderBox
+            path={"/admin/categories/products"}
+            icon1={<FolderIcon />}
+            gg={"Продукт"}
+            hh={"Создать"}
+            icon={<CreateIcon />}
+          />
+        }
         headerBtn1={
           <>
             <Link to={"/admin/categories/products"}>

@@ -131,7 +131,8 @@ export const ProductsEdit = () => {
           <Box className={s.edit__left}>
             <Box className={s.edit__top}>
               <h2 className={s.edit__title}>Товар</h2>
-              <Box>
+              <Box display={"flex"} alignItems={"center"} gap={"10px"}>
+                Статус:
                 <input
                   type="checkbox"
                   id="status"

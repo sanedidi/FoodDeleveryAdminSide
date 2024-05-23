@@ -14,6 +14,7 @@ import {
   Header,
   React,
 } from "public/imports";
+import { CreateIcon, FolderIcon } from "components/SvgComponents/SvgComponents";
 export const CategoriesAdd = () => {
   const {
     lang,
@@ -87,7 +88,15 @@ export const CategoriesAdd = () => {
       <Toaster />
       <form onSubmit={handleSubmit}>
         <Header
-          title={<HeaderBox />}
+          title={
+            <HeaderBox
+              path={"/admin/categories"}
+              gg={"Категории"}
+              hh={"Создать"}
+              icon1={<FolderIcon />}
+              icon={<CreateIcon />}
+            />
+          }
           headerBtn2={<CustomBtn BtnContent={"назад"} BgColor={"blue"} />}
         />
         <Box className={s.categoriesAdd}>

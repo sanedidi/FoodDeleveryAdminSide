@@ -168,34 +168,6 @@ export const Products = () => {
       </Box>
       <>
         <CustomModal
-          isOpenModal={isOpenModal1}
-          onCloseModal={() => setIsOpenModal1(false)}
-          modalContent={
-            <Box>
-              <Box className={s.categoriesAdd_modal}>
-                <Box className={s.categoriesAdd__underHead_modal}>
-                  <Box className={s.categoriesAdd__cont}>
-                    <Box className={s.categories__bottom_modal}>
-                      <Box className="categoriesAdd__bottom_lang">
-                        <Lang />
-                      </Box>
-                      <form className={s.categoriesAdd__upload}>
-                        <Box className="categoriesAdd__right"></Box>
-                      </form>
-                    </Box>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          }
-          secondaryBtnText={<Box>Нет</Box>}
-          ModalBtnBgColor={"blue"}
-          primaryBtnText="Да"
-          onPrimaryBtnClick={() => {
-            setIsOpenModal1(false);
-          }}
-        />
-        <CustomModal
           isOpenModal={isOpenModal2}
           onCloseModal={() => setIsOpenModal2(false)}
           modalTitle={

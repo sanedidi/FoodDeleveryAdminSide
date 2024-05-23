@@ -3,7 +3,7 @@ import { CreateIcon, FolderIcon } from 'components/SvgComponents/SvgComponents'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const HeaderBox = () => {
+const HeaderBox = ({gg, icon, hh, icon1, path}) => {
   return (
     <Box
     style={{
@@ -20,10 +20,10 @@ const HeaderBox = () => {
         gap: "10px",
         fontSize: "18px",
       }}
-      to={"/admin/categories"}
+      to={path}
     >
-      <FolderIcon />
-      Категории
+      {icon1}
+      {gg}
     </Link>
     <Link
       style={{
@@ -34,8 +34,8 @@ const HeaderBox = () => {
         color: "blue",
       }}
     >
-      <CreateIcon />
-      Создать
+      {icon}
+     {hh}
     </Link>
   </Box>
   )

@@ -124,7 +124,8 @@ export const MainProd = () => {
         <Box className={s.prod__left}>
           <Box className={s.prod__top}>
             <h2 className={s.prod__title}>Продукт </h2>
-            <Box>
+            <Box display={"flex"} alignItems={"center"} gap={"10px"}>
+              Статус:
               <input
                 type="checkbox"
                 id="status"
