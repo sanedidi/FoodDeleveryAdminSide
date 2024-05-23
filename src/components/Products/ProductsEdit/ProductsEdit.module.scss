@@ -174,7 +174,7 @@
   }
   &__current_image {
     overflow: hidden;
-    &.none{
+    &.none {
       display: none;
     }
   }
@@ -197,8 +197,18 @@
     max-width: 160px;
     background-color: #eef0f2;
   }
-  &__input{
+  &__input {
     width: 100%;
+  }
+  &__gen {
+    display: grid;
+    background-color: #e7e7e7;
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+    grid-template-columns: 4fr 1fr;
+  }
+  &__gen_input {
+    background-color: #fff !important;
   }
 }
 
