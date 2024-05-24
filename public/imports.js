@@ -29,6 +29,7 @@ import { Header } from "components/Header/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePostCategory } from "services/categories.service";
 import { PlusIconDown } from "components/SvgComponents/SvgComponents";
+import { CustomPagination } from "components/Custom/CustomPagination ";
 export {
   React,
   useEffect,
@@ -64,4 +65,5 @@ export {
   useParams,
   usePostCategory,
   PlusIconDown,
+  CustomPagination,
 };

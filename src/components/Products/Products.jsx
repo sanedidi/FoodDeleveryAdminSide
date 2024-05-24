@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Header } from "components/Header/Header";
 import { Box } from "@chakra-ui/react";
 import { DownloadIcon, Search2Icon } from "@chakra-ui/icons";
@@ -16,45 +16,48 @@ import { CustomTable } from "components/Custom/CustomTable/CustomTable";
 import { Skeleton } from "antd";
 import { CustomModal } from "components/Categories/imports";
 import useProductsProps from "./useProductsProps";
-import { Lang } from "./components/mainProd/as";
 import s from "./Products.module.scss";
 import axios from "axios";
-import ReactPaginate from "react-paginate";
 import toast, { Toaster } from "react-hot-toast";
+import { CustomPagination } from "public/imports"; // Corrected import
+import { useQuery } from "@tanstack/react-query";
+import request from "services/httpRequest";
 
 export const Products = () => {
   const {
     data,
     columns,
     setSearchQuery,
-    isOpenModal1,
     isOpenModal2,
-    setIsOpenModal1,
     setIsOpenModal2,
     selectedProductId,
-    handlePageChange,
-    paginationData,
-    isLoading,
-    setSelectedProductId,
-    onCloseModal1,
-    onCloseModal2,
-    currentPage,
-    setCurrentPage,
-    pageSize,
-    setPageSize,
     setIsLoading,
   } = useProductsProps();
 
-  // const { current, totalPages } = paginationData;
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
-  // const handleProductsPerPageChange = (perPage) => {
-  //   if (perPage === 10) {
-  //     setPageSize(20);
-  //   } else {
-  //     setPageSize(10);
-  //   }
-  //   setCurrentPage(1);
-  // };
+  const { prod, refetch, isLoading } = useQuery({
+    queryKey: ["GET/prod", page, pageSize],
+    queryFn: () => {
+      return request
+        .get(
+          `https://food-delivery-api-n6as.onrender.com/v1/order_products?page=${page}&limit=${pageSize}`
+        )
+        .then((response) => response.prod);
+    },
+  });
+
+  const totalPages = prod ? Math.ceil((prod.count || 0) / pageSize) : 0; 
+
+  useEffect(() => {
+    refetch();
+  }, [page, pageSize, refetch]);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
+
   const handleRefresh = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -69,8 +72,9 @@ export const Products = () => {
       );
       toast.success("Продукт удален успешно");
       setIsOpenModal2(false);
+      refetch(); // Refetch data after deleting a product
     } catch (error) {
-      toast.error("Что то пошло не так повторите попытку!");
+      toast.error("Что-то пошло не так, повторите попытку!");
     }
   };
 
@@ -146,48 +150,30 @@ export const Products = () => {
       />
       <Box className={s.products__wrapper}>
         <CustomTable key={isLoading} columns={columns} data={data} />
-        {/* <Box className={s.products__pagination}>
-          <ReactPaginate
-            previousLabel={"< previous"}
-            nextLabel={"next >"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={totalPages}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageChange}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"active"}
-            className={s.products_pag}
-          />
-          <button onClick={() => handleProductsPerPageChange(10)}>
-            Показать по 20
-          </button>
-        </Box> */}
-      </Box>
-      <>
-        <CustomModal
-          isOpenModal={isOpenModal2}
-          onCloseModal={() => setIsOpenModal2(false)}
-          modalTitle={
-            <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
-              <TrashIcon />
-            </Box>
-          }
-          modalContent={
-            <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
-              Вы уверены, что хотите удалить этот товар?
-            </Box>
-          }
-          secondaryBtnText={<Box>Нет</Box>}
-          ModalBtnBgColor={"blue"}
-          primaryBtnText="Да"
-          onPrimaryBtnClick={() => {
-            deleteProduct();
-          }}
+        <CustomPagination
+          count={totalPages}
+          page={page}
+          onPageChange={handlePageChange}
         />
-      </>
+      </Box>
+      <CustomModal
+        isOpenModal={isOpenModal2}
+        onCloseModal={() => setIsOpenModal2(false)}
+        modalTitle={
+          <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
+            <TrashIcon />
+          </Box>
+        }
+        modalContent={
+          <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
+            Вы уверены, что хотите удалить этот товар?
+          </Box>
+        }
+        secondaryBtnText={<Box>Нет</Box>}
+        ModalBtnBgColor={"blue"}
+        primaryBtnText="Да"
+        onPrimaryBtnClick={deleteProduct}
+      />
     </>
   );
 };

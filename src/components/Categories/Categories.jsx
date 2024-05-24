@@ -24,7 +24,7 @@ import { Done } from "@mui/icons-material";
 import { Lang } from "components/lang";
 import { Skeleton } from "antd";
 
-const Categories = () => {
+export const Categories = () => {
   const [isLoading, setIsLoading] = useState(false);
   const handleMainImageChange = (event) => {
     const file = event.target.files[0];

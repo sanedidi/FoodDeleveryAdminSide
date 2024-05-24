@@ -15,7 +15,7 @@ import {
   axios,
 } from "./imports";
 
-const useCategoriesProps = () => {
+export const useCategoriesProps = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [isOpenModal2, setIsOpenModal2] = useState(false);
@@ -78,7 +78,7 @@ const useCategoriesProps = () => {
     {
       title: "No",
       key: "number",
-      dataIndex: "category_number",
+      dataIndex: "number",
       width: 0,
     },
     {
@@ -128,6 +128,12 @@ const useCategoriesProps = () => {
               }
               ListMenu={
                 <button
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
                   className="categories__menu"
                   onClick={() => {
                     onOpenModal2();
@@ -140,6 +146,12 @@ const useCategoriesProps = () => {
               }
               ListMenu1={
                 <button
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
                   onClick={() => {
                     onOpenModal1();
                     setSelectedCategoryId(item.id);
@@ -156,10 +168,14 @@ const useCategoriesProps = () => {
       },
     },
   ];
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
   return {
     data: getCat
       ? filteredData?.map((item, index) => ({
           key: item?.id || index,
+          number: (currentPage - 1) * pageSize + index + 1,
           ...item,
         }))
       : skeleton,
