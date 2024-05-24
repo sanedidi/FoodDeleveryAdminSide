@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
-import MenuComp from "components/MenuComponent/MenuComp";
-import { CategoryFilterIcon } from "components/SvgComponents/SvgComponents";
-import { AiOutlineEllipsis } from "react-icons/ai";
-import s from "../Categories/Categories.module.scss";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import CustomBtn from 'components/Custom/CustomBtn/CustomBtn';
+import MenuComp from 'components/MenuComponent/MenuComp';
+import { CategoryFilterIcon } from 'components/SvgComponents/SvgComponents';
+import { AiOutlineEllipsis } from 'react-icons/ai';
+import s from '../Categories/Categories.module.scss';
+import { Link } from 'react-router-dom';
 
 const useProductsProps = () => {
   const [products, setProducts] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
@@ -36,109 +36,98 @@ const useProductsProps = () => {
       );
       getProducts();
     } catch (error) {
-      console.error("Error deleting product:", error);
+      console.error('Error deleting product:', error);
     }
   };
 
-  const API_URL = "https://food-delivery-api-n6as.onrender.com/v1/products";
+  const API_URL = 'https://food-delivery-api-n6as.onrender.com/v1/products';
 
-  const getProducts = async () => {
+  const getProducts = async (page = 1, limit = 10) => {
     setIsLoading(true);
     try {
       const response = await axios.get(API_URL, {
         params: {
-          page: currentPage,
-          limit: pageSize,
+          page,
+          limit,
         },
       });
-      console.log("API Response:", response.data.Data);
       setProducts(response.data.Data.products);
-      setTotalPages(response.data.Data.totalPages);
+      setTotalPages(response.data.Data.count);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error('Error fetching products:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      getProducts();
-    }, 5000);
-
-    return () => clearInterval(intervalId);
-  }, [currentPage, pageSize]);
-
-  const handlePageChange = (selectedPage) => {
-    setCurrentPage(selectedPage.selected + 1);
-  };
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+
   const columns = [
     {
-      title: "No",
-      key: "number",
-      dataIndex: "number",
+      title: 'No',
+      key: 'number',
+      dataIndex: 'number',
       width: 0,
     },
     {
-      title: "Продукт",
-      dataIndex: "name",
-      key: "name",
+      title: 'Продукт',
+      dataIndex: 'name',
+      key: 'name',
       width: 120,
     },
     {
-      title: "Категория",
-      dataIndex: "category_id",
-      key: "category_id",
+      title: 'Категория',
+      dataIndex: 'category_id',
+      key: 'category_id',
       width: 120,
       render: (categoryId) => {
         const product = filteredProducts.find(
           (prod) => prod.category_id === categoryId
         );
-        return product ? product.CategoryData.name : "";
+        return product ? product.CategoryData.name : '';
       },
     },
     {
-      title: "Цена Продажи",
-      dataIndex: "sale_price",
-      key: "sale_price",
+      title: 'Цена Продажи',
+      dataIndex: 'sale_price',
+      key: 'sale_price',
       width: 120,
     },
     {
-      title: "Дата создания",
-      dataIndex: "created_at",
-      key: "created_at",
+      title: 'Дата создания',
+      dataIndex: 'created_at',
+      key: 'created_at',
       width: 120,
     },
     {
       title: (
-        <div style={{ margin: "0 auto", width: "max-content" }}>
+        <div style={{ margin: '0 auto', width: 'max-content' }}>
           <CategoryFilterIcon />
         </div>
       ),
-      key: "operations",
+      key: 'operations',
       width: 20,
       render: (item) => (
         <div>
           <MenuComp
             MenuBtn={
               <CustomBtn
-                boxShadow={"0px 1px 2px rgba(16, 24, 40, 0.05)"}
-                padding="0px"
-                BgColor={"transparent"}
+                boxShadow={'0px 1px 2px rgba(16, 24, 40, 0.05)'}
+                padding='0px'
+                BgColor={'transparent'}
                 BtnContent={
                   <AiOutlineEllipsis
                     style={{
-                      fontWeight: "900",
-                      fontSize: "30px",
-                      border: "1px solid rgba(231, 231, 231, 1)",
-                      borderRadius: "5px",
-                      background: "#fff",
+                      fontWeight: '900',
+                      fontSize: '30px',
+                      border: '1px solid rgba(231, 231, 231, 1)',
+                      borderRadius: '5px',
+                      background: '#fff',
                     }}
-                    color="#0E73FC"
+                    color='#0E73FC'
                   />
                 }
               />
@@ -153,7 +142,7 @@ const useProductsProps = () => {
                   className={s.categories__menu}
                 >
                   Удалить
-                  <DeleteIcon color={"#0E73FC"} />
+                  <DeleteIcon color={'#0E73FC'} />
                 </div>
               </div>
             }
@@ -163,7 +152,7 @@ const useProductsProps = () => {
                 className={s.categories__menu}
               >
                 Изменить
-                <EditIcon color={"#0E73FC"} />
+                <EditIcon color={'#0E73FC'} />
               </Link>
             }
           />
@@ -186,7 +175,6 @@ const useProductsProps = () => {
     },
     setSearchQuery,
     isLoading,
-    handlePageChange,
     setSearchQuery,
     isOpenModal1,
     setIsOpenModal1,
@@ -201,6 +189,7 @@ const useProductsProps = () => {
     pageSize,
     setPageSize,
     setIsLoading,
+    getProducts,
   };
 };
 export default useProductsProps;

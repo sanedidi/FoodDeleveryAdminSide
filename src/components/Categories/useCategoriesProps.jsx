@@ -33,6 +33,7 @@ export const useCategoriesProps = () => {
 
   const { mutate: deleteCategory } = useDeleteCategory({
     onSuccess: () => refetch(),
+    
   });
 
   const updateCategory = async ({ id, name, photo }) => {
@@ -49,6 +50,7 @@ export const useCategoriesProps = () => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+          
         }
       );
       alert("Update Successful");
@@ -105,12 +107,14 @@ export const useCategoriesProps = () => {
           <div>
             <MenuComp
               MenuBtn={
-                <CustomBtn
+                <div
                   boxShadow={"0px 1px 2px rgba(16, 24, 40, 0.05)"}
                   padding="0px"
-                  BgColor={"transparent"}
-                  BtnContent={
-                    <AiOutlineEllipsis
+                >
+                  <AiOutlineEllipsis
+                  onClick={() => {
+                    onOpenModal1();
+                  }}
                       style={{
                         fontWeight: "900",
                         fontSize: "30px",
@@ -120,11 +124,7 @@ export const useCategoriesProps = () => {
                       }}
                       color="#0E73FC"
                     />
-                  }
-                  onClick={() => {
-                    onOpenModal1();
-                  }}
-                />
+                </div>
               }
               ListMenu={
                 <button

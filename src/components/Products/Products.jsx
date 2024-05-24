@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Header } from "components/Header/Header";
 import { Box } from "@chakra-ui/react";
 import { DownloadIcon, Search2Icon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   FilterIcon,
   PlusIcon,
@@ -23,6 +23,11 @@ import ReactPaginate from "react-paginate";
 import toast, { Toaster } from "react-hot-toast";
 
 export const Products = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const page = +searchParams.get("page") || 1;
+  const limit = +searchParams.get("limit") || 10;
+
   const {
     data,
     columns,
@@ -32,7 +37,6 @@ export const Products = () => {
     setIsOpenModal1,
     setIsOpenModal2,
     selectedProductId,
-    handlePageChange,
     paginationData,
     isLoading,
     setSelectedProductId,
@@ -43,17 +47,17 @@ export const Products = () => {
     pageSize,
     setPageSize,
     setIsLoading,
+    getProducts,
   } = useProductsProps();
 
   const { current, totalPages } = paginationData;
 
   const handleProductsPerPageChange = (perPage) => {
-    if (perPage === 10) {
-      setPageSize(20);
+    if (limit === 10) {
+      setSearchParams({ limit: 20 });
     } else {
-      setPageSize(10);
+      setSearchParams({ limit: 10 });
     }
-    setCurrentPage(1);
   };
   const handleRefresh = () => {
     setIsLoading(true);
@@ -73,6 +77,14 @@ export const Products = () => {
       toast.error("Что то пошло не так повторите попытку!");
     }
   };
+
+  const handlePageChange = (event) => {
+    setSearchParams({ ...searchParams, page: event.selected + 1 });
+  };
+
+  useEffect(() => {
+    getProducts(page, limit);
+  }, [page]);
 
   return (
     <>
@@ -160,6 +172,7 @@ export const Products = () => {
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
             className={s.products_pag}
+            initialPage={page - 1}
           />
           <button onClick={() => handleProductsPerPageChange(10)}>
             Показать по 20
