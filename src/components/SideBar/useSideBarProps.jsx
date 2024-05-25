@@ -76,19 +76,18 @@ const useSideBarProps = () => {
     //   ),
     //   path: "/admin/groups",
     // },
-    {
-      id: 5,
-      icon: (
-        <LocationIcon
-          disabled
-          width={26}
-          height={26}
-          color={getColorForPath("/admin/fillials", true)}
-          style={{ pointerEvents: "none", opacity: 1 }}
-        />
-      ),
-      path: "/admin/fillials",
-    },
+    // {
+    //   id: 5,
+    //   icon: (
+    //     <LocationIcon
+    //       disabled
+    //       width={26}
+    //       height={26}
+    //       color={getColorForPath("/admin/fillials", true)}
+    //     />
+    //   ),
+    //   path: "/admin/fillials",
+    // },
     {
       id: 6,
       icon: (
