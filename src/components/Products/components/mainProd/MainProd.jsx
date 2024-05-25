@@ -11,7 +11,7 @@ import {
   toast,
   Toaster,
   axios,
-} from "public/imports.js";
+} from "public/imports";
 import s from "./MainPros.module.scss";
 import useMainProdProps from "./useMainProdProps";
 import { useNavigate } from "react-router-dom";

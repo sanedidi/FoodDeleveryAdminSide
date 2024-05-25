@@ -14,14 +14,10 @@ import { SearchIcon } from "@chakra-ui/icons";
 import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
 import useCategoriesProps from "./useCategoriesProps";
 import { CustomTable } from "components/Custom/CustomTable/CustomTable";
-
-import { Header } from "components/Header/Header";
 import html2canvas from "html2canvas";
 import { Box, Stack, useDisclosure } from "@chakra-ui/react";
-import { CustomModal } from "./imports";
 import UseCAtegoriesAddProps from "./CategoriesAdd/UseCAtegoriesAddProps";
-import { Done } from "@mui/icons-material";
-import { Lang } from "components/lang";
+import { Lang, CustomModal, Header } from "public/imports";
 import { Skeleton } from "antd";
 
 export const Categories = () => {
@@ -176,7 +172,7 @@ export const Categories = () => {
                               <label className="label">
                                 <input
                                   type="file"
-                                  className={s["default-file-input"]} 
+                                  className={s["default-file-input"]}
                                   onChange={handleMainImageChange}
                                 />
                                 <span className={s["browse-files-text"]}>

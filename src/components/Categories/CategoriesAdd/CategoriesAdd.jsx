@@ -1,6 +1,8 @@
 import s from "./CategoriesAdd.module.scss";
 import UseCAtegoriesAddProps from "./UseCAtegoriesAddProps";
 import HeaderBox from "../components/HeaderBox";
+import { Box } from "@chakra-ui/react";
+
 import {
   Lang,
   axios,
@@ -10,7 +12,6 @@ import {
   CustomInput,
   useNavigate,
   PlusIconDown,
-  Box,
   Header,
   React,
 } from "public/imports";

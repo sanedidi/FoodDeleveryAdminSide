@@ -59,7 +59,7 @@ export const useCategoryProps = () => {
               MenuBtn={
                 <CustomBtn
                   BtnBorder={'1px solid red'}
-                  boxShadow={'0px 1px 2px rgba(16, 24, 40, 0.05)'}
+                  boxshadow={'0px 1px 2px rgba(16, 24, 40, 0.05)'}
                   padding="0px"
                   BgColor={'transparent'}
                   BtnContent={

@@ -8,7 +8,7 @@ import CustomModal from "../src/components/Custom/CustomModal/CustomModal";
 import Lang from "components/lang/Lang.jsx";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { CustomBtn } from "components/Custom/CustomBtn";
-import MenuComp from "components/MenuComponent/MenuComp";
+import { MenuComp } from "components/MenuComponent";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import {
   useGetCategoriesService,

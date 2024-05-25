@@ -13,10 +13,8 @@ import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
 import UnderHeader from "components/UnderHeader/UnderHeader";
 import CustomInput from "components/Custom/CustomInput/CustomInput";
 import { CustomTable } from "components/Custom/CustomTable/CustomTable";
-import { Skeleton } from "antd";
-import { CustomModal } from "components/Categories/imports";
+import { CustomModal } from "public/imports";
 import useProductsProps from "./useProductsProps";
-import { Lang } from "./components/mainProd/as";
 import s from "./Products.module.scss";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
@@ -52,13 +50,6 @@ export const Products = () => {
 
   const { current, totalPages } = paginationData;
 
-  const handleProductsPerPageChange = (perPage) => {
-    if (limit === 10) {
-      setSearchParams({ limit: 20 });
-    } else {
-      setSearchParams({ limit: 10 });
-    }
-  };
   const handleRefresh = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -174,9 +165,6 @@ export const Products = () => {
             className={s.products_pag}
             initialPage={page - 1}
           />
-          <button onClick={() => handleProductsPerPageChange(10)}>
-            Показать по 20
-          </button>
         </Box>
       </Box>
       <>

@@ -1,0 +1,1 @@
+export { MenuComp } from "./MenuComp";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useMainProdProps = () => {
+export const useMainProdProps = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [branches, setBranches] = useState([]);
   const [categories, setCategories] = useState([]);

@@ -4,10 +4,11 @@ import s from "./ProductsAdd.module.scss";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { MainProd } from "../components/mainProd";
 import { Header } from "components/Header/Header";
-import { CustomBtn } from "../components/mainProd/as";
+
 import { Link } from "react-router-dom";
 import HeaderBox from "components/Categories/components/HeaderBox";
 import { CreateIcon, FolderIcon } from "components/SvgComponents/SvgComponents";
+import { CustomBtn } from "public/imports";
 
 export const ProductsAdd = () => {
   const handleSubmit = async (e) => {

@@ -2,7 +2,7 @@ import { Box, useDisclosure } from "@chakra-ui/react";
 import s from "./styles.module.scss";
 import { Link } from "react-router-dom";
 import React from "react";
-import { AiOutlineEllipsis, CustomModal } from "components/Categories/imports";
+import { AiOutlineEllipsis, CustomModal } from "public/imports";
 
 export const Header = ({
   onOpen,

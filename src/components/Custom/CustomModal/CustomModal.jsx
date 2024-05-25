@@ -6,11 +6,10 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  ModalCloseButton,
 } from "@chakra-ui/react";
 import CustomBtn from "../CustomBtn/CustomBtn";
 
-const CustomModal = ({
+export const CustomModal = ({
   isOpenModal,
   onCloseModal,
   modalTitle,

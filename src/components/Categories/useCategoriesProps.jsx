@@ -2,7 +2,6 @@ import {
   useState,
   CategoryImage,
   CategoryFilterIcon,
-  CustomBtn,
   AiOutlineEllipsis,
   DeleteIcon,
   EditIcon,
@@ -13,7 +12,7 @@ import {
   useDeleteCategory,
   useGetCategoriesService,
   axios,
-} from "./imports";
+} from "public/imports";
 
 export const useCategoriesProps = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
@@ -108,7 +107,7 @@ export const useCategoriesProps = () => {
             <MenuComp
               MenuBtn={
                 <div
-                  boxShadow={"0px 1px 2px rgba(16, 24, 40, 0.05)"}
+                  boxshadow={"0px 1px 2px rgba(16, 24, 40, 0.05)"}
                   padding="0px"
                 >
                   <AiOutlineEllipsis
@@ -127,7 +126,7 @@ export const useCategoriesProps = () => {
                 </div>
               }
               ListMenu={
-                <button
+                <div
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
@@ -142,10 +141,10 @@ export const useCategoriesProps = () => {
                 >
                   Удалить
                   <DeleteIcon color={"#0E73FC"} />
-                </button>
+                </div>
               }
               ListMenu1={
-                <button
+                <div
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
@@ -160,7 +159,7 @@ export const useCategoriesProps = () => {
                 >
                   Изменить
                   <EditIcon color={"#0E73FC"} />
-                </button>
+                </div>
               }
             />
           </div>
