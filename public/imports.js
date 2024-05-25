@@ -14,6 +14,7 @@ import {
   useGetCategoriesService,
   useDeleteCategory,
 } from "services/categories.service";
+import { Link } from "react-router-dom";
 import { CategoryFilterIcon } from "components/SvgComponents/SvgComponents";
 import { IoEye } from "react-icons/io5";
 import { Skeleton, Stack } from "@chakra-ui/react";
@@ -30,7 +31,36 @@ import { useNavigate, useParams } from "react-router-dom";
 import { usePostCategory } from "services/categories.service";
 import { PlusIconDown } from "components/SvgComponents/SvgComponents";
 import { CustomPagination } from "components/Custom/CustomPagination/CustomPagination";
+import { DownloadIcon } from "@chakra-ui/icons";
+import { Search2Icon } from "@chakra-ui/icons";
+import { useSearchParams } from "react-router-dom";
+import {
+  FilterIcon,
+  PlusIcon,
+  ReloadIcon,
+  TrashIcon,
+} from "components/SvgComponents/SvgComponents";
+import { UnderHeader } from "components/UnderHeader";
+import { CustomTable } from "components/Custom/CustomTable/CustomTable";
+import ReactPaginate from "react-paginate";
+import HeaderBox from "components/Categories/components/HeaderBox";
+import { CreateIcon, FolderIcon } from "components/SvgComponents/SvgComponents";
+import { MainProd } from "components/Products/components/mainProd";
 export {
+  MainProd,
+  CreateIcon,
+  FolderIcon,
+  HeaderBox,
+  ReactPaginate,
+  CustomTable,
+  UnderHeader,
+  FilterIcon,
+  PlusIcon,
+  ReloadIcon,
+  TrashIcon,
+  useSearchParams,
+  Search2Icon,
+  DownloadIcon,
   React,
   useEffect,
   Box,
@@ -66,4 +96,5 @@ export {
   usePostCategory,
   PlusIconDown,
   CustomPagination,
+  Link,
 };

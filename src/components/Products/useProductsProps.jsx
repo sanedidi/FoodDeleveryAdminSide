@@ -1,16 +1,20 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
-import CustomBtn from 'components/Custom/CustomBtn/CustomBtn';
-import MenuComp from 'components/MenuComponent/MenuComp';
-import { CategoryFilterIcon } from 'components/SvgComponents/SvgComponents';
-import { AiOutlineEllipsis } from 'react-icons/ai';
-import s from '../Categories/Categories.module.scss';
-import { Link } from 'react-router-dom';
+import {
+  axios,
+  useState,
+  DeleteIcon,
+  EditIcon,
+  CustomBtn,
+  MenuComp,
+  CategoryFilterIcon,
+  AiOutlineEllipsis,
+  Link,
+  Box,
+} from "public/imports";
+import s from "../Categories/Categories.module.scss";
 
 const useProductsProps = () => {
   const [products, setProducts] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
@@ -36,11 +40,11 @@ const useProductsProps = () => {
       );
       getProducts();
     } catch (error) {
-      console.error('Error deleting product:', error);
+      console.error("Error deleting product:", error);
     }
   };
 
-  const API_URL = 'https://food-delivery-api-n6as.onrender.com/v1/products';
+  const API_URL = "https://food-delivery-api-n6as.onrender.com/v1/products";
 
   const getProducts = async (page = 1, limit = 10) => {
     setIsLoading(true);
@@ -54,7 +58,7 @@ const useProductsProps = () => {
       setProducts(response.data.Data.products);
       setTotalPages(response.data.Data.count);
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error("Error fetching products:", error);
     } finally {
       setIsLoading(false);
     }
@@ -64,77 +68,77 @@ const useProductsProps = () => {
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-
   const columns = [
     {
-      title: 'No',
-      key: 'number',
-      dataIndex: 'number',
+      title: "No",
+      key: "number",
+      dataIndex: "number",
       width: 0,
     },
     {
-      title: 'Продукт',
-      dataIndex: 'name',
-      key: 'name',
+      title: "Продукт",
+      dataIndex: "name",
+      key: "name",
       width: 120,
     },
     {
-      title: 'Категория',
-      dataIndex: 'category_id',
-      key: 'category_id',
+      title: "Категория",
+      dataIndex: "category_id",
+      key: "category_id",
       width: 120,
       render: (categoryId) => {
         const product = filteredProducts.find(
           (prod) => prod.category_id === categoryId
         );
-        return product ? product.CategoryData.name : '';
+        return product ? product.CategoryData.name : "";
       },
     },
     {
-      title: 'Цена Продажи',
-      dataIndex: 'sale_price',
-      key: 'sale_price',
+      title: "Цена Продажи",
+      dataIndex: "sale_price",
+      key: "sale_price",
       width: 120,
     },
     {
-      title: 'Дата создания',
-      dataIndex: 'created_at',
-      key: 'created_at',
+      title: "Дата создания",
+      dataIndex: "created_at",
+      key: "created_at",
       width: 120,
     },
     {
       title: (
-        <div style={{ margin: '0 auto', width: 'max-content' }}>
+        <Box style={{ margin: "0 auto", width: "max-content" }}>
           <CategoryFilterIcon />
-        </div>
+        </Box>
       ),
-      key: 'operations',
+      key: "operations",
       width: 20,
       render: (item) => (
-        <div>
+        <Box>
           <MenuComp
             MenuBtn={
-              <CustomBtn
-                boxShadow={'0px 1px 2px rgba(16, 24, 40, 0.05)'}
-                padding='0px'
-                BgColor={'transparent'}
-                BtnContent={
-                  <AiOutlineEllipsis
-                    style={{
-                      fontWeight: '900',
-                      fontSize: '30px',
-                      border: '1px solid rgba(231, 231, 231, 1)',
-                      borderRadius: '5px',
-                      background: '#fff',
-                    }}
-                    color='#0E73FC'
-                  />
-                }
-              />
+              <div
+                style={{
+                  boxShadow: "0px 1px 2px rgba(16, 24, 40, 0.05)",
+                  padding: "0px",
+                  background: "transparent",
+                }}
+              >
+                <AiOutlineEllipsis
+                  style={{
+                    fontWeight: "900",
+                    fontSize: "30px",
+                    border: "1px solid rgba(231, 231, 231, 1)",
+                    borderRadius: "5px",
+                    background: "#fff",
+                  }}
+                  color="#0E73FC"
+                />
+              </div>
             }
             ListMenu={
-              <div className={s.categories__menu}>
-                <div
+              <Box className={s.categories__menu}>
+                <Box
                   onClick={() => {
                     onOpenModal2();
                     setSelectedProductId(item.id);
@@ -142,9 +146,9 @@ const useProductsProps = () => {
                   className={s.categories__menu}
                 >
                   Удалить
-                  <DeleteIcon color={'#0E73FC'} />
-                </div>
-              </div>
+                  <DeleteIcon color={"#0E73FC"} />
+                </Box>
+              </Box>
             }
             ListMenu1={
               <Link
@@ -152,11 +156,11 @@ const useProductsProps = () => {
                 className={s.categories__menu}
               >
                 Изменить
-                <EditIcon color={'#0E73FC'} />
+                <EditIcon color={"#0E73FC"} />
               </Link>
             }
           />
-        </div>
+        </Box>
       ),
     },
   ];

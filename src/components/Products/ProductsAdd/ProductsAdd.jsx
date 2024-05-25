@@ -1,14 +1,15 @@
-import { Box } from "@chakra-ui/react";
-import React, { useState } from "react";
-import s from "./ProductsAdd.module.scss";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import { MainProd } from "../components/mainProd";
-import { Header } from "components/Header/Header";
-
-import { Link } from "react-router-dom";
-import HeaderBox from "components/Categories/components/HeaderBox";
-import { CreateIcon, FolderIcon } from "components/SvgComponents/SvgComponents";
-import { CustomBtn } from "public/imports";
+import {
+  Link,
+  HeaderBox,
+  CreateIcon,
+  FolderIcon,
+  CustomBtn,
+  Header,
+  MainProd,
+  Box,
+  React,
+  useState,
+} from "public/imports";
 
 export const ProductsAdd = () => {
   const handleSubmit = async (e) => {

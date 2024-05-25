@@ -175,9 +175,10 @@ export const GroupsIcon = ({ color, width, height }) => {
     </svg>
   );
 };
-export const LocationIcon = ({ color, width, height }) => {
+export const LocationIcon = ({ color, width, height, style }) => {
   return (
     <svg
+    style={style}
       width={width}
       height={height}
       viewBox="0 0 24 24"
@@ -316,9 +317,10 @@ export const SettingsIcon = ({ height, width }) => {
     </svg>
   );
 };
-export const UserIcon = ({ width, height }) => {
+export const UserIcon = ({ width, height, onclick }) => {
   return (
     <svg
+      onClick={onclick}
       width={width}
       height={height}
       viewBox="0 0 24 24"
@@ -898,11 +900,46 @@ export const PLusCIrcleIcon = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
+        fillRule="evenodd"
         clipRule="evenodd"
         d="M13.9993 27.3346C17.5356 27.3346 20.927 25.9299 23.4274 23.4294C25.9279 20.9289 27.3327 17.5375 27.3327 14.0013C27.3327 10.4651 25.9279 7.0737 23.4274 4.57321C20.927 2.07273 17.5356 0.667969 13.9993 0.667969C10.4631 0.667969 7.07174 2.07273 4.57126 4.57321C2.07077 7.0737 0.666016 10.4651 0.666016 14.0013C0.666016 17.5375 2.07077 20.9289 4.57126 23.4294C7.07174 25.9299 10.4631 27.3346 13.9993 27.3346ZM15.666 9.0013C15.666 8.55927 15.4904 8.13535 15.1779 7.82279C14.8653 7.51023 14.4414 7.33464 13.9993 7.33464C13.5573 7.33464 13.1334 7.51023 12.8208 7.82279C12.5083 8.13535 12.3327 8.55927 12.3327 9.0013V12.3346H8.99935C8.55732 12.3346 8.1334 12.5102 7.82084 12.8228C7.50828 13.1354 7.33268 13.5593 7.33268 14.0013C7.33268 14.4433 7.50828 14.8673 7.82084 15.1798C8.1334 15.4924 8.55732 15.668 8.99935 15.668H12.3327V19.0013C12.3327 19.4433 12.5083 19.8673 12.8208 20.1798C13.1334 20.4924 13.5573 20.668 13.9993 20.668C14.4414 20.668 14.8653 20.4924 15.1779 20.1798C15.4904 19.8673 15.666 19.4433 15.666 19.0013V15.668H18.9993C19.4414 15.668 19.8653 15.4924 20.1779 15.1798C20.4904 14.8673 20.666 14.4433 20.666 14.0013C20.666 13.5593 20.4904 13.1354 20.1779 12.8228C19.8653 12.5102 19.4414 12.3346 18.9993 12.3346H15.666V9.0013Z"
         fill="#84919A"
       />
     </svg>
+  );
+};
+export const LogOutIcon = ({onCLick}) => {
+  return (
+    <div onClick={onCLick}>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9"
+          stroke="#7384A2"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M16 17L21 12L16 7"
+          stroke="#7384A2"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M21 12H9"
+          stroke="#7384A2"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
   );
 };

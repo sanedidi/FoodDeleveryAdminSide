@@ -11,11 +11,11 @@ import {
   toast,
   Toaster,
   axios,
+  useNavigate,
+  PLusCIrcleIcon,
 } from "public/imports";
 import s from "./MainPros.module.scss";
 import useMainProdProps from "./useMainProdProps";
-import { useNavigate } from "react-router-dom";
-import { PLusCIrcleIcon } from "components/SvgComponents/SvgComponents";
 
 const animatedComponents = makeAnimated();
 
@@ -247,15 +247,15 @@ export const MainProd = () => {
                   onChange={handleInputChange}
                 />
               </Box>
-            <Box className={s.prod__input}>
-              <h2 className={s.prod__bottom_title}>Packing Code</h2>
-              <CustomInput
-                InputPlaceHolder="packaging_code"
-                name="packaging_code"
-                type="number"
-                onChange={handleInputChange}
-              />
-            </Box>
+              <Box className={s.prod__input}>
+                <h2 className={s.prod__bottom_title}>Packing Code</h2>
+                <CustomInput
+                  InputPlaceHolder="packaging_code"
+                  name="packaging_code"
+                  type="number"
+                  onChange={handleInputChange}
+                />
+              </Box>
             </Box>
           </Box>
         </Box>

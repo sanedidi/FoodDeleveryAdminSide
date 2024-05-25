@@ -1,24 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { Header } from "components/Header/Header";
-import { Box } from "@chakra-ui/react";
-import { DownloadIcon, Search2Icon } from "@chakra-ui/icons";
-import { Link, useSearchParams } from "react-router-dom";
 import {
+  CustomModal,
+  React,
+  useEffect,
+  Header,
+  Box,
+  DownloadIcon,
+  Search2Icon,
+  Link,
+  useSearchParams,
   FilterIcon,
   PlusIcon,
   ReloadIcon,
   TrashIcon,
-} from "components/SvgComponents/SvgComponents";
-import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
-import UnderHeader from "components/UnderHeader/UnderHeader";
-import CustomInput from "components/Custom/CustomInput/CustomInput";
-import { CustomTable } from "components/Custom/CustomTable/CustomTable";
-import { CustomModal } from "public/imports";
+  CustomBtn,
+  UnderHeader,
+  CustomInput,
+  CustomTable,
+  axios,
+  ReactPaginate,
+  toast,
+  Toaster,
+} from "public/imports";
+
 import useProductsProps from "./useProductsProps";
 import s from "./Products.module.scss";
-import axios from "axios";
-import ReactPaginate from "react-paginate";
-import toast, { Toaster } from "react-hot-toast";
 
 export const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -30,20 +35,11 @@ export const Products = () => {
     data,
     columns,
     setSearchQuery,
-    isOpenModal1,
     isOpenModal2,
-    setIsOpenModal1,
     setIsOpenModal2,
     selectedProductId,
     paginationData,
     isLoading,
-    setSelectedProductId,
-    onCloseModal1,
-    onCloseModal2,
-    currentPage,
-    setCurrentPage,
-    pageSize,
-    setPageSize,
     setIsLoading,
     getProducts,
   } = useProductsProps();

@@ -5,6 +5,7 @@ import {
   DateIcon,
   GroupsIcon,
   LocationIcon,
+  LogOutIcon,
   RestaurantIcon,
   SettingsIcon,
   ShopIcon,
@@ -25,18 +26,23 @@ const useSideBarProps = () => {
     return currentPath === path ? "#fff" : "#6E8BB7";
   };
 
+  const logout = () => {
+    localStorage.removeItem("auth");
+    window.location.reload();
+  };
+
   const sideBarLinks = [
-    {
-      id: 1,
-      icon: (
-        <BarIcon
-          width={26}
-          height={26}
-          color={getColorForPath("/admin/dashboard")}
-        />
-      ),
-      path: "/admin/dashboard",
-    },
+    // {
+    //   id: 1,
+    //   icon: (
+    //     <BarIcon
+    //       width={26}
+    //       height={26}
+    //       color={getColorForPath("/admin/dashboard")}
+    //     />
+    //   ),
+    //   path: "/admin/dashboard",
+    // },
     {
       id: 2,
       icon: (
@@ -48,35 +54,37 @@ const useSideBarProps = () => {
       ),
       path: "/admin/orders",
     },
-    {
-      id: 3,
-      icon: (
-        <ClientsIcon
-          width={26}
-          height={26}
-          color={getColorForPath("/admin/clients")}
-        />
-      ),
-      path: "/admin/clients",
-    },
-    {
-      id: 4,
-      icon: (
-        <GroupsIcon
-          width={26}
-          height={26}
-          color={getColorForPath("/admin/groups")}
-        />
-      ),
-      path: "/admin/groups",
-    },
+    // {
+    //   id: 3,
+    //   icon: (
+    //     <ClientsIcon
+    //       width={26}
+    //       height={26}
+    //       color={getColorForPath("/admin/clients")}
+    //     />
+    //   ),
+    //   path: "/admin/clients",
+    // },
+    // {
+    //   id: 4,
+    //   icon: (
+    //     <GroupsIcon
+    //       width={26}
+    //       height={26}
+    //       color={getColorForPath("/admin/groups")}
+    //     />
+    //   ),
+    //   path: "/admin/groups",
+    // },
     {
       id: 5,
       icon: (
         <LocationIcon
+          disabled
           width={26}
           height={26}
-          color={getColorForPath("/admin/fillials")}
+          color={getColorForPath("/admin/fillials", true)}
+          style={{ pointerEvents: "none", opacity: 1 }}
         />
       ),
       path: "/admin/fillials",
@@ -119,6 +127,10 @@ const useSideBarProps = () => {
     },
     {
       id: 2,
+      icon: <LogOutIcon onCLick={logout} />,
+    },
+    {
+      id: 3,
       icon: (
         <UserIcon
           width={26}
@@ -129,16 +141,12 @@ const useSideBarProps = () => {
       path: "/admin/profile",
     },
   ];
+
   const CatalogLinks = [
     { link: "Категория", path: "/admin/categories" },
     { link: "Товары", path: "/admin/categories/products" },
-    // { link: "Атрибуты товаров", path: "/admin/atributes" },
-    // { link: "Бренды", path: "/admin/brands" },
-    // { link: "Единица измерения", path: "/admin/quant" },
-    // { link: "Теги", path: "/admin/tags" },
-    // { link: "Отдел", path: "/admin/otdel" },
-    // { link: "Прейскурант", path: "./admin/preys" },
   ];
+
   const [activePath, setActivePath] = useState("");
   const [isClientsActive, setIsClientsActive] = useState(false);
 
@@ -146,8 +154,10 @@ const useSideBarProps = () => {
     sideBarLinks,
     settings,
     CatalogLinks,
-    activePath, setActivePath,
-    isClientsActive, setIsClientsActive,
+    activePath,
+    setActivePath,
+    isClientsActive,
+    setIsClientsActive,
   };
 };
 
