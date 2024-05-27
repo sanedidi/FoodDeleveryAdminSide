@@ -1,10 +1,11 @@
-import React from 'react'
+import { useGetOrdersService } from "services/orders.service";
 
 const useOrdersProps = () => {
-    
-  return{
+  const { data: getOrder, refetch } = useGetOrdersService();
+  
+  return {
+    getOrder
+  };
+};
 
-  }
-}
-
-export default useOrdersProps
+export default useOrdersProps;

@@ -32,3 +32,4 @@ export const useDeleteOrder = () => {
     },
   });
 };
+console.log(getOrders)

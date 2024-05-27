@@ -1,8 +1,11 @@
 import { Header } from "components/Header/Header";
+import useOrderProps from "modules/Admin/Orders/useOrderProps";
 import { CustomBtn, Link, PlusIcon } from "public/imports";
 import React from "react";
 
 const Orders = () => {
+  const {getOrder} = useOrderProps()
+  console.log(getOrder)
   return (
     <>
       <Header
