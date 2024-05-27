@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-  BarIcon,
-  ClientsIcon,
   DateIcon,
-  GroupsIcon,
-  LocationIcon,
   LogOutIcon,
   RestaurantIcon,
   SettingsIcon,
@@ -23,7 +19,7 @@ const useSideBarProps = () => {
   }, [location]);
 
   const getColorForPath = (path) => {
-    return currentPath === path ? "#fff" : "#6E8BB7";
+    return currentPath.startsWith(path) ? "#fff" : "#6E8BB7";
   };
 
   const logout = () => {
@@ -32,17 +28,6 @@ const useSideBarProps = () => {
   };
 
   const sideBarLinks = [
-    // {
-    //   id: 1,
-    //   icon: (
-    //     <BarIcon
-    //       width={26}
-    //       height={26}
-    //       color={getColorForPath("/admin/dashboard")}
-    //     />
-    //   ),
-    //   path: "/admin/dashboard",
-    // },
     {
       id: 2,
       icon: (
@@ -54,40 +39,6 @@ const useSideBarProps = () => {
       ),
       path: "/admin/orders",
     },
-    // {
-    //   id: 3,
-    //   icon: (
-    //     <ClientsIcon
-    //       width={26}
-    //       height={26}
-    //       color={getColorForPath("/admin/clients")}
-    //     />
-    //   ),
-    //   path: "/admin/clients",
-    // },
-    // {
-    //   id: 4,
-    //   icon: (
-    //     <GroupsIcon
-    //       width={26}
-    //       height={26}
-    //       color={getColorForPath("/admin/groups")}
-    //     />
-    //   ),
-    //   path: "/admin/groups",
-    // },
-    // {
-    //   id: 5,
-    //   icon: (
-    //     <LocationIcon
-    //       disabled
-    //       width={26}
-    //       height={26}
-    //       color={getColorForPath("/admin/fillials", true)}
-    //     />
-    //   ),
-    //   path: "/admin/fillials",
-    // },
     {
       id: 6,
       icon: (
@@ -126,7 +77,7 @@ const useSideBarProps = () => {
     },
     {
       id: 2,
-      icon: <LogOutIcon onCLick={logout} />,
+      icon: <LogOutIcon onClick={logout} />,
     },
     {
       id: 3,
