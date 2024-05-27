@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import request from "./httpRequest/index";
 import { useMutation } from "@tanstack/react-query";
+import queryClient from "./queryClient";
 
 const CategoriesService = {
   getCategories: (params) =>
@@ -25,7 +26,6 @@ const CategoriesService = {
         `https://food-delivery-api-n6as.onrender.com/v1/category/${categoryId}`
       )
       .then((res) => res?.data),
-      
 };
 
 export const useGetCategoriesService = (params) => {
@@ -50,5 +50,8 @@ export const usePostCategory = () => {
 export const useDeleteCategory = () => {
   return useMutation({
     mutationFn: (categoryId) => CategoriesService.deleteCategory(categoryId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["category"] });
+    },
   });
 };

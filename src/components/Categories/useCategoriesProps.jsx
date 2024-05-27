@@ -25,10 +25,9 @@ export const useCategoriesProps = () => {
   const onCloseModal1 = () => setIsOpenModal1(false);
   const onOpenModal2 = () => setIsOpenModal2(true);
   const onCloseModal2 = () => setIsOpenModal2(false);
-  const { data: getCat, refetch } = useGetCategoriesService();
+  const { data: getCat, refetch } = useGetCategoriesService({});
   const handleDeleteCategory = async (categoryId) => {
     deleteCategory(categoryId);
-    refetch();
   };
 
   const { mutate: deleteCategory } = useDeleteCategory({

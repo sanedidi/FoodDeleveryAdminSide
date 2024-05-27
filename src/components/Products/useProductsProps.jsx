@@ -28,21 +28,21 @@ const useProductsProps = () => {
   const onOpenModal2 = () => setIsOpenModal2(true);
   const onCloseModal2 = () => setIsOpenModal2(false);
 
-  const handleEditProduct = (productId) => {
-    setSelectedProductId(productId);
-    onOpenModal1();
-  };
+  // const handleEditProduct = (productId) => {
+  //   setSelectedProductId(productId);
+  //   onOpenModal1();
+  // };
 
-  const handleDeleteProduct = async (productId) => {
-    try {
-      await axios.delete(
-        `https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`
-      );
-      getProducts();
-    } catch (error) {
-      console.error("Error deleting product:", error);
-    }
-  };
+  // const handleDeleteProduct = async (productId) => {
+  //   try {
+  //     await axios.delete(
+  //       `https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`
+  //     );
+  //     getProducts();
+  //   } catch (error) {
+  //     console.error("Error deleting product:", error);
+  //   }
+  // };
 
   const API_URL = "https://food-delivery-api-n6as.onrender.com/v1/products";
 

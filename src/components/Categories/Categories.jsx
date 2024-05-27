@@ -35,13 +35,13 @@ export const Categories = () => {
 
 
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      getCat();
-    }, 500);
+  // useEffect(() => {
+  //   const timeoutId = setTimeout(() => {
+  //     getCat();
+  //   }, 500);
 
-    return () => clearTimeout(timeoutId);
-  }, [getCat]);
+  //   return () => clearTimeout(timeoutId);
+  // }, [getCat]);
   const categoriesWrapperRef = useRef(null);
 
   const handleDownload = () => {

@@ -65,6 +65,7 @@ export const Products = () => {
       );
       toast.success("Продукт удален успешно");
       setIsOpenModal2(false);
+      getProducts()
     } catch (error) {
       toast.error("Что то пошло не так повторите попытку!");
     }
@@ -80,13 +81,6 @@ export const Products = () => {
 
 
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      getProducts(page, limit);
-    }, 5000);
-
-    return () => clearTimeout(timeoutId);
-  }, [products]);
   return (
     <>
       <Header
