@@ -65,7 +65,7 @@ export const Products = () => {
       );
       toast.success("Продукт удален успешно");
       setIsOpenModal2(false);
-      getProducts()
+      getProducts();
     } catch (error) {
       toast.error("Что то пошло не так повторите попытку!");
     }
@@ -79,30 +79,10 @@ export const Products = () => {
     getProducts(page, limit);
   }, [page]);
 
-
-
   return (
     <>
       <Header
         title={"Продукты "}
-        headerBtn1={
-          <Box className={s.Products__btn}>
-            <CustomBtn
-              onClick={handleRefresh}
-              BgColor={"white"}
-              type={"button"}
-              BtnBorder={"1px solid #E5E9EB"}
-              BtnContent={
-                <Box
-                  style={{ display: "flex", alignItems: "center", gap: "5px" }}
-                >
-                  <ReloadIcon />
-                  <p style={{ color: "blue", fontWeight: "500" }}>Обновить</p>
-                </Box>
-              }
-            />
-          </Box>
-        }
         headerBtn2={
           <Link to={"/admin/categories/products/add"} className="header_btn1">
             <PlusIcon /> Добавить

@@ -66,22 +66,6 @@ export const Categories = () => {
   return (
     <>
       <Header
-        headerBtn1={
-          <CustomBtn
-            Onclick={handleRefresh}
-            BgColor={"white"}
-            type={"button"}
-            BtnBorder={"1px solid #E5E9EB"}
-            BtnContent={
-              <Box
-                style={{ display: "flex", alignItems: "center", gap: "5px" }}
-              >
-                <ReloadIcon />
-                <p style={{ color: "blue", fontWeight: "500" }}> Обновить</p>
-              </Box>
-            }
-          />
-        }
         headerBtn2={
           <Link to={"/admin/categories/add"} className="header_btn1">
             <PlusIcon /> Добавить
