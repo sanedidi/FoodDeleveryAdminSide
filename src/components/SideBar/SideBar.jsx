@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import s from "./SideBar.module.scss";
 import { LogoIcon } from "../SvgComponents/SvgComponents";
 import useSideBarProps from "./useSideBarProps";
@@ -18,12 +18,18 @@ const SideBar = () => {
   } = useSideBarProps();
   const location = useLocation();
 
-  const isActive = location.pathname === "/admin/categories";
+  const isActive = (path) => location.pathname.startsWith(path);
 
   const handleLinkClick = (path) => {
     setActivePath(path);
-    setIsClientsActive(path === "/admin/categories" || isActive);
+    setIsClientsActive(path === "/admin/categories" || isActive("/admin/categories"));
   };
+
+  useEffect(() => {
+    if (!location.pathname.startsWith("/admin/categories")) {
+      setIsClientsActive(false);
+    }
+  }, [location.pathname]);
 
   return (
     <Box className={s.sidebar}>
@@ -56,7 +62,7 @@ const SideBar = () => {
               {sideBarLinks.map((el, index) => (
                 <Box className={s.sidebar__links} key={index}>
                   <Link to={el.path} onClick={() => handleLinkClick(el.path)}>
-                    <Box className={el.path === activePath ? "active" : ""}>
+                    <Box className={isActive(el.path) ? "active" : ""}>
                       {el.icon}
                     </Box>
                   </Link>

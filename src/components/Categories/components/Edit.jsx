@@ -13,6 +13,7 @@ import {
 import React, { useState, useEffect } from "react";
 import s from "../CategoriesAdd/CategoriesAdd.module.scss";
 import { Done } from "@mui/icons-material";
+import { CloseIcon } from "@chakra-ui/icons";
 
 const Edit = () => {
   const navigate = useNavigate();
@@ -93,7 +94,16 @@ const Edit = () => {
         headerBtn1={
           <CustomBtn
             BtnContent={
-              <Link to={"/admin/categories"} style={{ color: "red" }}>
+              <Link
+                to={"/admin/categories"}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  color: "red",
+                  gap: "10px",
+                }}
+              >
+                <CloseIcon fontSize={"10px"} color={"red"} />
                 Отменить
               </Link>
             }

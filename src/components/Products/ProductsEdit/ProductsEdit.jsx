@@ -14,9 +14,11 @@ import {
   useNavigate,
   useParams,
   PLusCIrcleIcon,
+  Link,
 } from "public/imports";
 import s from "./ProductsEdit.module.scss";
 import useProductsEditProps from "./useProductsEditProps";
+import { CloseIcon } from "@chakra-ui/icons";
 
 const generateArticul = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
@@ -127,7 +129,36 @@ export const ProductsEdit = () => {
 
   return (
     <>
-      <Header title="Редактировать" />
+      <Header
+        title="Редактировать"
+        headerBtn1={
+          <>
+            {" "}
+            <CustomBtn
+              BgColor={"#fff"}
+              BtnBorder={"1px solid red"}
+              BtnContent={
+                <>
+                  {" "}
+                  <Link
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      color: "red",
+                      gap:"10px",
+                    }}
+                    to={"/admin/categories/products?page=1"}
+                  >
+                    {" "}
+                    <CloseIcon fontSize={"12px"} color={"red"} />
+                    Отменить
+                  </Link>{" "}
+                </>
+              }
+            />
+          </>
+        }
+      />
       <Toaster />
       <Box className={s.edit__wrapper}>
         <form className={s.edit} onSubmit={handleSubmit}>
