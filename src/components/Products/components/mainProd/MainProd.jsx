@@ -234,23 +234,23 @@ export const MainProd = () => {
                   *Код единицы измерения{" "}
                 </h2>
                 <CustomInput
-                  InputPlaceHolder="Enter storage code"
+                  InputPlaceHolder="Введите код"
                   name="storage_code"
+                  onChange={handleInputChange}
+                />
+              </Box>
+              <Box className={s.prod__input}>
+                <h2 className={s.prod__bottom_title}>*Код ИКПУ</h2>
+                <CustomInput
+                  InputPlaceHolder="Введите код"
+                  name="tax_code"
                   onChange={handleInputChange}
                 />
               </Box>
               <Box className={s.prod__input}>
                 <h2 className={s.prod__bottom_title}>*Код упаковки</h2>
                 <CustomInput
-                  InputPlaceHolder="Введите код упаковки"
-                  name="tax_code"
-                  onChange={handleInputChange}
-                />
-              </Box>
-              <Box className={s.prod__input}>
-                <h2 className={s.prod__bottom_title}>Packing Code</h2>
-                <CustomInput
-                  InputPlaceHolder="packaging_code"
+                  InputPlaceHolder="Введите код"
                   name="packaging_code"
                   type="number"
                   onChange={handleInputChange}

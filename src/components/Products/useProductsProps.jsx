@@ -194,6 +194,7 @@ const useProductsProps = () => {
     setPageSize,
     setIsLoading,
     getProducts,
+    products,
   };
 };
 export default useProductsProps;

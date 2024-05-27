@@ -259,38 +259,21 @@ export const DateIcon = ({ color, width, height }) => {
     <svg
       width={width}
       height={height}
-      viewBox="0 0 24 24"
-      fill="none"
+      viewBox="0 0 20 20"
+      fill={color}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M16 2V6"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M8 2V6"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M3 10H21"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <g clip-path="url(#clip0_1092_3139)">
+        <path
+          d="M10.0007 6.66732C8.15898 6.66732 6.66732 8.15898 6.66732 10.0007C6.66732 11.8423 8.15898 13.334 10.0007 13.334C11.8423 13.334 13.334 11.8423 13.334 10.0007C13.334 8.15898 11.8423 6.66732 10.0007 6.66732ZM17.4506 9.16732C17.0673 5.69232 14.309 2.93398 10.834 2.55065V0.833984H9.16732V2.55065C5.69232 2.93398 2.93398 5.69232 2.55065 9.16732H0.833984V10.834H2.55065C2.93398 14.309 5.69232 17.0673 9.16732 17.4506V19.1673H10.834V17.4506C14.309 17.0673 17.0673 14.309 17.4506 10.834H19.1673V9.16732H17.4506ZM10.0007 15.834C6.77565 15.834 4.16732 13.2256 4.16732 10.0007C4.16732 6.77565 6.77565 4.16732 10.0007 4.16732C13.2256 4.16732 15.834 6.77565 15.834 10.0007C15.834 13.2256 13.2256 15.834 10.0007 15.834Z"
+          fill="#6E8BB7"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_1092_3139">
+          <rect width="20" height="20" fill="white" />
+        </clipPath>
+      </defs>
     </svg>
   );
 };

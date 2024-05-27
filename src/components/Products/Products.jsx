@@ -46,6 +46,7 @@ export const Products = () => {
     isLoading,
     setIsLoading,
     getProducts,
+    products,
   } = useProductsProps();
 
   const { current, totalPages } = paginationData;
@@ -77,6 +78,15 @@ export const Products = () => {
     getProducts(page, limit);
   }, [page]);
 
+
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      getProducts(page, limit);
+    }, 5000);
+
+    return () => clearTimeout(timeoutId);
+  }, [products]);
   return (
     <>
       <Header

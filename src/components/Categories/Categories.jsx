@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import s from "./CategoriesAdd/CategoriesAdd.module.scss";
 import {
   PlusIcon,
@@ -21,32 +21,27 @@ import { Skeleton } from "antd";
 
 export const Categories = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const handleMainImageChange = (event) => {
-    const file = event.target.files[0];
-    setMainImage(file);
-  };
+
   const {
-    isOpenModal1,
     isOpenModal2,
-    onCloseModal1,
     onCloseModal2,
-    updateCategory,
     setSearchQuery,
     columns,
     data,
     selectedCategoryId,
     handleDeleteCategory,
+    getCat
   } = useCategoriesProps();
-  const {
-    lang,
-    activeLang,
-    mainImage,
-    name,
-    setActiveLang,
-    setMainImage,
-    setName,
-  } = UseCAtegoriesAddProps();
 
+
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      getCat();
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [getCat]);
   const categoriesWrapperRef = useRef(null);
 
   const handleDownload = () => {
@@ -63,7 +58,6 @@ export const Categories = () => {
   };
   const handleRefresh = () => {
     setIsLoading(true);
-
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);

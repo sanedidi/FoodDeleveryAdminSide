@@ -187,6 +187,7 @@ export const useCategoriesProps = () => {
     selectedCategoryId,
     handleDeleteCategory,
     setSelectedCategoryId,
+    getCat
   };
 };
 export default useCategoriesProps;
