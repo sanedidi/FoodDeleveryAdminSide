@@ -178,7 +178,7 @@ export const GroupsIcon = ({ color, width, height }) => {
 export const LocationIcon = ({ color, width, height, style }) => {
   return (
     <svg
-    style={style}
+      style={style}
       width={width}
       height={height}
       viewBox="0 0 24 24"
@@ -908,7 +908,7 @@ export const PLusCIrcleIcon = () => {
     </svg>
   );
 };
-export const LogOutIcon = ({onCLick}) => {
+export const LogOutIcon = ({ onCLick }) => {
   return (
     <div onClick={onCLick}>
       <svg
@@ -941,5 +941,41 @@ export const LogOutIcon = ({onCLick}) => {
         />
       </svg>
     </div>
+  );
+};
+export const ChevronLeftIcon = ({ fill }) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M14.7068 7.29279C14.8943 7.48031 14.9996 7.73462 14.9996 7.99979C14.9996 8.26495 14.8943 8.51926 14.7068 8.70679L11.4138 11.9998L14.7068 15.2928C14.8889 15.4814 14.9897 15.734 14.9875 15.9962C14.9852 16.2584 14.88 16.5092 14.6946 16.6946C14.5092 16.88 14.2584 16.9852 13.9962 16.9875C13.734 16.9897 13.4814 16.8889 13.2928 16.7068L9.29279 12.7068C9.10532 12.5193 9 12.265 9 11.9998C9 11.7346 9.10532 11.4803 9.29279 11.2928L13.2928 7.29279C13.4803 7.10532 13.7346 7 13.9998 7C14.265 7 14.5193 7.10532 14.7068 7.29279Z"
+        fill={fill}
+      />
+    </svg>
+  );
+};
+export const ChevronRightIcon = ({ fill }) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M9.29279 16.7064C9.10532 16.5189 9 16.2646 9 15.9994C9 15.7343 9.10532 15.48 9.29279 15.2924L12.5858 11.9994L9.29279 8.70643C9.11063 8.51783 9.00983 8.26523 9.01211 8.00303C9.01439 7.74083 9.11956 7.49002 9.30497 7.30461C9.49038 7.1192 9.74119 7.01403 10.0034 7.01176C10.2656 7.00948 10.5182 7.11027 10.7068 7.29243L14.7068 11.2924C14.8943 11.48 14.9996 11.7343 14.9996 11.9994C14.9996 12.2646 14.8943 12.5189 14.7068 12.7064L10.7068 16.7064C10.5193 16.8939 10.265 16.9992 9.99979 16.9992C9.73462 16.9992 9.48031 16.8939 9.29279 16.7064Z"
+        fill={fill}
+      />
+    </svg>
   );
 };

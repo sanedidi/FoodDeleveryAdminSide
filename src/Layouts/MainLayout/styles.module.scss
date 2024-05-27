@@ -1,5 +1,11 @@
 .mainLayOut {
   display: flex;
+  height: 100vh;
+  @media (max-height: 500px) {
+    justify-content: space-between;
+    height: 100dvh;
+    overflow-y: scroll;
+  }
   @media (max-width: 500px) {
     flex-direction: column-reverse;
     justify-content: space-between;
@@ -8,6 +14,7 @@
   }
   &__wrapper {
     width: 100%;
-  background-color: #e0eeff;
+    overflow-y: scroll  ;
+    background-color: #e0eeff;
   }
 }

@@ -89,7 +89,7 @@ const Edit = () => {
   return (
     <>
       <Header
-        title={"Edit"}
+        title={"Редактировать "}
         headerBtn1={
           <CustomBtn
             BtnContent={
@@ -105,11 +105,6 @@ const Edit = () => {
       />
       <form onSubmit={handleSubmit}>
         <Box className={s.categoriesAdd}>
-          <Box className={s.categoriesAdd__underHead}>
-            <Box className={s.categoriesAdd__text}>
-              <p>Общие Сведения</p>
-            </Box>
-          </Box>
           <Box className={s.categoriesAdd__main_cont}>
             <Box className={s.categoriesAdd__cont}>
               <Box className={s.categoriesAdd__top}>

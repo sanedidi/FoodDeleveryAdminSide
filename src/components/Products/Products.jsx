@@ -24,6 +24,10 @@ import {
 
 import useProductsProps from "./useProductsProps";
 import s from "./Products.module.scss";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "components/SvgComponents/SvgComponents";
 
 export const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -145,8 +149,16 @@ export const Products = () => {
         <CustomTable key={isLoading} columns={columns} data={data} />
         <Box className={s.products__pagination}>
           <ReactPaginate
-            previousLabel={"< previous"}
-            nextLabel={"next >"}
+            previousLabel={
+              <>
+                <ChevronLeftIcon />
+              </>
+            }
+            nextLabel={
+              <>
+                <ChevronRightIcon />
+              </>
+            }
             breakLabel={"..."}
             breakClassName={"break-me"}
             pageCount={totalPages}
@@ -155,7 +167,7 @@ export const Products = () => {
             onPageChange={handlePageChange}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
-            activeClassName={"active"}
+            activeClassName={"activePagination"}
             className={s.products_pag}
             initialPage={page - 1}
           />

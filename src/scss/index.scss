@@ -167,8 +167,40 @@ td {
   background: var(--chakra-colors-blackAlpha-600) !important;
 }
 
-.pagination{
+.pagination {
   display: flex;
   justify-content: end;
-  gap: 20px;
+  gap: 5px;
+  border-top: 1px solid #e7e7e7;
+  padding: 5px 0;
+  li {
+    padding: 8px;
+    font-size: 16px;
+  }
+}
+
+.previous.disabled {
+  path {
+    fill: gray;
+  }
+  font-size: 16px;
+}
+.previous {
+  path {
+    fill: #0e73fc;
+  }
+  font-size: 16px;
+  font-weight: 900;
+}
+.next {
+  path {
+    fill: #0e73fc;
+  }
+  font-weight: 900;
+  font-size: 16px;
+}
+.activePagination {
+  background-color: #0e73fc;
+  border-radius: 8px;
+  color: #fff;
 }

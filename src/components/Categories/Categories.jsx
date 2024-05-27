@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import s from "./CategoriesAdd/CategoriesAdd.module.scss";
 import {
-  DownloadIcon,
   PlusIcon,
   PlusIconDown,
   ReloadIcon,
@@ -10,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import UnderHeader from "components/UnderHeader/UnderHeader";
 import CustomInput from "components/Custom/CustomInput/CustomInput";
-import { SearchIcon } from "@chakra-ui/icons";
+import { DownloadIcon, SearchIcon } from "@chakra-ui/icons";
 import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
 import useCategoriesProps from "./useCategoriesProps";
 import { CustomTable } from "components/Custom/CustomTable/CustomTable";
@@ -84,10 +83,7 @@ export const Categories = () => {
                 style={{ display: "flex", alignItems: "center", gap: "5px" }}
               >
                 <ReloadIcon />
-                <p style={{ color: "blue", fontWeight: "500" }}>
-                  {" "}
-                  Обновить 
-                </p>
+                <p style={{ color: "blue", fontWeight: "500" }}> Обновить</p>
               </Box>
             }
           />
@@ -112,10 +108,16 @@ export const Categories = () => {
             <CustomBtn
               Onclick={() => handleDownload()}
               BtnContent={
-                <>
-                  <DownloadIcon />
-                  <p style={{ color: "black", fontWeight: "400" }}>Скачать</p>
-                </>
+                <Box
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <DownloadIcon color={"blue"} />
+                  <p style={{ color: "#000", fontWeight: "500" }}>Скачать</p>
+                </Box>
               }
               BgColor={"white"}
               BtnBorder={"1px solid #E5E9EB"}
@@ -132,7 +134,7 @@ export const Categories = () => {
           )}
         </Box>
       </Box>
-    
+
       <CustomModal
         isOpenModal={isOpenModal2}
         onCloseModal={onCloseModal2}
