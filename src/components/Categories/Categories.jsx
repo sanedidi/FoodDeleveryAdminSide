@@ -86,7 +86,7 @@ export const Categories = () => {
                 <ReloadIcon />
                 <p style={{ color: "blue", fontWeight: "500" }}>
                   {" "}
-                  Обновить CRM филиал
+                  Обновить 
                 </p>
               </Box>
             }

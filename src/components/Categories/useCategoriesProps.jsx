@@ -89,9 +89,9 @@ export const useCategoriesProps = () => {
       dataIndex: "name",
     },
     {
-      title: "Фото",
+      title: "Дата создания",
       width: 480,
-      render: (item) => <CategoryImage item={item} />,
+      dataIndex: "created_at"
     },
     {
       title: (

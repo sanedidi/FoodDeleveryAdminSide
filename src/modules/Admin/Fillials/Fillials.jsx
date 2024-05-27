@@ -65,7 +65,7 @@
 //         headerBtn1={
 //           <div onClick={handleReload} className={s.header__btn_fill}>
 //             <IoMdRefresh className={s.header__refresh} />
-//             <span className={s.header__fill}>Обновить СRM филиалы</span>
+//             <span className={s.header__fill}>Обновить</span>
 //           </div>
 //         }
 //         headerBtn2={

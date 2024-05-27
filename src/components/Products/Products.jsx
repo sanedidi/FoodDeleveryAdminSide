@@ -89,9 +89,7 @@ export const Products = () => {
                   style={{ display: "flex", alignItems: "center", gap: "5px" }}
                 >
                   <ReloadIcon />
-                  <p style={{ color: "blue", fontWeight: "500" }}>
-                    Обновить CRM филиал
-                  </p>
+                  <p style={{ color: "blue", fontWeight: "500" }}>Обновить</p>
                 </Box>
               }
             />

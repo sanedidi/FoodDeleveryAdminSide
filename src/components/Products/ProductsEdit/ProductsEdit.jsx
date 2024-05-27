@@ -129,13 +129,6 @@ export const ProductsEdit = () => {
     <>
       <Header
         title="Редактировать"
-        headerBtn1={
-          <CustomBtn
-            BgColor="blue"
-            BtnContent="Сохранить"
-            onClick={handleSubmit}
-          />
-        }
       />
       <Toaster />
       <Box className={s.edit__wrapper}>
@@ -272,7 +265,7 @@ export const ProductsEdit = () => {
                       />
                     </Box>
                     <Box className={s.edit__input}>
-                      <h2 className={s.edit__bottom_title}>Код налога</h2>
+                      <h2 className={s.edit__bottom_title}>Код ИКПУ</h2>
                       <CustomInput
                         InputPlaceHolder="Код налога"
                         name="tax_code"
