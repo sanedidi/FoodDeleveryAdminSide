@@ -10,7 +10,6 @@ import { ResetPasswordStep3 } from "../modules/Auth/ResetPassword/Components/Res
 import { AuthLayout } from "../Layouts/AuthLayout/AuthLayout";
 import Clients from "../components/Clients/Clients";
 import Orders from "../components/Orders/Orders";
-import Categories from "components/Categories/Categories";
 import Dashboard from "components/Dashboard/Dashboard";
 import Locations from "components/Locations/Locations";
 import Calendar from "components/Calendar/Calendar";
@@ -18,6 +17,8 @@ import { CategoriesAdd } from "components/Categories/CategoriesAdd";
 import { Products } from "components/Products";
 import ProductsAdd from "components/Products/ProductsAdd/ProductsAdd";
 import { ProductsEdit } from "components/Products/ProductsEdit";
+import Edit from "components/Categories/components/Edit";
+import { Categories } from "components/Categories";
 export const Router = observer(() => {
   const isAuth = authStore.isAuth;
   const role = JSON.parse(localStorage.getItem("auth"));
@@ -64,6 +65,7 @@ export const Router = observer(() => {
           path="/admin/categories/products/edit/:productId"
           element={<ProductsEdit />}
         />
+        <Route path="/admin/categories/edit/:categoryId" element={<Edit />} />
       </Route>
       <Route path="*" element={<Navigate to="/admin/orders" />} />
       <Route path="" element={<Navigate to="/admin/orders" />} />

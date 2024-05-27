@@ -127,9 +127,7 @@ export const ProductsEdit = () => {
 
   return (
     <>
-      <Header
-        title="Редактировать"
-      />
+      <Header title="Редактировать" />
       <Toaster />
       <Box className={s.edit__wrapper}>
         <form className={s.edit} onSubmit={handleSubmit}>
@@ -220,7 +218,7 @@ export const ProductsEdit = () => {
                     <h2 className={s.edit__bottom_title}>Артикул</h2>
                     <Box className={s.edit__gen}>
                       <CustomInput
-                      className={s.edit__gen_input}
+                        className={s.edit__gen_input}
                         InputPlaceHolder="Артикул"
                         name="articul"
                         value={productData.articul}

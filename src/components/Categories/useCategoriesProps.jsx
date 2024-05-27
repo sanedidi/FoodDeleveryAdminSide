@@ -12,6 +12,7 @@ import {
   useDeleteCategory,
   useGetCategoriesService,
   axios,
+  Link,
 } from "public/imports";
 
 export const useCategoriesProps = () => {
@@ -32,7 +33,6 @@ export const useCategoriesProps = () => {
 
   const { mutate: deleteCategory } = useDeleteCategory({
     onSuccess: () => refetch(),
-    
   });
 
   const updateCategory = async ({ id, name, photo }) => {
@@ -49,7 +49,6 @@ export const useCategoriesProps = () => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-          
         }
       );
       alert("Update Successful");
@@ -91,7 +90,7 @@ export const useCategoriesProps = () => {
     {
       title: "Дата создания",
       width: 480,
-      dataIndex: "created_at"
+      dataIndex: "created_at",
     },
     {
       title: (
@@ -111,18 +110,18 @@ export const useCategoriesProps = () => {
                   padding="0px"
                 >
                   <AiOutlineEllipsis
-                  onClick={() => {
-                    onOpenModal1();
-                  }}
-                      style={{
-                        fontWeight: "900",
-                        fontSize: "30px",
-                        border: "1px solid rgba(231, 231, 231, 1)",
-                        borderRadius: "5px",
-                        background: "#fff",
-                      }}
-                      color="#0E73FC"
-                    />
+                    onClick={() => {
+                      onOpenModal1();
+                    }}
+                    style={{
+                      fontWeight: "900",
+                      fontSize: "30px",
+                      border: "1px solid rgba(231, 231, 231, 1)",
+                      borderRadius: "5px",
+                      background: "#fff",
+                    }}
+                    color="#0E73FC"
+                  />
                 </div>
               }
               ListMenu={
@@ -144,22 +143,19 @@ export const useCategoriesProps = () => {
                 </div>
               }
               ListMenu1={
-                <div
+                <Link
+                  to={`/admin/categories/edit/${item.id}`}
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
                     width: "100%",
                   }}
-                  onClick={() => {
-                    onOpenModal1();
-                    setSelectedCategoryId(item.id);
-                  }}
                   className="categories__menu"
                 >
                   Изменить
                   <EditIcon color={"#0E73FC"} />
-                </div>
+                </Link>
               }
             />
           </div>
