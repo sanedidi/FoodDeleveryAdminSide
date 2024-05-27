@@ -10,7 +10,6 @@ import { ResetPasswordStep3 } from "../modules/Auth/ResetPassword/Components/Res
 import { AuthLayout } from "../Layouts/AuthLayout/AuthLayout";
 import Clients from "../components/Clients/Clients";
 import Orders from "../components/Orders/Orders";
-import Dashboard from "components/Dashboard/Dashboard";
 import Locations from "components/Locations/Locations";
 import Calendar from "components/Calendar/Calendar";
 import { CategoriesAdd } from "components/Categories/CategoriesAdd";
@@ -49,9 +48,8 @@ export const Router = observer(() => {
   return (
     <Routes>
       <Route path="" element={<MainLayout />}>
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/clients" element={<Clients />} />
         <Route path="/admin/orders" element={<Orders />} />
+        <Route path="/admin/clients" element={<Clients />} />
         <Route path="/admin/categories" element={<Categories />} />
         <Route path="/admin/fillials" element={<Locations />} />
         <Route path="/admin/calendar" element={<Calendar />} />
