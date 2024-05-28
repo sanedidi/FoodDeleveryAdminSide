@@ -15,7 +15,6 @@ const CustomTabs = ({ tabs, activeTab, onTabChange }) => {
           <Tab key={index}>{label}</Tab>
         ))}
       </TabList>
-
       <TabPanels>
         {tabContents.map((content, index) => (
           <TabPanel key={index}>{content}</TabPanel>

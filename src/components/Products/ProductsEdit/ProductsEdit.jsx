@@ -207,6 +207,7 @@ export const ProductsEdit = () => {
                   <Box className={s.edit__cat}>
                     <h2 className={s.edit__bottom_title}>Категории</h2>
                     <Select
+                    // defaultValue={category.name}}
                       placeholder="Выберите Категорию"
                       options={
                         Array.isArray(categories)

@@ -1,4 +1,8 @@
 .orders {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fff;
   &__calendar {
     border: 1px solid #e7e7e7;
     padding: 7px;
@@ -6,6 +10,29 @@
     text-align: center;
     :hover {
       box-shadow: none !important;
+    }
+  }
+
+  &__wrapper {
+    background-color: #fff;
+    padding: 16px;
+  }
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #0e73f6;
+      padding: 5px;
+      text-align: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50px;
+      font-size: 12px;
+      color: #fff;
     }
   }
 }
