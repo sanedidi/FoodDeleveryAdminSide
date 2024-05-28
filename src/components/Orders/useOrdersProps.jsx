@@ -32,10 +32,38 @@ const useOrdersProps = () => {
       width: 0,
     },
     {
-      title: "Дата",
+      title: "Дата заказа",
       key: "order_time",
       dataIndex: "order_time",
       width: 0,
+    },
+    {
+      title: " Имя клиента",
+      width: 120,
+      render: (item) => <p>{item?.CustomerData.full_name}</p>,
+    },
+    {
+      title: "Филиал",
+      width: 120,
+      render: (item) => <p>{item?.BranchData.address}</p>,
+    },
+    {
+      title: "Тип Заказа",
+      key: "order_type",
+      dataIndex: "order_type",
+      width: 120,
+    },
+    {
+      title: "Цена",
+      key: "total_price",
+      dataIndex: "total_price",
+      width: 120,
+    },
+    {
+      title: "Тип оплаты",
+      key: "payment_type",
+      dataIndex: "payment_type",
+      width: 120,
     },
   ];
 
@@ -48,15 +76,24 @@ const useOrdersProps = () => {
   );
 
   return {
-    data: getOrder
-      ? filteredData?.map((item, index) => ({
-          key: item?.id || index,
-          number: (currentPage - 1) * pageSize + index + 1,
-          ...item,
-        }))
-      : [],
+    data:
+      filteredData?.map((item, index) => ({
+        key: item?.id || index,
+        number: (currentPage - 1) * pageSize + index + 1,
+        ...item,
+      })) || [],
+    paginationData: {
+      current: currentPage,
+      pageSize: pageSize,
+      // totalPages: totalPages,
+    },
     columns,
     skeleton,
+    setSearchQuery,
+    currentPage,
+    pageSize,
+    setPageSize,
+    setCurrentPage,
   };
 };
 

@@ -19,8 +19,7 @@ const Orders = () => {
   const [datetime12h, setDateTime12h] = useState(null);
   const [datetime12h1, setDateTime12h1] = useState(null);
 
-  const { data, columns,  skeleton } = useOrdersProps();
-
+  const { data, columns, setSearchQuery } = useOrdersProps();
 
   return (
     <>
@@ -49,6 +48,7 @@ const Orders = () => {
         firstItem={
           <CustomInput
             InputIcon={<SearchIcon color={"blue"} />}
+            onChange={(e) => setSearchQuery(e.target.value)}
             InputPlaceHolder={"Поиск..."}
           />
         }
@@ -82,7 +82,9 @@ const Orders = () => {
             type={"button"}
             BtnBorder={"1px solid #E5E9EB"}
             BtnContent={
-              <Box style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+              <Box
+                style={{ display: "flex", alignItems: "center", gap: "5px" }}
+              >
                 <FilterIcon />
                 <p style={{ color: "#000", fontWeight: "500" }}>Фильтр</p>
               </Box>
