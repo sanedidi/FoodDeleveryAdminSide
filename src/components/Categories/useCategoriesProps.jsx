@@ -58,10 +58,6 @@ export const useCategoriesProps = () => {
     }
   };
 
-  const handleEditCategory = (categoryId) => {
-    setSelectedCategoryId(categoryId);
-    onOpenModal1();
-  };
   const filteredData = getCat?.Data?.category?.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -186,7 +182,7 @@ export const useCategoriesProps = () => {
     selectedCategoryId,
     handleDeleteCategory,
     setSelectedCategoryId,
-    getCat
+    getCat,
   };
 };
 export default useCategoriesProps;
