@@ -21,8 +21,20 @@ const useOrdersProps = () => {
   const columns = [
     {
       title: "No",
-      key: "created_at",
-      dataIndex: "created_at",
+      key: "number",
+      dataIndex: "number",
+      width: 0,
+    },
+    {
+      title: "ID заказа",
+      key: "id",
+      dataIndex: "id",
+      width: 0,
+    },
+    {
+      title: "Дата",
+      key: "order_time",
+      dataIndex: "order_time",
       width: 0,
     },
   ];
