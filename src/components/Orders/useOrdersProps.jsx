@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Skeleton, Stack } from "@chakra-ui/react";
+import { Box, Skeleton, Stack } from "@chakra-ui/react";
 import { useGetOrdersService } from "services/orders.service";
 import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
@@ -76,18 +76,18 @@ const useOrdersProps = () => {
     },
     {
       title: (
-        <div style={{ margin: "0 auto", width: "max-content" }}>
+        <Box style={{ margin: "0 auto", width: "max-content" }}>
           <CategoryFilterIcon />
-        </div>
+        </Box>
       ),
       key: "operations",
       width: 20,
       render: (item) => {
         return (
-          <div>
+          <Box>
             <MenuComp
               MenuBtn={
-                <div
+                <Box
                   boxshadow={"0px 1px 2px rgba(16, 24, 40, 0.05)"}
                   padding="0px"
                 >
@@ -104,15 +104,16 @@ const useOrdersProps = () => {
                     }}
                     color="#0E73FC"
                   />
-                </div>
+                </Box>
               }
               ListMenu={
-                <div
+                <Box
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
                     width: "100%",
+                    gap:"10px"
                   }}
                   className="categories__menu"
                   onClick={() => {
@@ -120,27 +121,18 @@ const useOrdersProps = () => {
                     setSelectedCategoryId(item.id);
                   }}
                 >
-                  Удалить
                   <CheckIcon color={"green"} />
-                </div>
+                  Закрыть
+                </Box>
               }
               ListMenu1={
-                <Link
-                  to={`/admin/categories/edit/${item.id}`}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    width: "100%",
-                  }}
-                  className="categories__menu"
-                >
-                  Изменить
-                  <EditIcon color={"#0E73FC"} />
-                </Link>
+                <Box>
+
+                  Отменить
+                </Box>
               }
             />
-          </div>
+          </Box>
         );
       },
     },
