@@ -65,7 +65,7 @@ const Orders = () => {
             <CustomInput
               InputIcon={<SearchIcon color={"blue"} />}
               onChange={(e) => setSearchQuery(e.target.value)}
-              InputPlaceHolder={"Поиск..."}
+              InputPlaceHolder={"Поиск по имени клиента"}
             />
           }
           first1Item={
@@ -93,6 +93,7 @@ const Orders = () => {
             />
           }
           secondItem={
+            
             <CustomBtn
               BgColor={"white"}
               type={"button"}

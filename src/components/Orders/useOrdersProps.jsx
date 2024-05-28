@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Box, Skeleton, Stack } from "@chakra-ui/react";
 import { useGetOrdersService } from "services/orders.service";
-import { CheckIcon, EditIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { CheckIcon } from "@chakra-ui/icons";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { MenuComp } from "components/MenuComponent";
 import { CategoryFilterIcon } from "public/imports";
 import { CancelIcon, InfoIcon } from "components/SvgComponents/SvgComponents";
+import { CountDown } from "components/CountDOwn";
 
 const useOrdersProps = () => {
+  const gg = " 20:00"
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -23,9 +24,11 @@ const useOrdersProps = () => {
     }
   }, [getOrder]);
 
-  const filteredData = getOrder?.Data?.orders?.filter((item) =>
-    item.id.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredData = getOrder?.Data?.orders?.filter((order) => {
+    const customerFullName = order.CustomerData.full_name.toLowerCase();
+    return customerFullName.includes(searchQuery.toLowerCase());
+  });
+  
   const totalOrders = filteredData?.length || 0;
 
   const columns = [
@@ -37,8 +40,8 @@ const useOrdersProps = () => {
     },
     {
       title: "ID заказа",
-      key: "id",
-      dataIndex: "id",
+      key: "order_number",
+      dataIndex: "order_number",
       width: 0,
     },
     {
@@ -48,7 +51,7 @@ const useOrdersProps = () => {
       width: 0,
     },
     {
-      title: " Имя клиента",
+      title: "Имя клиента",
       width: 120,
       render: (item) => <p>{item?.CustomerData.full_name}</p>,
     },
@@ -68,6 +71,13 @@ const useOrdersProps = () => {
       key: "total_price",
       dataIndex: "total_price",
       width: 120,
+    },
+    {
+      title: "Время доставки",
+      key: "delivery_time",
+      dataIndex: "delivery_time",
+      width: 120,
+      render: (item) => <CountDown deliveryTime="22:00" />,
     },
     {
       title: "Тип оплаты",
@@ -110,11 +120,11 @@ const useOrdersProps = () => {
               ListMenu={
                 <Box
                   style={{
-                    height:"30px",
+                    height: "30px",
                     display: "flex",
                     alignItems: "center",
-                    fontWeight:"600",
-                    fontSize:"12px",
+                    fontWeight: "600",
+                    fontSize: "12px",
                     width: "100%",
                     gap: "10px",
                   }}
@@ -131,11 +141,11 @@ const useOrdersProps = () => {
               ListMenu1={
                 <Box
                   style={{
-                    height:"30px",
+                    height: "30px",
                     display: "flex",
                     alignItems: "center",
-                    fontWeight:"600",
-                    fontSize:"12px",
+                    fontWeight: "600",
+                    fontSize: "12px",
                     width: "100%",
                     gap: "10px",
                   }}
@@ -147,11 +157,11 @@ const useOrdersProps = () => {
               ListMenu3={
                 <Box
                   style={{
-                    height:"30px",
+                    height: "30px",
                     display: "flex",
                     alignItems: "center",
-                    fontWeight:"600",
-                    fontSize:"12px",
+                    fontWeight: "600",
+                    fontSize: "12px",
                     width: "100%",
                     gap: "10px",
                   }}
