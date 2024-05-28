@@ -204,3 +204,12 @@ td {
   border-radius: 8px;
   color: #fff;
 }
+.p-inputtext.p-component.p-inputtext.p-component:hover {
+  box-shadow: none;
+}
+.p-inputtext.p-component.p-inputtext.p-component:focus {
+  box-shadow: none;
+}
+.p-calendar:not(.p-calendar-disabled).p-focus > .p-inputtext {
+  box-shadow: none !important;
+}

@@ -418,13 +418,13 @@ export const ArroDownIcon = () => {
     </svg>
   );
 };
-export const CalendarIcon = () => {
+export const CalendarIcon = ({color}) => {
   return (
     <svg
       width="20"
       height="20"
       viewBox="0 0 20 20"
-      fill="none"
+      fill={color}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

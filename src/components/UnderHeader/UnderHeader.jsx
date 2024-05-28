@@ -2,6 +2,10 @@ import React from "react";
 import s from "./UnderHeader.module.scss";
 import { Box } from "@chakra-ui/react";
 
+const UnderHeaderItem = ({ children }) => {
+  return <Box className={s.underHeader__firstItem}>{children}</Box>;
+};
+
 export const UnderHeader = ({
   firstItem,
   secondItem,
@@ -12,22 +16,22 @@ export const UnderHeader = ({
   return (
     <Box className={s.underHeader}>
       <Box className={s.underHeader__wrapper}>
-        {firstItem ||
-          first1Item ||
-          (first2Item && (
+        <Box className={s.underHeader__items}>
+          {(firstItem || first1Item || first2Item) && (
             <>
-              <Box className={s.underHeader__firstItem}>{firstItem}</Box>
-              <Box className={s.underHeader__firstItem}>{first1Item}</Box>
-              <Box className={s.underHeader__firstItem}>{first2Item}</Box>
+              {firstItem && <UnderHeaderItem>{firstItem}</UnderHeaderItem>}
+              {first1Item && <UnderHeaderItem>{first1Item}</UnderHeaderItem>}
+              {first2Item && <UnderHeaderItem>{first2Item}</UnderHeaderItem>}
             </>
-          ))}
+          )}
+        </Box>
         {(secondItem || thirdItem) && (
           <Box
             style={{ display: "flex", alignItems: "center", gap: "5px" }}
             className={s.underHeader__secondItem}
           >
-            {secondItem}
-            {thirdItem}
+            {secondItem && <Box>{secondItem}</Box>}
+            {thirdItem && <Box>{thirdItem}</Box>}
           </Box>
         )}
       </Box>

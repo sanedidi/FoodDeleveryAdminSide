@@ -1,0 +1,11 @@
+.orders {
+  &__calendar {
+    border: 1px solid #e7e7e7;
+    padding: 7px;
+    border-radius: 8px;
+    text-align: center;
+    :hover {
+      box-shadow: none !important;
+    }
+  }
+}

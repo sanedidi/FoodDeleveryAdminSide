@@ -66,21 +66,10 @@ const useSideBarProps = () => {
   const settings = [
     {
       id: 1,
-      icon: (
-        <SettingsIcon
-          width={26}
-          height={26}
-          color={getColorForPath("/admin/settings")}
-        />
-      ),
-      path: "/admin/settings",
-    },
-    {
-      id: 2,
       icon: <LogOutIcon onClick={logout} />,
     },
     {
-      id: 3,
+      id: 2,
       icon: (
         <UserIcon
           width={26}
