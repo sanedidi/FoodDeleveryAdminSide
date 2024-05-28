@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { MenuComp } from "components/MenuComponent";
 import { CategoryFilterIcon } from "public/imports";
+import { CancelIcon, InfoIcon } from "components/SvgComponents/SvgComponents";
 
 const useOrdersProps = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -109,11 +110,13 @@ const useOrdersProps = () => {
               ListMenu={
                 <Box
                   style={{
+                    height:"30px",
                     display: "flex",
-                    justifyContent: "space-between",
                     alignItems: "center",
+                    fontWeight:"600",
+                    fontSize:"12px",
                     width: "100%",
-                    gap:"10px"
+                    gap: "10px",
                   }}
                   className="categories__menu"
                   onClick={() => {
@@ -126,9 +129,35 @@ const useOrdersProps = () => {
                 </Box>
               }
               ListMenu1={
-                <Box>
-
+                <Box
+                  style={{
+                    height:"30px",
+                    display: "flex",
+                    alignItems: "center",
+                    fontWeight:"600",
+                    fontSize:"12px",
+                    width: "100%",
+                    gap: "10px",
+                  }}
+                >
+                  <CancelIcon />
                   Отменить
+                </Box>
+              }
+              ListMenu3={
+                <Box
+                  style={{
+                    height:"30px",
+                    display: "flex",
+                    alignItems: "center",
+                    fontWeight:"600",
+                    fontSize:"12px",
+                    width: "100%",
+                    gap: "10px",
+                  }}
+                >
+                  <InfoIcon />
+                  Инфо
                 </Box>
               }
             />
