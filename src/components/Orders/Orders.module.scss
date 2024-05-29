@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 10px;
   background-color: #fff;
+
   &__calendar {
     border: 1px solid #e7e7e7;
     padding: 7px;
@@ -16,8 +17,6 @@
   &__wrapper {
     background-color: #fff;
     padding: 16px;
-    display: grid;
-    grid-template-columns: 12fr 1fr;
   }
   &__title {
     display: flex;
@@ -37,17 +36,19 @@
       color: #fff;
     }
   }
-  &__orders {
-    display: flex;
-    align-items: center;
-    height: max-content !important;
+  &__main {
+    margin-left: auto;
+    padding: 5px 20px;
+    border-radius: 8px;
+    text-align: left;
+    border: 1px solid #0e73f6;
   }
   &__menu {
     display: flex;
     align-items: center;
     gap: 5px;
     font-size: 15px;
-    padding: 8.5px;
-    border-bottom: 2px solid #e7e7e7;
+    font-weight: 500;
+    white-space: nowrap;
   }
 }

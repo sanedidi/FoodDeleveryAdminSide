@@ -16,8 +16,11 @@ import { Calendar } from "primereact/calendar";
 import s from "./Orders.module.scss";
 import useOrdersProps from "./useOrdersProps";
 import CustomTabs from "components/Custom/CustomTabs/CustomTabs";
+import { useState } from "react";
 
 const Orders = () => {
+  const [selectedMenuItem, setSelectedMenuItem] = useState("");
+
   const {
     data,
     columns,
@@ -126,19 +129,20 @@ const Orders = () => {
                 <Box>skdml;,</Box>,
               ],
             }}
+            ExtraItem={
+              <MenuComp
+                MenuBtn={
+                  <Box className={s.orders__main}>
+                    {selectedMenuItem} <ChevronDownIcon />
+                  </Box>
+                }
+                ListMenu={"sdvnsdf3werfe3erf"}
+                ListMenu1={"sdjvb"}
+                ListMenu3={"sidnl"}
+              />
+            }
             activeTab={activeTab}
             onTabChange={setActiveTab}
-          />
-          <MenuComp
-            ListMenu={"sdv;m"}
-            MenuBtn={
-              <>
-                <Box className={s.orders__menu}>
-                  В зал
-                  <ChevronDownIcon />
-                </Box>
-              </>
-            }
           />
         </Box>
       </Box>

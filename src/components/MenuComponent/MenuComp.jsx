@@ -24,9 +24,9 @@ export const MenuComp = ({
       </MenuButton>
       <Portal>
         <MenuList>
-          {ListMenu && <MenuItem>{ListMenu}</MenuItem>}
-          {ListMenu1 && <MenuItem>{ListMenu1}</MenuItem>}
-          {ListMenu3 && <MenuItem>{ListMenu3}</MenuItem>}
+          {ListMenu && <MenuItem >{ListMenu}</MenuItem>}
+          {ListMenu1 && <MenuItem >{ListMenu1}</MenuItem>}
+          {ListMenu3 && <MenuItem >{ListMenu3}</MenuItem>}
         </MenuList>
       </Portal>
     </Menu>

@@ -1,7 +1,7 @@
 import React from "react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Box } from "@chakra-ui/react";
 
-const CustomTabs = ({ tabs, activeTab, onTabChange }) => {
+const CustomTabs = ({ tabs, activeTab, onTabChange, ExtraItem }) => {
   const { tabLabels, tabContents } = tabs;
 
   const handleTabClick = (index) => {
@@ -10,10 +10,13 @@ const CustomTabs = ({ tabs, activeTab, onTabChange }) => {
 
   return (
     <Tabs index={activeTab} onChange={handleTabClick}>
-      <TabList>
+      <TabList display={"flex"} alignItems={"center"}>
         {tabLabels.map((label, index) => (
-          <Tab key={index}>{label}</Tab>
+          <Tab key={index} onClick={() => handleTabClick(index)}>
+            {label}
+          </Tab>
         ))}
+        <Box marginLeft={"auto"}>{ExtraItem}</Box>
       </TabList>
       <TabPanels>
         {tabContents.map((content, index) => (
