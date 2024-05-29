@@ -9,7 +9,6 @@ import { CancelIcon, InfoIcon } from "components/SvgComponents/SvgComponents";
 import { CountDown } from "components/CountDOwn";
 
 const useOrdersProps = () => {
-  const gg = " 20:00"
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -20,7 +19,7 @@ const useOrdersProps = () => {
 
   useEffect(() => {
     if (getOrder) {
-      console.log("Fetched orders:", getOrder);
+      // console.log("Fetched orders:", getOrder);
     }
   }, [getOrder]);
 
@@ -28,7 +27,7 @@ const useOrdersProps = () => {
     const customerFullName = order.CustomerData.full_name.toLowerCase();
     return customerFullName.includes(searchQuery.toLowerCase());
   });
-  
+
   const totalOrders = filteredData?.length || 0;
 
   const columns = [
@@ -43,6 +42,16 @@ const useOrdersProps = () => {
       key: "order_number",
       dataIndex: "order_number",
       width: 0,
+    },
+    {
+      title: "Время доставки",
+      key: "delivery_time",
+      dataIndex: "delivery_time",
+      width: 120,
+      render: (item) => {
+        console.log("Рендеринг элемента заказа:", item);
+        return <CountDown deliveryTime={item.delivery_time} />;
+      },
     },
     {
       title: "Дата заказа",
@@ -72,13 +81,7 @@ const useOrdersProps = () => {
       dataIndex: "total_price",
       width: 120,
     },
-    {
-      title: "Время доставки",
-      key: "delivery_time",
-      dataIndex: "delivery_time",
-      width: 120,
-      render: (item) => <CountDown deliveryTime="22:00" />,
-    },
+
     {
       title: "Тип оплаты",
       key: "payment_type",

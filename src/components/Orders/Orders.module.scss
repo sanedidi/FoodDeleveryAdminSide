@@ -16,6 +16,8 @@
   &__wrapper {
     background-color: #fff;
     padding: 16px;
+    display: grid;
+    grid-template-columns: 12fr 1fr;
   }
   &__title {
     display: flex;
@@ -34,5 +36,18 @@
       font-size: 12px;
       color: #fff;
     }
+  }
+  &__orders {
+    display: flex;
+    align-items: center;
+    height: max-content !important;
+  }
+  &__menu {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    padding: 8.5px;
+    border-bottom: 2px solid #e7e7e7;
   }
 }

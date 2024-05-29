@@ -1,4 +1,4 @@
-import { SearchIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 import {
   Box,
   CustomBtn,
@@ -10,6 +10,7 @@ import {
   UnderHeader,
   React,
   Header,
+  MenuComp,
 } from "public/imports";
 import { Calendar } from "primereact/calendar";
 import s from "./Orders.module.scss";
@@ -93,7 +94,6 @@ const Orders = () => {
             />
           }
           secondItem={
-            
             <CustomBtn
               BgColor={"white"}
               type={"button"}
@@ -128,6 +128,17 @@ const Orders = () => {
             }}
             activeTab={activeTab}
             onTabChange={setActiveTab}
+          />
+          <MenuComp
+            ListMenu={"sdv;m"}
+            MenuBtn={
+              <>
+                <Box className={s.orders__menu}>
+                  В зал
+                  <ChevronDownIcon />
+                </Box>
+              </>
+            }
           />
         </Box>
       </Box>

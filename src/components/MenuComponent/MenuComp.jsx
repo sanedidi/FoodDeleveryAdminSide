@@ -12,7 +12,7 @@ export const MenuComp = ({
 }) => {
   return (
     <Menu>
-      <MenuButton>
+      <MenuButton height={"max-content"}>
         <div
           className={MenuClass}
           style={{ display: "flex", alignItems: "center", gap: "5px" }}
