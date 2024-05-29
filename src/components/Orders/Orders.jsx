@@ -22,13 +22,14 @@ const Orders = () => {
     value: "В зал",
     label: "В зал",
   });
+  const [showCalendars, setShowCalendars] = useState(false); // Добавлено состояние для управления видимостью календарей
 
   const {
     data,
     columns,
     setSearchQuery,
-    activeTab, // Добавляем состояние activeTab
-    setActiveTab, // Функция для обновления activeTab
+    activeTab,
+    setActiveTab,
     datetime12h,
     datetime12h1,
     setDateTime12h,
@@ -66,34 +67,39 @@ const Orders = () => {
             />
           }
           first1Item={
-            <Calendar
-              className={s.orders__calendar}
-              id="calendar-12h"
-              value={datetime12h}
-              onChange={(e) => setDateTime12h(e.value)}
-              showTime
-              showIcon
-              hourFormat="12"
-              placeholder="Выберите дату..."
-            />
+            showCalendars && ( // Показывать календарь только если showCalendars === true
+              <Calendar
+                className={s.orders__calendar}
+                id="calendar-12h"
+                value={datetime12h}
+                onChange={(e) => setDateTime12h(e.value)}
+                showTime
+                showIcon
+                hourFormat="12"
+                placeholder="Выберите дату..."
+              />
+            )
           }
           first2Item={
-            <Calendar
-              className={s.orders__calendar}
-              id="calendar-12h1"
-              value={datetime12h1}
-              onChange={(e) => setDateTime12h1(e.value)}
-              showTime
-              showIcon
-              hourFormat="12"
-              placeholder="Выберите дату..."
-            />
+            showCalendars && ( // Показывать календарь только если showCalendars === true
+              <Calendar
+                className={s.orders__calendar}
+                id="calendar-12h1"
+                value={datetime12h1}
+                onChange={(e) => setDateTime12h1(e.value)}
+                showTime
+                showIcon
+                hourFormat="12"
+                placeholder="Выберите дату..."
+              />
+            )
           }
           secondItem={
             <CustomBtn
               BgColor={"white"}
               type={"button"}
               BtnBorder={"1px solid #E5E9EB"}
+              Onclick={() => setShowCalendars(!showCalendars)}
               BtnContent={
                 <Box
                   style={{ display: "flex", alignItems: "center", gap: "5px" }}
@@ -141,7 +147,7 @@ const Orders = () => {
               />
             }
             activeTab={activeTab}
-            onTabChange={setActiveTab} // Передаем функцию для обновления activeTab
+            onTabChange={setActiveTab}
           />
         </Box>
       </Box>
