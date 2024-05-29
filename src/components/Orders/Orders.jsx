@@ -5,62 +5,55 @@ import {
   CustomInput,
   CustomTable,
   FilterIcon,
+  Header,
   Link,
   PlusIcon,
   UnderHeader,
-  React,
-  Header,
-  MenuComp,
 } from "public/imports";
 import { Calendar } from "primereact/calendar";
 import s from "./Orders.module.scss";
 import useOrdersProps from "./useOrdersProps";
 import CustomTabs from "components/Custom/CustomTabs/CustomTabs";
 import { useState } from "react";
+import Select from "react-select";
 
 const Orders = () => {
-  const [selectedMenuItem, setSelectedMenuItem] = useState("");
+  const [selectedDeliveryOption, setSelectedDeliveryOption] = useState({
+    value: "В зал",
+    label: "В зал",
+  });
 
   const {
     data,
     columns,
     setSearchQuery,
-    activeTab,
-    currentPage,
+    activeTab, // Добавляем состояние activeTab
+    setActiveTab, // Функция для обновления activeTab
     datetime12h,
     datetime12h1,
-    pageSize,
-    paginationData,
-    setActiveTab,
-    setCurrentPage,
     setDateTime12h,
     setDateTime12h1,
-    setPageSize,
-    skeleton,
     totalOrders,
   } = useOrdersProps();
+
+  const deliveryOptions = [
+    { value: "В зал", label: "В зал" },
+    { value: "Доставка", label: "Доставка" },
+    { value: "Предзаказ", label: "Предзаказ" },
+  ];
+
+  const handleDeliveryOptionChange = (option) => {
+    setSelectedDeliveryOption(option);
+  };
 
   return (
     <>
       <Header
         title={"Заказы"}
         headerBtn2={
-          <CustomBtn
-            BgColor={"blue"}
-            BtnContent={
-              <Link
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px",
-                  fontSize: "20px",
-                }}
-                to={"/"}
-              >
-                <PlusIcon /> Создать заказ
-              </Link>
-            }
-          />
+          <Link to={"/"} className="header_btn1">
+            <PlusIcon /> Создать заказ
+          </Link>
         }
       />
       <Box className={s.orders}>
@@ -120,7 +113,17 @@ const Orders = () => {
                   <h2>Все заказы</h2>
                   <p>{totalOrders}</p>
                 </Box>,
-                <>Новыe</>,
+                <Box className={s.orders__title}>
+                  <h2>Новые</h2>
+                  <p>{totalOrders}</p>
+                </Box>,
+                <Box className={s.orders__title}>
+                  <h2>Завершен</h2>
+                  <p>{totalOrders}</p>
+                </Box>,
+                <Box className={s.orders__title}>
+                  <h2>Отменен</h2>
+                </Box>,
               ],
               tabContents: [
                 <Box className={s.orders__tabs}>
@@ -130,19 +133,15 @@ const Orders = () => {
               ],
             }}
             ExtraItem={
-              <MenuComp
-                MenuBtn={
-                  <Box className={s.orders__main}>
-                    {selectedMenuItem} <ChevronDownIcon />
-                  </Box>
-                }
-                ListMenu={"sdvnsdf3werfe3erf"}
-                ListMenu1={"sdjvb"}
-                ListMenu3={"sidnl"}
+              <Select
+                className={s.orders__main}
+                value={selectedDeliveryOption}
+                onChange={handleDeliveryOptionChange}
+                options={deliveryOptions}
               />
             }
             activeTab={activeTab}
-            onTabChange={setActiveTab}
+            onTabChange={setActiveTab} // Передаем функцию для обновления activeTab
           />
         </Box>
       </Box>
