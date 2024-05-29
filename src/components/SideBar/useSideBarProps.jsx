@@ -66,7 +66,7 @@ const useSideBarProps = () => {
   const settings = [
     {
       id: 1,
-      icon: <LogOutIcon onClick={logout} />,
+      icon: <LogOutIcon onCLick={()=>logout()} />,
     },
     {
       id: 2,

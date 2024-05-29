@@ -1,3 +1,4 @@
+import { CloseIcon } from "@chakra-ui/icons";
 import {
   Link,
   HeaderBox,
@@ -74,11 +75,33 @@ export const ProductsAdd = () => {
           />
         }
         headerBtn1={
-          <>
-            <Link to={"/admin/categories/products"}>
-              <CustomBtn BgColor={"blue"} BtnContent={"Вернутся"} />
-            </Link>
-          </>
+          <Link
+            style={{
+              display: "flex",
+              alignItems: "center",
+              color: "red",
+              gap: "10px",
+            }}
+            to={"/admin/categories/products"}
+          >
+            <CustomBtn
+              BgColor={"white"}
+              BtnBorder={"1px solid red"}
+              BtnContent={
+                <p
+                  style={{
+                    color: "red",
+                    display: "flex",
+                    alignItems: "center",
+                    gap:"5px"
+                  }}
+                >
+                  {" "}
+                  <CloseIcon fontSize={"12px"} color={"red"} /> Отменить
+                </p>
+              }
+            />
+          </Link>
         }
       />
       <Box padding={"16px"}>
