@@ -14,7 +14,7 @@ import {
 } from "components/SvgComponents/SvgComponents";
 import { CountDown } from "components/CountDOwn";
 
-const useOrdersProps = () => {
+export const useOrdersProps = () => {
   const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [isOpenModal3, setIsOpenModal3] = useState(false);
@@ -37,8 +37,8 @@ const useOrdersProps = () => {
     }
   }, [getOrder]);
   const filterByDate = (item) => {
-    if (!datetime12h || !datetime12h1) return true; 
-    const orderDate = new Date(item.order_time); 
+    if (!datetime12h || !datetime12h1) return true;
+    const orderDate = new Date(item.order_time);
     return orderDate >= datetime12h && orderDate <= datetime12h1;
   };
   const filteredData = getOrder?.Data?.orders?.filter((order) => {

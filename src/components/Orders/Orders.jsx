@@ -21,8 +21,8 @@ import Select from "react-select";
 
 const Orders = () => {
   const [selectedDeliveryOption, setSelectedDeliveryOption] = useState({
-    value: "В зал",
-    label: "В зал",
+    value: "Предзаказ",
+    label: "Предзаказ",
   });
   const [showCalendars, setShowCalendars] = useState(false);
   const handleClearInputs = () => {
@@ -60,6 +60,17 @@ const Orders = () => {
   const handleDeliveryOptionChange = (option) => {
     setSelectedDeliveryOption(option);
     setSelectedDeliveryOptionInHook(option);
+  };
+  const handleCalendarChange = (value) => {
+    setDateTime12h(value);
+    setShowCalendars(false);
+
+    setSelectedOrderType(null);
+  };
+  const filterByDate = (order) => {
+    if (!datetime12h || !datetime12h1) return true; // Если даты не выбраны, пропустить фильтрацию
+    const orderDate = new Date(order.order_time);
+    return orderDate >= datetime12h && orderDate <= datetime12h1;
   };
 
   return (
