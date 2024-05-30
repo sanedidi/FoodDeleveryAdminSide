@@ -105,7 +105,7 @@ const useOrdersProps = () => {
             paymentLabel = <CashIcon />;
             break;
           default:
-            paymentLabel = paymentType; // Для других типов оплаты отображаем сам тип
+            paymentLabel = paymentType;
         }
         return (
           <p

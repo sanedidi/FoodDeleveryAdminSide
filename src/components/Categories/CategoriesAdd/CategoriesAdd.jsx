@@ -98,7 +98,20 @@ export const CategoriesAdd = () => {
               icon={<CreateIcon />}
             />
           }
-          headerBtn2={<CustomBtn BtnContent={"назад"} BgColor={"blue"} />}
+          headerBtn2={
+            <Link
+              to={"/admin/categories"}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                color: "red",
+                gap: "10px",
+              }}
+            >
+              <CloseIcon fontSize={"10px"} color={"red"} />
+              Отменить
+            </Link>
+          }
         />
         <Box className={s.categoriesAdd}>
           <Box className={s.categoriesAdd__underHead}>
