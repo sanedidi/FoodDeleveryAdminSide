@@ -47,27 +47,27 @@ export const Router = observer(() => {
 
   return (
     <Routes>
-      <Route path="/admin" element={<MainLayout />}>
+      <Route path="/admin/" element={<MainLayout />}>
         <Route path="/admin/" element={<Orders />} />
-        <Route path="/admin/orders" element={<Orders />} />
-        <Route path="/admin/clients" element={<Clients />} />
-        <Route path="/admin/categories" element={<Categories />} />
-        <Route path="/admin/fillials" element={<Locations />} />
-        <Route path="/admin/calendar" element={<Calendar />} />
-        <Route path="/admin/categories/add" element={<CategoriesAdd />} />
-        <Route path="/admin/categories/products" element={<Products />} />
+        <Route path="/admin/orders/" element={<Orders />} />
+        <Route path="/admin/clients/" element={<Clients />} />
+        <Route path="/admin/categories/" element={<Categories />} />
+        <Route path="/admin/fillials/" element={<Locations />} />
+        <Route path="/admin/calendar/" element={<Calendar />} />
+        <Route path="/admin/categories/add/" element={<CategoriesAdd />} />
+        <Route path="/admin/categories/products/" element={<Products />} />
         <Route
-          path="/admin/categories/products/add"
+          path="/admin/categories/products/add/"
           element={<ProductsAdd />}
         />
         <Route
-          path="/admin/categories/products/edit/:productId"
+          path="/admin/categories/products/edit/:productId/"
           element={<ProductsEdit />}
         />
-        <Route path="/admin/categories/edit/:categoryId" element={<Edit />} />
+        <Route path="/admin/categories/edit/:categoryId/" element={<Edit />} />
       </Route>
-      <Route path="*" element={<Navigate to="/admin/orders" />} />
-      <Route path="/admin/orders" element={<Navigate to="/admin/orders" />} />
+      <Route path="*" element={<Navigate to="/admin/orders/" />} />
+      <Route path="/admin/orders" element={<Navigate to="/admin/orders/" />} />
     </Routes>
   );
 });
