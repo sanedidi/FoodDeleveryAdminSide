@@ -9,7 +9,7 @@ export const MenuComp = ({
   MenuSvg,
   MenuSvg1,
   MenuClass,
-}) => {
+}) => { 
   return (
     <Menu>
       <MenuButton height={"max-content"}>
