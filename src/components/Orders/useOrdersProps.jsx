@@ -55,7 +55,7 @@ const useOrdersProps = () => {
       dataIndex: "delivery_time",
       width: 120,
       render: (item) => {
-        console.log("Рендеринг элемента заказа:", item);
+        // console.log("Рендеринг элемента заказаacas:", item);
         return <CountDown deliveryTime={item.delivery_time} />;
       },
     },

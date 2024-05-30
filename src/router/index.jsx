@@ -47,7 +47,8 @@ export const Router = observer(() => {
 
   return (
     <Routes>
-      <Route path="" element={<MainLayout />}>
+      <Route path="/admin" element={<MainLayout />}>
+        <Route path="/admin/" element={<Orders />} />
         <Route path="/admin/orders" element={<Orders />} />
         <Route path="/admin/clients" element={<Clients />} />
         <Route path="/admin/categories" element={<Categories />} />
@@ -66,7 +67,7 @@ export const Router = observer(() => {
         <Route path="/admin/categories/edit/:categoryId" element={<Edit />} />
       </Route>
       <Route path="*" element={<Navigate to="/admin/orders" />} />
-      <Route path="" element={<Navigate to="/admin/orders" />} />
+      <Route path="/admin/orders" element={<Navigate to="/admin/orders" />} />
     </Routes>
   );
 });

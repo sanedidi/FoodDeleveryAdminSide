@@ -14,7 +14,7 @@ export const CountDown = ({ deliveryTime }) => {
     const [hours, minutes] = deliveryTime.split(":").map(Number);
     
     if (isNaN(hours) || isNaN(minutes)) {
-      console.error("Некорректный формат deliveryTime:", deliveryTime);
+      // console.error("Некорректный формат deliveryTime:", deliveryTime);
       return { hours: 0, minutes: 0, seconds: 0 };
     }
 
