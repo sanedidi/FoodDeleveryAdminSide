@@ -29,7 +29,7 @@ const OrdersInfo = () => {
                 to={"/admin/orders"}
               >
                 <CloseIcon color={"red"} />
-                Закрыть
+                Закрыть 
               </Link>
             }
           />
