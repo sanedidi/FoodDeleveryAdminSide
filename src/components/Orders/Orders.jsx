@@ -43,8 +43,6 @@ const Orders = () => {
     totalOrders,
     isOpenModal2,
     onCloseModal2,
-    isOpenModal3,
-    onCloseModal3,
     onOpenModal1,
     isOpenModal1,
     onCloseModal1,
@@ -225,26 +223,6 @@ const Orders = () => {
         onPrimaryBtnClick={() => {
           // handleDeleteCategory(selectedCategoryId);
           onCloseModal2();
-        }}
-      />
-      <CustomModal
-        isOpenModal={isOpenModal3}
-        onCloseModal={onCloseModal3}
-        modalTitle={
-          <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
-            {/* <TrashIcon /> */}????????????
-          </Box>
-        }
-        modalContent={
-          <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
-            ИНФО
-          </Box>
-        }
-        secondaryBtnText={<Box onClick={onCloseModal3}>Закрыть</Box>}
-        ModalBtnBgColor={"blue"}
-        // primaryBtnText="Да"
-        onPrimaryBtnClick={() => {
-          // handleDeleteCategory(selectedCategoryId);
         }}
       />
     </>

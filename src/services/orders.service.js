@@ -10,15 +10,29 @@ const OrdersService = {
         params,
       })
       .then((res) => res?.data),
+
+  getOrderById: (id) =>
+    request
+      .get(`https://food-delivery-api-n6as.onrender.com/v1/order/${id}`)
+      .then((res) => res?.data),
+
   deleteOrder: (orderId) =>
     request
       .delete(`https://food-delivery-api-n6as.onrender.com/v1/order/${orderId}`)
       .then((res) => res?.data),
 };
+
 export const useGetOrdersService = (params) => {
   return useQuery({
     queryKey: ["orders", params],
     queryFn: () => OrdersService.getOrders(params),
+  });
+};
+
+export const useGetOrderByIdService = (id) => {
+  return useQuery({
+    queryKey: ["order", id],
+    queryFn: () => OrdersService.getOrderById(id),
   });
 };
 

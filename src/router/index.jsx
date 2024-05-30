@@ -18,6 +18,7 @@ import ProductsAdd from "components/Products/ProductsAdd/ProductsAdd";
 import { ProductsEdit } from "components/Products/ProductsEdit";
 import Edit from "components/Categories/components/Edit";
 import { Categories } from "components/Categories";
+import OrdersInfo from "components/Orders/OrdersINfo/OrdersInfo";
 export const Router = observer(() => {
   const isAuth = authStore.isAuth;
   const role = JSON.parse(localStorage.getItem("auth"));
@@ -65,6 +66,7 @@ export const Router = observer(() => {
           element={<ProductsEdit />}
         />
         <Route path="/admin/categories/edit/:categoryId/" element={<Edit />} />
+        <Route path="/admin/orders/info/:id/" element={<OrdersInfo />} />
       </Route>
       <Route path="*" element={<Navigate to="/admin/orders/" />} />
       <Route path="/admin/orders" element={<Navigate to="/admin/orders/" />} />

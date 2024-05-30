@@ -4,7 +4,7 @@ import { useGetOrdersService } from "services/orders.service";
 import { CheckIcon } from "@chakra-ui/icons";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { MenuComp } from "components/MenuComponent";
-import { CategoryFilterIcon, CustomModal } from "public/imports";
+import { CategoryFilterIcon, CustomModal, Link } from "public/imports";
 import {
   CLickIcon,
   CancelIcon,
@@ -14,7 +14,7 @@ import {
 } from "components/SvgComponents/SvgComponents";
 import { CountDown } from "components/CountDOwn";
 
-export const useOrdersProps = () => {
+export const useOrdersProps = (item) => {
   const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [isOpenModal3, setIsOpenModal3] = useState(false);
@@ -22,7 +22,6 @@ export const useOrdersProps = () => {
   const onCloseModal1 = () => setIsOpenModal1(false);
   const onOpenModal2 = () => setIsOpenModal2(true);
   const onCloseModal2 = () => setIsOpenModal2(false);
-  const onOpenModal3 = () => setIsOpenModal3(true);
   const onCloseModal3 = () => setIsOpenModal3(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,6 +36,7 @@ export const useOrdersProps = () => {
     }
   }, [getOrder]);
   const filterByDate = (item) => {
+    console.log(item.id);
     if (!datetime12h || !datetime12h1) return true;
     const orderDate = new Date(item.order_time);
     return orderDate >= datetime12h && orderDate <= datetime12h1;
@@ -213,7 +213,8 @@ export const useOrdersProps = () => {
                 </Box>
               }
               ListMenu3={
-                <Box
+                <Link
+                  to={`/admin/orders/info/${item.id}`}
                   style={{
                     height: "30px",
                     display: "flex",
@@ -223,15 +224,11 @@ export const useOrdersProps = () => {
                     width: "100%",
                     gap: "10px",
                   }}
-                  onClick={() => {
-                    onOpenModal3();
-                    // setSelectedCategoryId(item.id);
-                  }}
                 >
                   <CustomModal />
                   <InfoIcon />
                   Инфо
-                </Box>
+                </Link>
               }
             />
           </Box>
