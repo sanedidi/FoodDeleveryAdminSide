@@ -31,16 +31,22 @@ const useOrdersProps = () => {
   const [datetime12h1, setDateTime12h1] = useState(null);
   const { data: getOrder, refetch } = useGetOrdersService({});
   const [activeTab, setActiveTab] = useState(0);
-
   useEffect(() => {
     if (getOrder) {
       // console.log("Fetched orders:", getOrder);
     }
   }, [getOrder]);
-
+  const filterByDate = (item) => {
+    if (!datetime12h || !datetime12h1) return true; 
+    const orderDate = new Date(item.order_time); 
+    return orderDate >= datetime12h && orderDate <= datetime12h1;
+  };
   const filteredData = getOrder?.Data?.orders?.filter((order) => {
     const customerFullName = order.CustomerData.full_name.toLowerCase();
-    return customerFullName.includes(searchQuery.toLowerCase());
+    return (
+      customerFullName.includes(searchQuery.toLowerCase()) &&
+      filterByDate(order)
+    );
   });
 
   const totalOrders = filteredData?.length || 0;

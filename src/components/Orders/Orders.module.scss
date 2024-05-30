@@ -15,7 +15,7 @@
 
   &__wrapper {
     background-color: #fff;
-    padding:  16px;
+    padding: 16px;
     margin: 16px;
     border-radius: 8px;
   }
@@ -49,5 +49,21 @@
     text-align: left;
     background-color: #fff !important;
     outline: none;
+  }
+  &__select {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    input {
+      width: 100%;
+      max-width: 260px !important;
+    }
+  }
+  &__btn {
+    background-color: #0e73f6;
+    color: #fff;
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-size: 14px;
   }
 }

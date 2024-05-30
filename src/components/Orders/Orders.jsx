@@ -25,6 +25,10 @@ const Orders = () => {
     label: "В зал",
   });
   const [showCalendars, setShowCalendars] = useState(false);
+  const handleClearInputs = () => {
+    setDateTime12h(null);
+    setDateTime12h1(null);
+  };
 
   const {
     data,
@@ -44,7 +48,8 @@ const Orders = () => {
     onOpenModal1,
     isOpenModal1,
     onCloseModal1,
-  } = useOrdersProps();
+    setSelectedDeliveryOptionInHook,
+  } = useOrdersProps(selectedDeliveryOption);
 
   const deliveryOptions = [
     { value: "В зал", label: "В зал" },
@@ -54,6 +59,7 @@ const Orders = () => {
 
   const handleDeliveryOptionChange = (option) => {
     setSelectedDeliveryOption(option);
+    setSelectedDeliveryOptionInHook(option);
   };
 
   return (
@@ -76,31 +82,38 @@ const Orders = () => {
             />
           }
           first1Item={
-            showCalendars && ( // Показывать календарь только если showCalendars === true
-              <Calendar
-                className={s.orders__calendar}
-                id="calendar-12h"
-                value={datetime12h}
-                onChange={(e) => setDateTime12h(e.value)}
-                showTime
-                showIcon
-                hourFormat="12"
-                placeholder="Выберите дату..."
-              />
+            showCalendars && (
+              <Box className={s.orders__select}>
+                <Calendar
+                  className={s.orders__calendar}
+                  id="calendar-12h"
+                  value={datetime12h}
+                  onChange={(e) => setDateTime12h(e.value)}
+                  showTime
+                  showIcon
+                  hourFormat="12"
+                  placeholder="Выберите дату..."
+                />
+              </Box>
             )
           }
           first2Item={
-            showCalendars && ( // Показывать календарь только если showCalendars === true
-              <Calendar
-                className={s.orders__calendar}
-                id="calendar-12h1"
-                value={datetime12h1}
-                onChange={(e) => setDateTime12h1(e.value)}
-                showTime
-                showIcon
-                hourFormat="12"
-                placeholder="Выберите дату..."
-              />
+            showCalendars && (
+              <Box className={s.orders__select}>
+                <Calendar
+                  className={s.orders__calendar}
+                  id="calendar-12h1"
+                  value={datetime12h1}
+                  onChange={(e) => setDateTime12h1(e.value)}
+                  showTime
+                  showIcon
+                  hourFormat="12"
+                  placeholder="Выберите дату..."
+                />
+                <button onClick={handleClearInputs} className={s.orders__btn}>
+                  Очистить
+                </button>
+              </Box>
             )
           }
           secondItem={

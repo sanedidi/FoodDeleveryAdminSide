@@ -8,6 +8,7 @@ html {
   box-sizing: border-box;
   height: 100%;
   scroll-behavior: smooth;
+  transition: all 0.3s !important;
 }
 
 *,
@@ -216,13 +217,13 @@ td {
 .tablebodyrowprops {
   padding: 10px !important;
 }
-.chakra-tabs__tab-panel.css-a5mhaz{
+.chakra-tabs__tab-panel.css-a5mhaz {
   padding: 1rem 0;
 }
-.p-datepicker-group-container{
+.p-datepicker-group-container {
   padding: 10px !important;
 }
 
-.chakra-menu__menu-list{
+.chakra-menu__menu-list {
   min-width: 0 !important;
 }
