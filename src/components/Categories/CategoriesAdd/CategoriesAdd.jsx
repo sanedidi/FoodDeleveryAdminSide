@@ -14,8 +14,10 @@ import {
   PlusIconDown,
   Header,
   React,
+  Link,
 } from "public/imports";
 import { CreateIcon, FolderIcon } from "components/SvgComponents/SvgComponents";
+import { CloseIcon } from "@chakra-ui/icons";
 export const CategoriesAdd = () => {
   const {
     lang,
@@ -106,9 +108,12 @@ export const CategoriesAdd = () => {
                 alignItems: "center",
                 color: "red",
                 gap: "10px",
+                border:"1px solid red",
+                padding:"5px",
+                borderRadius:"5px",
+                fontSize:"16px"
               }}
             >
-              <CloseIcon fontSize={"10px"} color={"red"} />
               Отменить
             </Link>
           }

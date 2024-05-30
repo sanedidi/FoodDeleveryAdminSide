@@ -92,8 +92,6 @@ const Edit = () => {
       <Header
         title={"Редактировать "}
         headerBtn1={
-          <CustomBtn
-            BtnContent={
               <Link
                 to={"/admin/categories"}
                 style={{
@@ -101,17 +99,15 @@ const Edit = () => {
                   alignItems: "center",
                   color: "red",
                   gap: "10px",
+                  padding: "5px",
+                  borderRadius: "5px",
+                  fontSize: "16px",
+                  border:"1px solid red"
                 }}
               >
-                <CloseIcon fontSize={"10px"} color={"red"} />
                 Отменить
               </Link>
             }
-            BgColor={"white"}
-            BtnBorder={"1px solid red"}
-            onClick={() => navigate("/admin/categories/")}
-          />
-        }
       />
       <form onSubmit={handleSubmit}>
         <Box className={s.categoriesAdd}>

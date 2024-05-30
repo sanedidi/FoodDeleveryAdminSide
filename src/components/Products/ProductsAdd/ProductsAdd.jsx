@@ -76,31 +76,19 @@ export const ProductsAdd = () => {
         }
         headerBtn1={
           <Link
+            to={"/admin/categories/products"}
             style={{
               display: "flex",
               alignItems: "center",
               color: "red",
               gap: "10px",
+              padding: "5px",
+              borderRadius: "5px",
+              fontSize: "16px",
+              border: "1px solid red",
             }}
-            to={"/admin/categories/products"}
           >
-            <CustomBtn
-              BgColor={"white"}
-              BtnBorder={"1px solid red"}
-              BtnContent={
-                <p
-                  style={{
-                    color: "red",
-                    display: "flex",
-                    alignItems: "center",
-                    gap:"5px"
-                  }}
-                >
-                  {" "}
-                  <CloseIcon fontSize={"12px"} color={"red"} /> Отменить
-                </p>
-              }
-            />
+            Отменить
           </Link>
         }
       />

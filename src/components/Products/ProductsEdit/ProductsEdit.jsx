@@ -132,31 +132,21 @@ export const ProductsEdit = () => {
       <Header
         title="Редактировать"
         headerBtn1={
-          <>
-            {" "}
-            <CustomBtn
-              BgColor={"#fff"}
-              BtnBorder={"1px solid red"}
-              BtnContent={
-                <>
-                  {" "}
-                  <Link
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      color: "red",
-                      gap:"10px",
-                    }}
-                    to={"/admin/categories/products?page=1"}
-                  >
-                    {" "}
-                    <CloseIcon fontSize={"12px"} color={"red"} />
-                    Отменить
-                  </Link>{" "}
-                </>
-              }
-            />
-          </>
+          <Link
+            to={"/admin/categories/products?page=1"}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              color: "red",
+              gap: "10px",
+              padding: "5px",
+              borderRadius: "5px",
+              fontSize: "16px",
+              border: "1px solid red",
+            }}
+          >
+            Отменить
+          </Link>
         }
       />
       <Toaster />
@@ -207,7 +197,7 @@ export const ProductsEdit = () => {
                   <Box className={s.edit__cat}>
                     <h2 className={s.edit__bottom_title}>Категории</h2>
                     <Select
-                    // defaultValue={category.name}}
+                      // defaultValue={category.name}}
                       placeholder="Выберите Категорию"
                       options={
                         Array.isArray(categories)
