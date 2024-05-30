@@ -83,15 +83,39 @@ const OrdersInfo = () => {
                     <li className={s.orders__li}>
                       {orderData?.Data?.CustomerData?.full_name}
                     </li>
-                    <p className={s.orders__li}>{orderData?.Data?.CustomerData?.phone}</p>
+                    <p className={s.orders__li}>
+                      {orderData?.Data?.CustomerData?.phone}
+                    </p>
                   </Box>
                   <Box className={s.orders__ul}>
                     <li className={s.orders__li}>
                       {orderData?.Data?.CustomerData?.full_name}
                     </li>
-                    <p className={s.orders__li}>{orderData?.Data?.CustomerData?.phone}</p>
+                    <p className={s.orders__li}>
+                      {orderData?.Data?.CustomerData?.phone}
+                    </p>
                   </Box>
                 </Box>
+              </Box>
+              <Box className={s.orders__items}>
+                <Box className={s.orders__item}>
+                  <h2 className={s.orders__title}>Ресторан</h2>
+                  <li className={s.orders__li}>
+                    {orderData?.Data.BranchData.address}
+                  </li>
+                </Box>
+                <Box className={s.orders__item}>
+                  <h2 className={s.orders__title}>Источник</h2>
+                  <li className={s.orders__li}>{orderData?.Data.order_type}</li>
+                </Box>
+              </Box>
+              <Box className={s.orders__status}>
+                <h2 className={s.orders__title}> Оплата </h2>
+                <p>????????????</p>
+              </Box>
+              <Box className={s.orders__status}>
+                <h2 className={s.orders__title}> Позиции </h2>
+                <p>????????????</p>
               </Box>
             </Box>
           ) : (
