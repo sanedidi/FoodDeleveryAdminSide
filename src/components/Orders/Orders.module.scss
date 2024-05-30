@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background-color: #fff;
+  // background-color: #fff;/
 
   &__calendar {
     border: 1px solid #e7e7e7;
@@ -16,7 +16,7 @@
 
   &__wrapper {
     background-color: #fff;
-    padding: 16px;
+    padding:  16px;
   }
   &__title {
     display: flex;

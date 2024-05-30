@@ -5,7 +5,13 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { MenuComp } from "components/MenuComponent";
 import { CategoryFilterIcon } from "public/imports";
-import { CancelIcon, InfoIcon } from "components/SvgComponents/SvgComponents";
+import {
+  CLickIcon,
+  CancelIcon,
+  CashIcon,
+  InfoIcon,
+  PaymeIcon,
+} from "components/SvgComponents/SvgComponents";
 import { CountDown } from "components/CountDOwn";
 
 const useOrdersProps = () => {
@@ -81,12 +87,45 @@ const useOrdersProps = () => {
       dataIndex: "total_price",
       width: 120,
     },
-
     {
       title: "Тип оплаты",
       key: "payment_type",
       dataIndex: "payment_type",
       width: 120,
+      render: (paymentType) => {
+        let paymentLabel;
+        switch (paymentType) {
+          case "payme":
+            paymentLabel = <PaymeIcon />;
+            break;
+          case "click":
+            paymentLabel = <CLickIcon />;
+            break;
+          case "cash":
+            paymentLabel = <CashIcon />;
+            break;
+          default:
+            paymentLabel = paymentType; // Для других типов оплаты отображаем сам тип
+        }
+        return (
+          <p
+            style={{
+              textAlign: "center",
+              margin: "0 auto",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "40px",
+              border: "1px solid #EEEEEE",
+              height: "40px",
+              borderRadius: "50px",
+              padding: "5px",
+            }}
+          >
+            {paymentLabel}
+          </p>
+        );
+      },
     },
     {
       title: (
