@@ -4,7 +4,7 @@ import { useGetOrdersService } from "services/orders.service";
 import { CheckIcon } from "@chakra-ui/icons";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { MenuComp } from "components/MenuComponent";
-import { CategoryFilterIcon } from "public/imports";
+import { CategoryFilterIcon, CustomModal } from "public/imports";
 import {
   CLickIcon,
   CancelIcon,
@@ -15,6 +15,15 @@ import {
 import { CountDown } from "components/CountDOwn";
 
 const useOrdersProps = () => {
+  const [isOpenModal1, setIsOpenModal1] = useState(false);
+  const [isOpenModal2, setIsOpenModal2] = useState(false);
+  const [isOpenModal3, setIsOpenModal3] = useState(false);
+  const onOpenModal1 = () => setIsOpenModal1(true);
+  const onCloseModal1 = () => setIsOpenModal1(false);
+  const onOpenModal2 = () => setIsOpenModal2(true);
+  const onCloseModal2 = () => setIsOpenModal2(false);
+  const onOpenModal3 = () => setIsOpenModal3(true);
+  const onCloseModal3 = () => setIsOpenModal3(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -145,9 +154,6 @@ const useOrdersProps = () => {
                   padding="0px"
                 >
                   <AiOutlineEllipsis
-                    onClick={() => {
-                      onOpenModal1();
-                    }}
                     style={{
                       fontWeight: "900",
                       fontSize: "30px",
@@ -172,8 +178,8 @@ const useOrdersProps = () => {
                   }}
                   className="categories__menu"
                   onClick={() => {
-                    onOpenModal2();
-                    setSelectedCategoryId(item.id);
+                    onOpenModal1();
+                    // setSelectedCategoryId(item.id);
                   }}
                 >
                   <CheckIcon color={"green"} />
@@ -191,6 +197,10 @@ const useOrdersProps = () => {
                     width: "100%",
                     gap: "10px",
                   }}
+                  onClick={() => {
+                    onOpenModal2();
+                    // setSelectedCategoryId(item.id);
+                  }}
                 >
                   <CancelIcon />
                   Отменить
@@ -207,7 +217,12 @@ const useOrdersProps = () => {
                     width: "100%",
                     gap: "10px",
                   }}
+                  onClick={() => {
+                    onOpenModal3();
+                    // setSelectedCategoryId(item.id);
+                  }}
                 >
+                  <CustomModal />
                   <InfoIcon />
                   Инфо
                 </Box>
@@ -253,6 +268,13 @@ const useOrdersProps = () => {
     activeTab,
     setActiveTab,
     totalOrders,
+    onCloseModal1,
+    onOpenModal1,
+    onCloseModal2,
+    isOpenModal2,
+    isOpenModal1,
+    isOpenModal3,
+    onCloseModal3,
   };
 };
 

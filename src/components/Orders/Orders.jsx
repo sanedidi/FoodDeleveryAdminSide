@@ -3,11 +3,13 @@ import {
   Box,
   CustomBtn,
   CustomInput,
+  CustomModal,
   CustomTable,
   FilterIcon,
   Header,
   Link,
   PlusIcon,
+  TrashIcon,
   UnderHeader,
 } from "public/imports";
 import { Calendar } from "primereact/calendar";
@@ -22,7 +24,7 @@ const Orders = () => {
     value: "В зал",
     label: "В зал",
   });
-  const [showCalendars, setShowCalendars] = useState(false); // Добавлено состояние для управления видимостью календарей
+  const [showCalendars, setShowCalendars] = useState(false);
 
   const {
     data,
@@ -35,6 +37,13 @@ const Orders = () => {
     setDateTime12h,
     setDateTime12h1,
     totalOrders,
+    isOpenModal2,
+    onCloseModal2,
+    isOpenModal3,
+    onCloseModal3,
+    onOpenModal1,
+    isOpenModal1,
+    onCloseModal1,
   } = useOrdersProps();
 
   const deliveryOptions = [
@@ -151,6 +160,69 @@ const Orders = () => {
           />
         </Box>
       </Box>
+
+      {/* #############################################MODALS################################################# */}
+      <CustomModal
+        isOpenModal={isOpenModal1}
+        onCloseModal={onCloseModal1}
+        modalTitle={
+          <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
+            {/* <TrashIcon /> */}????????????
+          </Box>
+        }
+        modalContent={
+          <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
+            ИНФО
+          </Box>
+        }
+        secondaryBtnText={<Box onClick={onCloseModal1}>Закрыть</Box>}
+        ModalBtnBgColor={"blue"}
+        // primaryBtnText="Да"
+        onPrimaryBtnClick={() => {
+          // handleDeleteCategory(selectedCategoryId);
+        }}
+      />
+      <CustomModal
+        isOpenModal={isOpenModal2}
+        onCloseModal={onCloseModal2}
+        modalTitle={
+          <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
+            <TrashIcon />
+          </Box>
+        }
+        modalContent={
+          <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
+            Вы уверены, что хотите отменить этот заказ?
+          </Box>
+        }
+        secondaryBtnText={<Box>Нет</Box>}
+        ModalBtnBgColor={"blue"}
+        primaryBtnText="Да"
+        onPrimaryBtnClick={() => {
+          // handleDeleteCategory(selectedCategoryId);
+          onCloseModal2();
+        }}
+      />
+      <CustomModal
+        isOpenModal={isOpenModal3}
+        onCloseModal={onCloseModal3}
+        modalTitle={
+          <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
+            {/* <TrashIcon /> */}????????????
+          </Box>
+        }
+        modalContent={
+          <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
+            ИНФО
+          </Box>
+        }
+        secondaryBtnText={<Box onClick={onCloseModal3}>Закрыть</Box>}
+        ModalBtnBgColor={"blue"}
+        // primaryBtnText="Да"
+        onPrimaryBtnClick={() => {
+          // handleDeleteCategory(selectedCategoryId);
+        }}
+      />
     </>
   );
 };
