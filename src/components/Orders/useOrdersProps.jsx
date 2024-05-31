@@ -1,22 +1,25 @@
-import React, { useState, useEffect } from "react";
-import s from "./Orders.module.scss";
 import { Box, Skeleton, Stack } from "@chakra-ui/react";
+import {
+  AiOutlineEllipsis,
+  CategoryFilterIcon,
+  CustomModal,
+  Link,
+  MenuComp,
+} from "public/imports";
+import { useState, useEffect } from "react";
 import { useGetOrdersService } from "services/orders.service";
-import { CheckIcon } from "@chakra-ui/icons";
-import { AiOutlineEllipsis } from "react-icons/ai";
-import { MenuComp } from "components/MenuComponent";
-import { CategoryFilterIcon, CustomModal, Link } from "public/imports";
+import s from "./Orders.module.scss";
 import {
   CLickIcon,
   CancelIcon,
   CashIcon,
-  InfoIcon,
   PaymeIcon,
 } from "components/SvgComponents/SvgComponents";
-import { CountDown } from "components/CountDOwn";
-
-export const useOrdersProps = (item) => {
+import { CheckIcon, InfoIcon } from "@chakra-ui/icons";
+export const useOrdersProps = () => {
   const [isOpenModal1, setIsOpenModal1] = useState(false);
+  const [selectedOrderType, setSelectedOrderType] = useState(null);
+
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [isOpenModal3, setIsOpenModal3] = useState(false);
   const onOpenModal1 = () => setIsOpenModal1(true);
@@ -29,18 +32,33 @@ export const useOrdersProps = (item) => {
   const [pageSize, setPageSize] = useState(10);
   const [datetime12h, setDateTime12h] = useState(null);
   const [datetime12h1, setDateTime12h1] = useState(null);
-  const { data: getOrder, refetch } = useGetOrdersService({});
   const [activeTab, setActiveTab] = useState(0);
-  const [selectedOrderType, setSelectedOrderType] = useState(null);
+
+  const { data: getOrder, refetch } = useGetOrdersService({
+    search: searchQuery,
+    page: currentPage,
+    limit: pageSize,
+  });
+
+  useEffect(() => {
+    refetch();
+  }, [
+    searchQuery,
+    currentPage,
+    pageSize,
+    selectedOrderType,
+    datetime12h,
+    datetime12h1,
+  ]);
 
   useEffect(() => {
     if (getOrder) {
-      // console.log("Fetched orders:", getOrder);
     }
   }, [getOrder]);
+
   const filterByDate = (order) => {
     if (!datetime12h || !datetime12h1) return true;
-    const orderDate = new Date(order.order_time);
+    const orderDate = new Date(order.created_at);
     const startTime = datetime12h.getTime();
     const endTime = datetime12h1.getTime();
     return orderDate >= startTime && orderDate <= endTime;
@@ -52,7 +70,7 @@ export const useOrdersProps = (item) => {
   };
 
   const filteredData = getOrder?.Data?.orders?.filter((orders) => {
-    const customerFullName = orders.customer_name.toLowerCase();
+    const customerFullName = orders.status.toLowerCase();
     return (
       customerFullName.includes(searchQuery.toLowerCase()) &&
       filterByDate(orders) &&

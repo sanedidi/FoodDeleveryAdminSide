@@ -43,17 +43,19 @@ const Orders = () => {
     onCloseModal1,
     setSelectedOrderType,
   } = useOrdersProps(selectedDeliveryOption);
+
   const newOrders = data.filter((order) => order.status === "новый");
-  const EndOrders = data.filter((order) => order.status === "завершен");
-  console.log(data.branch_id)
+  const endOrders = data.filter((order) => order.status === "завершен");
+
   const deliveryOptions = [
     { value: "В зал", label: "В зал" },
     { value: "Доставка", label: "Доставка" },
-    { value: "предзаказ", label: "предзаказ" },
+    { value: "предзаказ", label: "Предзаказ" },
   ];
 
   const handleDeliveryOptionChange = (option) => {
     setSelectedDeliveryOption(option);
+    setSelectedOrderType(option);
   };
 
   const handleClearInputs = () => {
@@ -147,11 +149,11 @@ const Orders = () => {
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Новые</h2>
-                  <p>{totalOrders}</p>
+                  <p>{newOrders.length}</p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Завершен</h2>
-                  <p>{totalOrders}</p>
+                  <p>{endOrders.length}</p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Отмененные</h2>
@@ -165,10 +167,10 @@ const Orders = () => {
                   <CustomTable columns={columns} data={newOrders} />
                 </Box>,
                 <Box className={s.orders__new}>
-                  <CustomTable columns={columns} data={newOrders} />
+                  <CustomTable columns={columns} data={endOrders} />
                 </Box>,
                 <Box>
-                  <CustomTable columns={columns} data={EndOrders} />
+                  <CustomTable columns={columns} data={endOrders} />
                 </Box>,
               ],
             }}
@@ -176,7 +178,7 @@ const Orders = () => {
               <Select
                 className={s.orders__main}
                 value={selectedDeliveryOption}
-                onChange={setSelectedOrderType}
+                onChange={handleDeliveryOptionChange}
                 options={deliveryOptions}
               />
             }
@@ -191,7 +193,7 @@ const Orders = () => {
         onCloseModal={onCloseModal1}
         modalTitle={
           <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
-            {/* <TrashIcon /> */}????????????
+            <TrashIcon />
           </Box>
         }
         modalContent={
@@ -201,10 +203,6 @@ const Orders = () => {
         }
         secondaryBtnText={<Box onClick={onCloseModal1}>Закрыть</Box>}
         ModalBtnBgColor={"blue"}
-        // primaryBtnText="Да"
-        onPrimaryBtnClick={() => {
-          // handleDeleteCategory(selectedCategoryId);
-        }}
       />
       <CustomModal
         isOpenModal={isOpenModal2}
