@@ -188,6 +188,7 @@ export const ProductsEdit = () => {
                     <h2 className={s.edit__bottom_title}>Категории</h2>
                     <Select
                       placeholder={productData.name}
+                      // defaultInputValue={`${productData.name}`}
                       options={
                         Array.isArray(categories)
                           ? categories.map((category) => ({
