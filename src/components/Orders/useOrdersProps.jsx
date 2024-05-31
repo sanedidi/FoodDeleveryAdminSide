@@ -15,7 +15,7 @@ import {
 } from "components/SvgComponents/SvgComponents";
 import { CountDown } from "components/CountDOwn";
 
-export const useOrdersProps = (selectedDeliveryOption) => {
+export const useOrdersProps = (item) => {
   const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [isOpenModal3, setIsOpenModal3] = useState(false);
@@ -32,22 +32,25 @@ export const useOrdersProps = (selectedDeliveryOption) => {
   const { data: getOrder, refetch } = useGetOrdersService({});
   const [activeTab, setActiveTab] = useState(0);
   const [selectedOrderType, setSelectedOrderType] = useState(null);
-  const [selectedOpt, setselectedOpt] =
-    useState("");
+
   useEffect(() => {
     if (getOrder) {
       // console.log("Fetched orders:", getOrder);
     }
   }, [getOrder]);
+  const filterByDate = (order) => {
+    if (!datetime12h || !datetime12h1) return true;
+    const orderDate = new Date(order.order_time);
+    const startTime = datetime12h.getTime();
+    const endTime = datetime12h1.getTime();
+    return orderDate >= startTime && orderDate <= endTime;
+  };
+
   const filterByOrderType = (item) => {
     if (!selectedOrderType) return true;
     return item.order_type === selectedOrderType;
   };
-  const filterByDate = (item) => {
-    if (!datetime12h || !datetime12h1) return true;
-    const orderDate = new Date(item.order_time);
-    return orderDate >= datetime12h && orderDate <= datetime12h1;
-  };
+
   const filteredData = getOrder?.Data?.orders?.filter((orders) => {
     const customerFullName = orders.customer_name.toLowerCase();
     return (
@@ -299,10 +302,7 @@ export const useOrdersProps = (selectedDeliveryOption) => {
     isOpenModal1,
     isOpenModal3,
     onCloseModal3,
-    selectedOrderType,
     setSelectedOrderType,
-    selectedOpt,
-    setselectedOpt,
   };
 };
 

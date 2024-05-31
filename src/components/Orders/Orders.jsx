@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -16,19 +17,14 @@ import { Calendar } from "primereact/calendar";
 import s from "./Orders.module.scss";
 import useOrdersProps from "./useOrdersProps";
 import CustomTabs from "components/Custom/CustomTabs/CustomTabs";
-import { useState } from "react";
 import Select from "react-select";
 
 const Orders = () => {
   const [selectedDeliveryOption, setSelectedDeliveryOption] = useState({
-    value: "Предзаказ",
+    value: "предзаказ",
     label: "Предзаказ",
   });
   const [showCalendars, setShowCalendars] = useState(false);
-  const handleClearInputs = () => {
-    setDateTime12h(null);
-    setDateTime12h1(null);
-  };
 
   const {
     data,
@@ -45,23 +41,33 @@ const Orders = () => {
     onCloseModal2,
     isOpenModal1,
     onCloseModal1,
-    selectedOrderType,
-    setSelectedOrderType,
-    selectedOpt,
-    setselectedOpt,
+    setSelectedOrderType
   } = useOrdersProps(selectedDeliveryOption);
+
+
+  console.log("first", data);
+
+
+
   const deliveryOptions = [
     { value: "В зал", label: "В зал" },
     { value: "Доставка", label: "Доставка" },
-    { value: "Предзаказ", label: "Предзаказ" },
+    { value: "предзаказ", label: "предзаказ" },
   ];
 
   const handleDeliveryOptionChange = (option) => {
     setSelectedDeliveryOption(option);
-    setselectedOpt(option);
   };
 
+  const handleClearInputs = () => {
+    setDateTime12h(null);
+    setDateTime12h1(null);
+  };
 
+  const handleCalendarChange = (value) => {
+    setDateTime12h(value);
+    setShowCalendars(false);
+  };
 
   return (
     <>
@@ -165,7 +171,7 @@ const Orders = () => {
               <Select
                 className={s.orders__main}
                 value={selectedDeliveryOption}
-                onChange={handleDeliveryOptionChange}
+                onChange={setSelectedOrderType}
                 options={deliveryOptions}
               />
             }
@@ -175,7 +181,6 @@ const Orders = () => {
         </Box>
       </Box>
 
-      {/* #############################################MODALS################################################# */}
       <CustomModal
         isOpenModal={isOpenModal1}
         onCloseModal={onCloseModal1}
@@ -213,7 +218,6 @@ const Orders = () => {
         ModalBtnBgColor={"blue"}
         primaryBtnText="Да"
         onPrimaryBtnClick={() => {
-          // handleDeleteCategory(selectedCategoryId);
           onCloseModal2();
         }}
       />
