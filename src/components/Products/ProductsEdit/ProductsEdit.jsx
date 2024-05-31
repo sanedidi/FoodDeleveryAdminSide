@@ -90,7 +90,6 @@ export const ProductsEdit = () => {
       });
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -118,9 +117,6 @@ export const ProductsEdit = () => {
       toast.error("Что то пошло не так попробуйте еще раз!");
     }
   };
-
-
-
   return (
     <>
       <Header
@@ -191,8 +187,7 @@ export const ProductsEdit = () => {
                   <Box className={s.edit__cat}>
                     <h2 className={s.edit__bottom_title}>Категории</h2>
                     <Select
-                      // defaultValue={category.name}}
-                      placeholder="Выберите Категорию"
+                      placeholder={productData.name}
                       options={
                         Array.isArray(categories)
                           ? categories.map((category) => ({
@@ -234,14 +229,13 @@ export const ProductsEdit = () => {
                     <h2 className={s.edit__bottom_title}>Артикул</h2>
                     <Box className={s.edit__gen}>
                       <CustomInput
-                      disabled={true}
+                        disabled={true}
                         className={s.edit__gen_input}
                         InputPlaceHolder="Артикул"
                         name="articul"
                         value={productData.articul}
                         onChange={handleInputChange}
                       />
-                 
                     </Box>
                   </Box>
                   <Box className={s.edit__cat}>
@@ -267,7 +261,9 @@ export const ProductsEdit = () => {
                   </Box>
                   <Box className={s.edit__inputs}>
                     <Box className={s.edit__input}>
-                      <h2 className={s.edit__bottom_title}>*Код единицы измерения</h2>
+                      <h2 className={s.edit__bottom_title}>
+                        *Код единицы измерения
+                      </h2>
                       <CustomInput
                         InputPlaceHolder="Введите код"
                         name="storage_code"
@@ -324,7 +320,7 @@ export const ProductsEdit = () => {
                 >
                   {productData.photo && (
                     <img
-                      src={`https://${productData.photo}`}
+                      src={`${productData.photo}`}
                       alt="Текущий продукт"
                       className={s.edit__image_preview}
                     />
