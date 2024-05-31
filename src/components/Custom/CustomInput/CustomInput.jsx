@@ -12,6 +12,7 @@ export const CustomInput = ({
   name,
   className,
   type,
+  disabled, 
 }) => {
   return (
     <InputGroup style={{ display: "flex", alignItems: "center" }}>
@@ -28,6 +29,7 @@ export const CustomInput = ({
         name={name}
         className={className}
         type={type}
+        disabled={disabled} 
       />
     </InputGroup>
   );

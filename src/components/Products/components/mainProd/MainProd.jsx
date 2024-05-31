@@ -178,27 +178,6 @@ export const MainProd = () => {
                 }
               />
             </Box>
-            <Box className={s.prod__name}>
-              <h2 className={s.prod__bottom_title}>Филлиалы</h2>
-              <Select
-                placeholder="Выбирите Филлиал"
-                options={
-                  Array.isArray(branches)
-                    ? branches.map((branch) => ({
-                        value: branch.id,
-                        label: `${branch.address}`,
-                      }))
-                    : []
-                }
-                name="branch_id"
-                onChange={(selectedOption) =>
-                  setFormData({
-                    ...formData,
-                    branch_id: selectedOption.value,
-                  })
-                }
-              />
-            </Box>
             <Box className={s.prod__price}>
               <Box className={s.prod__price_input}>
                 <h2 className={s.prod__bottom_title}>Цена прихода</h2>
@@ -226,6 +205,27 @@ export const MainProd = () => {
                 name="articul"
                 type="number"
                 onChange={handleInputChange}
+              />
+            </Box>
+            <Box className={s.prod__name}>
+              <h2 className={s.prod__bottom_title}>Филлиалы</h2>
+              <Select
+                placeholder="Выбирите Филлиал"
+                options={
+                  Array.isArray(branches)
+                    ? branches.map((branch) => ({
+                        value: branch.id,
+                        label: `${branch.address}`,
+                      }))
+                    : []
+                }
+                name="branch_id"
+                onChange={(selectedOption) =>
+                  setFormData({
+                    ...formData,
+                    branch_id: selectedOption.value,
+                  })
+                }
               />
             </Box>
             <Box className={s.prod__inputs}>

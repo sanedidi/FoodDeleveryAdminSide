@@ -119,13 +119,7 @@ export const ProductsEdit = () => {
     }
   };
 
-  const handleGenerateArticul = () => {
-    const newArticul = generateArticul();
-    setProductData({
-      ...productData,
-      articul: newArticul,
-    });
-  };
+
 
   return (
     <>
@@ -240,17 +234,14 @@ export const ProductsEdit = () => {
                     <h2 className={s.edit__bottom_title}>Артикул</h2>
                     <Box className={s.edit__gen}>
                       <CustomInput
+                      disabled={true}
                         className={s.edit__gen_input}
                         InputPlaceHolder="Артикул"
                         name="articul"
                         value={productData.articul}
                         onChange={handleInputChange}
                       />
-                      <CustomBtn
-                        type={"button"}
-                        Onclick={handleGenerateArticul}
-                        BtnContent={"Генерировать"}
-                      />
+                 
                     </Box>
                   </Box>
                   <Box className={s.edit__cat}>
@@ -276,9 +267,9 @@ export const ProductsEdit = () => {
                   </Box>
                   <Box className={s.edit__inputs}>
                     <Box className={s.edit__input}>
-                      <h2 className={s.edit__bottom_title}>Код хранилища</h2>
+                      <h2 className={s.edit__bottom_title}>*Код единицы измерения</h2>
                       <CustomInput
-                        InputPlaceHolder="Код хранилища"
+                        InputPlaceHolder="Введите код"
                         name="storage_code"
                         value={productData.storage_code}
                         onChange={handleInputChange}
@@ -287,7 +278,7 @@ export const ProductsEdit = () => {
                     <Box className={s.edit__input}>
                       <h2 className={s.edit__bottom_title}>Код ИКПУ</h2>
                       <CustomInput
-                        InputPlaceHolder="Код налога"
+                        InputPlaceHolder="Введите код"
                         name="tax_code"
                         value={productData.tax_code}
                         onChange={handleInputChange}
@@ -296,7 +287,7 @@ export const ProductsEdit = () => {
                     <Box className={s.edit__input}>
                       <h2 className={s.edit__bottom_title}>Код упаковки</h2>
                       <CustomInput
-                        InputPlaceHolder="Код упаковки"
+                        InputPlaceHolder="Введите код"
                         name="packaging_code"
                         value={productData.packaging_code}
                         onChange={handleInputChange}
