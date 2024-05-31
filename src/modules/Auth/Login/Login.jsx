@@ -23,7 +23,7 @@ export const Login = () => {
       <FormControl onSubmit={handleSubmit(onSubmit)} as="form">
         <Box className={s.form__wrapper}>
           <Box className={s.form__top}>
-            <h1 className={s.form__title}>Войти в систему </h1>
+            <h1 className={s.form__title}>Войти в систему</h1>
           </Box>
           <Box className={s.form__btm}>
             <AuthInput

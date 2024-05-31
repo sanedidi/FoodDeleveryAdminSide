@@ -10,11 +10,13 @@ export const useLoginProps = () => {
     handleSubmit,
     formState: { errors },
     setError,
+    clearErrors, // Добавляем clearErrors для сброса ошибок
   } = useForm();
 
-  const { mutate, isPending } = useLogin();
+  const { mutate, isLoading: isPending } = useLogin(); // Переименуем isLoading в isPending для консистентности
 
   const onSubmit = (data) => {
+    clearErrors(); // Сбрасываем предыдущие ошибки перед новой попыткой
     mutate(data, {
       onSuccess: (res) => {
         authStore.userData = res?.data;
@@ -28,8 +30,9 @@ export const useLoginProps = () => {
         });
       },
       onError: (error) => {
-        setError('email', { message: error?.response?.data?.detail });
-        setError('password', { message: error?.response?.data?.detail });
+        const errorMessage = error?.response?.data?.detail || 'Ошибка входа';
+        setError('login', { message: errorMessage });
+        setError('password', { message: errorMessage });
       },
     });
   };

@@ -28,7 +28,7 @@ export const Router = observer(() => {
     return (
       <Routes>
         <Route path="" element={<AuthLayout />}>
-          <Route path="/auth" element={<Login />} />
+          {/* <Route path="/auth" element={<Login />} /> */}
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/resetPassword" element={<ResetPassword />} />
           <Route
