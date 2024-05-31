@@ -92,22 +92,22 @@ const Edit = () => {
       <Header
         title={"Редактировать "}
         headerBtn1={
-              <Link
-                to={"/admin/categories"}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  color: "red",
-                  gap: "10px",
-                  padding: "5px",
-                  borderRadius: "5px",
-                  fontSize: "16px",
-                  border:"1px solid red"
-                }}
-              >
-                Отменить
-              </Link>
-            }
+          <Link
+            to={"/admin/categories"}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              color: "red",
+              gap: "10px",
+              padding: "5px",
+              borderRadius: "5px",
+              fontSize: "16px",
+              border: "1px solid red",
+            }}
+          >
+            Отменить
+          </Link>
+        }
       />
       <form onSubmit={handleSubmit}>
         <Box className={s.categoriesAdd}>
@@ -161,10 +161,7 @@ const Edit = () => {
             </Box>
             <Box className={s.preview}>
               {productData.imagePreview && (
-                <img
-                  src={`https://${productData.imagePreview}`}
-                  alt="Preview"
-                />
+                <img src={`${productData.imagePreview}`} alt="Preview" />
               )}
             </Box>
           </Box>

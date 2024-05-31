@@ -15,7 +15,7 @@ import useCategoriesProps from "./useCategoriesProps";
 import { CustomTable } from "components/Custom/CustomTable/CustomTable";
 import html2canvas from "html2canvas";
 import { Box, Stack, useDisclosure } from "@chakra-ui/react";
-import UseCAtegoriesAddProps from "./CategoriesAdd/UseCAtegoriesAddProps";
+// import UseCAtegoriesAddProps from "./CategoriesAdd/UseCAtegoriesAddProps";
 import { Lang, CustomModal, Header } from "public/imports";
 import { Skeleton } from "antd";
 
