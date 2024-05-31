@@ -15,7 +15,7 @@ import {
 } from "components/SvgComponents/SvgComponents";
 import { CountDown } from "components/CountDOwn";
 
-export const useOrdersProps = (item) => {
+export const useOrdersProps = (selectedDeliveryOption) => {
   const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [isOpenModal3, setIsOpenModal3] = useState(false);
@@ -32,15 +32,18 @@ export const useOrdersProps = (item) => {
   const { data: getOrder, refetch } = useGetOrdersService({});
   const [activeTab, setActiveTab] = useState(0);
   const [selectedOrderType, setSelectedOrderType] = useState(null);
-
+  const [selectedOpt, setselectedOpt] =
+    useState("");
   useEffect(() => {
     if (getOrder) {
       // console.log("Fetched orders:", getOrder);
     }
   }, [getOrder]);
-
+  const filterByOrderType = (item) => {
+    if (!selectedOrderType) return true;
+    return item.order_type === selectedOrderType;
+  };
   const filterByDate = (item) => {
-    console.log(item.id);
     if (!datetime12h || !datetime12h1) return true;
     const orderDate = new Date(item.order_time);
     return orderDate >= datetime12h && orderDate <= datetime12h1;
@@ -298,6 +301,8 @@ export const useOrdersProps = (item) => {
     onCloseModal3,
     selectedOrderType,
     setSelectedOrderType,
+    selectedOpt,
+    setselectedOpt,
   };
 };
 

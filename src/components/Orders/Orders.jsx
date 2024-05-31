@@ -45,11 +45,11 @@ const Orders = () => {
     onCloseModal2,
     isOpenModal1,
     onCloseModal1,
-    setSelectedDeliveryOptionInHook,
     selectedOrderType,
     setSelectedOrderType,
+    selectedOpt,
+    setselectedOpt,
   } = useOrdersProps(selectedDeliveryOption);
-
   const deliveryOptions = [
     { value: "В зал", label: "В зал" },
     { value: "Доставка", label: "Доставка" },
@@ -58,24 +58,10 @@ const Orders = () => {
 
   const handleDeliveryOptionChange = (option) => {
     setSelectedDeliveryOption(option);
-    setSelectedDeliveryOptionInHook(option);
-  };
-  const handleCalendarChange = (value) => {
-    setDateTime12h(value);
-    setShowCalendars(false);
-
-    setSelectedOrderType(null);
-  };
-  const filterByDate = (order) => {
-    if (!datetime12h || !datetime12h1) return true;
-    const orderDate = new Date(order.order_time);
-    return orderDate >= datetime12h && orderDate <= datetime12h1;
+    setselectedOpt(option);
   };
 
-  const filterByOrderType = (item) => {
-    if (!selectedOrderType) return true;
-    return item.order_type === selectedOrderType;
-  };
+
 
   return (
     <>
