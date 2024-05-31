@@ -37,7 +37,7 @@ export const ProductsEdit = () => {
   } = useProductsEditProps();
   const { productId } = useParams();
   const navigate = useNavigate();
-
+  console.log("sdjvns", productData);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -242,7 +242,13 @@ export const ProductsEdit = () => {
                   <Box className={s.edit__cat}>
                     <h2 className={s.edit__bottom_title}>Филлиал</h2>
                     <Select
-                      placeholder="Выберите Филлиал"
+                      placeholder={
+                        productData.branch_id
+                          ? branches.find(
+                              (branch) => branch.id === productData.branch_id
+                            )?.address
+                          : "Выберите Филлиал"
+                      }
                       options={
                         Array.isArray(branches)
                           ? branches.map((branch) => ({
