@@ -73,7 +73,7 @@ const Orders = () => {
       <Header
         title={"Заказы"}
         headerBtn2={
-          <Link to={"/"} className="header_btn1">
+          <Link to={"/admin/orders/add"} className="header_btn1">
             <PlusIcon /> Создать заказ
           </Link>
         }
