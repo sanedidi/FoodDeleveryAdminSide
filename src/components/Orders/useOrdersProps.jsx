@@ -48,7 +48,7 @@ export const useOrdersProps = (item) => {
 
   const filterByOrderType = (item) => {
     if (!selectedOrderType) return true;
-    return item.order_type === selectedOrderType;
+    return item.order_type === selectedOrderType.value.toLowerCase();
   };
 
   const filteredData = getOrder?.Data?.orders?.filter((orders) => {

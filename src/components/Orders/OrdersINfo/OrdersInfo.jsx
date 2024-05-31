@@ -101,13 +101,19 @@ const OrdersInfo = () => {
               <Box className={s.orders__items}>
                 <Box className={s.orders__item}>
                   <h2 className={s.orders__title}>Ресторан</h2>
-                  <li className={s.orders__li}>
+                  <li
+                    style={{ textTransform: "uppercase" }}
+                    className={s.orders__li}
+                  >
                     {orderData?.Data.BranchData.address}
                   </li>
                 </Box>
                 <Box className={s.orders__item}>
                   <h2 className={s.orders__title}>Источник</h2>
-                  <li className={s.orders__li}>
+                  <li
+                    style={{ textTransform: "uppercase" }}
+                    className={s.orders__li}
+                  >
                     {orderData?.Data?.order_type}
                   </li>
                 </Box>

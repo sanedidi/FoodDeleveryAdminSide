@@ -41,14 +41,11 @@ const Orders = () => {
     onCloseModal2,
     isOpenModal1,
     onCloseModal1,
-    setSelectedOrderType
+    setSelectedOrderType,
   } = useOrdersProps(selectedDeliveryOption);
-
-
-  console.log("first", data);
-
-
-
+  const newOrders = data.filter((order) => order.status === "новый");
+  const EndOrders = data.filter((order) => order.status === "завершен");
+  console.log(data.branch_id)
   const deliveryOptions = [
     { value: "В зал", label: "В зал" },
     { value: "Доставка", label: "Доставка" },
@@ -164,7 +161,15 @@ const Orders = () => {
                 <Box className={s.orders__tabs}>
                   <CustomTable columns={columns} data={data} />
                 </Box>,
-                <Box>skdml;,</Box>,
+                <Box className={s.orders__new}>
+                  <CustomTable columns={columns} data={newOrders} />
+                </Box>,
+                <Box className={s.orders__new}>
+                  <CustomTable columns={columns} data={newOrders} />
+                </Box>,
+                <Box>
+                  <CustomTable columns={columns} data={EndOrders} />
+                </Box>,
               ],
             }}
             ExtraItem={
