@@ -268,7 +268,7 @@ export const useOrdersProps = () => {
                   }}
                 >
                   <CustomModal />
-                  <InfoIcon />
+                  <InfoIcon color={"green"} />
                   Инфо
                 </Link>
               }
