@@ -50,17 +50,17 @@ const useSideBarProps = () => {
       ),
       path: "/admin/categories",
     },
-    {
-      id: 7,
-      icon: (
-        <DateIcon
-          width={26}
-          height={26}
-          color={getColorForPath("/admin/calendar")}
-        />
-      ),
-      path: "/admin/calendar",
-    },
+    // {
+    //   id: 7,
+    //   icon: (
+    //     <DateIcon
+    //       width={26}
+    //       height={26}
+    //       color={getColorForPath("/admin/calendar")}
+    //     />
+    //   ),
+    //   path: "/admin/calendar",
+    // },
   ];
 
   const settings = [
