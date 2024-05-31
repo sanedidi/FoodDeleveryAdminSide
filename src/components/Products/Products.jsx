@@ -65,9 +65,9 @@ export const Products = () => {
       );
       toast.success("Продукт удален успешно");
       setIsOpenModal2(false);
-      getProducts();
+      getProducts(page, limit, searchParams.get("search") || "");
     } catch (error) {
-      toast.error("Что то пошло не так повторите попытку!");
+      toast.error("Что-то пошло не так, повторите попытку!");
     }
   };
 
@@ -76,8 +76,8 @@ export const Products = () => {
   };
 
   useEffect(() => {
-    getProducts(page, limit);
-  }, [page]);
+    getProducts(page, limit, searchParams.get("search") || "");
+  }, [page, limit, searchParams]);
 
   return (
     <>
@@ -94,25 +94,13 @@ export const Products = () => {
         firstItem={
           <CustomInput
             InputPlaceHolder={"Поиск..."}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setSearchParams({ search: e.target.value });
+            }}
             InputIcon={<Search2Icon color={"blue"} />}
           />
         }
-        // secondItem={
-        //   <CustomBtn
-        //     BgColor={"white"}
-        //     type={"button"}
-        //     BtnBorder={"1px solid #E5E9EB"}
-        //     BtnContent={
-        //       <Box
-        //         style={{ display: "flex", alignItems: "center", gap: "5px" }}
-        //       >
-        //         <FilterIcon />
-        //         <p style={{ color: "#000", fontWeight: "500" }}>Фильтр</p>
-        //       </Box>
-        //     }
-        //   />
-        // }
         thirdItem={
           <CustomBtn
             BgColor={"white"}

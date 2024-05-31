@@ -1,15 +1,5 @@
-import {
-  axios,
-  useState,
-  DeleteIcon,
-  EditIcon,
-  CustomBtn,
-  MenuComp,
-  CategoryFilterIcon,
-  AiOutlineEllipsis,
-  Link,
-  Box,
-} from "public/imports";
+import { useState, useEffect } from "react";
+import { axios, Box, Link, DeleteIcon, EditIcon, CategoryFilterIcon, AiOutlineEllipsis, MenuComp } from "public/imports";
 import s from "../Categories/Categories.module.scss";
 
 const useProductsProps = () => {
@@ -28,35 +18,21 @@ const useProductsProps = () => {
   const onOpenModal2 = () => setIsOpenModal2(true);
   const onCloseModal2 = () => setIsOpenModal2(false);
 
-  // const handleEditProduct = (productId) => {
-  //   setSelectedProductId(productId);
-  //   onOpenModal1();
-  // };
-
-  // const handleDeleteProduct = async (productId) => {
-  //   try {
-  //     await axios.delete(
-  //       `https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`
-  //     );
-  //     getProducts();
-  //   } catch (error) {
-  //     console.error("Error deleting product:", error);
-  //   }
-  // };
-
   const API_URL = "https://food-delivery-api-n6as.onrender.com/v1/products";
 
-  const getProducts = async (page = 1, limit = 10) => {
+  const getProducts = async (page = 1, limit = 10, search = "") => {
     setIsLoading(true);
     try {
       const response = await axios.get(API_URL, {
         params: {
           page,
           limit,
+          search,
         },
       });
       setProducts(response.data.Data.products);
-      setTotalPages(response.data.Data.count);
+      setTotalPages(Math.ceil(response.data.Data.count / limit));
+      setSearchQuery(response.data.Data.products.name);
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
@@ -64,9 +40,9 @@ const useProductsProps = () => {
     }
   };
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  useEffect(() => {
+    getProducts(currentPage, pageSize, searchQuery);
+  }, [currentPage, pageSize, searchQuery]);
 
   const columns = [
     {
@@ -87,9 +63,7 @@ const useProductsProps = () => {
       key: "category_id",
       width: 120,
       render: (categoryId) => {
-        const product = filteredProducts.find(
-          (prod) => prod.category_id === categoryId
-        );
+        const product = products.find((prod) => prod.category_id === categoryId);
         return product ? product.CategoryData.name : "";
       },
     },
@@ -167,7 +141,7 @@ const useProductsProps = () => {
 
   return {
     columns,
-    data: filteredProducts.map((item, index) => ({
+    data: products.map((item, index) => ({
       key: item.id || index,
       number: (currentPage - 1) * pageSize + index + 1,
       ...item,
@@ -179,12 +153,9 @@ const useProductsProps = () => {
     },
     setSearchQuery,
     isLoading,
-    setSearchQuery,
     isOpenModal1,
-    setIsOpenModal1,
-    isOpenModal2,
-    setIsOpenModal2,
     onCloseModal1,
+    isOpenModal2,
     onCloseModal2,
     setSelectedProductId,
     selectedProductId,
@@ -192,9 +163,8 @@ const useProductsProps = () => {
     setCurrentPage,
     pageSize,
     setPageSize,
-    setIsLoading,
     getProducts,
-    products,
   };
 };
+
 export default useProductsProps;
