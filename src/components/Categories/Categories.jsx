@@ -14,7 +14,7 @@ import {
   DownloadIcon,
 } from "public/imports";
 import useCategoriesProps from "./useCategoriesProps";
-import { SearchIcon } from "@chakra-ui/icons";
+import { Search2Icon, SearchIcon } from "@chakra-ui/icons";
 import { CustomTable } from "components/Custom/CustomTable/CustomTable";
 import html2canvas from "html2canvas";
 import { Skeleton } from "antd";
@@ -69,7 +69,7 @@ export const Categories = () => {
         <UnderHeader
           firstItem={
             <CustomInput
-              InputIcon={<SearchIcon style={{ color: "#0e73fc" }} />}
+              InputIcon={<Search2Icon color={"blue"} />}
               InputPlaceHolder={"Поиск..."}
               onChange={(e) => setSearchQuery(e.target.value)}
             />

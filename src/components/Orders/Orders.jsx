@@ -159,7 +159,7 @@ const Orders = () => {
                   <p>{totalOrders}</p>
                 </Box>,
                 <Box className={s.orders__title}>
-                  <h2>Отменен</h2>
+                  <h2>Отмененные</h2>
                 </Box>,
               ],
               tabContents: [

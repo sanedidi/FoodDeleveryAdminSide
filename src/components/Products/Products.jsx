@@ -98,21 +98,21 @@ export const Products = () => {
             InputIcon={<Search2Icon color={"blue"} />}
           />
         }
-        secondItem={
-          <CustomBtn
-            BgColor={"white"}
-            type={"button"}
-            BtnBorder={"1px solid #E5E9EB"}
-            BtnContent={
-              <Box
-                style={{ display: "flex", alignItems: "center", gap: "5px" }}
-              >
-                <FilterIcon />
-                <p style={{ color: "#000", fontWeight: "500" }}>Фильтр</p>
-              </Box>
-            }
-          />
-        }
+        // secondItem={
+        //   <CustomBtn
+        //     BgColor={"white"}
+        //     type={"button"}
+        //     BtnBorder={"1px solid #E5E9EB"}
+        //     BtnContent={
+        //       <Box
+        //         style={{ display: "flex", alignItems: "center", gap: "5px" }}
+        //       >
+        //         <FilterIcon />
+        //         <p style={{ color: "#000", fontWeight: "500" }}>Фильтр</p>
+        //       </Box>
+        //     }
+        //   />
+        // }
         thirdItem={
           <CustomBtn
             BgColor={"white"}
