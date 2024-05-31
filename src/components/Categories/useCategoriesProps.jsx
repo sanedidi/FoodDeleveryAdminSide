@@ -1,6 +1,5 @@
 import {
   useState,
-  CategoryImage,
   CategoryFilterIcon,
   AiOutlineEllipsis,
   DeleteIcon,
@@ -21,6 +20,7 @@ export const useCategoriesProps = () => {
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const onOpenModal1 = () => setIsOpenModal1(true);
   const onCloseModal1 = () => setIsOpenModal1(false);
   const onOpenModal2 = () => setIsOpenModal2(true);
@@ -183,6 +183,8 @@ export const useCategoriesProps = () => {
     handleDeleteCategory,
     setSelectedCategoryId,
     getCat,
+    isLoading,
+    setIsLoading,
   };
 };
 export default useCategoriesProps;

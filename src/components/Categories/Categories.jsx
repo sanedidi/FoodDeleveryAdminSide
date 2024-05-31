@@ -1,27 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
 import s from "./CategoriesAdd/CategoriesAdd.module.scss";
 import {
+  React,
+  Link,
+  CustomBtn,
+  CustomInput,
+  Box,
+  Stack,
+  CustomModal,
+  Header,
   PlusIcon,
-  PlusIconDown,
-  ReloadIcon,
   TrashIcon,
-} from "components/SvgComponents/SvgComponents";
-import { Link } from "react-router-dom";
-import UnderHeader from "components/UnderHeader/UnderHeader";
-import CustomInput from "components/Custom/CustomInput/CustomInput";
-import { DownloadIcon, SearchIcon } from "@chakra-ui/icons";
-import CustomBtn from "components/Custom/CustomBtn/CustomBtn";
+  UnderHeader,
+  DownloadIcon,
+} from "public/imports";
 import useCategoriesProps from "./useCategoriesProps";
+import { SearchIcon } from "@chakra-ui/icons";
 import { CustomTable } from "components/Custom/CustomTable/CustomTable";
 import html2canvas from "html2canvas";
-import { Box, Stack, useDisclosure } from "@chakra-ui/react";
-// import UseCAtegoriesAddProps from "./CategoriesAdd/UseCAtegoriesAddProps";
-import { Lang, CustomModal, Header } from "public/imports";
 import { Skeleton } from "antd";
+import { useRef } from "react";
 
 export const Categories = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
   const {
     isOpenModal2,
     onCloseModal2,
@@ -30,18 +29,11 @@ export const Categories = () => {
     data,
     selectedCategoryId,
     handleDeleteCategory,
-    getCat
+    getCat,
+    isLoading,
+    setIsLoading,
   } = useCategoriesProps();
 
-
-
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     getCat();
-  //   }, 500);
-
-  //   return () => clearTimeout(timeoutId);
-  // }, [getCat]);
   const categoriesWrapperRef = useRef(null);
 
   const handleDownload = () => {
