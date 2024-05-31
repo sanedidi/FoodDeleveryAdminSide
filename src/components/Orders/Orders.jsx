@@ -43,10 +43,11 @@ const Orders = () => {
     totalOrders,
     isOpenModal2,
     onCloseModal2,
-    onOpenModal1,
     isOpenModal1,
     onCloseModal1,
     setSelectedDeliveryOptionInHook,
+    selectedOrderType,
+    setSelectedOrderType,
   } = useOrdersProps(selectedDeliveryOption);
 
   const deliveryOptions = [
@@ -66,9 +67,14 @@ const Orders = () => {
     setSelectedOrderType(null);
   };
   const filterByDate = (order) => {
-    if (!datetime12h || !datetime12h1) return true; // Если даты не выбраны, пропустить фильтрацию
+    if (!datetime12h || !datetime12h1) return true;
     const orderDate = new Date(order.order_time);
     return orderDate >= datetime12h && orderDate <= datetime12h1;
+  };
+
+  const filterByOrderType = (item) => {
+    if (!selectedOrderType) return true;
+    return item.order_type === selectedOrderType;
   };
 
   return (

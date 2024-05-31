@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import s from "./Orders.module.scss";
 import { Box, Skeleton, Stack } from "@chakra-ui/react";
 import { useGetOrdersService } from "services/orders.service";
 import { CheckIcon } from "@chakra-ui/icons";
@@ -30,11 +31,14 @@ export const useOrdersProps = (item) => {
   const [datetime12h1, setDateTime12h1] = useState(null);
   const { data: getOrder, refetch } = useGetOrdersService({});
   const [activeTab, setActiveTab] = useState(0);
+  const [selectedOrderType, setSelectedOrderType] = useState(null);
+
   useEffect(() => {
     if (getOrder) {
       // console.log("Fetched orders:", getOrder);
     }
   }, [getOrder]);
+
   const filterByDate = (item) => {
     console.log(item.id);
     if (!datetime12h || !datetime12h1) return true;
@@ -45,7 +49,8 @@ export const useOrdersProps = (item) => {
     const customerFullName = orders.customer_name.toLowerCase();
     return (
       customerFullName.includes(searchQuery.toLowerCase()) &&
-      filterByDate(orders)
+      filterByDate(orders) &&
+      filterByOrderType(orders)
     );
   });
 
@@ -65,13 +70,23 @@ export const useOrdersProps = (item) => {
       width: 0,
     },
     {
-      title: "Время доставки",
-      key: "delivery_time",
-      dataIndex: "delivery_time",
+      title: "Время создания",
+      key: "created_at",
+      dataIndex: "created_at",
       width: 120,
+      render: (createdAt) => {
+        const formattedDateTime = new Date(createdAt).toLocaleString("ru-RU", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "numeric",
+          minute: "numeric",
+        });
+        return <p>{formattedDateTime}</p>;
+      },
     },
     {
-      title: "Дата заказа",
+      title: "Время самовывоза",
       key: "order_time",
       dataIndex: "order_time",
       width: 0,
@@ -79,7 +94,12 @@ export const useOrdersProps = (item) => {
     {
       title: "Имя клиента",
       width: 120,
-      render: (item) => <p>{item?.customer_name}</p>,
+      render: (item) => (
+        <Box>
+          <p>{item?.customer_name}</p>
+          <p className={s.orders__customer_num}>{item?.customer_phone}</p>
+        </Box>
+      ),
     },
     {
       title: "Филиал",
@@ -89,8 +109,10 @@ export const useOrdersProps = (item) => {
     {
       title: "Тип Заказа",
       key: "order_type",
-      dataIndex: "order_type",
       width: 120,
+      render: (item) => (
+        <p className={s.orders__customer_num}>{item?.order_type}</p>
+      ),
     },
     {
       title: "Цена",
@@ -274,6 +296,8 @@ export const useOrdersProps = (item) => {
     isOpenModal1,
     isOpenModal3,
     onCloseModal3,
+    selectedOrderType,
+    setSelectedOrderType,
   };
 };
 

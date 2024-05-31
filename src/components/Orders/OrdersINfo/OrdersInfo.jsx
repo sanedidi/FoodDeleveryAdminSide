@@ -42,14 +42,17 @@ const OrdersInfo = () => {
               <Box className={s.orders__status}>
                 <h2 className={s.orders__title}>Статус</h2>
                 <Box className={s.orders__list}>
-                  <ul>
+                  {/* <ul>
                     <li className={s.orders__li}>
                       {orderData?.Data.created_at}-Заказ начат
-                    </li>
-                    <li className={s.orders__li}>
-                      {orderData?.Data.order_time}-Заказ получен в Вендор
-                    </li>
-                    <li className={s.orders__li}>
+                    </li> */}
+                  <li
+                    style={{ textTransform: "uppercase" }}
+                    className={s.orders__li}
+                  >
+                    {orderData?.Data.status}-Заказ получен в Вендор
+                  </li>
+                  {/* <li className={s.orders__li}>
                       {orderData?.Data.status}-Заказ подтвержден
                     </li>
                   </ul>
@@ -63,7 +66,7 @@ const OrdersInfo = () => {
                     <li className={s.orders__li}>
                       {orderData?.Data.status}-Заказ подтвержден
                     </li>
-                  </ul>
+                  </ul> */}
                 </Box>
               </Box>
               <Box className={s.orders__items}>
@@ -111,11 +114,17 @@ const OrdersInfo = () => {
               </Box>
               <Box className={s.orders__status}>
                 <h2 className={s.orders__title}> Оплата </h2>
-                <p style={{textTransform:"uppercase"}} className={s.orders__li}> {orderData?.Data?.payment_type}</p>
+                <p
+                  style={{ textTransform: "uppercase" }}
+                  className={s.orders__li}
+                >
+                  {" "}
+                  {orderData?.Data?.payment_type}
+                </p>
               </Box>
               <Box className={s.orders__status}>
                 <h2 className={s.orders__title}> Позиции </h2>
-                <p>????????????</p>
+                {orderData?.Data?.quantity}
               </Box>
             </Box>
           ) : (
