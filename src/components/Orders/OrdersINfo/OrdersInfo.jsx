@@ -111,7 +111,7 @@ const OrdersInfo = () => {
               </Box>
               <Box className={s.orders__status}>
                 <h2 className={s.orders__title}> Оплата </h2>
-                <p>????????????</p>
+                <p style={{textTransform:"uppercase"}} className={s.orders__li}> {orderData?.Data?.payment_type}</p>
               </Box>
               <Box className={s.orders__status}>
                 <h2 className={s.orders__title}> Позиции </h2>
