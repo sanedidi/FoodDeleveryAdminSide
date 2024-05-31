@@ -41,11 +41,11 @@ export const useOrdersProps = (item) => {
     const orderDate = new Date(item.order_time);
     return orderDate >= datetime12h && orderDate <= datetime12h1;
   };
-  const filteredData = getOrder?.Data?.orders?.filter((order) => {
-    const customerFullName = order.CustomerData.full_name.toLowerCase();
+  const filteredData = getOrder?.Data?.orders?.filter((orders) => {
+    const customerFullName = orders.customer_name.toLowerCase();
     return (
       customerFullName.includes(searchQuery.toLowerCase()) &&
-      filterByDate(order)
+      filterByDate(orders)
     );
   });
 
@@ -69,10 +69,6 @@ export const useOrdersProps = (item) => {
       key: "delivery_time",
       dataIndex: "delivery_time",
       width: 120,
-      render: (item) => {
-        // console.log("Рендеринг элемента заказаacas:", item);
-        return <CountDown deliveryTime={item.delivery_time} />;
-      },
     },
     {
       title: "Дата заказа",
@@ -83,7 +79,7 @@ export const useOrdersProps = (item) => {
     {
       title: "Имя клиента",
       width: 120,
-      render: (item) => <p>{item?.CustomerData.full_name}</p>,
+      render: (item) => <p>{item?.customer_name}</p>,
     },
     {
       title: "Филиал",

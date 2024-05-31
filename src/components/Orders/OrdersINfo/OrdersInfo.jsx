@@ -29,7 +29,7 @@ const OrdersInfo = () => {
                 to={"/admin/orders"}
               >
                 <CloseIcon color={"red"} />
-                Закрыть 
+                Закрыть
               </Link>
             }
           />
@@ -81,19 +81,17 @@ const OrdersInfo = () => {
                 <Box className={s.orders__box}>
                   <Box className={s.orders__ul}>
                     <li className={s.orders__li}>
-                      {orderData?.Data?.CustomerData?.full_name}
+                      {orderData?.Data?.customer_name}
                     </li>
                     <p className={s.orders__li}>
-                      {orderData?.Data?.CustomerData?.phone}
+                      {orderData?.Data?.customer_phone}
                     </p>
                   </Box>
                   <Box className={s.orders__ul}>
                     <li className={s.orders__li}>
-                      {orderData?.Data?.CustomerData?.full_name}
+                      {orderData?.Data?.customer_name}
                     </li>
-                    <p className={s.orders__li}>
-                      {orderData?.Data?.CustomerData?.phone}
-                    </p>
+                    <p className={s.orders__li}>{orderData?.Data?.phone}</p>
                   </Box>
                 </Box>
               </Box>
@@ -106,7 +104,9 @@ const OrdersInfo = () => {
                 </Box>
                 <Box className={s.orders__item}>
                   <h2 className={s.orders__title}>Источник</h2>
-                  <li className={s.orders__li}>{orderData?.Data.order_type}</li>
+                  <li className={s.orders__li}>
+                    {orderData?.Data?.order_type}
+                  </li>
                 </Box>
               </Box>
               <Box className={s.orders__status}>
