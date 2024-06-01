@@ -1,10 +1,19 @@
-import { useState, useEffect } from "react";
-import { axios, Box, Link, DeleteIcon, EditIcon, CategoryFilterIcon, AiOutlineEllipsis, MenuComp } from "public/imports";
+import { useEffect } from "react";
+import {
+  axios,
+  Box,
+  Link,
+  DeleteIcon,
+  EditIcon,
+  CategoryFilterIcon,
+  AiOutlineEllipsis,
+  MenuComp,
+  useState,
+} from "public/imports";
 import s from "../Categories/Categories.module.scss";
 
 const useProductsProps = () => {
   const [products, setProducts] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
   const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
@@ -25,14 +34,17 @@ const useProductsProps = () => {
     try {
       const response = await axios.get(API_URL, {
         params: {
-          page,
-          limit,
+          page: !!search.length ? null : page,
+          limit:  !!search.length ? null : limit,
           search,
         },
       });
-      setProducts(response.data.Data.products);
+      const fetchedProducts = response.data.Data.products;
+      if (fetchedProducts.length === 0) {
+        console.log("Ничего не найдено по вашему запросу");
+      }
+      setProducts(fetchedProducts);
       setTotalPages(Math.ceil(response.data.Data.count / limit));
-      setSearchQuery(response.data.Data.products.name);
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
@@ -41,8 +53,8 @@ const useProductsProps = () => {
   };
 
   useEffect(() => {
-    getProducts(currentPage, pageSize, searchQuery);
-  }, [currentPage, pageSize, searchQuery]);
+    getProducts(currentPage, pageSize);
+  }, [currentPage, pageSize]);
 
   const columns = [
     {
@@ -63,7 +75,9 @@ const useProductsProps = () => {
       key: "category_id",
       width: 120,
       render: (categoryId) => {
-        const product = products.find((prod) => prod.category_id === categoryId);
+        const product = products.find(
+          (prod) => prod.category_id === categoryId
+        );
         return product ? product.CategoryData.name : "";
       },
     },
@@ -151,7 +165,6 @@ const useProductsProps = () => {
       pageSize: pageSize,
       totalPages: totalPages,
     },
-    setSearchQuery,
     isLoading,
     isOpenModal1,
     onCloseModal1,
@@ -164,6 +177,7 @@ const useProductsProps = () => {
     pageSize,
     setPageSize,
     getProducts,
+    setIsOpenModal2,
   };
 };
 

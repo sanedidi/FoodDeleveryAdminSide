@@ -8,9 +8,7 @@ import {
   Search2Icon,
   Link,
   useSearchParams,
-  FilterIcon,
   PlusIcon,
-  ReloadIcon,
   TrashIcon,
   CustomBtn,
   UnderHeader,
@@ -30,15 +28,9 @@ import {
 } from "components/SvgComponents/SvgComponents";
 
 export const Products = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const page = +searchParams.get("page") || 1;
-  const limit = +searchParams.get("limit") || 10;
-
   const {
     data,
     columns,
-    setSearchQuery,
     isOpenModal2,
     setIsOpenModal2,
     selectedProductId,
@@ -46,8 +38,12 @@ export const Products = () => {
     isLoading,
     setIsLoading,
     getProducts,
-    products,
+    onCloseModal2,
   } = useProductsProps();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = +searchParams.get("page") || 1;
+  const limit = +searchParams.get("limit") || 10;
+  const search = searchParams.get("search") || "";
 
   const { current, totalPages } = paginationData;
 
@@ -65,7 +61,7 @@ export const Products = () => {
       );
       toast.success("Продукт удален успешно");
       setIsOpenModal2(false);
-      getProducts(page, limit, searchParams.get("search") || "");
+      getProducts(page, limit, search);
     } catch (error) {
       toast.error("Что-то пошло не так, повторите попытку!");
     }
@@ -76,8 +72,8 @@ export const Products = () => {
   };
 
   useEffect(() => {
-    getProducts(page, limit, searchParams.get("search") || "");
-  }, [page, limit, searchParams]);
+    getProducts(page, limit, search);
+  }, [page, limit, search]);
 
   return (
     <>
@@ -95,7 +91,6 @@ export const Products = () => {
           <CustomInput
             InputPlaceHolder={"Поиск..."}
             onChange={(e) => {
-              setSearchQuery(e.target.value);
               setSearchParams({ search: e.target.value });
             }}
             InputIcon={<Search2Icon color={"blue"} />}
@@ -134,6 +129,7 @@ export const Products = () => {
             breakLabel={"..."}
             breakClassName={"break-me"}
             pageCount={totalPages}
+            current={current}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
             onPageChange={handlePageChange}
