@@ -63,7 +63,7 @@ const useProductsProps = () => {
       dataIndex: "number",
       width: 0,
     },
-    {
+    {   
       title: "Продукт",
       dataIndex: "name",
       key: "name",
