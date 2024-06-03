@@ -10,6 +10,7 @@ export const OrdersAdd = () => {
   const [prodOptions, setProdOptions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(0);
   const [orderDetails, setOrderDetails] = useState({
     branch_id: "",
     comment: "",
@@ -108,6 +109,13 @@ export const OrdersAdd = () => {
         products: [...prevState.products, { id: productId, quantity }],
       }));
     }
+
+    // Вычисляем общую сумму заказа
+    const productPrice = prodOptions.find(
+      (prod) => prod.value === productId
+    ).price;
+    const totalPriceChange = productPrice * quantity;
+    setTotalAmount((prevTotalAmount) => prevTotalAmount + totalPriceChange);
   };
 
   const handleSubmit = async () => {
@@ -279,6 +287,9 @@ export const OrdersAdd = () => {
                 </div>
               ))}
             </Box>
+              <Box className={s.orders__total}>
+                Общая сумма: {totalAmount} сум
+              </Box>
           </Box>
         </Box>
         <button className={s.submit_button} onClick={handleSubmit}>
