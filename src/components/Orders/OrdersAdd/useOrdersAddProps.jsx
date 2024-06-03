@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { toast } from "public/imports";
+import { toast, axios, useState, useEffect, useNavigate } from "public/imports";
 
 const useOrdersAddProps = () => {
   const [branchOptions, setBranchOptions] = useState([]);
@@ -18,7 +16,7 @@ const useOrdersAddProps = () => {
     payment_type: "",
     products: [],
   });
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchBranches = async () => {
       try {
@@ -160,6 +158,9 @@ const useOrdersAddProps = () => {
         orderDetails
       );
       toast.success("Заказ успешно создан!");
+      setTimeout(() => {
+        navigate("/admin/orders");
+      }, 1000);
     } catch (error) {
       toast.error("Ошибка при создании заказа", error);
     }
