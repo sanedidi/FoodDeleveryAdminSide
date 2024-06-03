@@ -145,6 +145,7 @@
     border: 1px solid #e7e7e7;
     display: flex;
   }
+
   &__client_title {
     font-size: 16px;
     font-weight: 600;
@@ -163,6 +164,8 @@
     border: 1px solid #e7e7e7;
     padding: 10px;
     border-radius: 4px;
+    max-height: 430px;
+    overflow-y: scroll;
   }
   &__ordered_info {
     display: flex;
@@ -225,10 +228,10 @@
     }
   }
 }
-.submit_button{
+.submit_button {
   margin-top: auto;
 }
 
-.active{
-background-color: #d3e0f1 !important;
+.active {
+  background-color: #d3e0f1 !important;
 }
