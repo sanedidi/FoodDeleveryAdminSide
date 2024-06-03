@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import s from "./OrdersAdd.module.scss";
-import { Box, Header, Select } from "public/imports";
+import { Box, CustomInput, Header, Select } from "public/imports";
 import { CloseIcon } from "@chakra-ui/icons";
+import { Calendar } from "primereact/calendar";
 
 export const OrdersAdd = () => {
   const [branchOptions, setBranchOptions] = useState([]);
@@ -14,7 +15,7 @@ export const OrdersAdd = () => {
     comment: "",
     customer_name: "",
     customer_phone: "",
-    delivery_time: "",
+    delivery_time: null, // Update to null initially
     order_type: "",
     payment_type: "",
     products: [],
@@ -153,28 +154,74 @@ export const OrdersAdd = () => {
           </Box>
         </Box>
 
-        <div className={s.form}>
-          {filteredProdOptions.map((product, index) => (
-            <Box key={index} className={s.orders__product}>
-              <Box className={s.orders__prod_imh}>
-                <img src={product.photo} alt="" />
+        <Box className={s.orders__right}>
+          <Box className={s.orders__products}>
+            {filteredProdOptions.map((product, index) => (
+              <Box key={index} className={s.orders__product}>
+                <Box className={s.orders__prod_imh}>
+                  <img src={product.photo} alt="" />
+                </Box>
+                <Box className={s.orders__desc}>
+                  <p className={s.orders__prod_title}>{product.label}</p>
+                  <p className={s.orders_button}>{product.desc}</p>
+                </Box>
+                <Box className={s.orders__price}>
+                  <p className={s.orders__button}>
+                    <span>{product.price}</span> сум
+                  </p>
+                  <button
+                    key={product.value}
+                    onClick={() => handleProductChange(product.value)}
+                  >
+                    Добавить
+                  </button>
+                </Box>
               </Box>
-              <Box className={s.orders__desc}>
-                <p>{product.label}</p>
-                <p className={s.orders_button}>{product.desc}</p>
-              </Box>
-              <Box className={s.orders__price}>
-                <p className={s.orders_button}>{product.price} сум</p>
-                <button
-                  key={product.value}
-                  onClick={() => handleProductChange(product.value)}
-                >
-                  Добавить
-                </button>
+            ))}
+          </Box>
+          <Box className={s.orders__info}>
+            <Box className={s.orders__client}>
+              <h2 className={s.orders__client_title}>Клиент инфо</h2>
+              <Box className={s.orders__main_info}>
+                <Box className={s.orders_item}>
+                  <h2>Имя</h2>
+                  <CustomInput
+                    type="text"
+                    InputPlaceHolder="Имя клиента"
+                    value={orderDetails.customer_name}
+                    onChange={(e) =>
+                      handleInputChange("customer_name", e.target.value)
+                    }
+                  />
+                </Box>
+                <Box className={s.orders_item}>
+                  <h2>Номер телефона</h2>
+                  <CustomInput
+                    type="text"
+                    InputPlaceHolder="Телефон номер клиента"
+                    value={orderDetails.customer_phone}
+                    onChange={(e) =>
+                      handleInputChange("customer_phone", e.target.value)
+                    }
+                  />
+                </Box>
+                <Box className={s.orders__item}>
+                <Calendar
+                  value={orderDetails.delivery_time}
+                  onChange={(e) => handleInputChange("delivery_time", e.value)}
+                  showTime
+                  className={s.orders__calendar}
+                  dateFormat="dd.mm.yy"
+                  showIcon
+                  hourFormat="24"
+                  placeholder="Выберите дату"
+                />
+                  
+                   </Box>
               </Box>
             </Box>
-          ))}
-        </div>
+          </Box>
+        </Box>
         <button className={s.submit_button} onClick={handleSubmit}>
           Create Order
         </button>

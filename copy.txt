@@ -1,20 +1,6 @@
- <Select
-          options={prodOptions}
-          placeholder="Select Product"
-          onChange={(option) => handleProductChange(0, "id", option.value)}
-        />
-        <input
-          type="text"
-          placeholder="Customer Name"
-          value={orderDetails.customer_name}
-          onChange={(e) => handleInputChange("customer_name", e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Customer Phone"
-          value={orderDetails.customer_phone}
-          onChange={(e) => handleInputChange("customer_phone", e.target.value)}
-        />
+
+     
+      
         <Select
           options={[{ value: "Later", label: "Later" }]}
           placeholder="Delivery Time"
