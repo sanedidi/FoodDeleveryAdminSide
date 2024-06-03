@@ -101,7 +101,7 @@
   }
   &__right {
     display: grid;
-    grid-template-columns: 4fr 1fr;
+    grid-template-columns: 2fr 1fr;
   }
 
   &__info {
@@ -139,4 +139,31 @@
     font-size: 16px;
     font-weight: 600;
   }
+  &__prod_img{
+    img{
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+
+    }
+  }
+  &__ordered_info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__productItem{
+    display: flex;
+    gap: 20px;
+  }
+  &__label{
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+  }
+  &__desc{
+    width: 100%;
+    max-width: 190px;
+  }
+
 }

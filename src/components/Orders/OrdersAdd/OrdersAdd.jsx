@@ -15,7 +15,7 @@ export const OrdersAdd = () => {
     comment: "",
     customer_name: "",
     customer_phone: "",
-    delivery_time: null, // Update to null initially
+    delivery_time: null,
     order_type: "",
     payment_type: "",
     products: [],
@@ -88,11 +88,26 @@ export const OrdersAdd = () => {
     }));
   };
 
-  const handleProductChange = (productId) => {
-    setOrderDetails((prevState) => ({
-      ...prevState,
-      products: [...prevState.products, { id: productId, quantity: 1 }],
-    }));
+  const handleProductChange = (productId, quantity) => {
+    const existingProductIndex = orderDetails.products.findIndex(
+      (product) => product.id === productId
+    );
+
+    if (existingProductIndex !== -1) {
+      const updatedProducts = [...orderDetails.products];
+      updatedProducts[existingProductIndex].quantity += quantity;
+      if (updatedProducts[existingProductIndex].quantity < 0)
+        updatedProducts[existingProductIndex].quantity = 0;
+      setOrderDetails((prevState) => ({
+        ...prevState,
+        products: updatedProducts,
+      }));
+    } else {
+      setOrderDetails((prevState) => ({
+        ...prevState,
+        products: [...prevState.products, { id: productId, quantity }],
+      }));
+    }
   };
 
   const handleSubmit = async () => {
@@ -169,10 +184,7 @@ export const OrdersAdd = () => {
                   <p className={s.orders__button}>
                     <span>{product.price}</span> сум
                   </p>
-                  <button
-                    key={product.value}
-                    onClick={() => handleProductChange(product.value)}
-                  >
+                  <button onClick={() => handleProductChange(product.value, 1)}>
                     Добавить
                   </button>
                 </Box>
@@ -180,8 +192,8 @@ export const OrdersAdd = () => {
             ))}
           </Box>
           <Box className={s.orders__info}>
+            <h2 className={s.orders__client_title}>Клиент инфо</h2>
             <Box className={s.orders__client}>
-              <h2 className={s.orders__client_title}>Клиент инфо</h2>
               <Box className={s.orders__main_info}>
                 <Box className={s.orders_item}>
                   <h2>Имя</h2>
@@ -206,24 +218,71 @@ export const OrdersAdd = () => {
                   />
                 </Box>
                 <Box className={s.orders__item}>
-                <Calendar
-                  value={orderDetails.delivery_time}
-                  onChange={(e) => handleInputChange("delivery_time", e.value)}
-                  showTime
-                  className={s.orders__calendar}
-                  dateFormat="dd.mm.yy"
-                  showIcon
-                  hourFormat="24"
-                  placeholder="Выберите дату"
-                />
-                  
-                   </Box>
+                  <Calendar
+                    value={orderDetails.delivery_time}
+                    onChange={(e) =>
+                      handleInputChange("delivery_time", e.value)
+                    }
+                    showTime
+                    className={s.orders__calendar}
+                    dateFormat="dd.mm.yy"
+                    showIcon
+                    hourFormat="24"
+                    placeholder="Выберите дату"
+                  />
+                </Box>
               </Box>
+            </Box>
+            <h2 className={s.orders__client_title}>Заказ инфо</h2>
+            <Box className={s.orders__ordered}>
+              {orderDetails.products.map((product, index) => (
+                <div key={index} className={s.orders__productItem}>
+                  <Box className={s.orders__prod_img}>
+                    <img
+                      src={
+                        prodOptions.find((prod) => prod.value === product.id)
+                          .photo
+                      }
+                      alt=""
+                    />
+                  </Box>
+                  <Box className={s.orders__ordered_info}>
+                    <p className={s.orders__label}>
+                      {
+                        prodOptions.find((prod) => prod.value === product.id)
+                          .label
+                      }
+                    </p>
+                    <p className={s.orders__desc}>
+                      {
+                        prodOptions.find((prod) => prod.value === product.id)
+                          .desc
+                      }
+                    </p>
+                    <p className={s.orders__label}>
+                      {
+                        prodOptions.find((prod) => prod.value === product.id)
+                          .price
+                      }
+                      сум
+                    </p>
+                  </Box>
+                  <div className={s.quantityControl}>
+                    <button onClick={() => handleProductChange(product.id, -1)}>
+                      -
+                    </button>
+                    <span>{product.quantity}</span>
+                    <button onClick={() => handleProductChange(product.id, 1)}>
+                      +
+                    </button>
+                  </div>
+                </div>
+              ))}
             </Box>
           </Box>
         </Box>
         <button className={s.submit_button} onClick={handleSubmit}>
-          Create Order
+          Создать заказ
         </button>
       </Box>
     </>
