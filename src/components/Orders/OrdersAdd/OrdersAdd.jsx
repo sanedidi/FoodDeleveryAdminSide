@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import s from "./OrdersAdd.module.scss";
-import { Box, CustomInput, Header, Select } from "public/imports";
+import { Box, CustomInput, Header, Select, Textarea } from "public/imports";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Calendar } from "primereact/calendar";
 import { CLickIcon, PaymeIcon } from "components/SvgComponents/SvgComponents";
@@ -317,7 +317,7 @@ export const OrdersAdd = () => {
                 }
                 onClick={() => handleInputChange("payment_type", "click")}
               >
-              <CLickIcon />
+                <CLickIcon />
               </button>
               <button
                 className={
@@ -334,6 +334,13 @@ export const OrdersAdd = () => {
               >
                 <img src={free} alt="" />
               </button>
+            </Box>
+            <Box>
+              <Textarea
+                placeholder="Comment"
+                value={orderDetails.comment}
+                onChange={(e) => handleInputChange("comment", e.target.value)}
+              />
             </Box>
           </Box>
         </Box>

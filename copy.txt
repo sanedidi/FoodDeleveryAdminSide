@@ -10,11 +10,7 @@
         />
        
         
-        <Textarea
-          placeholder="Comment"
-          value={orderDetails.comment}
-          onChange={(e) => handleInputChange("comment", e.target.value)}
-        />
+   
         <Select
           options={[
             { value: 1, label: "1" },
