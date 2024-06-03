@@ -288,7 +288,10 @@ export const OrdersAdd = () => {
               ))}
             </Box>
               <Box className={s.orders__total}>
-                Общая сумма: {totalAmount} сум
+                <p>
+                Общяя сумма: <span> {totalAmount}   сум</span>
+                </p>
+             
               </Box>
           </Box>
         </Box>

@@ -189,5 +189,16 @@
         padding: 10px;
     }
 }
+&__total{
+    p{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        font-size: 19px;
+        font-weight: 600;
+    }
+
+}
 
 }
