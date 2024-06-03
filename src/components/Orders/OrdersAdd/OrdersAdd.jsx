@@ -49,6 +49,9 @@ export const OrdersAdd = () => {
           label: prod.articul,
           category_id: prod.category_id,
           photo: prod.photo,
+          name: prod.name,
+          desc: prod.description,
+          price: prod.sale_price,
         }));
         setProdOptions(options);
       } catch (error) {
@@ -134,34 +137,38 @@ export const OrdersAdd = () => {
       <Box className={s.orders}>
         <Box className={s.orders__left}>
           <h2 className={s.orders__title}>Категории</h2>
-          {categories.map((category) => (
-            <Box
-              key={category.value}
-              className={`${s.orders__cat} ${
-                selectedCategory === category.value ? s.orders__active : ""
-              }`}
-              onClick={() => setSelectedCategory(category.value)}
-            >
-              <img src={category.photo} alt={category.label} />
-              <span>{category.label}</span>
-            </Box>
-          ))}
+          <Box className={s.orders__items}>
+            {categories.map((category) => (
+              <Box
+                key={category.value}
+                className={`${s.orders__cat} ${
+                  selectedCategory === category.value ? s.orders__active : ""
+                }`}
+                onClick={() => setSelectedCategory(category.value)}
+              >
+                <img src={category.photo} alt={category.label} />
+                <h2>{category.label}</h2>
+              </Box>
+            ))}
+          </Box>
         </Box>
 
         <div className={s.form}>
           {filteredProdOptions.map((product) => (
             <Box
+              className={s.orders__product}
               onClick={() => handleProductChange(product.value)}
               key={product.value}
             >
-              <button className={s.orders_button}>{product.label}</button>
               <img src={product.photo} alt="" />
+              <p className={s.orders_button}>{product.price} су</p>
+              <p className={s.orders_button}>{product.desc}</p>
             </Box>
           ))}
-          <button className={s.submit_button} onClick={handleSubmit}>
-            Create Order
-          </button>
         </div>
+        <button className={s.submit_button} onClick={handleSubmit}>
+          Create Order
+        </button>
       </Box>
     </>
   );
