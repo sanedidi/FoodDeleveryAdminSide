@@ -113,7 +113,7 @@ export const OrdersAdd = () => {
                 <Box className={s.orders_item}>
                   <h2>Номер телефона</h2>
                   <CustomInput
-                    type="text"
+                    type="number"
                     InputPlaceHolder="Телефон номер клиента"
                     value={orderDetails.customer_phone}
                     onChange={(e) =>
