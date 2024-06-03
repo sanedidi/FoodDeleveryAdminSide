@@ -48,6 +48,7 @@ export const OrdersAdd = () => {
           value: prod.id,
           label: prod.articul,
           category_id: prod.category_id,
+          photo: prod.photo,
         }));
         setProdOptions(options);
       } catch (error) {
@@ -149,13 +150,13 @@ export const OrdersAdd = () => {
 
         <div className={s.form}>
           {filteredProdOptions.map((product) => (
-            <button
-              key={product.value}
-              className={s.product_button}
+            <Box
               onClick={() => handleProductChange(product.value)}
+              key={product.value}
             >
-              {product.label}
-            </button>
+              <button className={s.orders_button}>{product.label}</button>
+              <img src={product.photo} alt="" />
+            </Box>
           ))}
           <button className={s.submit_button} onClick={handleSubmit}>
             Create Order

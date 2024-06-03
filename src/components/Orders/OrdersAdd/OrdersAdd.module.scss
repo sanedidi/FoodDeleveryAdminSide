@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 4fr;
     background-color: #fff;
+    gap: 10px;
     &__left{
         background-color: #fff;
     }
@@ -11,6 +12,18 @@
     &__cat{
         display: flex;
         flex-direction: column;
-        
+
     }
+    &__button{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
