@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import s from "./OrdersAdd.module.scss";
-import { Box, CustomInput, Header, Select, Textarea } from "public/imports";
+import { Box, CustomBtn, CustomInput, Header, Select, Textarea, Toaster, toast } from "public/imports";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Calendar } from "primereact/calendar";
 import { CLickIcon, PaymeIcon } from "components/SvgComponents/SvgComponents";
 import free from "assets/img/free.png";
+
 export const OrdersAdd = () => {
   const [branchOptions, setBranchOptions] = useState([]);
   const [prodOptions, setProdOptions] = useState([]);
@@ -120,12 +121,37 @@ export const OrdersAdd = () => {
   };
 
   const handleSubmit = async () => {
+    if (!orderDetails.branch_id) {
+      toast.error("Пожалуйста, выберите филиал.");
+      return;
+    }
+
+    if (!orderDetails.order_type) {
+      toast.error("Пожалуйста, выберите тип заказа.");
+      return;
+    }
+
+    if (!orderDetails.customer_name) {
+      toast.error("Пожалуйста, введите имя клиента.");
+      return;
+    }
+
+    if (!orderDetails.customer_phone) {
+      toast.error("Пожалуйста, введите номер телефона клиента.");
+      return;
+    }
+
+    if (!orderDetails.payment_type) {
+      toast.error("Пожалуйста, выберите способ оплаты.");
+      return;
+    }
+
     const hasProducts = orderDetails.products.some(
       (product) => product.quantity > 0
     );
 
     if (!hasProducts) {
-      alert("Пожалуйста, выберите продукты для заказа.");
+      toast.error("Пожалуйста, выберите продукты для заказа.");
       return;
     }
 
@@ -134,9 +160,9 @@ export const OrdersAdd = () => {
         "https://food-delivery-api-n6as.onrender.com/v1/order",
         orderDetails
       );
-      alert("Заказ успешно создан!");
+      toast.success("Заказ успешно создан!");
     } catch (error) {
-      console.error("Failed to create order", error);
+      toast.error("Ошибка при создании заказа", error);
     }
   };
 
@@ -144,8 +170,13 @@ export const OrdersAdd = () => {
     ? prodOptions.filter((prod) => prod.category_id === selectedCategory)
     : prodOptions;
 
+  const orderedProducts = orderDetails.products.filter(
+    (product) => product.quantity > 0
+  );
+
   return (
     <>
+    <Toaster/>
       <Header
         title={
           <Box display={"flex"} alignItems={"center"} gap={"15px"}>
@@ -253,9 +284,8 @@ export const OrdersAdd = () => {
             </Box>
             <h2 className={s.orders__client_title}>Заказ инфо</h2>
             <Box className={s.orders__ordered}>
-              {orderDetails.products
-                .filter((product) => product.quantity > 0)
-                .map((product, index) => (
+              {orderedProducts.length > 0 ? (
+                orderedProducts.map((product, index) => (
                   <div key={index} className={s.orders__productItem}>
                     <Box className={s.orders__prod_img}>
                       <img
@@ -301,7 +331,12 @@ export const OrdersAdd = () => {
                       </button>
                     </div>
                   </div>
-                ))}
+                ))
+              ) : (
+                <Box className={s.orders__ordered_info}>
+                     Выберите продукт для заказа
+                 </Box>
+              )}
             </Box>
 
             <Box className={s.orders__total}>
@@ -342,11 +377,14 @@ export const OrdersAdd = () => {
                 onChange={(e) => handleInputChange("comment", e.target.value)}
               />
             </Box>
+              <CustomBtn
+                BgColor={"blue"}
+                BtnContent={"Создать заказ"}
+                Onclick={handleSubmit}
+                type={"button"}
+              />
           </Box>
         </Box>
-        <button className={s.submit_button} onClick={handleSubmit}>
-          Создать заказ
-        </button>
       </Box>
     </>
   );
