@@ -1284,3 +1284,4 @@ export const CashIcon = () => {
     </svg>
   );
 };
+

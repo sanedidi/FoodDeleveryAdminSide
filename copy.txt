@@ -9,14 +9,7 @@
           }
         />
        
-        <Select
-          options={[
-            { value: "payme", label: "PayMe" },
-            { value: "click", label: "Click" },
-          ]}
-          placeholder="Payment Type"
-          onChange={(option) => handleInputChange("payment_type", option.value)}
-        />
+        
         <Textarea
           placeholder="Comment"
           value={orderDetails.comment}

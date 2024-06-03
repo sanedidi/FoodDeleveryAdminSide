@@ -4,7 +4,8 @@ import s from "./OrdersAdd.module.scss";
 import { Box, CustomInput, Header, Select } from "public/imports";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Calendar } from "primereact/calendar";
-
+import { CLickIcon, PaymeIcon } from "components/SvgComponents/SvgComponents";
+import free from "assets/img/free.png";
 export const OrdersAdd = () => {
   const [branchOptions, setBranchOptions] = useState([]);
   const [prodOptions, setProdOptions] = useState([]);
@@ -119,12 +120,21 @@ export const OrdersAdd = () => {
   };
 
   const handleSubmit = async () => {
+    const hasProducts = orderDetails.products.some(
+      (product) => product.quantity > 0
+    );
+
+    if (!hasProducts) {
+      alert("Пожалуйста, выберите продукты для заказа.");
+      return;
+    }
+
     try {
       await axios.post(
         "https://food-delivery-api-n6as.onrender.com/v1/order",
         orderDetails
       );
-      alert("Order created successfully!");
+      alert("Заказ успешно создан!");
     } catch (error) {
       console.error("Failed to create order", error);
     }
@@ -243,56 +253,88 @@ export const OrdersAdd = () => {
             </Box>
             <h2 className={s.orders__client_title}>Заказ инфо</h2>
             <Box className={s.orders__ordered}>
-              {orderDetails.products.map((product, index) => (
-                <div key={index} className={s.orders__productItem}>
-                  <Box className={s.orders__prod_img}>
-                    <img
-                      src={
-                        prodOptions.find((prod) => prod.value === product.id)
-                          .photo
-                      }
-                      alt=""
-                    />
-                  </Box>
-                  <Box className={s.orders__ordered_info}>
-                    <p className={s.orders__label}>
-                      {
-                        prodOptions.find((prod) => prod.value === product.id)
-                          .label
-                      }
-                    </p>
-                    <p className={s.orders__desc}>
-                      {
-                        prodOptions.find((prod) => prod.value === product.id)
-                          .desc
-                      }
-                    </p>
-                    <p className={s.orders__label}>
-                      {
-                        prodOptions.find((prod) => prod.value === product.id)
-                          .price
-                      }
-                      сум
-                    </p>
-                  </Box>
-                  <div className={s.quantityControl}>
-                    <button onClick={() => handleProductChange(product.id, -1)}>
-                      -
-                    </button>
-                    <span>{product.quantity}</span>
-                    <button onClick={() => handleProductChange(product.id, 1)}>
-                      +
-                    </button>
+              {orderDetails.products
+                .filter((product) => product.quantity > 0)
+                .map((product, index) => (
+                  <div key={index} className={s.orders__productItem}>
+                    <Box className={s.orders__prod_img}>
+                      <img
+                        src={
+                          prodOptions.find((prod) => prod.value === product.id)
+                            .photo
+                        }
+                        alt=""
+                      />
+                    </Box>
+                    <Box className={s.orders__ordered_info}>
+                      <p className={s.orders__label}>
+                        {
+                          prodOptions.find((prod) => prod.value === product.id)
+                            .label
+                        }
+                      </p>
+                      <p className={s.orders__desc}>
+                        {
+                          prodOptions.find((prod) => prod.value === product.id)
+                            .desc
+                        }
+                      </p>
+                      <p className={s.orders__label}>
+                        {
+                          prodOptions.find((prod) => prod.value === product.id)
+                            .price
+                        }{" "}
+                        сум
+                      </p>
+                    </Box>
+                    <div className={s.quantityControl}>
+                      <button
+                        onClick={() => handleProductChange(product.id, -1)}
+                      >
+                        -
+                      </button>
+                      <span>{product.quantity}</span>
+                      <button
+                        onClick={() => handleProductChange(product.id, 1)}
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </Box>
-              <Box className={s.orders__total}>
-                <p>
-                Общяя сумма: <span> {totalAmount}   сум</span>
-                </p>
-             
-              </Box>
+
+            <Box className={s.orders__total}>
+              <p>
+                Общяя сумма: <span> {totalAmount} UZS</span>
+              </p>
+            </Box>
+
+            <Box className={s.paymentButtons}>
+              <button
+                className={
+                  orderDetails.payment_type === "click" ? s.active : ""
+                }
+                onClick={() => handleInputChange("payment_type", "click")}
+              >
+              <CLickIcon />
+              </button>
+              <button
+                className={
+                  orderDetails.payment_type === "payme" ? s.active : ""
+                }
+                onClick={() => handleInputChange("payment_type", "payme")}
+              >
+                <PaymeIcon />
+              </button>
+
+              <button
+                className={orderDetails.payment_type === "free" ? s.active : ""}
+                onClick={() => handleInputChange("payment_type", "free")}
+              >
+                <img src={free} alt="" />
+              </button>
+            </Box>
           </Box>
         </Box>
         <button className={s.submit_button} onClick={handleSubmit}>
