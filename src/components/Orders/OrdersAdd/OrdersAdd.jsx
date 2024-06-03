@@ -46,7 +46,7 @@ export const OrdersAdd = () => {
         );
         const options = response.data.Data.products.map((prod) => ({
           value: prod.id,
-          label: prod.articul,
+          label: prod.name,
           category_id: prod.category_id,
           photo: prod.photo,
           name: prod.name,
@@ -154,15 +154,24 @@ export const OrdersAdd = () => {
         </Box>
 
         <div className={s.form}>
-          {filteredProdOptions.map((product) => (
-            <Box
-              className={s.orders__product}
-              onClick={() => handleProductChange(product.value)}
-              key={product.value}
-            >
-              <img src={product.photo} alt="" />
-              <p className={s.orders_button}>{product.price} су</p>
-              <p className={s.orders_button}>{product.desc}</p>
+          {filteredProdOptions.map((product, index) => (
+            <Box key={index} className={s.orders__product}>
+              <Box className={s.orders__prod_imh}>
+                <img src={product.photo} alt="" />
+              </Box>
+              <Box className={s.orders__desc}>
+                <p>{product.label}</p>
+                <p className={s.orders_button}>{product.desc}</p>
+              </Box>
+              <Box className={s.orders__price}>
+                <p className={s.orders_button}>{product.price} сум</p>
+                <button
+                  key={product.value}
+                  onClick={() => handleProductChange(product.value)}
+                >
+                  Добавить
+                </button>
+              </Box>
             </Box>
           ))}
         </div>
