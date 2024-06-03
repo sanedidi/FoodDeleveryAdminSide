@@ -1,0 +1,16 @@
+.orders{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    background-color: #fff;
+    &__left{
+        background-color: #fff;
+    }
+    &__active{
+        background-color: red;
+    }
+    &__cat{
+        display: flex;
+        flex-direction: column;
+        
+    }
+}
