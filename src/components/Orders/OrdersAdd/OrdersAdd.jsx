@@ -6,165 +6,21 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { Calendar } from "primereact/calendar";
 import { CLickIcon, PaymeIcon } from "components/SvgComponents/SvgComponents";
 import free from "assets/img/free.png";
+import useOrdersAddProps from "./useOrdersAddProps";
 
 export const OrdersAdd = () => {
-  const [branchOptions, setBranchOptions] = useState([]);
-  const [prodOptions, setProdOptions] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [orderDetails, setOrderDetails] = useState({
-    branch_id: "",
-    comment: "",
-    customer_name: "",
-    customer_phone: "",
-    delivery_time: null,
-    order_type: "",
-    payment_type: "",
-    products: [],
-  });
-
-  useEffect(() => {
-    const fetchBranches = async () => {
-      try {
-        const response = await axios.get(
-          "https://food-delivery-api-n6as.onrender.com/v1/branches"
-        );
-        const options = response.data.Data.branches.map((branch) => ({
-          value: branch.id,
-          label: branch.name,
-        }));
-        setBranchOptions(options);
-      } catch (error) {
-        console.error("Failed to fetch branches", error);
-      }
-    };
-    fetchBranches();
-  }, []);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get(
-          "https://food-delivery-api-n6as.onrender.com/v1/products"
-        );
-        const options = response.data.Data.products.map((prod) => ({
-          value: prod.id,
-          label: prod.name,
-          category_id: prod.category_id,
-          photo: prod.photo,
-          name: prod.name,
-          desc: prod.description,
-          price: prod.sale_price,
-        }));
-        setProdOptions(options);
-      } catch (error) {
-        console.error("Failed to fetch products", error);
-      }
-    };
-    fetchProducts();
-  }, []);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get(
-          "https://food-delivery-api-n6as.onrender.com/v1/categories"
-        );
-        const options = response.data.Data.category.map((cat) => ({
-          value: cat.id,
-          label: cat.name,
-          photo: cat.photo,
-        }));
-        setCategories(options);
-      } catch (error) {
-        console.error("Failed to fetch categories", error);
-      }
-    };
-    fetchCategories();
-  }, []);
-
-  const handleInputChange = (field, value) => {
-    setOrderDetails((prevState) => ({
-      ...prevState,
-      [field]: value,
-    }));
-  };
-
-  const handleProductChange = (productId, quantity) => {
-    const existingProductIndex = orderDetails.products.findIndex(
-      (product) => product.id === productId
-    );
-
-    if (existingProductIndex !== -1) {
-      const updatedProducts = [...orderDetails.products];
-      updatedProducts[existingProductIndex].quantity += quantity;
-      if (updatedProducts[existingProductIndex].quantity < 0)
-        updatedProducts[existingProductIndex].quantity = 0;
-      setOrderDetails((prevState) => ({
-        ...prevState,
-        products: updatedProducts,
-      }));
-    } else {
-      setOrderDetails((prevState) => ({
-        ...prevState,
-        products: [...prevState.products, { id: productId, quantity }],
-      }));
-    }
-
-    // Вычисляем общую сумму заказа
-    const productPrice = prodOptions.find(
-      (prod) => prod.value === productId
-    ).price;
-    const totalPriceChange = productPrice * quantity;
-    setTotalAmount((prevTotalAmount) => prevTotalAmount + totalPriceChange);
-  };
-
-  const handleSubmit = async () => {
-    if (!orderDetails.branch_id) {
-      toast.error("Пожалуйста, выберите филиал.");
-      return;
-    }
-
-    if (!orderDetails.order_type) {
-      toast.error("Пожалуйста, выберите тип заказа.");
-      return;
-    }
-
-    if (!orderDetails.customer_name) {
-      toast.error("Пожалуйста, введите имя клиента.");
-      return;
-    }
-
-    if (!orderDetails.customer_phone) {
-      toast.error("Пожалуйста, введите номер телефона клиента.");
-      return;
-    }
-
-    if (!orderDetails.payment_type) {
-      toast.error("Пожалуйста, выберите способ оплаты.");
-      return;
-    }
-
-    const hasProducts = orderDetails.products.some(
-      (product) => product.quantity > 0
-    );
-
-    if (!hasProducts) {
-      toast.error("Пожалуйста, выберите продукты для заказа.");
-      return;
-    }
-
-    try {
-      await axios.post(
-        "https://food-delivery-api-n6as.onrender.com/v1/order",
-        orderDetails
-      );
-      toast.success("Заказ успешно создан!");
-    } catch (error) {
-      toast.error("Ошибка при создании заказа", error);
-    }
-  };
+  const {
+    branchOptions,
+    prodOptions,
+    categories,
+    selectedCategory,
+    setSelectedCategory,
+    totalAmount,
+    orderDetails,
+    handleInputChange,
+    handleProductChange,
+    handleSubmit,
+  } = useOrdersAddProps();
 
   const filteredProdOptions = selectedCategory
     ? prodOptions.filter((prod) => prod.category_id === selectedCategory)
@@ -217,7 +73,6 @@ export const OrdersAdd = () => {
             ))}
           </Box>
         </Box>
-
         <Box className={s.orders__right}>
           <Box className={s.orders__products}>
             {filteredProdOptions.map((product, index) => (
