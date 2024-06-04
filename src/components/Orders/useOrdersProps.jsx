@@ -5,10 +5,10 @@ import {
   CustomModal,
   Link,
   MenuComp,
-  axios,
 } from "public/imports";
 import { useState, useEffect } from "react";
 import { useGetOrdersService } from "services/orders.service";
+import axios from "axios";
 import s from "./Orders.module.scss";
 import {
   CLickIcon,
@@ -17,6 +17,7 @@ import {
   PaymeIcon,
 } from "components/SvgComponents/SvgComponents";
 import { CheckIcon, InfoIcon } from "@chakra-ui/icons";
+
 export const useOrdersProps = () => {
   const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [selectedOrderType, setSelectedOrderType] = useState(null);
@@ -24,11 +25,6 @@ export const useOrdersProps = () => {
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [isOpenModal3, setIsOpenModal3] = useState(false);
   const [totalPages, setTotalPages] = useState(10);
-  const onOpenModal1 = () => setIsOpenModal1(true);
-  const onCloseModal1 = () => setIsOpenModal1(false);
-  const onOpenModal2 = () => setIsOpenModal2(true);
-  const onCloseModal2 = () => setIsOpenModal2(false);
-  const onCloseModal3 = () => setIsOpenModal3(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -36,18 +32,24 @@ export const useOrdersProps = () => {
   const [datetime12h1, setDateTime12h1] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [cancelOrderId, setCancelOrderId] = useState(null);
+  
+  const API_URL = "https://food-delivery-api-n6as.onrender.com/v1/orders";
 
-  const API_URL = 'https://food-delivery-api-n6as.onrender.com/v1/orders'
-
+  const onOpenModal1 = () => setIsOpenModal1(true);
+  const onCloseModal1 = () => setIsOpenModal1(false);
+  const onOpenModal2 = () => setIsOpenModal2(true);
+  const onCloseModal2 = () => setIsOpenModal2(false);
+  const onCloseModal3 = () => setIsOpenModal3(false);
 
   const getOrders = async (page = 1, limit = 10, search = "") => {
     setIsLoading(true);
     try {
       const response = await axios.get(API_URL, {
         params: {
-          page: !!search.length ? null : page,
-          limit:  !!search.length ? null : limit,
-          search: !!search.length ? null : search
+          page: search ? null : page,
+          limit: search ? null : limit,
+          search: search || null,
         },
       });
       const fetchedProducts = response.data.Data.orders;
@@ -63,14 +65,20 @@ export const useOrdersProps = () => {
     }
   };
 
+  const CANCEL_ORDER_URL = "https://food-delivery-api-n6as.onrender.com/v1/order_status";
+
+  const cancelOrder = async (orderId) => {
+    try {
+      await axios.patch(`${CANCEL_ORDER_URL}/${orderId}/cancel`);
+      getOrders(currentPage, pageSize, searchQuery);
+    } catch (error) {
+      console.error("Error canceling order:", error);
+    }
+  };
+
   useEffect(() => {
     getOrders(currentPage, pageSize);
   }, [currentPage, pageSize]);
-
-
-
-
-
 
   const filterByDate = (order) => {
     if (!datetime12h || !datetime12h1) return true;
@@ -85,9 +93,7 @@ export const useOrdersProps = () => {
     return item.order_type === selectedOrderType.value.toLowerCase();
   };
 
-
-
-  const totalOrders = getOrders?.length || 0;
+  const totalOrders = products.length || 0;
 
   const columns = [
     {
@@ -207,7 +213,7 @@ export const useOrdersProps = () => {
             <MenuComp
               MenuBtn={
                 <Box
-                  boxshadow={"0px 1px 2px rgba(16, 24, 40, 0.05)"}
+                  boxShadow={"0px 1px 2px rgba(16, 24, 40, 0.05)"}
                   padding="0px"
                 >
                   <AiOutlineEllipsis
@@ -256,6 +262,7 @@ export const useOrdersProps = () => {
                   }}
                   onClick={() => {
                     onOpenModal2();
+                    setCancelOrderId(item.id);
                     // setSelectedCategoryId(item.id);
                   }}
                 >
@@ -297,11 +304,10 @@ export const useOrdersProps = () => {
   );
 
   return {
-    data:
-      products?.map((item, index) => ({
-        key: item?.id || index,
-        number: (currentPage - 1) * pageSize + index + 1,
-        ...item,
+    data: products?.map((item, index) => ({
+      key: item?.id || index,
+      number: (currentPage - 1) * pageSize + index + 1,
+      ...item,
     })),
     paginationData: {
       current: currentPage,
@@ -313,6 +319,7 @@ export const useOrdersProps = () => {
     getOrders,
     skeleton,
     setSearchQuery,
+    searchQuery,
     currentPage,
     pageSize,
     setPageSize,
@@ -332,6 +339,8 @@ export const useOrdersProps = () => {
     isOpenModal3,
     onCloseModal3,
     setSelectedOrderType,
+    cancelOrder,
+    cancelOrderId,
   };
 };
 

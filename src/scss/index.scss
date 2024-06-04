@@ -145,7 +145,8 @@ td {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 1px;
+  height: 0;
 }
 
 ::-webkit-scrollbar-track {

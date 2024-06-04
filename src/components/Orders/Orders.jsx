@@ -16,6 +16,7 @@ import {
   PlusIcon,
   TrashIcon,
   UnderHeader,
+  axios,
   useSearchParams,
 } from "public/imports";
 import { Calendar } from "primereact/calendar";
@@ -47,26 +48,25 @@ const Orders = () => {
     isOpenModal2,
     onCloseModal2,
     isOpenModal1,
-    onCloseModal1,
     setSelectedOrderType,
     paginationData,
     currentPage,
     getOrders,
-    pageSize
-  } = useOrdersProps(selectedDeliveryOption);
+    pageSize,
+    onCloseModal1,
+    cancelOrderId,
+  } = useOrdersProps();
 
+  
   const newOrders = data.filter((order) => order.status === "новый");
   const endOrders = data.filter((order) => order.status === "завершен");
+  const cancelOrders = data.filter((order) => order.status === "отменен");
   const [searchParams, setSearchParams] = useSearchParams();
   const page = +searchParams.get("page") || 1;
   const limit = +searchParams.get("limit") || 10;
   const search = searchParams.get("search") || "";
-  
-  const { current, totalPages } = paginationData;
 
-  const handlePageChange = (event) => {
-    setSearchParams({ ...searchParams, page: event.selected + 1 });
-  };
+  const { current, totalPages } = paginationData;
 
   useEffect(() => {
     getOrders(page, limit, search);
@@ -92,6 +92,38 @@ const Orders = () => {
     setDateTime12h(value);
     setShowCalendars(false);
   };
+  const handlePageChange = (event) => {
+    setSearchParams({ ...searchParams, page: event.selected + 1 });
+  };
+
+  const updateOrderStatus =  (orderId, status) => {
+    try {
+      const response =  axios.put('https://food-delivery-api-n6as.onrender.com/v1/order_status', {
+        
+        id: orderId, status 
+
+      });
+      
+  
+      if (response.ok) {
+        console.log('Order status successfully updated');
+      } else {
+        console.error('Failed to update order status');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+  
+
+  const handleCancelOrder = async () => {
+    if (cancelOrderId) {
+      await updateOrderStatus(cancelOrderId, "отменен");
+      onCloseModal2();
+      getOrders(page, limit, search); 
+    }
+  };
 
   return (
     <>
@@ -108,7 +140,9 @@ const Orders = () => {
           firstItem={
             <CustomInput
               InputIcon={<SearchIcon color={"blue"} />}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchParams({ search: e.target.value });
+              }}
               InputPlaceHolder={"Поиск по имени клиента"}
             />
           }
@@ -182,6 +216,7 @@ const Orders = () => {
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Отмененные</h2>
+                  <p>{cancelOrders.length}</p>
                 </Box>,
               ],
               tabContents: [
@@ -195,7 +230,7 @@ const Orders = () => {
                   <CustomTable columns={columns} data={endOrders} />
                 </Box>,
                 <Box>
-                  <CustomTable columns={columns} data={endOrders} />
+                  <CustomTable columns={columns} data={cancelOrders} />
                 </Box>,
               ],
             }}
@@ -270,7 +305,7 @@ const Orders = () => {
         ModalBtnBgColor={"blue"}
         primaryBtnText="Да"
         onPrimaryBtnClick={() => {
-          onCloseModal2();
+          handleCancelOrder();
         }}
       />
     </>
