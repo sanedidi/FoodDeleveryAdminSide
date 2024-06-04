@@ -37,18 +37,19 @@ const Orders = () => {
   const {
     data,
     columns,
-    setSearchQuery,
     activeTab,
     setActiveTab,
-    datetime12h,
+    // datetime12h,
     datetime12h1,
+    // setDateTime12h,
     setDateTime12h,
+    datetime12h,
     setDateTime12h1,
     totalOrders,
     isOpenModal2,
     onCloseModal2,
     isOpenModal1,
-    setSelectedOrderType,
+    // setSelectedOrderType,
     paginationData,
     currentPage,
     getOrders,
@@ -58,9 +59,9 @@ const Orders = () => {
   } = useOrdersProps();
 
   
-  const newOrders = data.filter((order) => order.status === "новый");
-  const endOrders = data.filter((order) => order.status === "завершен");
-  const cancelOrders = data.filter((order) => order.status === "отменен");
+  // const newOrders = data.filter((order) => order.status === "новый");
+  // const endOrders = data.filter((order) => order.status === "завершен");
+  // const cancelOrders = data.filter((order) => order.status === "отменен");
   const [searchParams, setSearchParams] = useSearchParams();
   const page = +searchParams.get("page") || 1;
   const limit = +searchParams.get("limit") || 10;
@@ -70,28 +71,28 @@ const Orders = () => {
 
   useEffect(() => {
     getOrders(page, limit, search);
-  }, [page, limit, search]);
+  }, [page, limit, search]); //pagination
 
-  const deliveryOptions = [
-    { value: "В зал", label: "В зал" },
-    { value: "Доставка", label: "Доставка" },
-    { value: "предзаказ", label: "Предзаказ" },
-  ];
+  // const deliveryOptions = [
+  //   { value: "В зал", label: "В зал" },
+  //   { value: "Доставка", label: "Доставка" },
+  //   { value: "предзаказ", label: "Предзаказ" },
+  // ];
 
-  const handleDeliveryOptionChange = (option) => {
-    setSelectedDeliveryOption(option);
-    setSelectedOrderType(option);
-  };
+  // const handleDeliveryOptionChange = (option) => {
+  //   setSelectedDeliveryOption(option);
+  //   setSelectedOrderType(option);
+  // };
 
   const handleClearInputs = () => {
     setDateTime12h(null);
     setDateTime12h1(null);
   };
 
-  const handleCalendarChange = (value) => {
-    setDateTime12h(value);
-    setShowCalendars(false);
-  };
+  // const handleCalendarChange = (value) => {
+  //   setDateTime12h(value);
+  //   setShowCalendars(false);
+  // };
   const handlePageChange = (event) => {
     setSearchParams({ ...searchParams, page: event.selected + 1 });
   };
@@ -119,9 +120,9 @@ const Orders = () => {
 
   const handleCancelOrder = async () => {
     if (cancelOrderId) {
-      await updateOrderStatus(cancelOrderId, "отменен");
+       updateOrderStatus(cancelOrderId, "отменен");
       onCloseModal2();
-      getOrders(page, limit, search); 
+      // getOrders(page, limit, search); 
     }
   };
 
@@ -208,29 +209,29 @@ const Orders = () => {
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Новые</h2>
-                  <p>{newOrders.length}</p>
+                  {/* <p>{newOrders.length}</p> */}
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Завершен</h2>
-                  <p>{endOrders.length}</p>
+                  {/* <p>{endOrders.length}</p> */}
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Отмененные</h2>
-                  <p>{cancelOrders.length}</p>
+                  {/* <p>{cancelOrders.length}</p> */}
                 </Box>,
               ],
               tabContents: [
                 <Box className={s.orders__tabs}>
                   <CustomTable columns={columns} data={data} />
                 </Box>,
-                <Box className={s.orders__new}>
-                  <CustomTable columns={columns} data={newOrders} />
+                <Box className={s.orders__new}>gg
+                  {/* <CustomTable columns={columns} data={newOrders} /> */}
                 </Box>,
-                <Box className={s.orders__new}>
-                  <CustomTable columns={columns} data={endOrders} />
+                <Box className={s.orders__new}>gg
+                  {/* <CustomTable columns={columns} data={endOrders} /> */}
                 </Box>,
-                <Box>
-                  <CustomTable columns={columns} data={cancelOrders} />
+                <Box>gg
+                  {/* <CustomTable columns={columns} data={cancelOrders} /> */}
                 </Box>,
               ],
             }}
@@ -238,8 +239,9 @@ const Orders = () => {
               <Select
                 className={s.orders__main}
                 value={selectedDeliveryOption}
-                onChange={handleDeliveryOptionChange}
-                options={deliveryOptions}
+                // onChange={handleDeliveryOptionChange}
+                // options={deliveryOptions}
+                // options={"ksjd"}
               />
             }
             activeTab={activeTab}

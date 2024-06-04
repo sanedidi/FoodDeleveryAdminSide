@@ -19,20 +19,20 @@ import {
 import { CheckIcon, InfoIcon } from "@chakra-ui/icons";
 
 export const useOrdersProps = () => {
-  const [isOpenModal1, setIsOpenModal1] = useState(false);
-  const [selectedOrderType, setSelectedOrderType] = useState(null);
-  const [products, setProducts] = useState([]);
-  const [isOpenModal2, setIsOpenModal2] = useState(false);
-  const [isOpenModal3, setIsOpenModal3] = useState(false);
-  const [totalPages, setTotalPages] = useState(10);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [datetime12h, setDateTime12h] = useState(null);
-  const [datetime12h1, setDateTime12h1] = useState(null);
-  const [activeTab, setActiveTab] = useState(0);
+  const [isOpenModal1, setIsOpenModal1] = useState(false); //modal
+  // const [selectedOrderType, setSelectedOrderType] = useState(null);
+  const [products, setProducts] = useState([]);  //get`
+  const [isOpenModal2, setIsOpenModal2] = useState(false); //modal
+  const [isOpenModal3, setIsOpenModal3] = useState(false); //modal
+  const [totalPages, setTotalPages] = useState(10); //pagination
+  const [currentPage, setCurrentPage] = useState(1); //pagination
+  const [pageSize, setPageSize] = useState(10); //pagination
+  const [datetime12h, setDateTime12h] = useState(null); // calendar
+  const [datetime12h1, setDateTime12h1] = useState(null); // calendar
+  const [activeTab, setActiveTab] = useState(0); // tabs
   const [isLoading, setIsLoading] = useState(false);
-  const [cancelOrderId, setCancelOrderId] = useState(null);
+  const [cancelOrderId, setCancelOrderId] = useState(null);  //update status
+  const [searchQuery, setSearchQuery] = useState("");
   
   const API_URL = "https://food-delivery-api-n6as.onrender.com/v1/orders";
 
@@ -65,6 +65,8 @@ export const useOrdersProps = () => {
     }
   };
 
+
+
   const CANCEL_ORDER_URL = "https://food-delivery-api-n6as.onrender.com/v1/order_status";
 
   const cancelOrder = async (orderId) => {
@@ -76,22 +78,23 @@ export const useOrdersProps = () => {
     }
   };
 
+  
   useEffect(() => {
     getOrders(currentPage, pageSize);
   }, [currentPage, pageSize]);
 
-  const filterByDate = (order) => {
-    if (!datetime12h || !datetime12h1) return true;
-    const orderDate = new Date(order.created_at);
-    const startTime = datetime12h.getTime();
-    const endTime = datetime12h1.getTime();
-    return orderDate >= startTime && orderDate <= endTime;
-  };
+  // const filterByDate = (order) => {
+  //   if (!datetime12h || !datetime12h1) return true;
+  //   const orderDate = new Date(order.created_at);
+  //   const startTime = datetime12h.getTime();
+  //   const endTime = datetime12h1.getTime();
+  //   return orderDate >= startTime && orderDate <= endTime;
+  // };
 
-  const filterByOrderType = (item) => {
-    if (!selectedOrderType) return true;
-    return item.order_type === selectedOrderType.value.toLowerCase();
-  };
+  // const filterByOrderType = (item) => {
+  //   if (!selectedOrderType) return true;
+  //   return item.order_type === selectedOrderType.value.toLowerCase();
+  // };
 
   const totalOrders = products.length || 0;
 
@@ -318,13 +321,12 @@ export const useOrdersProps = () => {
 
     getOrders,
     skeleton,
-    setSearchQuery,
     searchQuery,
     currentPage,
     pageSize,
     setPageSize,
     setCurrentPage,
-    datetime12h,
+    // datetime12h,
     setDateTime12h,
     datetime12h1,
     setDateTime12h1,
@@ -338,7 +340,7 @@ export const useOrdersProps = () => {
     isOpenModal1,
     isOpenModal3,
     onCloseModal3,
-    setSelectedOrderType,
+    // setSelectedOrderType,
     cancelOrder,
     cancelOrderId,
   };
