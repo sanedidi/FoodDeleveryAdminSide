@@ -5,6 +5,7 @@ import {
   CustomModal,
   Link,
   MenuComp,
+  axios,
 } from "public/imports";
 import { useState, useEffect } from "react";
 import { useGetOrdersService } from "services/orders.service";
@@ -19,9 +20,10 @@ import { CheckIcon, InfoIcon } from "@chakra-ui/icons";
 export const useOrdersProps = () => {
   const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [selectedOrderType, setSelectedOrderType] = useState(null);
-
+  const [products, setProducts] = useState([]);
   const [isOpenModal2, setIsOpenModal2] = useState(false);
   const [isOpenModal3, setIsOpenModal3] = useState(false);
+  const [totalPages, setTotalPages] = useState(10);
   const onOpenModal1 = () => setIsOpenModal1(true);
   const onCloseModal1 = () => setIsOpenModal1(false);
   const onOpenModal2 = () => setIsOpenModal2(true);
@@ -33,28 +35,42 @@ export const useOrdersProps = () => {
   const [datetime12h, setDateTime12h] = useState(null);
   const [datetime12h1, setDateTime12h1] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { data: getOrder, refetch } = useGetOrdersService({
-    search: searchQuery,
-    page: currentPage,
-    limit: pageSize,
-  });
+  const API_URL = 'https://food-delivery-api-n6as.onrender.com/v1/orders'
 
-  useEffect(() => {
-    refetch();
-  }, [
-    searchQuery,
-    currentPage,
-    pageSize,
-    selectedOrderType,
-    datetime12h,
-    datetime12h1,
-  ]);
 
-  useEffect(() => {
-    if (getOrder) {
+  const getOrders = async (page = 1, limit = 10, search = "") => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(API_URL, {
+        params: {
+          page: !!search.length ? null : page,
+          limit:  !!search.length ? null : limit,
+          search: !!search.length ? null : search
+        },
+      });
+      const fetchedProducts = response.data.Data.orders;
+      if (fetchedProducts.length === 0) {
+        console.log("Ничего не найдено по вашему запросу");
+      }
+      setProducts(fetchedProducts);
+      setTotalPages(Math.ceil(response.data.Data.count / limit));
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    } finally {
+      setIsLoading(false);
     }
-  }, [getOrder]);
+  };
+
+  useEffect(() => {
+    getOrders(currentPage, pageSize);
+  }, [currentPage, pageSize]);
+
+
+
+
+
 
   const filterByDate = (order) => {
     if (!datetime12h || !datetime12h1) return true;
@@ -69,16 +85,9 @@ export const useOrdersProps = () => {
     return item.order_type === selectedOrderType.value.toLowerCase();
   };
 
-  const filteredData = getOrder?.Data?.orders?.filter((orders) => {
-    const customerFullName = orders.status.toLowerCase();
-    return (
-      customerFullName.includes(searchQuery.toLowerCase()) &&
-      filterByDate(orders) &&
-      filterByOrderType(orders)
-    );
-  });
 
-  const totalOrders = filteredData?.length || 0;
+
+  const totalOrders = getOrders?.length || 0;
 
   const columns = [
     {
@@ -289,17 +298,19 @@ export const useOrdersProps = () => {
 
   return {
     data:
-      filteredData?.map((item, index) => ({
+      products?.map((item, index) => ({
         key: item?.id || index,
         number: (currentPage - 1) * pageSize + index + 1,
         ...item,
-      })) || [],
+    })),
     paginationData: {
       current: currentPage,
       pageSize: pageSize,
-      // totalPages: totalPages,
+      totalPages: totalPages,
     },
     columns,
+
+    getOrders,
     skeleton,
     setSearchQuery,
     currentPage,

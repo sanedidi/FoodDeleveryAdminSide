@@ -1,5 +1,9 @@
-import React, { useState } from "react";
-import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
+import React, { useEffect, useState } from "react";
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  SearchIcon,
+} from "@chakra-ui/icons";
 import {
   Box,
   CustomBtn,
@@ -12,12 +16,15 @@ import {
   PlusIcon,
   TrashIcon,
   UnderHeader,
+  useSearchParams,
 } from "public/imports";
 import { Calendar } from "primereact/calendar";
 import s from "./Orders.module.scss";
 import useOrdersProps from "./useOrdersProps";
 import CustomTabs from "components/Custom/CustomTabs/CustomTabs";
 import Select from "react-select";
+import ReactPaginate from "react-paginate";
+import { ChevronLeftIcon } from "components/SvgComponents/SvgComponents";
 
 const Orders = () => {
   const [selectedDeliveryOption, setSelectedDeliveryOption] = useState({
@@ -42,10 +49,28 @@ const Orders = () => {
     isOpenModal1,
     onCloseModal1,
     setSelectedOrderType,
+    paginationData,
+    currentPage,
+    getOrders,
+    pageSize
   } = useOrdersProps(selectedDeliveryOption);
 
   const newOrders = data.filter((order) => order.status === "новый");
   const endOrders = data.filter((order) => order.status === "завершен");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = +searchParams.get("page") || 1;
+  const limit = +searchParams.get("limit") || 10;
+  const search = searchParams.get("search") || "";
+  
+  const { current, totalPages } = paginationData;
+
+  const handlePageChange = (event) => {
+    setSearchParams({ ...searchParams, page: event.selected + 1 });
+  };
+
+  useEffect(() => {
+    getOrders(page, limit, search);
+  }, [page, limit, search]);
 
   const deliveryOptions = [
     { value: "В зал", label: "В зал" },
@@ -184,6 +209,30 @@ const Orders = () => {
             }
             activeTab={activeTab}
             onTabChange={setActiveTab}
+          />
+          <ReactPaginate
+            previousLabel={
+              <>
+                <ChevronLeftIcon />
+              </>
+            }
+            nextLabel={
+              <>
+                <ChevronRightIcon />
+              </>
+            }
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={totalPages}
+            current={current}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageChange}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"activePagination"}
+            className={s.products_pag}
+            initialPage={page - 1}
           />
         </Box>
       </Box>
