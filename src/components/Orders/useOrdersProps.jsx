@@ -128,7 +128,7 @@ export const useOrdersProps = () => {
     {
       title: "Филиал",
       width: 120,
-      render: (item) => <p>{item?.BranchData.address}</p>,
+      render: (item) => <p>{item?.BranchData.name}</p>,
     },
     {
       title: "Тип Заказа",
