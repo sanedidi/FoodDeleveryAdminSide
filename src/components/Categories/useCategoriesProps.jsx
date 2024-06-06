@@ -53,7 +53,6 @@ export const useCategoriesProps = () => {
       alert("Update Successful");
       return response.data;
     } catch (error) {
-      console.log("Update Failed", error);
       throw error;
     }
   };

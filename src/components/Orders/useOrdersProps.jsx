@@ -34,6 +34,7 @@ export const useOrdersProps = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cancelOrderId, setCancelOrderId] = useState(null); //update status
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedOrderType, setSelectedOrderType] = useState(""); // order_typ
 
   const onOpenModal1 = () => setIsOpenModal1(true);
   const onCloseModal1 = () => setIsOpenModal1(false);
@@ -41,19 +42,23 @@ export const useOrdersProps = () => {
   const onCloseModal2 = () => setIsOpenModal2(false);
   const onCloseModal3 = () => setIsOpenModal3(false);
 
-  const getOrders = async (page = 1, limit = 10, search = "") => {
+  const getOrders = async (
+    page = 1,
+    limit = 10,
+    search = "",
+    order_type = ""
+  ) => {
     setIsLoading(true);
 
     try {
       const response = await request.get("/orders", {
         params: {
-          page:  page, // test search
+          page,
           limit: search ? null : limit,
           search: search || null,
+          order_type: order_type || null, 
         },
-        
       });
-      console.log(response.data.Data.count)
 
       const fetchedProducts = response.data?.Data?.orders;
       if (fetchedProducts === null) {
@@ -103,6 +108,12 @@ export const useOrdersProps = () => {
       title: "ID заказа",
       key: "order_number",
       dataIndex: "order_number",
+      width: 0,
+    },
+    {
+      title: "ID заказа",
+      key: "status",
+      dataIndex: "status",
       width: 0,
     },
     {
@@ -337,6 +348,8 @@ export const useOrdersProps = () => {
     // setSelectedOrderType,
     cancelOrder,
     cancelOrderId,
+    selectedOrderType,
+    setSelectedOrderType,
   };
 };
 

@@ -14,8 +14,10 @@ import {
   Header,
   Link,
   PlusIcon,
+  Toaster,
   TrashIcon,
   UnderHeader,
+  toast,
   useSearchParams,
 } from "public/imports";
 import { Calendar } from "primereact/calendar";
@@ -53,6 +55,8 @@ const Orders = () => {
     pageSize,
     onCloseModal1,
     cancelOrderId,
+    selectedOrderType,
+    setSelectedOrderType,
   } = useOrdersProps();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -63,8 +67,8 @@ const Orders = () => {
   const { current, totalPages } = paginationData;
 
   useEffect(() => {
-    getOrders(page, limit, search);
-  }, [page, limit, search]); //pagination
+    getOrders(page, limit, search, selectedOrderType);
+  }, [page, limit, search, selectedOrderType]); //pagination
 
   const handlePageChange = (event) => {
     setSearchParams({ page: event.selected + 1, limit, search });
@@ -75,14 +79,22 @@ const Orders = () => {
       const response = await request.put('order_status', {
         id: orderId, status 
       });
-      if (response.ok) {
-        console.log('Order status successfully updated');
+  
+      if (response.status === 200) {
+        toast.success('Order status successfully updated');
         getOrders(page, limit, search); 
-      } 
+      } else {
+        toast.error('Failed to update order status');
+      }
     } catch (error) {
-      console.error('Error:', error);
+      toast.error('An error occurred while updating the order status');
     }
   };
+  const orderTypeOptions = [
+    { value: 'предзаказ', label: 'Предзаказ' },
+    { value: 'в зал', label: 'в зал' },
+  ];
+  
 
   const handleCancelOrder = async () => {
     if (cancelOrderId) {
@@ -93,6 +105,7 @@ const Orders = () => {
 
   return (
     <>
+   <Toaster />
       <Header
         title={"Заказы"}
         headerBtn2={
@@ -193,9 +206,14 @@ const Orders = () => {
             }}
             ExtraItem={
               <Select
-                className={s.orders__main}
-                value={selectedDeliveryOption}
-              />
+              options={orderTypeOptions}
+              value={orderTypeOptions.find(option => option.value === selectedOrderType)}
+              onChange={(selectedOption) => {
+                setSelectedOrderType(selectedOption.value);
+                setSearchParams({ order_type: selectedOption.value });
+              }}
+              placeholder="Тип заказа"
+            />
             }
             activeTab={activeTab}
             onTabChange={setActiveTab}
