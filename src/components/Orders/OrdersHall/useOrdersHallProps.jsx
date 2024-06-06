@@ -11,6 +11,7 @@ const useOrdersHallProps = () => {
   const [orderDetails, setOrderDetails] = useState({
     payment_type: "",
     products: [],
+    branch_id: "",
   });
   const navigate = useNavigate();
   useEffect(() => {

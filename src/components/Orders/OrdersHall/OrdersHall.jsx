@@ -40,8 +40,14 @@ export const OrdersHall = () => {
             Список товаров
           </Box>
         }
-        headerBtn1={
-        <></>
+        headerBtn2={
+        <>
+         <Select
+            options={branchOptions}
+            placeholder="Выберите филиал"
+            onChange={(option) => handleInputChange("branch_id", option.value)}
+          />
+        </>
         }
       />
       <Box className={s.orders}>
