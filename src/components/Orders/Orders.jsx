@@ -26,7 +26,11 @@ import useOrdersProps from "./useOrdersProps";
 import CustomTabs from "components/Custom/CustomTabs/CustomTabs";
 import Select from "react-select";
 import ReactPaginate from "react-paginate";
-import { ChevronLeftIcon } from "components/SvgComponents/SvgComponents";
+import {
+  ChevronLeftIcon,
+  PreOrderIcon,
+  ZalIcon,
+} from "components/SvgComponents/SvgComponents";
 import request from "services/httpRequest";
 
 const Orders = () => {
@@ -57,6 +61,10 @@ const Orders = () => {
     cancelOrderId,
     selectedOrderType,
     setSelectedOrderType,
+    onOpenModal4,
+    onCloseModal4,
+    isOpenModal4,
+    setIsOpenModal4,
   } = useOrdersProps();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -76,42 +84,44 @@ const Orders = () => {
 
   const updateOrderStatus = async (orderId, status) => {
     try {
-      const response = await request.put('order_status', {
-        id: orderId, status 
+      const response = await request.put("order_status", {
+        id: orderId,
+        status,
       });
-  
+
       if (response.status === 200) {
-        toast.success('Order status successfully updated');
-        getOrders(page, limit, search); 
+        toast.success("Order status successfully updated");
+        getOrders(page, limit, search);
       } else {
-        toast.error('Failed to update order status');
+        toast.error("Failed to update order status");
       }
     } catch (error) {
-      toast.error('An error occurred while updating the order status');
+      toast.error("An error occurred while updating the order status");
     }
   };
   const orderTypeOptions = [
-    { value: 'предзаказ', label: 'Предзаказ' },
-    { value: 'в зал', label: 'в зал' },
+    { value: "предзаказ", label: "Предзаказ" },
+    { value: "в зал", label: "В зал" },
   ];
-  
 
   const handleCancelOrder = async () => {
     if (cancelOrderId) {
-       updateOrderStatus(cancelOrderId, "отменен");
+      updateOrderStatus(cancelOrderId, "отменен");
       onCloseModal2();
     }
   };
 
   return (
     <>
-   <Toaster />
+      <Toaster />
       <Header
         title={"Заказы"}
         headerBtn2={
-          <Link to={"/admin/orders/add"} className="header_btn1">
-            <PlusIcon /> Создать заказ
-          </Link>
+          <>
+            <Link onClick={onOpenModal4} className="header_btn1">
+              <PlusIcon /> Создать заказ
+            </Link>
+          </>
         }
       />
       <Box className={s.orders}>
@@ -206,14 +216,16 @@ const Orders = () => {
             }}
             ExtraItem={
               <Select
-              options={orderTypeOptions}
-              value={orderTypeOptions.find(option => option.value === selectedOrderType)}
-              onChange={(selectedOption) => {
-                setSelectedOrderType(selectedOption.value);
-                setSearchParams({ order_type: selectedOption.value });
-              }}
-              placeholder="Тип заказа"
-            />
+                options={orderTypeOptions}
+                value={orderTypeOptions.find(
+                  (option) => option.value === selectedOrderType
+                )}
+                onChange={(selectedOption) => {
+                  setSelectedOrderType(selectedOption.value);
+                  setSearchParams({ order_type: selectedOption.value });
+                }}
+                placeholder="Тип заказа"
+              />
             }
             activeTab={activeTab}
             onTabChange={setActiveTab}
@@ -270,6 +282,50 @@ const Orders = () => {
         ModalBtnBgColor={"blue"}
         primaryBtnText="Да"
         onPrimaryBtnClick={handleCancelOrder}
+      />
+      <CustomModal
+        isOpenModal={isOpenModal4}
+        onCloseModal={onCloseModal4}
+        modalTitle={
+          <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
+            Выберите тип заказа
+          </Box>
+        }
+        modalContent={
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            gap={"75px"}
+            width={"max-content"}
+            fontWeight={"600"}
+            fontSize={"20px"}
+            textAlign={"center"}
+          >
+            <Link
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+              to={"/"}
+            >
+              <ZalIcon />В зал
+            </Link>
+            <Link
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+              to={"/admin/orders/add"}
+            >
+              <PreOrderIcon />
+              Предзаказ
+            </Link>
+          </Box>
+        }
+        ModalBtnBgColor={"blue"}
       />
     </>
   );

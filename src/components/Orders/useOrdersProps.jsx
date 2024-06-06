@@ -22,9 +22,10 @@ import request from "services/httpRequest";
 
 export const useOrdersProps = () => {
   const [isOpenModal1, setIsOpenModal1] = useState(false); //modal
-  const [products, setProducts] = useState([]); //get`
   const [isOpenModal2, setIsOpenModal2] = useState(false); //modal
   const [isOpenModal3, setIsOpenModal3] = useState(false); //modal
+  const [isOpenModal4, setIsOpenModal4] = useState(false); //modal
+  const [products, setProducts] = useState([]); //get`
   const [totalPages, setTotalPages] = useState(10); //pagination
   const [currentPage, setCurrentPage] = useState(1); //pagination
   const [pageSize, setPageSize] = useState(10); //pagination
@@ -34,13 +35,15 @@ export const useOrdersProps = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cancelOrderId, setCancelOrderId] = useState(null); //update status
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedOrderType, setSelectedOrderType] = useState(""); // order_typ
+  const [selectedOrderType, setSelectedOrderType] = useState(""); // order_type
 
   const onOpenModal1 = () => setIsOpenModal1(true);
   const onCloseModal1 = () => setIsOpenModal1(false);
   const onOpenModal2 = () => setIsOpenModal2(true);
   const onCloseModal2 = () => setIsOpenModal2(false);
   const onCloseModal3 = () => setIsOpenModal3(false);
+  const onOpenModal4 = () => setIsOpenModal4(true);
+  const onCloseModal4 = () => setIsOpenModal4(false);
 
   const getOrders = async (
     page = 1,
@@ -56,7 +59,7 @@ export const useOrdersProps = () => {
           page,
           limit: search ? null : limit,
           search: search || null,
-          order_type: order_type || null, 
+          order_type: order_type || null,
         },
       });
 
@@ -350,6 +353,9 @@ export const useOrdersProps = () => {
     cancelOrderId,
     selectedOrderType,
     setSelectedOrderType,
+    onOpenModal4,
+    onCloseModal4,
+    isOpenModal4, setIsOpenModal4
   };
 };
 
