@@ -16,7 +16,6 @@ import {
   PlusIcon,
   TrashIcon,
   UnderHeader,
-  axios,
   useSearchParams,
 } from "public/imports";
 import { Calendar } from "primereact/calendar";
@@ -26,6 +25,7 @@ import CustomTabs from "components/Custom/CustomTabs/CustomTabs";
 import Select from "react-select";
 import ReactPaginate from "react-paginate";
 import { ChevronLeftIcon } from "components/SvgComponents/SvgComponents";
+import request from "services/httpRequest";
 
 const Orders = () => {
   const [selectedDeliveryOption, setSelectedDeliveryOption] = useState({
@@ -39,17 +39,14 @@ const Orders = () => {
     columns,
     activeTab,
     setActiveTab,
-    // datetime12h,
-    datetime12h1,
-    // setDateTime12h,
-    setDateTime12h,
     datetime12h,
+    datetime12h1,
+    setDateTime12h,
     setDateTime12h1,
     totalOrders,
     isOpenModal2,
     onCloseModal2,
     isOpenModal1,
-    // setSelectedOrderType,
     paginationData,
     currentPage,
     getOrders,
@@ -58,10 +55,6 @@ const Orders = () => {
     cancelOrderId,
   } = useOrdersProps();
 
-  
-  // const newOrders = data.filter((order) => order.status === "новый");
-  // const endOrders = data.filter((order) => order.status === "завершен");
-  // const cancelOrders = data.filter((order) => order.status === "отменен");
   const [searchParams, setSearchParams] = useSearchParams();
   const page = +searchParams.get("page") || 1;
   const limit = +searchParams.get("limit") || 10;
@@ -73,56 +66,28 @@ const Orders = () => {
     getOrders(page, limit, search);
   }, [page, limit, search]); //pagination
 
-  // const deliveryOptions = [
-  //   { value: "В зал", label: "В зал" },
-  //   { value: "Доставка", label: "Доставка" },
-  //   { value: "предзаказ", label: "Предзаказ" },
-  // ];
-
-  // const handleDeliveryOptionChange = (option) => {
-  //   setSelectedDeliveryOption(option);
-  //   setSelectedOrderType(option);
-  // };
-
-  const handleClearInputs = () => {
-    setDateTime12h(null);
-    setDateTime12h1(null);
-  };
-
-  // const handleCalendarChange = (value) => {
-  //   setDateTime12h(value);
-  //   setShowCalendars(false);
-  // };
   const handlePageChange = (event) => {
-    setSearchParams({ ...searchParams, page: event.selected + 1 });
+    setSearchParams({ page: event.selected + 1, limit, search });
   };
 
-  const updateOrderStatus =  (orderId, status) => {
+  const updateOrderStatus = async (orderId, status) => {
     try {
-      const response =  axios.put('https://food-delivery-api-n6as.onrender.com/v1/order_status', {
-        
+      const response = await request.put('order_status', {
         id: orderId, status 
-
       });
-      
-  
       if (response.ok) {
         console.log('Order status successfully updated');
-      } else {
-        console.error('Failed to update order status');
-      }
+        getOrders(page, limit, search); 
+      } 
     } catch (error) {
       console.error('Error:', error);
     }
   };
-  
-  
 
   const handleCancelOrder = async () => {
     if (cancelOrderId) {
        updateOrderStatus(cancelOrderId, "отменен");
       onCloseModal2();
-      // getOrders(page, limit, search); 
     }
   };
 
@@ -205,59 +170,39 @@ const Orders = () => {
               tabLabels: [
                 <Box className={s.orders__title}>
                   <h2>Все заказы</h2>
-                  <p>{totalOrders}</p>
+                  <p></p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Новые</h2>
-                  {/* <p>{newOrders.length}</p> */}
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Завершен</h2>
-                  {/* <p>{endOrders.length}</p> */}
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Отмененные</h2>
-                  {/* <p>{cancelOrders.length}</p> */}
                 </Box>,
               ],
               tabContents: [
                 <Box className={s.orders__tabs}>
                   <CustomTable columns={columns} data={data} />
                 </Box>,
-                <Box className={s.orders__new}>gg
-                  {/* <CustomTable columns={columns} data={newOrders} /> */}
-                </Box>,
-                <Box className={s.orders__new}>gg
-                  {/* <CustomTable columns={columns} data={endOrders} /> */}
-                </Box>,
-                <Box>gg
-                  {/* <CustomTable columns={columns} data={cancelOrders} /> */}
-                </Box>,
+                <Box className={s.orders__new}>gg</Box>,
+                <Box className={s.orders__new}>gg</Box>,
+                <Box>gg</Box>,
               ],
             }}
             ExtraItem={
               <Select
                 className={s.orders__main}
                 value={selectedDeliveryOption}
-                // onChange={handleDeliveryOptionChange}
-                // options={deliveryOptions}
-                // options={"ksjd"}
               />
             }
             activeTab={activeTab}
             onTabChange={setActiveTab}
           />
           <ReactPaginate
-            previousLabel={
-              <>
-                <ChevronLeftIcon />
-              </>
-            }
-            nextLabel={
-              <>
-                <ChevronRightIcon />
-              </>
-            }
+            previousLabel={<ChevronLeftIcon />}
+            nextLabel={<ChevronRightIcon />}
             breakLabel={"..."}
             breakClassName={"break-me"}
             pageCount={totalPages}
@@ -306,9 +251,7 @@ const Orders = () => {
         secondaryBtnText={<Box>Нет</Box>}
         ModalBtnBgColor={"blue"}
         primaryBtnText="Да"
-        onPrimaryBtnClick={() => {
-          handleCancelOrder();
-        }}
+        onPrimaryBtnClick={handleCancelOrder}
       />
     </>
   );

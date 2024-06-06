@@ -5,6 +5,7 @@ import {
   CustomModal,
   Link,
   MenuComp,
+  toast,
 } from "public/imports";
 import { useState, useEffect } from "react";
 import { useGetOrdersService } from "services/orders.service";
@@ -17,11 +18,11 @@ import {
   PaymeIcon,
 } from "components/SvgComponents/SvgComponents";
 import { CheckIcon, InfoIcon } from "@chakra-ui/icons";
+import request from "services/httpRequest";
 
 export const useOrdersProps = () => {
   const [isOpenModal1, setIsOpenModal1] = useState(false); //modal
-  // const [selectedOrderType, setSelectedOrderType] = useState(null);
-  const [products, setProducts] = useState([]);  //get`
+  const [products, setProducts] = useState([]); //get`
   const [isOpenModal2, setIsOpenModal2] = useState(false); //modal
   const [isOpenModal3, setIsOpenModal3] = useState(false); //modal
   const [totalPages, setTotalPages] = useState(10); //pagination
@@ -31,10 +32,8 @@ export const useOrdersProps = () => {
   const [datetime12h1, setDateTime12h1] = useState(null); // calendar
   const [activeTab, setActiveTab] = useState(0); // tabs
   const [isLoading, setIsLoading] = useState(false);
-  const [cancelOrderId, setCancelOrderId] = useState(null);  //update status
+  const [cancelOrderId, setCancelOrderId] = useState(null); //update status
   const [searchQuery, setSearchQuery] = useState("");
-  
-  const API_URL = "https://food-delivery-api-n6as.onrender.com/v1/orders";
 
   const onOpenModal1 = () => setIsOpenModal1(true);
   const onCloseModal1 = () => setIsOpenModal1(false);
@@ -44,30 +43,33 @@ export const useOrdersProps = () => {
 
   const getOrders = async (page = 1, limit = 10, search = "") => {
     setIsLoading(true);
+
     try {
-      const response = await axios.get(API_URL, {
+      const response = await request.get("/orders", {
         params: {
-          page: search ? null : page,
+          page:  page, // test search
           limit: search ? null : limit,
           search: search || null,
         },
+        
       });
-      const fetchedProducts = response.data.Data.orders;
-      if (fetchedProducts.length === 0) {
-        console.log("Ничего не найдено по вашему запросу");
+      console.log(response.data.Data.count)
+
+      const fetchedProducts = response.data?.Data?.orders;
+      if (fetchedProducts === null) {
+        console.log("по вашему запросу ничего не найдено");
       }
       setProducts(fetchedProducts);
-      setTotalPages(Math.ceil(response.data.Data.count / limit));
+      setTotalPages(Math.ceil(response.data?.Data?.count / limit));
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
   };
 
-
-
-  const CANCEL_ORDER_URL = "https://food-delivery-api-n6as.onrender.com/v1/order_status";
+  const CANCEL_ORDER_URL =
+    "https://food-delivery-api-n6as.onrender.com/v1/order_status";
 
   const cancelOrder = async (orderId) => {
     try {
@@ -78,25 +80,17 @@ export const useOrdersProps = () => {
     }
   };
 
-  
   useEffect(() => {
     getOrders(currentPage, pageSize);
   }, [currentPage, pageSize]);
 
-  // const filterByDate = (order) => {
-  //   if (!datetime12h || !datetime12h1) return true;
-  //   const orderDate = new Date(order.created_at);
-  //   const startTime = datetime12h.getTime();
-  //   const endTime = datetime12h1.getTime();
-  //   return orderDate >= startTime && orderDate <= endTime;
-  // };
-
-  // const filterByOrderType = (item) => {
-  //   if (!selectedOrderType) return true;
-  //   return item.order_type === selectedOrderType.value.toLowerCase();
-  // };
-
-  const totalOrders = products.length || 0;
+  const totalOrders = () => {
+    if (products.length === 0) {
+      console.log("sd");
+    } else {
+      console.log("dc");
+    }
+  };
 
   const columns = [
     {
