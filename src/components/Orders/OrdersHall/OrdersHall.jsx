@@ -1,14 +1,14 @@
+
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import s from "./OrdersAdd.module.scss";
+import s from "./OrdersHall.module.scss";
 import { Box, CustomBtn, CustomInput, Header, Select, Textarea, Toaster, toast } from "public/imports";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Calendar } from "primereact/calendar";
 import { CLickIcon, PaymeIcon } from "components/SvgComponents/SvgComponents";
 import free from "assets/img/free.png";
-import useOrdersAddProps from "./useOrdersAddProps";
+import useOrdersHallProps from "./useOrdersHallProps";
 
-export const OrdersAdd = () => {
+export const OrdersHall = () => {
   const {
     branchOptions,
     prodOptions,
@@ -20,7 +20,7 @@ export const OrdersAdd = () => {
     handleInputChange,
     handleProductChange,
     handleSubmit,
-  } = useOrdersAddProps();
+  } = useOrdersHallProps();
 
   const filteredProdOptions = selectedCategory
     ? prodOptions.filter((prod) => prod.category_id === selectedCategory)
@@ -41,17 +41,7 @@ export const OrdersAdd = () => {
           </Box>
         }
         headerBtn1={
-          <Select
-            options={branchOptions}
-            placeholder="Выберите филиал"
-            onChange={(option) => handleInputChange("branch_id", option.value)}
-          />
-        }
-        headerBtn2={
-          <CustomInput
-            disabled={true}
-            InputPlaceHolder="Предзаказ"
-          />
+        <></>
         }
       />
       <Box className={s.orders}>
@@ -95,47 +85,6 @@ export const OrdersAdd = () => {
             ))}
           </Box>
           <Box className={s.orders__info}>
-            <h2 className={s.orders__client_title}>Клиент инфо</h2>
-            <Box className={s.orders__client}>
-              <Box className={s.orders__main_info}>
-                <Box className={s.orders_item}>
-                  <h2>Имя</h2>
-                  <CustomInput
-                    type="text"
-                    InputPlaceHolder="Имя клиента"
-                    value={orderDetails.customer_name}
-                    onChange={(e) =>
-                      handleInputChange("customer_name", e.target.value)
-                    }
-                  />
-                </Box>
-                <Box className={s.orders_item}>
-                  <h2>Номер телефона</h2>
-                  <CustomInput
-                    type="number"
-                    InputPlaceHolder="Телефон номер клиента"
-                    value={orderDetails.customer_phone}
-                    onChange={(e) =>
-                      handleInputChange("customer_phone", e.target.value)
-                    }
-                  />
-                </Box>
-                <Box className={s.orders__item}>
-                  <Calendar
-                    value={orderDetails.delivery_time}
-                    onChange={(e) =>
-                      handleInputChange("delivery_time", e.value)
-                    }
-                    showTime
-                    className={s.orders__calendar}
-                    dateFormat="dd.mm.yy"
-                    showIcon
-                    hourFormat="24"
-                    placeholder="Выберите дату"
-                  />
-                </Box>
-              </Box>
-            </Box>
             <h2 className={s.orders__client_title}>Заказ инфо</h2>
             <Box className={s.orders__ordered}>
               {orderedProducts.length > 0 ? (
@@ -217,20 +166,14 @@ export const OrdersAdd = () => {
                 <PaymeIcon />
               </button>
 
-              <button
+              <button 
                 className={orderDetails.payment_type === "free" ? s.active : ""}
                 onClick={() => handleInputChange("payment_type", "free")}
               >
                 <img src={free} alt="" />
               </button>
             </Box>
-            <Box>
-              <Textarea
-                placeholder="Comment"
-                value={orderDetails.comment}
-                onChange={(e) => handleInputChange("comment", e.target.value)}
-              />
-            </Box>
+           
               <CustomBtn
                 BgColor={"blue"}
                 BtnContent={"Создать заказ"}
@@ -244,4 +187,4 @@ export const OrdersAdd = () => {
   );
 };
 
-export default OrdersAdd;
+export default OrdersHall;

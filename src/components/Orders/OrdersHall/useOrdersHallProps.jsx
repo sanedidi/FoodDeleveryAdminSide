@@ -1,18 +1,15 @@
+
+
 import { toast, axios, useState, useEffect, useNavigate } from "public/imports";
 
-const useOrdersAddProps = () => {
+const useOrdersHallProps = () => {
   const [branchOptions, setBranchOptions] = useState([]);
   const [prodOptions, setProdOptions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [totalAmount, setTotalAmount] = useState(0);
   const [orderDetails, setOrderDetails] = useState({
-    branch_id: "",
-    comment: "",
-    customer_name: "",
-    customer_phone: "",
-    delivery_time: null,
-    order_type: "предзаказ",
+    order_type: "в зал",
     payment_type: "",
     products: [],
   });
@@ -113,35 +110,19 @@ const useOrdersAddProps = () => {
   };
 
   const handleSubmit = async () => {
-    if (!orderDetails.branch_id) {
-      toast.error("Пожалуйста, выберите филиал.");
-      return;
-    }
+  
 
-    if (!orderDetails.order_type) {
-      toast.error("Пожалуйста, выберите тип заказа.");
-      return;
-    }
 
-    if (!orderDetails.customer_name) {
-      toast.error("Пожалуйста, введите имя клиента.");
-      return;
-    }
 
-    if (!orderDetails.customer_phone) {
-      toast.error("Пожалуйста, введите номер телефона клиента.");
-      return;
-    }
+ 
+
 
     if (!orderDetails.payment_type) {
       toast.error("Пожалуйста, выберите способ оплаты.");
       return;
     }
 
-    if (!orderDetails.delivery_time) {
-      toast.error("Пожалуйста, выберите дату!");
-      return;
-    }
+
 
     const hasProducts = orderDetails.products.some(
       (product) => product.quantity > 0
@@ -180,4 +161,4 @@ const useOrdersAddProps = () => {
   };
 };
 
-export default useOrdersAddProps;
+export default useOrdersHallProps;

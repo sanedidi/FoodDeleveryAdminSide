@@ -308,7 +308,7 @@ const Orders = () => {
                 flexDirection: "column",
                 alignItems: "center",
               }}
-              to={"/"}
+              to={"/admin/orders/AddHall"}
             >
               <ZalIcon />В зал
             </Link>
