@@ -9,7 +9,6 @@ const useOrdersHallProps = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [totalAmount, setTotalAmount] = useState(0);
   const [orderDetails, setOrderDetails] = useState({
-    order_type: "в зал",
     payment_type: "",
     products: [],
   });

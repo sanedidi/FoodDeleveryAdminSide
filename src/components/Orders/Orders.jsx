@@ -110,7 +110,10 @@ const Orders = () => {
       onCloseModal2();
     }
   };
-
+const handleClearInputs = ()=>{
+    setDateTime12h1(null)
+    setDateTime12h(null)
+}
   return (
     <>
       <Toaster />
