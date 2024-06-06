@@ -1,4 +1,5 @@
 import { toast, axios, useState, useEffect, useNavigate } from "public/imports";
+import { Calendar } from "primereact/calendar";
 
 const useOrdersAddProps = () => {
   const [branchOptions, setBranchOptions] = useState([]);
@@ -6,17 +7,20 @@ const useOrdersAddProps = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [selectedFromDate, setSelectedFromDate] = useState(null);
+  const [selectedToDate, setSelectedToDate] = useState(null);
   const [orderDetails, setOrderDetails] = useState({
     branch_id: "",
     comment: "",
     customer_name: "",
     customer_phone: "",
-    delivery_time: null,
+    delivery_time: "",
     order_type: "предзаказ",
     payment_type: "",
     products: [],
   });
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchBranches = async () => {
       try {
@@ -159,7 +163,7 @@ const useOrdersAddProps = () => {
       );
       toast.success("Заказ успешно создан!");
       setTimeout(() => {
-        navigate("/admin/orders");
+        // navigate("/admin/orders");
       }, 1000);
     } catch (error) {
       toast.error("Ошибка при создании заказа", error);
@@ -173,10 +177,14 @@ const useOrdersAddProps = () => {
     selectedCategory,
     setSelectedCategory,
     totalAmount,
+    selectedFromDate,
+    selectedToDate,
     orderDetails,
     handleInputChange,
     handleProductChange,
     handleSubmit,
+    setSelectedFromDate,
+    setSelectedToDate,
   };
 };
 

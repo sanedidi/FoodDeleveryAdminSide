@@ -126,11 +126,9 @@ export const OrdersAdd = () => {
                     onChange={(e) =>
                       handleInputChange("delivery_time", e.value)
                     }
-                    showTime
                     className={s.orders__calendar}
                     dateFormat="dd.mm.yy"
                     showIcon
-                    hourFormat="24"
                     placeholder="Выберите дату"
                   />
                 </Box>

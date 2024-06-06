@@ -39,6 +39,8 @@ const Orders = () => {
     label: "Предзаказ",
   });
   const [showCalendars, setShowCalendars] = useState(false);
+  const [selectedFromDate, setSelectedFromDate] = useState(null);
+  const [selectedToDate, setSelectedToDate] = useState(null);
 
   const {
     data,
@@ -46,9 +48,6 @@ const Orders = () => {
     activeTab,
     setActiveTab,
     datetime12h,
-    datetime12h1,
-    setDateTime12h,
-    setDateTime12h1,
     totalOrders,
     isOpenModal2,
     onCloseModal2,
@@ -73,14 +72,18 @@ const Orders = () => {
   const search = searchParams.get("search") || "";
 
   const { current, totalPages } = paginationData;
-
+const handleInputClear = ()=>{
+  setSelectedFromDate(null)
+  setSelectedToDate(null)
+}
   useEffect(() => {
-    getOrders(page, limit, search, selectedOrderType);
-  }, [page, limit, search, selectedOrderType]); //pagination
+    getOrders(page, limit, search, selectedOrderType, selectedFromDate, selectedToDate);
+  }, [page, limit, search, selectedOrderType, selectedFromDate, selectedToDate]); 
 
   const handlePageChange = (event) => {
     setSearchParams({ page: event.selected + 1, limit, search });
   };
+
 
   const updateOrderStatus = async (orderId, status) => {
     try {
@@ -99,6 +102,7 @@ const Orders = () => {
       toast.error("An error occurred while updating the order status");
     }
   };
+
   const orderTypeOptions = [
     { value: "предзаказ", label: "Предзаказ" },
     { value: "в зал", label: "В зал" },
@@ -110,10 +114,7 @@ const Orders = () => {
       onCloseModal2();
     }
   };
-const handleClearInputs = ()=>{
-    setDateTime12h1(null)
-    setDateTime12h(null)
-}
+
   return (
     <>
       <Toaster />
@@ -142,14 +143,11 @@ const handleClearInputs = ()=>{
             showCalendars && (
               <Box className={s.orders__select}>
                 <Calendar
-                  className={s.orders__calendar}
-                  id="calendar-12h"
-                  value={datetime12h}
-                  onChange={(e) => setDateTime12h(e.value)}
-                  showTime
-                  showIcon
-                  hourFormat="12"
-                  placeholder="Выберите дату..."
+                  value={selectedFromDate}
+                  onChange={(e) => setSelectedFromDate(e.value)}
+                  showIcon={true}
+                  dateFormat="dd.mm.yy"
+                  placeholder="Выберите дату"
                 />
               </Box>
             )
@@ -158,16 +156,13 @@ const handleClearInputs = ()=>{
             showCalendars && (
               <Box className={s.orders__select}>
                 <Calendar
-                  className={s.orders__calendar}
-                  id="calendar-12h1"
-                  value={datetime12h1}
-                  onChange={(e) => setDateTime12h1(e.value)}
-                  showTime
-                  showIcon
-                  hourFormat="12"
-                  placeholder="Выберите дату..."
+                  value={selectedToDate}
+                  onChange={(e) => setSelectedToDate(e.value)}
+                  showIcon={true}
+                  dateFormat="dd.mm.yy"
+                  placeholder="Выберите дату"
                 />
-                <button onClick={handleClearInputs} className={s.orders__btn}>
+                <button onClick={handleInputClear} className={s.orders__btn}>
                   Очистить
                 </button>
               </Box>
@@ -251,7 +246,6 @@ const handleClearInputs = ()=>{
           />
         </Box>
       </Box>
-
       <CustomModal
         isOpenModal={isOpenModal1}
         onCloseModal={onCloseModal1}

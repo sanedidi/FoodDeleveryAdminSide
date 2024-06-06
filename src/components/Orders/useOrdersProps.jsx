@@ -29,8 +29,6 @@ export const useOrdersProps = () => {
   const [totalPages, setTotalPages] = useState(10); //pagination
   const [currentPage, setCurrentPage] = useState(1); //pagination
   const [pageSize, setPageSize] = useState(10); //pagination
-  const [datetime12h, setDateTime12h] = useState(null); // calendar
-  const [datetime12h1, setDateTime12h1] = useState(null); // calendar
   const [activeTab, setActiveTab] = useState(0); // tabs
   const [isLoading, setIsLoading] = useState(false);
   const [cancelOrderId, setCancelOrderId] = useState(null); //update status
@@ -49,7 +47,9 @@ export const useOrdersProps = () => {
     page = 1,
     limit = 10,
     search = "",
-    order_type = ""
+    order_type = "",
+    from_date = "",
+    to_date = ""
   ) => {
     setIsLoading(true);
 
@@ -60,6 +60,8 @@ export const useOrdersProps = () => {
           limit: search ? null : limit,
           search: search || null,
           order_type: order_type || null,
+          from_date: from_date,
+          to_date: to_date
         },
       });
 
@@ -334,10 +336,6 @@ export const useOrdersProps = () => {
     pageSize,
     setPageSize,
     setCurrentPage,
-    // datetime12h,
-    setDateTime12h,
-    datetime12h1,
-    setDateTime12h1,
     activeTab,
     setActiveTab,
     totalOrders,
@@ -355,7 +353,8 @@ export const useOrdersProps = () => {
     setSelectedOrderType,
     onOpenModal4,
     onCloseModal4,
-    isOpenModal4, setIsOpenModal4
+    isOpenModal4,
+    setIsOpenModal4,
   };
 };
 
