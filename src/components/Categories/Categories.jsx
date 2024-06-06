@@ -1,6 +1,5 @@
-import s from "./CategoriesAdd/CategoriesAdd.module.scss";
+import React, { useEffect, useRef } from "react";
 import {
-  React,
   Link,
   CustomBtn,
   CustomInput,
@@ -12,27 +11,32 @@ import {
   TrashIcon,
   UnderHeader,
   DownloadIcon,
+  useSearchParams,
 } from "public/imports";
-import useCategoriesProps from "./useCategoriesProps";
-import { Search2Icon, SearchIcon } from "@chakra-ui/icons";
+import { ChevronLeftIcon, ChevronRightIcon, Search2Icon } from "@chakra-ui/icons";
 import { CustomTable } from "components/Custom/CustomTable/CustomTable";
 import html2canvas from "html2canvas";
 import { Skeleton } from "antd";
-import { useRef } from "react";
+import useCategoriesProps from "./useCategoriesProps";
+import s from './Categories.module.scss'
+import ReactPaginate from "react-paginate";
 
 export const Categories = () => {
   const {
     isOpenModal2,
     onCloseModal2,
-    setSearchQuery,
+    setSearchQuery, 
     columns,
     data,
     selectedCategoryId,
     handleDeleteCategory,
-    getCat,
     isLoading,
     setIsLoading,
+    paginationData,
+    fetchCategories
   } = useCategoriesProps();
+  const { current, totalPages } = paginationData;
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const categoriesWrapperRef = useRef(null);
 
@@ -48,6 +52,15 @@ export const Categories = () => {
       });
     }
   };
+
+  const handlePageChange = (selectedPage) => {
+    setSearchParams({ ...searchParams, page: selectedPage });
+  };
+
+  useEffect(() => {
+    fetchCategories(searchParams.page, searchParams.limit, searchParams.search);
+  }, [searchParams]); 
+
   const handleRefresh = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -71,12 +84,12 @@ export const Categories = () => {
             <CustomInput
               InputIcon={<Search2Icon color={"blue"} />}
               InputPlaceHolder={"Поиск..."}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value)} // Set search query
             />
           }
           thirdItem={
             <CustomBtn
-              Onclick={() => handleDownload()}
+              onClick={handleDownload} // Corrected onClick function
               BtnContent={
                 <Box
                   style={{
@@ -102,6 +115,32 @@ export const Categories = () => {
           ) : (
             <CustomTable key={isLoading} columns={columns} data={data} />
           )}
+        </Box>
+        <Box className={s.products__pagination}>
+          <ReactPaginate
+            previousLabel={
+              <>
+                <ChevronLeftIcon />
+              </>
+            }
+            nextLabel={
+              <>
+                <ChevronRightIcon />
+              </>
+            }
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={totalPages}
+            forcePage={current - 1}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={({ selected }) => handlePageChange(selected + 1)}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"activePagination"}
+            className={s.products_pag}
+            initialPage={current - 1}
+          />
         </Box>
       </Box>
 
@@ -129,4 +168,5 @@ export const Categories = () => {
     </>
   );
 };
+
 export default Categories;

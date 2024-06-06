@@ -1,5 +1,6 @@
 import {
   useState,
+  useEffect,
   CategoryFilterIcon,
   AiOutlineEllipsis,
   DeleteIcon,
@@ -9,10 +10,10 @@ import {
   Stack,
   React,
   useDeleteCategory,
-  useGetCategoriesService,
   axios,
   Link,
 } from "public/imports";
+import request from "services/httpRequest";
 
 export const useCategoriesProps = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
@@ -25,41 +26,44 @@ export const useCategoriesProps = () => {
   const onCloseModal1 = () => setIsOpenModal1(false);
   const onOpenModal2 = () => setIsOpenModal2(true);
   const onCloseModal2 = () => setIsOpenModal2(false);
-  const { data: getCat, refetch } = useGetCategoriesService({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalPages, setTotalPages] = useState(10);
+
   const handleDeleteCategory = async (categoryId) => {
     deleteCategory(categoryId);
   };
 
   const { mutate: deleteCategory } = useDeleteCategory({
-    onSuccess: () => refetch(),
+    onSuccess: () => fetchCategories(currentPage, pageSize, searchQuery),
   });
 
-  const updateCategory = async ({ id, name, photo }) => {
+  const fetchCategories = async (page, limit, search) => {
+    setIsLoading(true);
     try {
-      const formData = new FormData();
-      formData.append("id", id);
-      formData.append("name", name);
-      formData.append("photo", photo);
+      const response = await request.get(`/categories`, {
+        params: {
+          page:  page,
+          limit:  limit,
+          search,
+        },
+      });
+      if (response.data && response.data.Data.category) {
+      setCategories(response.data.Data.category);
+      // Правильно устанавливаем общее количество страниц
+      setTotalPages(Math.ceil(response.data.Data.count / limit));
+    }
 
-      const response = await axios.put(
-        `https://food-delivery-api-n6as.onrender.com/v1/category/${id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      alert("Update Successful");
-      return response.data;
     } catch (error) {
-      throw error;
+      console.error("Failed to fetch categories", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const filteredData = getCat?.Data?.category?.filter((item) =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  useEffect(() => {
+    fetchCategories(currentPage, pageSize, searchQuery);
+  }, [currentPage, pageSize, searchQuery]);
 
   const skeleton = (
     <Stack>
@@ -68,6 +72,7 @@ export const useCategoriesProps = () => {
       <Skeleton height="20px" />
     </Stack>
   );
+
   const columns = [
     {
       title: "No",
@@ -157,33 +162,34 @@ export const useCategoriesProps = () => {
       },
     },
   ];
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
 
   return {
-    data: getCat
-      ? filteredData?.map((item, index) => ({
+    data: isLoading
+      ? skeleton
+      : categories.map((item, index) => ({
           key: item?.id || index,
           number: (currentPage - 1) * pageSize + index + 1,
           ...item,
-        }))
-      : skeleton,
+        })),
+    paginationData: {
+      current: currentPage,
+      pageSize: pageSize,
+      totalPages: totalPages,
+    },
     columns,
     categories,
     setCategories,
-    getCat,
     setSearchQuery,
     isOpenModal1,
     isOpenModal2,
     onCloseModal1,
     onCloseModal2,
-    updateCategory,
-    selectedCategoryId,
     handleDeleteCategory,
     setSelectedCategoryId,
-    getCat,
     isLoading,
     setIsLoading,
+    fetchCategories
   };
 };
+
 export default useCategoriesProps;
