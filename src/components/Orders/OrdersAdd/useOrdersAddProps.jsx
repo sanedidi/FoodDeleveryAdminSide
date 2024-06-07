@@ -161,7 +161,7 @@ const useOrdersAddProps = () => {
 
     try {
       await axios.post(
-        "https://food-delivery-api-n6as.onrender.com/v1/order",
+        "https://food-delivery-api-n6as.onrender.com/v1/order_p",
         orderDetails
       );
       toast.success("Заказ успешно создан!");

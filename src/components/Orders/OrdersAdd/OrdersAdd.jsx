@@ -175,7 +175,7 @@ export const OrdersAdd = () => {
                       >
                         -
                       </button>
-                      <span>{product.quantity}</span>
+                      <input className={s.orders__input} value={product.quantity} />
                       <button
                         onClick={() => handleProductChange(product.id, 1)}
                       >
