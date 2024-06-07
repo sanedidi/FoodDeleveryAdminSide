@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  background-color: #fff;
   &__calendar {
     border: 1px solid #e7e7e7;
     padding: 7px;
@@ -12,12 +13,21 @@
     }
   }
 
-  &__wrapper {
-    background-color: #fff;
-    padding: 16px;
-    margin: 16px;
-    border-radius: 8px;
+  &__tabs_wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 81vh;
   }
+  &__tabs_table{
+    padding: 16px;
+  }
+
+  &__wrapper {
+    border-radius: 8px;
+    height: 86vh;
+  }
+
   &__title {
     display: flex;
     align-items: center;

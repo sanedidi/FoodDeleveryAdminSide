@@ -112,35 +112,32 @@ export const Products = () => {
           />
         }
       />
-      <Box className={s.products__wrapper}>
-        <CustomTable key={isLoading} columns={columns} data={data} />
-        <Box className={s.products__pagination}>
-          <ReactPaginate
-            previousLabel={
-              <>
-                <ChevronLeftIcon />
-              </>
-            }
-            nextLabel={
-              <>
-                <ChevronRightIcon />
-              </>
-            }
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={totalPages}
-            current={current}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageChange}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"activePagination"}
-            className={s.products_pag}
-            initialPage={page - 1}
-          />
+      <Box className={s.orders__tabs}>
+        <Box className={s.orders__tabs_wrapper}>
+          <Box className={s.orders__tabs_table}>
+            <CustomTable columns={columns} data={data} />
+          </Box>
+          <Box className={s.orders__tabs_pag}>
+            <ReactPaginate
+              previousLabel={<ChevronLeftIcon />}
+              nextLabel={<ChevronRightIcon />}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={totalPages}
+              current={current}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageChange}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"activePagination"}
+              className={s.products_pag}
+              initialPage={page - 1}
+            />
+          </Box>
         </Box>
       </Box>
+      
       <>
         <CustomModal
           isOpenModal={isOpenModal2}

@@ -166,7 +166,7 @@ const useOrdersAddProps = () => {
       );
       toast.success("Заказ успешно создан!");
       setTimeout(() => {
-        // navigate("/admin/orders");
+        navigate("/admin/orders");
       }, 1000);
     } catch (error) {
       toast.error("Ошибка при создании заказа", error);

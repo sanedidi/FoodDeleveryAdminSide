@@ -16,7 +16,7 @@ const CustomTabs = ({ tabs, activeTab, onTabChange, ExtraItem }) => {
             {label}
           </Tab>
         ))}
-        <Box marginLeft={"auto"}>{ExtraItem}</Box>
+        <Box marginRight={"10px"} marginLeft={"auto"}>{ExtraItem}</Box>
       </TabList>
       <TabPanels>
         {tabContents.map((content, index) => (
