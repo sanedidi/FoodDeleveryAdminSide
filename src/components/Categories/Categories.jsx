@@ -84,15 +84,17 @@ export const Categories = () => {
         title={"Категории"}
       />
       <Box className={s.categories}>
+        <Box className={s.categories__under}>
+
         <UnderHeader
           firstItem={
             <CustomInput
-            InputPlaceHolder={"Поиск..."}
-            onChange={(e) => {
-              setSearchParams({ search: e.target.value });
-            }}
-            InputIcon={<Search2Icon color={"blue"} />}
-          />
+              InputPlaceHolder={"Поиск..."}
+              onChange={(e) => {
+                setSearchParams({ search: e.target.value });
+              }}
+              InputIcon={<Search2Icon color={"blue"} />}
+            />
           }
           thirdItem={
             <CustomBtn
@@ -114,40 +116,43 @@ export const Categories = () => {
             />
           }
         />
-        <Box className={s.categories__wrapper} ref={categoriesWrapperRef}>
-          {isLoading ? (
-            <Stack>
-              <Skeleton height="40px" />
-            </Stack>
-          ) : (
-            <CustomTable key={isLoading} columns={columns} data={data} />
-          )}
         </Box>
-        <Box className={s.products__pagination}>
-          <ReactPaginate
-            previousLabel={
-              <>
-                <ChevronLeftIcon />
-              </>
-            }
-            nextLabel={
-              <>
-                <ChevronRightIcon />
-              </>
-            }
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={totalPages}
-            forcePage={current - 1}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={({ selected }) => handlePageChange(selected + 1)}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"activePagination"}
-            className={s.products_pag}
-            initialPage={current - 1}
-          />
+        <Box className={s.categories}>
+          <Box className={s.categories__wrapper} ref={categoriesWrapperRef}>
+            {isLoading ? (
+              <Stack>
+                <Skeleton height="40px" />
+              </Stack>
+            ) : (
+              <CustomTable key={isLoading} columns={columns} data={data} />
+            )}
+          <Box className={s.products__pagination}>
+            <ReactPaginate
+              previousLabel={
+                <>
+                  <ChevronLeftIcon />
+                </>
+              }
+              nextLabel={
+                <>
+                  <ChevronRightIcon />
+                </>
+              }
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={totalPages}
+              forcePage={current - 1}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={({ selected }) => handlePageChange(selected + 1)}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"activePagination"}
+              className={s.products_pag}
+              initialPage={current - 1}
+            />
+          </Box>
+          </Box>
         </Box>
       </Box>
 

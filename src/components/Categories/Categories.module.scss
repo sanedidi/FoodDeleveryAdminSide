@@ -10,6 +10,11 @@
   font-size: 16px; 
 }
 .categories {
+  display: flex;
+  flex-direction: column;
+  &__under{
+    border-bottom: 1px solid #e7e7e7;
+  }
   &__btn {
     display: flex;
     align-items: center;
@@ -17,13 +22,15 @@
     border-radius: 8px;
     border: 1px solid #e5e9eb;
     background-color: #fff;
-    color: #0e73fc !important;
     font-size: 15.2px;
   }
   &__wrapper {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 10px;
-    background-color: #e0eeff;
-    border-radius: 8px;
+    height: 87vh; 
     @media (max-width: 1550px) {
       max-height: clamp(12.5rem, 6.818rem + 28.41vw, 28.125rem);
       overflow-y: scroll;
