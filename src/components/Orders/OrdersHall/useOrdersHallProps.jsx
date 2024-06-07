@@ -1,5 +1,3 @@
-
-
 import { toast, axios, useState, useEffect, useNavigate } from "public/imports";
 
 const useOrdersHallProps = () => {
@@ -59,7 +57,12 @@ const useOrdersHallProps = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://food-delivery-api-n6as.onrender.com/v1/categories"
+          "https://food-delivery-api-n6as.onrender.com/v1/categories",
+          {
+            params: {
+              limit: 1000000000000000,
+            },
+          }
         );
         const options = response.data.Data.category.map((cat) => ({
           value: cat.id,
@@ -110,19 +113,10 @@ const useOrdersHallProps = () => {
   };
 
   const handleSubmit = async () => {
-  
-
-
-
- 
-
-
     if (!orderDetails.payment_type) {
       toast.error("Пожалуйста, выберите способ оплаты.");
       return;
     }
-
-
 
     const hasProducts = orderDetails.products.some(
       (product) => product.quantity > 0

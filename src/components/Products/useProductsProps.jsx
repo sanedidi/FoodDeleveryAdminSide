@@ -35,7 +35,7 @@ const useProductsProps = () => {
       const response = await axios.get(API_URL, {
         params: {
           page: !!search.length ? null : page,
-          limit:  !!search.length ? null : limit,
+          limit: !!search.length ? null : limit,
           search,
         },
       });
@@ -63,7 +63,7 @@ const useProductsProps = () => {
       dataIndex: "number",
       width: 0,
     },
-    {   
+    {
       title: "Продукт",
       dataIndex: "name",
       key: "name",

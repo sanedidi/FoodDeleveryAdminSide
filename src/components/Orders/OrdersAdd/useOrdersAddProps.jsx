@@ -25,8 +25,7 @@ const useOrdersAddProps = () => {
     const fetchBranches = async () => {
       try {
         const response = await axios.get(
-          "https://food-delivery-api-n6as.onrender.com/v1/branches"
-        );
+          "https://food-delivery-api-n6as.onrender.com/v1/branches");
         const options = response.data.Data.branches.map((branch) => ({
           value: branch.id,
           label: branch.name,
@@ -66,7 +65,11 @@ const useOrdersAddProps = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://food-delivery-api-n6as.onrender.com/v1/categories"
+          "https://food-delivery-api-n6as.onrender.com/v1/categories",{
+            params:{
+              limit: 1000000000000,
+            }
+          }
         );
         const options = response.data.Data.category.map((cat) => ({
           value: cat.id,

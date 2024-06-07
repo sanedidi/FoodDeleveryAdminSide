@@ -50,7 +50,6 @@ export const useCategoriesProps = () => {
       });
       if (response.data && response.data.Data.category) {
       setCategories(response.data.Data.category);
-      // Правильно устанавливаем общее количество страниц
       setTotalPages(Math.ceil(response.data.Data.count / limit));
     }
 

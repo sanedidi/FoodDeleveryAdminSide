@@ -34,36 +34,26 @@ import {
 import request from "services/httpRequest";
 
 const Orders = () => {
-  const [selectedDeliveryOption, setSelectedDeliveryOption] = useState({
-    value: "предзаказ",
-    label: "Предзаказ",
-  });
   const [showCalendars, setShowCalendars] = useState(false);
   const [selectedFromDate, setSelectedFromDate] = useState(null);
   const [selectedToDate, setSelectedToDate] = useState(null);
-
   const {
     data,
     columns,
     activeTab,
     setActiveTab,
-    datetime12h,
-    totalOrders,
-    isOpenModal2,
     onCloseModal2,
     isOpenModal1,
     paginationData,
-    currentPage,
     getOrders,
-    pageSize,
     onCloseModal1,
     cancelOrderId,
+    closeOrderId,
     selectedOrderType,
     setSelectedOrderType,
     onOpenModal4,
-    onCloseModal4,
-    isOpenModal4,
-    setIsOpenModal4,
+    orderStatus,
+    setOrderStatus,
   } = useOrdersProps();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -72,18 +62,33 @@ const Orders = () => {
   const search = searchParams.get("search") || "";
 
   const { current, totalPages } = paginationData;
-const handleInputClear = ()=>{
-  setSelectedFromDate(null)
-  setSelectedToDate(null)
-}
+  const handleInputClear = () => {
+    setSelectedFromDate(null);
+    setSelectedToDate(null);
+  };
+
   useEffect(() => {
-    getOrders(page, limit, search, selectedOrderType, selectedFromDate, selectedToDate);
-  }, [page, limit, search, selectedOrderType, selectedFromDate, selectedToDate]); 
+    getOrders(
+      page,
+      limit,
+      search,
+      selectedOrderType,
+      selectedFromDate,
+      selectedToDate,
+      "отменен"
+    );
+  }, [
+    page,
+    limit,
+    search,
+    selectedOrderType,
+    selectedFromDate,
+    selectedToDate,
+  ]);
 
   const handlePageChange = (event) => {
     setSearchParams({ page: event.selected + 1, limit, search });
   };
-
 
   const updateOrderStatus = async (orderId, status) => {
     try {
@@ -102,7 +107,9 @@ const handleInputClear = ()=>{
       toast.error("An error occurred while updating the order status");
     }
   };
-
+  const orderStatusChange = () => {
+    setOrderStatus("отменен");
+  };
   const orderTypeOptions = [
     { value: "предзаказ", label: "Предзаказ" },
     { value: "в зал", label: "В зал" },
@@ -111,6 +118,13 @@ const handleInputClear = ()=>{
   const handleCancelOrder = async () => {
     if (cancelOrderId) {
       updateOrderStatus(cancelOrderId, "отменен");
+      onCloseModal2();
+    }
+  };
+
+  const handleEndOrder = async () => {
+    if (closeOrderId) {
+      updateOrderStatus(closeOrderId, "завершен");
       onCloseModal2();
     }
   };
@@ -194,7 +208,7 @@ const handleInputClear = ()=>{
                   <p></p>
                 </Box>,
                 <Box className={s.orders__title}>
-                  <h2>Новые</h2>
+                  <h2 onClick={orderStatusChange}>Новые</h2>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Завершен</h2>
@@ -206,10 +220,44 @@ const handleInputClear = ()=>{
               tabContents: [
                 <Box className={s.orders__tabs}>
                   <CustomTable columns={columns} data={data} />
+                  <ReactPaginate
+                    previousLabel={<ChevronLeftIcon />}
+                    nextLabel={<ChevronRightIcon />}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={totalPages}
+                    current={current}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageChange}
+                    containerClassName={"pagination"}
+                    subContainerClassName={"pages pagination"}
+                    activeClassName={"activePagination"}
+                    className={s.products_pag}
+                    initialPage={page - 1}
+                  />
                 </Box>,
-                <Box className={s.orders__new}>gg</Box>,
-                <Box className={s.orders__new}>gg</Box>,
-                <Box>gg</Box>,
+                <Box className={s.orders__tabs}>
+                  <CustomTable columns={columns} data={data} />
+                  <ReactPaginate
+                    previousLabel={<ChevronLeftIcon />}
+                    nextLabel={<ChevronRightIcon />}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={totalPages}
+                    current={current}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageChange}
+                    containerClassName={"pagination"}
+                    subContainerClassName={"pages pagination"}
+                    activeClassName={"activePagination"}
+                    className={s.products_pag}
+                    initialPage={page - 1}
+                  />
+                </Box>,
+                <Box className={s.orders__tabs}></Box>,
+                <Box className={s.orders__tabs}></Box>,
               ],
             }}
             ExtraItem={
@@ -228,22 +276,6 @@ const handleInputClear = ()=>{
             activeTab={activeTab}
             onTabChange={setActiveTab}
           />
-          <ReactPaginate
-            previousLabel={<ChevronLeftIcon />}
-            nextLabel={<ChevronRightIcon />}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={totalPages}
-            current={current}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageChange}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"activePagination"}
-            className={s.products_pag}
-            initialPage={page - 1}
-          />
         </Box>
       </Box>
       <CustomModal
@@ -259,70 +291,20 @@ const handleInputClear = ()=>{
             ИНФО
           </Box>
         }
-        secondaryBtnText={<Box onClick={onCloseModal1}>Закрыть</Box>}
-        ModalBtnBgColor={"blue"}
-      />
-      <CustomModal
-        isOpenModal={isOpenModal2}
-        onCloseModal={onCloseModal2}
-        modalTitle={
-          <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
-            <TrashIcon />
-          </Box>
-        }
-        modalContent={
-          <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
-            Вы уверены, что хотите отменить этот заказ?
-          </Box>
-        }
-        secondaryBtnText={<Box>Нет</Box>}
-        ModalBtnBgColor={"blue"}
-        primaryBtnText="Да"
-        onPrimaryBtnClick={handleCancelOrder}
-      />
-      <CustomModal
-        isOpenModal={isOpenModal4}
-        onCloseModal={onCloseModal4}
-        modalTitle={
-          <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
-            Выберите тип заказа
-          </Box>
-        }
-        modalContent={
+        secondaryBtnText={
           <Box
-            display={"flex"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            gap={"75px"}
-            width={"max-content"}
-            fontWeight={"600"}
-            fontSize={"20px"}
-            textAlign={"center"}
+            onClick={() => {
+              onCloseModal1();
+            }}
           >
-            <Link
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-              to={"/admin/orders/AddHall"}
-            >
-              <ZalIcon />В зал
-            </Link>
-            <Link
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-              to={"/admin/orders/add"}
-            >
-              <PreOrderIcon />
-              Предзаказ
-            </Link>
+            Закрыть
           </Box>
         }
-        ModalBtnBgColor={"blue"}
+        primaryBtnText={"we"}
+        onPrimaryBtnClick={() => {
+          handleEndOrder();
+          onCloseModal1();
+        }}
       />
     </>
   );

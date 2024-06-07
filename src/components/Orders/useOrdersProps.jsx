@@ -32,9 +32,10 @@ export const useOrdersProps = () => {
   const [activeTab, setActiveTab] = useState(0); // tabs
   const [isLoading, setIsLoading] = useState(false);
   const [cancelOrderId, setCancelOrderId] = useState(null); //update status
+  const [closeOrderId, setCloseOrderId] = useState(null); //update status
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedOrderType, setSelectedOrderType] = useState(""); // order_type
-
+  const [orderStatus, setOrderStatus] = useState("");
   const onOpenModal1 = () => setIsOpenModal1(true);
   const onCloseModal1 = () => setIsOpenModal1(false);
   const onOpenModal2 = () => setIsOpenModal2(true);
@@ -49,7 +50,8 @@ export const useOrdersProps = () => {
     search = "",
     order_type = "",
     from_date = "",
-    to_date = ""
+    to_date = "",
+    status = ""
   ) => {
     setIsLoading(true);
 
@@ -61,18 +63,16 @@ export const useOrdersProps = () => {
           search: search || null,
           order_type: order_type || null,
           from_date: from_date,
-          to_date: to_date
+          to_date: to_date,
+          status: status,
         },
       });
-
       const fetchedProducts = response.data?.Data?.orders;
       if (fetchedProducts === null) {
-        console.log("по вашему запросу ничего не найдено");
       }
       setProducts(fetchedProducts);
       setTotalPages(Math.ceil(response.data?.Data?.count / limit));
     } catch (error) {
-      console.log(error);
     } finally {
       setIsLoading(false);
     }
@@ -96,9 +96,7 @@ export const useOrdersProps = () => {
 
   const totalOrders = () => {
     if (products.length === 0) {
-      console.log("sd");
     } else {
-      console.log("dc");
     }
   };
 
@@ -255,7 +253,7 @@ export const useOrdersProps = () => {
                   className="categories__menu"
                   onClick={() => {
                     onOpenModal1();
-                    // setSelectedCategoryId(item.id);
+                    setCloseOrderId(item.id);
                   }}
                 >
                   <CheckIcon color={"green"} />
@@ -346,7 +344,6 @@ export const useOrdersProps = () => {
     isOpenModal1,
     isOpenModal3,
     onCloseModal3,
-    // setSelectedOrderType,
     cancelOrder,
     cancelOrderId,
     selectedOrderType,
@@ -355,6 +352,10 @@ export const useOrdersProps = () => {
     onCloseModal4,
     isOpenModal4,
     setIsOpenModal4,
+    closeOrderId,
+    setCloseOrderId,
+    orderStatus,
+    setOrderStatus,
   };
 };
 

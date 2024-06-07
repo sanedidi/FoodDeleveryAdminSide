@@ -13,19 +13,23 @@ import {
   DownloadIcon,
   useSearchParams,
 } from "public/imports";
-import { ChevronLeftIcon, ChevronRightIcon, Search2Icon } from "@chakra-ui/icons";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  Search2Icon,
+} from "@chakra-ui/icons";
 import { CustomTable } from "components/Custom/CustomTable/CustomTable";
 import html2canvas from "html2canvas";
 import { Skeleton } from "antd";
 import useCategoriesProps from "./useCategoriesProps";
-import s from './Categories.module.scss'
+import s from "./Categories.module.scss";
 import ReactPaginate from "react-paginate";
 
 export const Categories = () => {
   const {
     isOpenModal2,
     onCloseModal2,
-    setSearchQuery, 
+    setSearchQuery,
     columns,
     data,
     selectedCategoryId,
@@ -33,11 +37,13 @@ export const Categories = () => {
     isLoading,
     setIsLoading,
     paginationData,
-    fetchCategories
+    fetchCategories,
   } = useCategoriesProps();
   const { current, totalPages } = paginationData;
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const page = +searchParams.get("page") || 1;
+  const limit = +searchParams.get("limit") || 10;
+  const search = searchParams.get("search") || "";
   const categoriesWrapperRef = useRef(null);
 
   const handleDownload = () => {
@@ -58,9 +64,8 @@ export const Categories = () => {
   };
 
   useEffect(() => {
-    fetchCategories(searchParams.page, searchParams.limit, searchParams.search);
-  }, [searchParams]); 
-
+    fetchCategories(page, limit, search);
+  }, [page, limit, search]);
   const handleRefresh = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -82,10 +87,12 @@ export const Categories = () => {
         <UnderHeader
           firstItem={
             <CustomInput
-              InputIcon={<Search2Icon color={"blue"} />}
-              InputPlaceHolder={"Поиск..."}
-              onChange={(e) => setSearchQuery(e.target.value)} // Set search query
-            />
+            InputPlaceHolder={"Поиск..."}
+            onChange={(e) => {
+              setSearchParams({ search: e.target.value });
+            }}
+            InputIcon={<Search2Icon color={"blue"} />}
+          />
           }
           thirdItem={
             <CustomBtn
