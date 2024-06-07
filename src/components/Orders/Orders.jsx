@@ -130,7 +130,7 @@ const Orders = () => {
   };
   const orderTypeOptions = [
     { value: "предзаказ", label: "Предзаказ" },
-    { value: "в зал", label: "В зал" },
+    { value: "зал", label: "В зал" },
   ];
 
   const handleCancelOrder = async () => {
