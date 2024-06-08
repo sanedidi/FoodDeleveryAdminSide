@@ -8,7 +8,7 @@ import { LinkPage } from "../components/LinkPage/LinkPage";
 import { AuthInput } from "../components/AuthInput/AuthInput";
 
 
-export const ResetPassword = () => {
+const ResetPassword = () => {
 
   const { onSubmit, handleSubmit, register, isPending, formState: { errors }, } = useResetPasswordProps();
 
@@ -46,3 +46,5 @@ export const ResetPassword = () => {
     </Box>
   )
 };
+
+export default ResetPassword

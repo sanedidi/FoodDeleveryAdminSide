@@ -9,7 +9,8 @@ import { AuthInputPassword } from "../components/AuthInputPassword/AuthInputPass
 import { AuthInput } from "../components/AuthInput/AuthInput";
 import { IoCall } from "react-icons/io5";
 import React from "react";
-export const Login = () => {
+
+const Login = () => {
   const {
     onSubmit,
     handleSubmit,
@@ -65,3 +66,5 @@ export const Login = () => {
     </Box>
   );
 };
+
+export default Login
