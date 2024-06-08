@@ -121,8 +121,8 @@ export const useOrdersProps = () => {
     },
     {
       title: "Время создания",
-      key: "created_at",
-      dataIndex: "created_at",
+      key: "delivery_time",
+      dataIndex: "delivery_time",
       width: 120,
       render: (createdAt) => {
         const formattedDateTime = new Date(createdAt).toLocaleString("ru-RU", {

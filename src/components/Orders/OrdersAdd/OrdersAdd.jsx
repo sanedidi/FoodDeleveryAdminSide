@@ -75,7 +75,7 @@ export const OrdersAdd = () => {
         <Box className={s.orders__right}>
           <Box className={s.orders__products}>
             {filteredProdOptions.map((product, index) => (
-              <Box key={index} className={s.orders__product}>
+              <Box onClick={() => handleProductChange(product.value, 1)} key={index} className={s.orders__product}>
                 <Box className={s.orders__prod_imh}>
                   <img src={product.photo} alt="" />
                 </Box>
