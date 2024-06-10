@@ -65,7 +65,7 @@ export const OrdersAdd = () => {
           />
         }
         headerBtn2={
-          <CustomInput disabled={true} InputPlaceHolder="Предзаказ" />
+          <CustomInput disabled={true} InputPlaceHolder="Самовызов" />
         }
       />
       <Box className={s.orders}>

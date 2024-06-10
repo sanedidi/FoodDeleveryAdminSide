@@ -373,7 +373,7 @@ const useOrderProps = () => {
     ],
   ];
   const TableLinks = [
-    { tab: 'Предзаказ' },
+    { tab: 'Самовызов' },
     { tab: 'Новый' },
     { tab: 'Оператор принял' },
     { tab: 'Заготовка' },

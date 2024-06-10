@@ -233,7 +233,7 @@ export const Orders = () => {
                   <h2 onClick={() => setOrderStatus("отменен")}>Отмененные</h2>
                 </Box>,
                 <Box className={s.orders__title}>
-                  <h2 onClick={() => handleTabChange(4)}>Предзаказ</h2>
+                  <h2 onClick={() => handleTabChange(4)}>Самовывоз</h2>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2 onClick={() => handleTabChange(5)}>В зал</h2>
