@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import s from "./OrdersAdd.module.scss";
-import { Box, CustomBtn, CustomInput, Header, Select, Textarea, Toaster, toast } from "public/imports";
+import {
+  Box,
+  CustomBtn,
+  CustomInput,
+  Header,
+  Link,
+  Select,
+  Textarea,
+  Toaster,
+  toast,
+} from "public/imports";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Calendar } from "primereact/calendar";
 import { CLickIcon, PaymeIcon } from "components/SvgComponents/SvgComponents";
@@ -30,15 +40,22 @@ export const OrdersAdd = () => {
     (product) => product.quantity > 0
   );
 
+  const handleQuantityChange = (id, value) => {
+    const quantity = parseInt(value, 10);
+    if (!isNaN(quantity) && quantity >= 0) {
+      handleProductChange(id, quantity - orderDetails.products.find((product) => product.id === id).quantity);
+    }
+  };
+
   return (
     <>
-    <Toaster/>
+      <Toaster />
       <Header
         title={
-          <Box display={"flex"} alignItems={"center"} gap={"15px"}>
+          <Link to={"/admin/orders"} className={s.orders__header}>
             <CloseIcon fontSize={"14px"} />
-            Список товаров
-          </Box>
+            <p to={"/admin/orders"}>Список товаров</p>
+          </Link>
         }
         headerBtn1={
           <Select
@@ -48,10 +65,7 @@ export const OrdersAdd = () => {
           />
         }
         headerBtn2={
-          <CustomInput
-            disabled={true}
-            InputPlaceHolder="Предзаказ"
-          />
+          <CustomInput disabled={true} InputPlaceHolder="Предзаказ" />
         }
       />
       <Box className={s.orders}>
@@ -75,7 +89,11 @@ export const OrdersAdd = () => {
         <Box className={s.orders__right}>
           <Box className={s.orders__products}>
             {filteredProdOptions.map((product, index) => (
-              <Box onClick={() => handleProductChange(product.value, 1)} key={index} className={s.orders__product}>
+              <Box
+                onClick={() => handleProductChange(product.value, 1)}
+                key={index}
+                className={s.orders__product}
+              >
                 <Box className={s.orders__prod_imh}>
                   <img src={product.photo} alt="" />
                 </Box>
@@ -87,9 +105,7 @@ export const OrdersAdd = () => {
                   <p className={s.orders__button}>
                     <span>{product.price}</span> сум
                   </p>
-                  <button>
-                    Добавить
-                  </button>
+                  <button>Добавить</button>
                 </Box>
               </Box>
             ))}
@@ -155,12 +171,7 @@ export const OrdersAdd = () => {
                             .label
                         }
                       </p>
-                      <p className={s.orders__desc}>
-                        {
-                          prodOptions.find((prod) => prod.value === product.id)
-                            .desc
-                        }
-                      </p>
+
                       <p className={s.orders__label}>
                         {
                           prodOptions.find((prod) => prod.value === product.id)
@@ -175,7 +186,13 @@ export const OrdersAdd = () => {
                       >
                         -
                       </button>
-                      <input className={s.orders__input} value={product.quantity} />
+                      <input
+                        className={s.orders__input}
+                        value={product.quantity}
+                        onChange={(e) =>
+                          handleQuantityChange(product.id, e.target.value)
+                        }
+                      />
                       <button
                         onClick={() => handleProductChange(product.id, 1)}
                       >
@@ -186,8 +203,8 @@ export const OrdersAdd = () => {
                 ))
               ) : (
                 <Box className={s.orders__ordered_info}>
-                     Выберите продукт для заказа
-                 </Box>
+                  Выберите продукт для заказа
+                </Box>
               )}
             </Box>
 
@@ -229,12 +246,12 @@ export const OrdersAdd = () => {
                 onChange={(e) => handleInputChange("comment", e.target.value)}
               />
             </Box>
-              <CustomBtn
-                BgColor={"blue"}
-                BtnContent={"Создать заказ"}
-                Onclick={handleSubmit}
-                type={"button"}
-              />
+            <CustomBtn
+              BgColor={"blue"}
+              BtnContent={"Создать заказ"}
+              Onclick={handleSubmit}
+              type={"button"}
+            />
           </Box>
         </Box>
       </Box>

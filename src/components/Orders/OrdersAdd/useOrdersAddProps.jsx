@@ -15,7 +15,7 @@ const useOrdersAddProps = () => {
     customer_name: "",
     customer_phone: "",
     delivery_time: "",
-    order_type: "предзаказ",
+    order_type: "самовывоз",
     payment_type: "",
     products: [],
   });
@@ -25,14 +25,15 @@ const useOrdersAddProps = () => {
     const fetchBranches = async () => {
       try {
         const response = await axios.get(
-          "https://food-delivery-api-n6as.onrender.com/v1/branches");
+          "https://food-delivery-api-n6as.onrender.com/v1/branches"
+        );
         const options = response.data.Data.branches.map((branch) => ({
           value: branch.id,
           label: branch.name,
         }));
         setBranchOptions(options);
       } catch (error) {
-        console.error("Failed to fetch branches", error);
+        console.error("Не удалось получить данные филиалов", error);
       }
     };
     fetchBranches();
@@ -55,7 +56,7 @@ const useOrdersAddProps = () => {
         }));
         setProdOptions(options);
       } catch (error) {
-        console.error("Failed to fetch products", error);
+        console.error("Не удалось получить данные продуктов", error);
       }
     };
     fetchProducts();
@@ -78,7 +79,7 @@ const useOrdersAddProps = () => {
         }));
         setCategories(options);
       } catch (error) {
-        console.error("Failed to fetch categories", error);
+        console.error("Не удалось получить данные категорий", error);
       }
     };
     fetchCategories();
@@ -91,9 +92,11 @@ const useOrdersAddProps = () => {
     }));
   };
 
-  const handleProductChange = (productId, quantity) => {
+  const handleProductChange = (productId, quantity, productName) => {
+    const product = prodOptions.find((prod) => prod.value === productId);
     const existingProductIndex = orderDetails.products.findIndex(
-      (product) => product.id === productId
+      (product) => product.id === productId,
+      (product) => product.name === productName
     );
 
     if (existingProductIndex !== -1) {
@@ -108,14 +111,14 @@ const useOrdersAddProps = () => {
     } else {
       setOrderDetails((prevState) => ({
         ...prevState,
-        products: [...prevState.products, { id: productId, quantity }],
+        products: [
+          ...prevState.products,
+          { id: productId, name: product.name, price: product.price, quantity },
+        ],
       }));
     }
 
-    const productPrice = prodOptions.find(
-      (prod) => prod.value === productId
-    ).price;
-    const totalPriceChange = productPrice * quantity;
+    const totalPriceChange = product.price * quantity;
     setTotalAmount((prevTotalAmount) => prevTotalAmount + totalPriceChange);
   };
 
@@ -125,10 +128,10 @@ const useOrdersAddProps = () => {
       return;
     }
 
-    if (!orderDetails.order_type) {
-      toast.error("Пожалуйста, выберите тип заказа.");
-      return;
-    }
+    // if (!orderDetails.order_type) {
+    //   toast.error("Пожалуйста, выберите тип заказа.");
+    //   return;
+    // }
 
     if (!orderDetails.customer_name) {
       toast.error("Пожалуйста, введите имя клиента.");
@@ -162,7 +165,15 @@ const useOrdersAddProps = () => {
     try {
       await axios.post(
         "https://food-delivery-api-n6as.onrender.com/v1/order_p",
-        orderDetails
+        {
+          ...orderDetails,
+          products: orderDetails.products.map((product) => ({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: product.quantity,
+          })),
+        }
       );
       toast.success("Заказ успешно создан!");
       setTimeout(() => {

@@ -6,6 +6,11 @@
   padding: 20px;
   height: 93vh;
   overflow: scroll;
+  &__header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
   &__left {
     display: flex;
     flex-direction: column;
@@ -185,13 +190,19 @@
     border: 1px solid #e7e7e7;
     padding: 10px;
     border-radius: 4px;
-    max-height: 260px;
+    max-height: 360px;
     overflow-y: scroll;
+   
   }
   &__ordered_info {
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-between;
+    width: 150px;
+    p{
+      text-align: center;
+    }
   }
   &__productItem {
     display: flex;

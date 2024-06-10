@@ -1,7 +1,16 @@
-
 import React, { useEffect, useState } from "react";
 import s from "./OrdersHall.module.scss";
-import { Box, CustomBtn, CustomInput, Header, Select, Textarea, Toaster, toast } from "public/imports";
+import {
+  Box,
+  CustomBtn,
+  CustomInput,
+  Header,
+  Link,
+  Select,
+  Textarea,
+  Toaster,
+  toast,
+} from "public/imports";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Calendar } from "primereact/calendar";
 import { CLickIcon, PaymeIcon } from "components/SvgComponents/SvgComponents";
@@ -30,25 +39,36 @@ export const OrdersHall = () => {
     (product) => product.quantity > 0
   );
 
+  const handleQuantityChange = (id, value) => {
+    const quantity = parseInt(value, 10);
+    if (!isNaN(quantity) && quantity >= 0) {
+      handleProductChange(
+        id,
+        quantity -
+          orderDetails.products.find((product) => product.id === id).quantity
+      );
+    }
+  };
   return (
     <>
-    <Toaster/>
+      <Toaster />
       <Header
         title={
-          <Box display={"flex"} alignItems={"center"} gap={"15px"}>
+          <Link to={"/admin/orders"} className={s.orders__header}>
             <CloseIcon fontSize={"14px"} />
-            Список товаров
-          </Box>
+            <p to={"/admin/orders"}>Список товаров</p>
+          </Link>
         }
-       
         headerBtn2={
-        <>
-         <Select
-            options={branchOptions}
-            placeholder="Выберите филиал"
-            onChange={(option) => handleInputChange("branch_id", option.value)}
-          />
-        </>
+          <>
+            <Select
+              options={branchOptions}
+              placeholder="Выберите филиал"
+              onChange={(option) =>
+                handleInputChange("branch_id", option.value)
+              }
+            />
+          </>
         }
       />
       <Box className={s.orders}>
@@ -72,7 +92,11 @@ export const OrdersHall = () => {
         <Box className={s.orders__right}>
           <Box className={s.orders__products}>
             {filteredProdOptions.map((product, index) => (
-              <Box onClick={() => handleProductChange(product.value, 1)} key={index} className={s.orders__product}>
+              <Box
+                onClick={() => handleProductChange(product.value, 1)}
+                key={index}
+                className={s.orders__product}
+              >
                 <Box className={s.orders__prod_imh}>
                   <img src={product.photo} alt="" />
                 </Box>
@@ -84,9 +108,7 @@ export const OrdersHall = () => {
                   <p className={s.orders__button}>
                     <span>{product.price}</span> сум
                   </p>
-                  <button onClick={() => handleProductChange(product.value, 1)}>
-                    Добавить
-                  </button>
+                  <button>Добавить</button>
                 </Box>
               </Box>
             ))}
@@ -113,17 +135,11 @@ export const OrdersHall = () => {
                             .label
                         }
                       </p>
-                      <p className={s.orders__desc}>
-                        {
-                          prodOptions.find((prod) => prod.value === product.id)
-                            .desc
-                        }
-                      </p>
                       <p className={s.orders__label}>
                         {
                           prodOptions.find((prod) => prod.value === product.id)
                             .price
-                        }{" "}
+                        }
                         сум
                       </p>
                     </Box>
@@ -133,7 +149,13 @@ export const OrdersHall = () => {
                       >
                         -
                       </button>
-                      <span>{product.quantity}</span>
+                      <input
+                        className={s.orders__input}
+                        value={product.quantity}
+                        onChange={(e) =>
+                          handleQuantityChange(product.id, e.target.value)
+                        }
+                      />
                       <button
                         onClick={() => handleProductChange(product.id, 1)}
                       >
@@ -144,8 +166,8 @@ export const OrdersHall = () => {
                 ))
               ) : (
                 <Box className={s.orders__ordered_info}>
-                     Выберите продукт для заказа
-                 </Box>
+                  Выберите продукт для заказа
+                </Box>
               )}
             </Box>
 
@@ -173,20 +195,20 @@ export const OrdersHall = () => {
                 <PaymeIcon />
               </button>
 
-              <button 
+              <button
                 className={orderDetails.payment_type === "free" ? s.active : ""}
                 onClick={() => handleInputChange("payment_type", "free")}
               >
                 <img src={free} alt="" />
               </button>
             </Box>
-           
-              <CustomBtn
-                BgColor={"blue"}
-                BtnContent={"Создать заказ"}
-                Onclick={handleSubmit}
-                type={"button"}
-              />
+
+            <CustomBtn
+              BgColor={"blue"}
+              BtnContent={"Создать заказ"}
+              Onclick={handleSubmit}
+              type={"button"}
+            />
           </Box>
         </Box>
       </Box>
