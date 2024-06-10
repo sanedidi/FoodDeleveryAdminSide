@@ -181,7 +181,7 @@ export const OrdersAdd = () => {
                       </p>
                     </Box>
                     <div className={s.quantityControl}>
-                      <button
+                      <button className={s.orders__add_btn}
                         onClick={() => handleProductChange(product.id, -1)}
                       >
                         -
@@ -193,7 +193,7 @@ export const OrdersAdd = () => {
                           handleQuantityChange(product.id, e.target.value)
                         }
                       />
-                      <button
+                      <button className={s.orders__add_btn}
                         onClick={() => handleProductChange(product.id, 1)}
                       >
                         +

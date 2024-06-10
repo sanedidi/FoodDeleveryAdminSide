@@ -22,7 +22,11 @@
   &__tabs_table{
     padding: 16px;
   }
-
+&__underHeader_input{
+  border: 1px solid #e7e7e7;
+  padding: 7px;
+  border-radius: 6px;
+}
   &__wrapper {
     border-radius: 8px;
     height: 86vh;

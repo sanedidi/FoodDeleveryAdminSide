@@ -11,6 +11,13 @@
     align-items: center;
     gap: 10px;
   }
+  &__input {
+    width: 25px;
+    text-align: center;
+  }
+  &__add_btn {
+    font-size: 25px;
+  }
   &__left {
     display: flex;
     flex-direction: column;

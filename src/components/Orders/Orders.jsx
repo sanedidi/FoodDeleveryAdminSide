@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ChevronRightIcon, SearchIcon } from "@chakra-ui/icons";
+import {
+  ChevronRightIcon,
+  SearchIcon,
+  ChevronLeftIcon,
+} from "@chakra-ui/icons";
 import {
   Box,
   CustomBtn,
@@ -20,13 +24,8 @@ import { Calendar } from "primereact/calendar";
 import s from "./Orders.module.scss";
 import useOrdersProps from "./useOrdersProps";
 import CustomTabs from "components/Custom/CustomTabs/CustomTabs";
-import Select from "react-select";
 import ReactPaginate from "react-paginate";
-import {
-  ChevronLeftIcon,
-  PreOrderIcon,
-  ZalIcon,
-} from "components/SvgComponents/SvgComponents";
+import { PreOrderIcon, ZalIcon } from "components/SvgComponents/SvgComponents";
 import request from "services/httpRequest";
 
 const Orders = () => {
@@ -86,6 +85,7 @@ const Orders = () => {
   const handleTabChange = (newActiveTab) => {
     setActiveTab(newActiveTab);
     let status = "";
+    let orderType = "";
     switch (newActiveTab) {
       case 0:
         status = "";
@@ -99,20 +99,27 @@ const Orders = () => {
       case 3:
         status = "отменен";
         break;
+      case 4:
+        orderType = "самовызов";
+        break;
+      case 5:
+        orderType = "в зал";
+        break;
       default:
         break;
     }
-    setSearchParams({ status });
-    setOrderStatus(status); //
+    setSearchParams({ status, order_type: orderType });
+    setOrderStatus(status);
+    setSelectedOrderType(orderType);
     getOrders(
       page,
       limit,
       search,
-      selectedOrderType,
+      orderType,
       selectedFromDate,
       selectedToDate,
       status
-    ); // Вызываем функцию для получения заказов с новым статусом
+    );
   };
 
   const handlePageChange = (event) => {
@@ -120,8 +127,8 @@ const Orders = () => {
       page: event.selected + 1,
       limit,
       search,
-      status: selectedOrderType,
-    }); // Обновляем параметры поиска
+      // status: selectedOrderType,
+    });
   };
 
   const updateOrderStatus = async (orderId, status) => {
@@ -141,10 +148,6 @@ const Orders = () => {
       toast.error("An error occurred while updating the order status");
     }
   };
-  const orderTypeOptions = [
-    { value: "предзаказ", label: "Предзаказ" },
-    { value: "зал", label: "В зал" },
-  ];
 
   const handleCancelOrder = async () => {
     if (cancelOrderId) {
@@ -193,6 +196,7 @@ const Orders = () => {
                   showIcon={true}
                   dateFormat="dd.mm.yy"
                   placeholder="Выберите дату"
+                  className={s.orders__underHeader_input}
                 />
               </Box>
             )
@@ -206,6 +210,7 @@ const Orders = () => {
                   showIcon={true}
                   dateFormat="dd.mm.yy"
                   placeholder="Выберите дату"
+                  className={s.orders__underHeader_input}
                 />
                 <button onClick={handleInputClear} className={s.orders__btn}>
                   Очистить
@@ -247,6 +252,12 @@ const Orders = () => {
                 <Box className={s.orders__title}>
                   <h2 onClick={() => setOrderStatus("отменен")}>Отмененные</h2>
                 </Box>,
+                <Box className={s.orders__title}>
+                  <h2 onClick={() => handleTabChange(4)}>Предзаказ</h2>
+                </Box>,
+                <Box className={s.orders__title}>
+                  <h2 onClick={() => handleTabChange(5)}>В зал</h2>
+                </Box>,
               ],
               tabContents: [
                 <Box className={s.orders__tabs}>
@@ -274,32 +285,7 @@ const Orders = () => {
                     </Box>
                   </Box>
                 </Box>,
-                  <Box className={s.orders__tabs}>
-                  <Box className={s.orders__tabs_wrapper}>
-                    <Box className={s.orders__tabs_table}>
-                      <CustomTable columns={columns} data={data} />
-                    </Box>
-                    <Box className={s.orders__tabs_pag}>
-                      <ReactPaginate
-                        previousLabel={<ChevronLeftIcon />}
-                        nextLabel={<ChevronRightIcon />}
-                        breakLabel={"..."}
-                        breakClassName={"break-me"}
-                        pageCount={totalPages}
-                        current={current}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageChange}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"activePagination"}
-                        className={s.products_pag}
-                        initialPage={page - 1}
-                      />
-                    </Box>
-                  </Box>
-                </Box>,
-                  <Box className={s.orders__tabs}>
+                <Box className={s.orders__tabs}>
                   <Box className={s.orders__tabs_wrapper}>
                     <Box className={s.orders__tabs_table}>
                       <CustomTable columns={columns} data={data} />
@@ -325,45 +311,107 @@ const Orders = () => {
                   </Box>
                 </Box>,
                 <Box className={s.orders__tabs}>
-                <Box className={s.orders__tabs_wrapper}>
-                  <Box className={s.orders__tabs_table}>
-                    <CustomTable columns={columns} data={data} />
+                  <Box className={s.orders__tabs_wrapper}>
+                    <Box className={s.orders__tabs_table}>
+                      <CustomTable columns={columns} data={data} />
+                    </Box>
+                    <Box className={s.orders__tabs_pag}>
+                      <ReactPaginate
+                        previousLabel={<ChevronLeftIcon />}
+                        nextLabel={<ChevronRightIcon />}
+                        breakLabel={"..."}
+                        breakClassName={"break-me"}
+                        pageCount={totalPages}
+                        current={current}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={handlePageChange}
+                        containerClassName={"pagination"}
+                        subContainerClassName={"pages pagination"}
+                        activeClassName={"activePagination"}
+                        className={s.products_pag}
+                        initialPage={page - 1}
+                      />
+                    </Box>
                   </Box>
-                  <Box className={s.orders__tabs_pag}>
-                    <ReactPaginate
-                      previousLabel={<ChevronLeftIcon />}
-                      nextLabel={<ChevronRightIcon />}
-                      breakLabel={"..."}
-                      breakClassName={"break-me"}
-                      pageCount={totalPages}
-                      current={current}
-                      marginPagesDisplayed={2}
-                      pageRangeDisplayed={5}
-                      onPageChange={handlePageChange}
-                      containerClassName={"pagination"}
-                      subContainerClassName={"pages pagination"}
-                      activeClassName={"activePagination"}
-                      className={s.products_pag}
-                      initialPage={page - 1}
-                    />
+                </Box>,
+                <Box className={s.orders__tabs}>
+                  <Box className={s.orders__tabs_wrapper}>
+                    <Box className={s.orders__tabs_table}>
+                      <CustomTable columns={columns} data={data} />
+                    </Box>
+                    <Box className={s.orders__tabs_pag}>
+                      <ReactPaginate
+                        previousLabel={<ChevronLeftIcon />}
+                        nextLabel={<ChevronRightIcon />}
+                        breakLabel={"..."}
+                        breakClassName={"break-me"}
+                        pageCount={totalPages}
+                        current={current}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={handlePageChange}
+                        containerClassName={"pagination"}
+                        subContainerClassName={"pages pagination"}
+                        activeClassName={"activePagination"}
+                        className={s.products_pag}
+                        initialPage={page - 1}
+                      />
+                    </Box>
                   </Box>
-                </Box>
-              </Box>,
+                </Box>,
+                 <Box className={s.orders__tabs}>
+                 <Box className={s.orders__tabs_wrapper}>
+                   <Box className={s.orders__tabs_table}>
+                     <CustomTable columns={columns} data={data} />
+                   </Box>
+                   <Box className={s.orders__tabs_pag}>
+                     <ReactPaginate
+                       previousLabel={<ChevronLeftIcon />}
+                       nextLabel={<ChevronRightIcon />}
+                       breakLabel={"..."}
+                       breakClassName={"break-me"}
+                       pageCount={totalPages}
+                       current={current}
+                       marginPagesDisplayed={2}
+                       pageRangeDisplayed={5}
+                       onPageChange={handlePageChange}
+                       containerClassName={"pagination"}
+                       subContainerClassName={"pages pagination"}
+                       activeClassName={"activePagination"}
+                       className={s.products_pag}
+                       initialPage={page - 1}
+                     />
+                   </Box>
+                 </Box>
+               </Box>,
+               <Box className={s.orders__tabs}>
+                 <Box className={s.orders__tabs_wrapper}>
+                   <Box className={s.orders__tabs_table}>
+                     <CustomTable columns={columns} data={data} />
+                   </Box>
+                   <Box className={s.orders__tabs_pag}>
+                     <ReactPaginate
+                       previousLabel={<ChevronLeftIcon />}
+                       nextLabel={<ChevronRightIcon />}
+                       breakLabel={"..."}
+                       breakClassName={"break-me"}
+                       pageCount={totalPages}
+                       current={current}
+                       marginPagesDisplayed={2}
+                       pageRangeDisplayed={5}
+                       onPageChange={handlePageChange}
+                       containerClassName={"pagination"}
+                       subContainerClassName={"pages pagination"}
+                       activeClassName={"activePagination"}
+                       className={s.products_pag}
+                       initialPage={page - 1}
+                     />
+                   </Box>
+                 </Box>
+               </Box>,
               ],
             }}
-            ExtraItem={
-              <Select
-                options={orderTypeOptions}
-                value={orderTypeOptions.find(
-                  (option) => option.value === selectedOrderType
-                )}
-                onChange={(selectedOption) => {
-                  setSelectedOrderType(selectedOption.value);
-                  setSearchParams({ order_type: selectedOption.value });
-                }}
-                placeholder="Тип заказа"
-              />
-            }
             activeTab={activeTab}
             onTabChange={(newActiveTab) => {
               setActiveTab(newActiveTab);
@@ -466,4 +514,5 @@ const Orders = () => {
     </>
   );
 };
+
 export default Orders;

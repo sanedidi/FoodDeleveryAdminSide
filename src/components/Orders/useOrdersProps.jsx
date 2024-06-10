@@ -48,22 +48,22 @@ export const useOrdersProps = () => {
     page = 1,
     limit = 10,
     search = "",
-    order_type = "",
+    order_type = selectedOrderType,
     from_date = "",
     to_date = ""
   ) => {
     setIsLoading(true);
-  
+
     try {
       const response = await request.get("/orders", {
         params: {
           page,
-          limit: search ? null : limit,
-          search: search || null,
-          order_type: order_type || null,
+          limit: limit,
+          search: search,
+          order_type: selectedOrderType,
           from_date: from_date,
           to_date: to_date,
-          status: orderStatus, 
+          status: orderStatus,
         },
       });
       const fetchedProducts = response.data?.Data?.orders;
@@ -76,7 +76,6 @@ export const useOrdersProps = () => {
       setIsLoading(false);
     }
   };
-  
 
   const CANCEL_ORDER_URL =
     "https://food-delivery-api-n6as.onrender.com/v1/order_status";
@@ -92,7 +91,7 @@ export const useOrdersProps = () => {
 
   useEffect(() => {
     getOrders(currentPage, pageSize);
-  }, [currentPage, pageSize]);
+  }, [currentPage, pageSize]); //????????????
 
   const totalOrders = () => {
     if (products.length === 0) {

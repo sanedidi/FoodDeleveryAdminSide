@@ -18,13 +18,12 @@ function App() {
     <PrimeReactProvider value={value}>
       <ThemeProvider theme={theme}>
         <ChakraProvider>
-          <Suspense fallback={<p>loading</p>}>
-          <BrowserRouter>
-            <QueryClientProvider client={queryClient}>
-              <Router />
-            </QueryClientProvider>
-          </BrowserRouter>
-
+          <Suspense fallback={<></>}>
+            <BrowserRouter>
+              <QueryClientProvider client={queryClient}>
+                <Router />
+              </QueryClientProvider>
+            </BrowserRouter>
           </Suspense>
         </ChakraProvider>
       </ThemeProvider>
