@@ -188,7 +188,7 @@ const Orders = () => {
               InputPlaceHolder={"Поиск по имени клиента"}
             />
           }
-          first1Item={
+          secondItem={
             <Box className={s.orders__select}>
               <Calendar
                 value={selectedFromDate}
@@ -200,7 +200,7 @@ const Orders = () => {
               />
             </Box>
           }
-          first2Item={
+          thirdItem={
             <Box className={s.orders__select}>
               <Calendar
                 value={selectedToDate}

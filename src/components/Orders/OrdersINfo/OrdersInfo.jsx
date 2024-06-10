@@ -75,9 +75,19 @@ const OrdersInfo = () => {
                   <li className={s.orders__li}>{orderData?.Data.created_at}</li>
                 </Box>
                 <Box className={s.orders__item}>
-                  <h2 className={s.orders__title}>Самовывоз</h2>
-                  <li className={s.orders__li}>{orderData?.Data.created_at}</li>
+                  <h2 className={s.orders__title}>{orderData.Data.order_type}</h2>
+                  <li className={s.orders__li}>{orderData?.Data.delivery_time}</li>
                 </Box>
+              </Box>
+              <Box className={s.orders__status}>
+                <h2 className={s.orders__title}> Оплата </h2>
+                <p
+                  style={{ textTransform: "uppercase" }}
+                  className={s.orders__li}
+                >
+                  {" "}
+                  {orderData?.Data?.payment_type}
+                </p>
               </Box>
               <Box className={s.orders__status}>
                 <h2 className={s.orders__title}> Клиент</h2>
@@ -98,6 +108,7 @@ const OrdersInfo = () => {
                   </Box>
                 </Box>
               </Box>
+             
               <Box className={s.orders__items}>
                 <Box className={s.orders__item}>
                   <h2 className={s.orders__title}>Ресторан</h2>
@@ -109,7 +120,7 @@ const OrdersInfo = () => {
                   </li>
                 </Box>
                 <Box className={s.orders__item}>
-                  <h2 className={s.orders__title}>Источник</h2>
+                  <h2 className={s.orders__title}>Тип заказа</h2>
                   <li
                     style={{ textTransform: "uppercase" }}
                     className={s.orders__li}
@@ -118,16 +129,7 @@ const OrdersInfo = () => {
                   </li>
                 </Box>
               </Box>
-              <Box className={s.orders__status}>
-                <h2 className={s.orders__title}> Оплата </h2>
-                <p
-                  style={{ textTransform: "uppercase" }}
-                  className={s.orders__li}
-                >
-                  {" "}
-                  {orderData?.Data?.payment_type}
-                </p>
-              </Box>
+             
               <Box className={s.orders__status}>
                 <h2 className={s.orders__title}> Позиции </h2>
                 {orderData?.Data?.quantity}
