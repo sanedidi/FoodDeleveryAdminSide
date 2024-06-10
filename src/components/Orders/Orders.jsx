@@ -3,6 +3,7 @@ import {
   ChevronRightIcon,
   SearchIcon,
   ChevronLeftIcon,
+  CloseIcon,
 } from "@chakra-ui/icons";
 import {
   Box,
@@ -100,10 +101,10 @@ const Orders = () => {
         status = "отменен";
         break;
       case 4:
-        orderType = "самовызов";
+        orderType = "Самовывоз";
         break;
       case 5:
-        orderType = "в зал";
+        orderType = "зал";
         break;
       default:
         break;
@@ -360,56 +361,56 @@ const Orders = () => {
                     </Box>
                   </Box>
                 </Box>,
-                 <Box className={s.orders__tabs}>
-                 <Box className={s.orders__tabs_wrapper}>
-                   <Box className={s.orders__tabs_table}>
-                     <CustomTable columns={columns} data={data} />
-                   </Box>
-                   <Box className={s.orders__tabs_pag}>
-                     <ReactPaginate
-                       previousLabel={<ChevronLeftIcon />}
-                       nextLabel={<ChevronRightIcon />}
-                       breakLabel={"..."}
-                       breakClassName={"break-me"}
-                       pageCount={totalPages}
-                       current={current}
-                       marginPagesDisplayed={2}
-                       pageRangeDisplayed={5}
-                       onPageChange={handlePageChange}
-                       containerClassName={"pagination"}
-                       subContainerClassName={"pages pagination"}
-                       activeClassName={"activePagination"}
-                       className={s.products_pag}
-                       initialPage={page - 1}
-                     />
-                   </Box>
-                 </Box>
-               </Box>,
-               <Box className={s.orders__tabs}>
-                 <Box className={s.orders__tabs_wrapper}>
-                   <Box className={s.orders__tabs_table}>
-                     <CustomTable columns={columns} data={data} />
-                   </Box>
-                   <Box className={s.orders__tabs_pag}>
-                     <ReactPaginate
-                       previousLabel={<ChevronLeftIcon />}
-                       nextLabel={<ChevronRightIcon />}
-                       breakLabel={"..."}
-                       breakClassName={"break-me"}
-                       pageCount={totalPages}
-                       current={current}
-                       marginPagesDisplayed={2}
-                       pageRangeDisplayed={5}
-                       onPageChange={handlePageChange}
-                       containerClassName={"pagination"}
-                       subContainerClassName={"pages pagination"}
-                       activeClassName={"activePagination"}
-                       className={s.products_pag}
-                       initialPage={page - 1}
-                     />
-                   </Box>
-                 </Box>
-               </Box>,
+                <Box className={s.orders__tabs}>
+                  <Box className={s.orders__tabs_wrapper}>
+                    <Box className={s.orders__tabs_table}>
+                      <CustomTable columns={columns} data={data} />
+                    </Box>
+                    <Box className={s.orders__tabs_pag}>
+                      <ReactPaginate
+                        previousLabel={<ChevronLeftIcon />}
+                        nextLabel={<ChevronRightIcon />}
+                        breakLabel={"..."}
+                        breakClassName={"break-me"}
+                        pageCount={totalPages}
+                        current={current}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={handlePageChange}
+                        containerClassName={"pagination"}
+                        subContainerClassName={"pages pagination"}
+                        activeClassName={"activePagination"}
+                        className={s.products_pag}
+                        initialPage={page - 1}
+                      />
+                    </Box>
+                  </Box>
+                </Box>,
+                <Box className={s.orders__tabs}>
+                  <Box className={s.orders__tabs_wrapper}>
+                    <Box className={s.orders__tabs_table}>
+                      <CustomTable columns={columns} data={data} />
+                    </Box>
+                    <Box className={s.orders__tabs_pag}>
+                      <ReactPaginate
+                        previousLabel={<ChevronLeftIcon />}
+                        nextLabel={<ChevronRightIcon />}
+                        breakLabel={"..."}
+                        breakClassName={"break-me"}
+                        pageCount={totalPages}
+                        current={current}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={handlePageChange}
+                        containerClassName={"pagination"}
+                        subContainerClassName={"pages pagination"}
+                        activeClassName={"activePagination"}
+                        className={s.products_pag}
+                        initialPage={page - 1}
+                      />
+                    </Box>
+                  </Box>
+                </Box>,
               ],
             }}
             activeTab={activeTab}
@@ -425,12 +426,13 @@ const Orders = () => {
         onCloseModal={onCloseModal1}
         modalTitle={
           <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
-            <TrashIcon />
+            <CloseIcon color={"blue"} fontSize={"45px"} />
           </Box>
         }
         modalContent={
           <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
-            ИНФО
+            Вы точно хотите завершить <br />
+            заказ?
           </Box>
         }
         secondaryBtnText={
@@ -439,10 +441,10 @@ const Orders = () => {
               onCloseModal1();
             }}
           >
-            Закрыть
+            Нет
           </Box>
         }
-        primaryBtnText={"we"}
+        primaryBtnText={"Да"}
         onPrimaryBtnClick={() => {
           handleEndOrder();
           onCloseModal1();
@@ -454,12 +456,12 @@ const Orders = () => {
         onCloseModal={onCloseModal2}
         modalTitle={
           <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
-            <TrashIcon />
+            <CloseIcon fontSize={"45px"} color={"blue"} />
           </Box>
         }
         modalContent={
           <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
-            Вы уверены, что хотите отменить этот заказ?
+            Вы уверены, что хотите отменить этот <br /> заказ?
           </Box>
         }
         secondaryBtnText={<Box>Нет</Box>}
