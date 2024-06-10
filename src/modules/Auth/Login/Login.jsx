@@ -10,7 +10,7 @@ import { AuthInput } from "../components/AuthInput/AuthInput";
 import { IoCall } from "react-icons/io5";
 import React from "react";
 
-const Login = () => {
+export const Login = () => {
   const {
     onSubmit,
     handleSubmit,

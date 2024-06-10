@@ -29,7 +29,7 @@ import ReactPaginate from "react-paginate";
 import { PreOrderIcon, ZalIcon } from "components/SvgComponents/SvgComponents";
 import request from "services/httpRequest";
 
-const Orders = () => {
+export const Orders = () => {
   const [showCalendars, setShowCalendars] = useState(false);
   const [selectedFromDate, setSelectedFromDate] = useState(null);
   const [selectedToDate, setSelectedToDate] = useState(null);

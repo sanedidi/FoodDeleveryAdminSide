@@ -237,7 +237,9 @@
     border: 1px solid #0e73f6;
     border-radius: 4px;
     button {
-      padding: 10px;
+      padding: 0 5px;
+      font-size: 35px;
+      line-height: 1;
     }
   }
   &__total {
