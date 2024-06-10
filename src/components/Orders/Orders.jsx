@@ -189,51 +189,31 @@ const Orders = () => {
             />
           }
           first1Item={
-            showCalendars && (
-              <Box className={s.orders__select}>
-                <Calendar
-                  value={selectedFromDate}
-                  onChange={(e) => setSelectedFromDate(e.value)}
-                  showIcon={true}
-                  dateFormat="dd.mm.yy"
-                  placeholder="Выберите дату"
-                  className={s.orders__underHeader_input}
-                />
-              </Box>
-            )
+            <Box className={s.orders__select}>
+              <Calendar
+                value={selectedFromDate}
+                onChange={(e) => setSelectedFromDate(e.value)}
+                showIcon={true}
+                dateFormat="dd.mm.yy"
+                placeholder="Выберите дату"
+                className={s.orders__underHeader_input}
+              />
+            </Box>
           }
           first2Item={
-            showCalendars && (
-              <Box className={s.orders__select}>
-                <Calendar
-                  value={selectedToDate}
-                  onChange={(e) => setSelectedToDate(e.value)}
-                  showIcon={true}
-                  dateFormat="dd.mm.yy"
-                  placeholder="Выберите дату"
-                  className={s.orders__underHeader_input}
-                />
-                <button onClick={handleInputClear} className={s.orders__btn}>
-                  Очистить
-                </button>
-              </Box>
-            )
-          }
-          secondItem={
-            <CustomBtn
-              BgColor={"white"}
-              type={"button"}
-              BtnBorder={"1px solid #E5E9EB"}
-              Onclick={() => setShowCalendars(!showCalendars)}
-              BtnContent={
-                <Box
-                  style={{ display: "flex", alignItems: "center", gap: "5px" }}
-                >
-                  <FilterIcon />
-                  <p style={{ color: "#000", fontWeight: "500" }}>Фильтр</p>
-                </Box>
-              }
-            />
+            <Box className={s.orders__select}>
+              <Calendar
+                value={selectedToDate}
+                onChange={(e) => setSelectedToDate(e.value)}
+                showIcon={true}
+                dateFormat="dd.mm.yy"
+                placeholder="Выберите дату"
+                className={s.orders__underHeader_input}
+              />
+              <button onClick={handleInputClear} className={s.orders__btn}>
+                Очистить
+              </button>
+            </Box>
           }
         />
         <Box className={s.orders__wrapper}>
@@ -431,8 +411,7 @@ const Orders = () => {
         }
         modalContent={
           <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
-            Вы точно хотите завершить <br />
-            заказ?
+            Вы точно хотите завершить заказ?
           </Box>
         }
         secondaryBtnText={
@@ -461,7 +440,7 @@ const Orders = () => {
         }
         modalContent={
           <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
-            Вы уверены, что хотите отменить этот <br /> заказ?
+            Вы уверены, что хотите отменить этот заказ?
           </Box>
         }
         secondaryBtnText={<Box>Нет</Box>}
@@ -473,41 +452,23 @@ const Orders = () => {
         isOpenModal={isOpenModal4}
         onCloseModal={onCloseModal4}
         modalTitle={
-          <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
+          <Box
+            margin={"0 auto"}
+            flexWrap={"500"}
+            textAlign={"center"}
+            width={"max-content"}
+          >
             Выберите тип заказа
           </Box>
         }
         modalContent={
-          <Box
-            display={"flex"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            gap={"75px"}
-            width={"max-content"}
-            fontWeight={"600"}
-            fontSize={"20px"}
-            textAlign={"center"}
-          >
-            <Link
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-              to={"/admin/orders/AddHall"}
-            >
+          <Box className={s.orders__modal_box}>
+            <Link className={s.orders__modal_btn} to={"/admin/orders/AddHall"}>
               <ZalIcon />В зал
             </Link>
-            <Link
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-              to={"/admin/orders/add"}
-            >
+            <Link className={s.orders__modal_btn} to={"/admin/orders/add"}>
               <PreOrderIcon />
-              Предзаказ
+              Самовывоз
             </Link>
           </Box>
         }

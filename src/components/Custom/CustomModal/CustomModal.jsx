@@ -20,7 +20,7 @@ export const CustomModal = ({
   onPrimaryBtnClick,
 }) => {
   return (
-    <Modal size={"xl"} isOpen={isOpenModal} onClose={onCloseModal}>
+    <Modal size={"md"} isOpen={isOpenModal} onClose={onCloseModal}>
       <ModalOverlay />
       <ModalContent>
         {modalTitle ? <ModalHeader>{modalTitle}</ModalHeader> : null}
