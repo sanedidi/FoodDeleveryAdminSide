@@ -87,7 +87,7 @@ export const OrdersAdd = () => {
                   <p className={s.orders__button}>
                     <span>{product.price}</span> сум
                   </p>
-                  <button onClick={() => handleProductChange(product.value, 1)}>
+                  <button>
                     Добавить
                   </button>
                 </Box>
