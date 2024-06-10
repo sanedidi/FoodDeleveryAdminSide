@@ -128,7 +128,6 @@ const Orders = () => {
       page: event.selected + 1,
       limit,
       search,
-      // status: selectedOrderType,
     });
   };
 

@@ -1,15 +1,15 @@
-import { Box, Skeleton, Stack } from "@chakra-ui/react";
 import {
   AiOutlineEllipsis,
   CategoryFilterIcon,
   CustomModal,
   Link,
   MenuComp,
-  toast,
+  useState,
+  useEffect,
+  axios,
+  Box,
+  Skeleton, Stack
 } from "public/imports";
-import { useState, useEffect } from "react";
-import { useGetOrdersService } from "services/orders.service";
-import axios from "axios";
 import s from "./Orders.module.scss";
 import {
   CLickIcon,
@@ -23,7 +23,6 @@ import request from "services/httpRequest";
 export const useOrdersProps = () => {
   const [isOpenModal1, setIsOpenModal1] = useState(false); //modal
   const [isOpenModal2, setIsOpenModal2] = useState(false); //modal
-  const [isOpenModal3, setIsOpenModal3] = useState(false); //modal
   const [isOpenModal4, setIsOpenModal4] = useState(false); //modal
   const [products, setProducts] = useState([]); //get`
   const [totalPages, setTotalPages] = useState(10); //pagination
@@ -40,7 +39,6 @@ export const useOrdersProps = () => {
   const onCloseModal1 = () => setIsOpenModal1(false);
   const onOpenModal2 = () => setIsOpenModal2(true);
   const onCloseModal2 = () => setIsOpenModal2(false);
-  const onCloseModal3 = () => setIsOpenModal3(false);
   const onOpenModal4 = () => setIsOpenModal4(true);
   const onCloseModal4 = () => setIsOpenModal4(false);
 
@@ -77,17 +75,6 @@ export const useOrdersProps = () => {
     }
   };
 
-  const CANCEL_ORDER_URL =
-    "https://food-delivery-api-n6as.onrender.com/v1/order_status";
-
-  const cancelOrder = async (orderId) => {
-    try {
-      await axios.patch(`${CANCEL_ORDER_URL}/${orderId}/cancel`);
-      getOrders(currentPage, pageSize, searchQuery);
-    } catch (error) {
-      console.error("Error canceling order:", error);
-    }
-  };
 
   useEffect(() => {
     getOrders(currentPage, pageSize);
@@ -98,6 +85,7 @@ export const useOrdersProps = () => {
     } else {
     }
   };
+  
 
   const columns = [
     {
@@ -325,36 +313,21 @@ export const useOrdersProps = () => {
       totalPages: totalPages,
     },
     columns,
-
-    getOrders,
-    skeleton,
-    searchQuery,
-    currentPage,
-    pageSize,
-    setPageSize,
-    setCurrentPage,
     activeTab,
     setActiveTab,
-    totalOrders,
-    onCloseModal1,
-    onOpenModal1,
     onCloseModal2,
-    isOpenModal2,
     isOpenModal1,
-    isOpenModal3,
-    onCloseModal3,
-    cancelOrder,
+    getOrders,
+    onCloseModal1,
     cancelOrderId,
+    closeOrderId,
     selectedOrderType,
     setSelectedOrderType,
     onOpenModal4,
-    onCloseModal4,
-    isOpenModal4,
-    setIsOpenModal4,
-    closeOrderId,
-    setCloseOrderId,
-    orderStatus,
     setOrderStatus,
+    isOpenModal2,
+    isOpenModal4,
+    onCloseModal4,
   };
 };
 
