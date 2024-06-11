@@ -12,7 +12,7 @@ import {
   toast,
 } from "public/imports";
 import { CloseIcon } from "@chakra-ui/icons";
-import { Calendar } from "primereact/calendar";
+
 import { CLickIcon, PaymeIcon } from "components/SvgComponents/SvgComponents";
 import free from "assets/img/free.png";
 import useOrdersHallProps from "./useOrdersHallProps";

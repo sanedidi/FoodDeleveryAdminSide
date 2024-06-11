@@ -128,11 +128,6 @@ const useOrdersAddProps = () => {
       return;
     }
 
-    // if (!orderDetails.order_type) {
-    //   toast.error("Пожалуйста, выберите тип заказа.");
-    //   return;
-    // }
-
     if (!orderDetails.customer_name) {
       toast.error("Пожалуйста, введите имя клиента.");
       return;
@@ -177,7 +172,7 @@ const useOrdersAddProps = () => {
       );
       toast.success("Заказ успешно создан!");
       setTimeout(() => {
-        // navigate("/admin/orders");
+        navigate("/admin/orders");
       }, 1000);
     } catch (error) {
       toast.error("Ошибка при создании заказа", error);

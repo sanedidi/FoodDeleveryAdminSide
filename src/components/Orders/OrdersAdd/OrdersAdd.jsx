@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import s from "./OrdersAdd.module.scss";
 import {
   Box,
@@ -10,15 +9,12 @@ import {
   Select,
   Textarea,
   Toaster,
-  toast,
 } from "public/imports";
 import { CloseIcon } from "@chakra-ui/icons";
-import { Calendar } from "primereact/calendar";
+import DatePicker from "react-multi-date-picker";
+import useOrdersAddProps from "./useOrdersAddProps";
 import { CLickIcon, PaymeIcon } from "components/SvgComponents/SvgComponents";
 import free from "assets/img/free.png";
-import useOrdersAddProps from "./useOrdersAddProps";
-import DatePicker from "react-multi-date-picker";
-
 export const OrdersAdd = () => {
   const {
     branchOptions,
@@ -50,6 +46,10 @@ export const OrdersAdd = () => {
           orderDetails.products.find((product) => product.id === id).quantity
       );
     }
+  };
+
+  const handleDateChange = (date) => {
+    handleInputChange("delivery_time", date);
   };
 
   return (
@@ -142,23 +142,13 @@ export const OrdersAdd = () => {
                   />
                 </Box>
                 <Box className={s.orders__item}>
-                  <DatePicker
+                  <input 
+                  className={s.orders__time}
                     value={orderDetails.delivery_time}
                     onChange={(e) =>
-                      handleInputChange("delivery_time", e.value)
+                      handleInputChange("delivery_time", e.target.value)
                     }
-                    placeholder="Выберите дату"
-                  />
-                  <Calendar
-                    value={orderDetails.delivery_time}
-                    onChange={(e) =>
-                      handleInputChange("delivery_time", e.value)
-                    }
-                    className={s.orders__calendar}
-                    dateFormat="dd.mm.yy"
-                    showIcon
-                    showTime
-                    placeholder="Выберите дату"
+                    type="datetime-local"
                   />
                 </Box>
               </Box>
