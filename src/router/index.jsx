@@ -59,6 +59,7 @@ const OrdersAdd = lazy(() => import("components/Orders/OrdersAdd/OrdersAdd"));
 const OrdersHall = lazy(() =>
   import("components/Orders/OrdersHall/OrdersHall")
 );
+const Dashboard = lazy(()=> import ("components/Dashboard/Dashboard"))
 export const Router = observer(() => {
   const isAuth = authStore.isAuth;
   const role = JSON.parse(localStorage.getItem("auth"));
@@ -107,6 +108,7 @@ export const Router = observer(() => {
         <Route path="/admin/orders/info/:id/" element={<OrdersInfo />} />
         <Route path="/admin/orders/add" element={<OrdersAdd />} />
         <Route path="/admin/orders/AddHall" element={<OrdersHall />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
       </Route>
       <Route path="*" element={<Navigate to="/admin/orders/" />} />
       <Route path="/admin/orders" element={<Navigate to="/admin/orders/" />} />

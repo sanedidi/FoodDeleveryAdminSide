@@ -19,7 +19,7 @@ const useSideBarProps = () => {
   }, [location]);
 
   const getColorForPath = (path) => {
-    return currentPath.startsWith(path) ? "#fff" : "#6E8BB7";
+    return currentPath.startsWith(path) ? "#fff" : "#6e8bb7";
   };
 
   const logout = () => {
@@ -28,6 +28,17 @@ const useSideBarProps = () => {
   };
 
   const sideBarLinks = [
+    {
+      id: 1,
+      icon: (
+        <DateIcon
+          width={26}
+          height={26}
+          color={getColorForPath("/admin/dashboard")}
+        />
+      ),
+      path: "/admin/dashboard",
+    },
     {
       id: 2,
       icon: (
@@ -40,7 +51,7 @@ const useSideBarProps = () => {
       path: "/admin/orders",
     },
     {
-      id: 6,
+      id: 3,
       icon: (
         <RestaurantIcon
           width={26}
@@ -50,17 +61,7 @@ const useSideBarProps = () => {
       ),
       path: "/admin/categories",
     },
-    // {
-    //   id: 7,
-    //   icon: (
-    //     <DateIcon
-    //       width={26}
-    //       height={26}
-    //       color={getColorForPath("/admin/calendar")}
-    //     />
-    //   ),
-    //   path: "/admin/calendar",
-    // },
+  
   ];
 
   const settings = [
