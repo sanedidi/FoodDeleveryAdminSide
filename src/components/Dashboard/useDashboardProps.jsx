@@ -11,7 +11,7 @@ const useDashboardProps = () => {
 
   const getStats = async (
     page = 1,
-    limit = null, 
+    limit, 
     search = "",
     from_date = "",
     to_date = ""
@@ -22,7 +22,7 @@ const useDashboardProps = () => {
       const response = await request.get("/dashboard", {
         params: {
           page,
-          limit,
+          limit : 100,
           search,
           from_date,
           to_date,

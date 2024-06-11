@@ -21,7 +21,7 @@ const Dashboard = () => {
   const [orderValues, setOrderValues] = useState([]);
   const [orderNumbers, setOrderNumbers] = useState([]);
   const [xLabels, setXLabels] = useState([]);
-  const [period, setPeriod] = useState("12m"); // Default period: 12 months
+  const [period, setPeriod] = useState("12m"); 
 
   const { getStats, orders, isLoading, error, filterOrdersByMonth, filterOrdersByPeriod, filterOrdersByValue } = useDashboardProps();
 
