@@ -35,6 +35,7 @@ export const useOrdersProps = () => {
   const [closeOrderId, setCloseOrderId] = useState(null); //update status
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedOrderType, setSelectedOrderType] = useState(""); // order_type
+  const [count, setCount] = useState("")
   const [orderStatus, setOrderStatus] = useState("");
   const onOpenModal1 = () => setIsOpenModal1(true);
   const onCloseModal1 = () => setIsOpenModal1(false);
@@ -66,8 +67,11 @@ export const useOrdersProps = () => {
         },
       });
       const fetchedProducts = response.data?.Data?.orders;
+      
+      
       if (fetchedProducts === null) {
       }
+      setCount(response.data.Data.count)
       setProducts(fetchedProducts);
       setTotalPages(Math.ceil(response.data?.Data?.count / limit));
     } catch (error) {
@@ -81,11 +85,6 @@ export const useOrdersProps = () => {
     getOrders(currentPage, pageSize);
   }, [currentPage, pageSize]); //????????????
 
-  const totalOrders = () => {
-    if (products.length === 0) {
-    } else {
-    }
-  };
   
 
   const columns = [
@@ -329,6 +328,8 @@ export const useOrdersProps = () => {
     isOpenModal2,
     isOpenModal4,
     onCloseModal4,
+    count,
+    orderStatus
   };
 };
 

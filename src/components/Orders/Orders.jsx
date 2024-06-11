@@ -48,6 +48,8 @@ export const Orders = () => {
     isOpenModal2,
     isOpenModal4,
     onCloseModal4,
+    count,
+    orderStatus
   } = useOrdersProps();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -217,7 +219,7 @@ export const Orders = () => {
               tabLabels: [
                 <Box className={s.orders__title}>
                   <h2>Все заказы</h2>
-                  <p>    </p>
+                  <p> {count} </p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2
@@ -226,7 +228,7 @@ export const Orders = () => {
                   >
                     Самовывоз
                   </h2>
-                  <p>    </p>
+                  <p></p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2
@@ -235,7 +237,7 @@ export const Orders = () => {
                   >
                     В зал
                   </h2>
-                  <p>    </p>
+                  <p></p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2 onClick={() => setOrderStatus("новый")}>Новые</h2>
@@ -243,11 +245,11 @@ export const Orders = () => {
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Завершен</h2>
-                  <p>    </p>
+                  <p></p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2 onClick={() => setOrderStatus("отменен")}>Отмененные</h2>
-                  <p>    </p>
+                  <p></p>
                 </Box>,
               ],
               tabContents: [
