@@ -17,6 +17,7 @@ import { Calendar } from "primereact/calendar";
 import { CLickIcon, PaymeIcon } from "components/SvgComponents/SvgComponents";
 import free from "assets/img/free.png";
 import useOrdersAddProps from "./useOrdersAddProps";
+import DatePicker from "react-multi-date-picker";
 
 export const OrdersAdd = () => {
   const {
@@ -43,7 +44,11 @@ export const OrdersAdd = () => {
   const handleQuantityChange = (id, value) => {
     const quantity = parseInt(value, 10);
     if (!isNaN(quantity) && quantity >= 0) {
-      handleProductChange(id, quantity - orderDetails.products.find((product) => product.id === id).quantity);
+      handleProductChange(
+        id,
+        quantity -
+          orderDetails.products.find((product) => product.id === id).quantity
+      );
     }
   };
 
@@ -60,7 +65,7 @@ export const OrdersAdd = () => {
         headerBtn1={
           <Select
             options={branchOptions}
-            placeholder="Выберите филиал"
+            placeholder="Tomchi Somsa"
             onChange={(option) => handleInputChange("branch_id", option.value)}
           />
         }
@@ -137,6 +142,13 @@ export const OrdersAdd = () => {
                   />
                 </Box>
                 <Box className={s.orders__item}>
+                  <DatePicker
+                    value={orderDetails.delivery_time}
+                    onChange={(e) =>
+                      handleInputChange("delivery_time", e.value)
+                    }
+                    placeholder="Выберите дату"
+                  />
                   <Calendar
                     value={orderDetails.delivery_time}
                     onChange={(e) =>
@@ -145,6 +157,7 @@ export const OrdersAdd = () => {
                     className={s.orders__calendar}
                     dateFormat="dd.mm.yy"
                     showIcon
+                    showTime
                     placeholder="Выберите дату"
                   />
                 </Box>
@@ -181,7 +194,8 @@ export const OrdersAdd = () => {
                       </p>
                     </Box>
                     <div className={s.quantityControl}>
-                      <button className={s.orders__add_btn}
+                      <button
+                        className={s.orders__add_btn}
                         onClick={() => handleProductChange(product.id, -1)}
                       >
                         -
@@ -193,7 +207,8 @@ export const OrdersAdd = () => {
                           handleQuantityChange(product.id, e.target.value)
                         }
                       />
-                      <button className={s.orders__add_btn}
+                      <button
+                        className={s.orders__add_btn}
                         onClick={() => handleProductChange(product.id, 1)}
                       >
                         +

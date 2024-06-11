@@ -10,7 +10,7 @@ const useOrdersAddProps = () => {
   const [selectedFromDate, setSelectedFromDate] = useState(null);
   const [selectedToDate, setSelectedToDate] = useState(null);
   const [orderDetails, setOrderDetails] = useState({
-    branch_id: "",
+    branch_id: "08410b3c-a6f9-40bb-a777-486a86289ee0",
     comment: "",
     customer_name: "",
     customer_phone: "",

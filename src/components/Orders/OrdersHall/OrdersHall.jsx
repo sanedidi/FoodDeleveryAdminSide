@@ -63,7 +63,7 @@ export const OrdersHall = () => {
           <>
             <Select
               options={branchOptions}
-              placeholder="Выберите филиал"
+              placeholder="Tomchi Somsa"
               onChange={(option) =>
                 handleInputChange("branch_id", option.value)
               }
