@@ -7,16 +7,13 @@ import {
 } from "@chakra-ui/icons";
 import {
   Box,
-  CustomBtn,
   CustomInput,
   CustomModal,
   CustomTable,
-  FilterIcon,
   Header,
   Link,
   PlusIcon,
   Toaster,
-  TrashIcon,
   UnderHeader,
   toast,
   useSearchParams,
@@ -30,7 +27,6 @@ import { PreOrderIcon, ZalIcon } from "components/SvgComponents/SvgComponents";
 import request from "services/httpRequest";
 
 export const Orders = () => {
-  const [showCalendars, setShowCalendars] = useState(false);
   const [selectedFromDate, setSelectedFromDate] = useState(null);
   const [selectedToDate, setSelectedToDate] = useState(null);
   const {
@@ -92,19 +88,19 @@ export const Orders = () => {
         status = "";
         break;
       case 1:
-        status = "новый";
-        break;
-      case 2:
-        status = "завершен";
-        break;
-      case 3:
-        status = "отменен";
-        break;
-      case 4:
         orderType = "Самовывоз";
         break;
-      case 5:
+      case 2:
         orderType = "зал";
+        break;
+      case 3:
+        status = "новый";
+        break;
+      case 4:
+        status = "завершен";
+        break;
+      case 5:
+        status = "отменен";
         break;
       default:
         break;
@@ -221,22 +217,37 @@ export const Orders = () => {
               tabLabels: [
                 <Box className={s.orders__title}>
                   <h2>Все заказы</h2>
-                  <p></p>
+                  <p>    </p>
+                </Box>,
+                <Box className={s.orders__title}>
+                  <h2
+                    style={{ fontWeight: "500" }}
+                    onClick={() => handleTabChange(4)}
+                  >
+                    Самовывоз
+                  </h2>
+                  <p>    </p>
+                </Box>,
+                <Box className={s.orders__title}>
+                  <h2
+                    style={{ fontWeight: "500" }}
+                    onClick={() => handleTabChange(5)}
+                  >
+                    В зал
+                  </h2>
+                  <p>    </p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2 onClick={() => setOrderStatus("новый")}>Новые</h2>
+                  <p></p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Завершен</h2>
+                  <p>    </p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2 onClick={() => setOrderStatus("отменен")}>Отмененные</h2>
-                </Box>,
-                <Box className={s.orders__title}>
-                  <h2 onClick={() => handleTabChange(4)}>Самовывоз</h2>
-                </Box>,
-                <Box className={s.orders__title}>
-                  <h2 onClick={() => handleTabChange(5)}>В зал</h2>
+                  <p>    </p>
                 </Box>,
               ],
               tabContents: [

@@ -17,6 +17,7 @@ import {
   CashIcon,
   PaymeIcon,
 } from "components/SvgComponents/SvgComponents";
+import cash from 'assets/img/cash.png'
 import { CheckIcon, InfoIcon } from "@chakra-ui/icons";
 import request from "services/httpRequest";
 
@@ -165,13 +166,13 @@ export const useOrdersProps = () => {
       render: (paymentType) => {
         let paymentLabel;
         switch (paymentType) {
-          case "payme":
-            paymentLabel = <PaymeIcon />;
+          case "наличные":
+            paymentLabel = <img src={cash} alt="" />;
             break;
           case "click":
             paymentLabel = <CLickIcon />;
             break;
-          case "cash":
+          case "free":
             paymentLabel = <CashIcon />;
             break;
           default:
