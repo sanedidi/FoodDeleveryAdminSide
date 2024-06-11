@@ -15,6 +15,7 @@ import DatePicker from "react-multi-date-picker";
 import useOrdersAddProps from "./useOrdersAddProps";
 import { CLickIcon, PaymeIcon } from "components/SvgComponents/SvgComponents";
 import free from "assets/img/free.png";
+import cash from 'assets/img/cash.png'
 export const OrdersAdd = () => {
   const {
     branchOptions,
@@ -232,9 +233,10 @@ export const OrdersAdd = () => {
                 className={
                   orderDetails.payment_type === "payme" ? s.active : ""
                 }
-                onClick={() => handleInputChange("payment_type", "payme")}
+                onClick={() => handleInputChange("payment_type", "наличные")}
               >
-                <PaymeIcon />
+                {/* <PaymeIcon /> */}
+                <img src={cash} alt="" />
               </button>
 
               <button

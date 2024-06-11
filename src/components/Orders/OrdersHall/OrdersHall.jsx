@@ -16,7 +16,7 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { CLickIcon, PaymeIcon } from "components/SvgComponents/SvgComponents";
 import free from "assets/img/free.png";
 import useOrdersHallProps from "./useOrdersHallProps";
-
+import cash from "assets/img/cash.png";
 export const OrdersHall = () => {
   const {
     branchOptions,
@@ -144,7 +144,8 @@ export const OrdersHall = () => {
                       </p>
                     </Box>
                     <div className={s.quantityControl}>
-                      <button className={s.orders__add_btn}
+                      <button
+                        className={s.orders__add_btn}
                         onClick={() => handleProductChange(product.id, -1)}
                       >
                         -
@@ -156,7 +157,8 @@ export const OrdersHall = () => {
                           handleQuantityChange(product.id, e.target.value)
                         }
                       />
-                      <button className={s.orders__add_btn}
+                      <button
+                        className={s.orders__add_btn}
                         onClick={() => handleProductChange(product.id, 1)}
                       >
                         +
@@ -192,7 +194,7 @@ export const OrdersHall = () => {
                 }
                 onClick={() => handleInputChange("payment_type", "payme")}
               >
-                <PaymeIcon />
+                <img src={cash} alt="" />
               </button>
 
               <button

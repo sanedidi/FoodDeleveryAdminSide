@@ -52,7 +52,7 @@ const SideBar = () => {
                       className={setIsClientsActive ? s.gg : s.ff}
                       variant="ghost"
                     >
-                      <FiChevronsRight />
+                      {/* <FiChevronsRight /> */}
                     </button>
                   )}
                 </Box>
