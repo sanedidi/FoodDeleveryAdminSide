@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from "react";
-import s from "./Dashboard.module.scss";
-import {
-  Box,
-  CustomBtn,
-  CustomInput,
-  FilterIcon,
-  Header,
-  UnderHeader,
-} from "public/imports";
+import { data } from "./data";
+import styles from "./Dashboard.module.scss";
+import { useState } from "react";
+import clsx from "clsx";
+import { Box, CustomBtn, CustomInput, FilterIcon, Header, UnderHeader } from "public/imports";
 import { SearchIcon } from "@chakra-ui/icons";
-import { Calendar } from "primereact/calendar";
 import useDashboardProps from "./useDashboardProps";
+import { Calendar } from "primereact/calendar";
 
-const Dashboard = () => {
+function calc(part, whole) {
+  if (whole === 0) {
+    return 0;
+  }
+  return (part / whole) * 100;
+}
+
+export default function Dashboard() {
+  const [key, setKey] = useState(Object.keys(data)?.[0]);
+  const array = Array.from({ length: data[key].limit }, (_, i) => i);
   const [selectedFromDate, setSelectedFromDate] = useState(null);
   const [selectedToDate, setSelectedToDate] = useState(null);
   const [searchParams, setSearchParams] = useState({ search: "" });
@@ -24,19 +28,15 @@ const Dashboard = () => {
     setSelectedToDate(null);
   };
 
-  // Filtering orders
-  const canceledOrders = stats.filter(order => order.status === "отменен");
-  const completedOrders = stats.filter(order => order.status === "завершен");
-  const allOrders = stats; // Assuming stats contains all orders
 
   return (
     <>
-      <Header
+    <Header
         title={"Дашборд"}
         headerBtn2={
           <CustomBtn
             BtnContent={
-              <p className={s.dash__btn}>
+              <p className={styles.dash__btn}>
                 {" "}
                 <FilterIcon /> Фильтр{" "}
               </p>
@@ -57,64 +57,78 @@ const Dashboard = () => {
           />
         }
         secondItem={
-          <Box className={s.orders__select}>
+          <Box className={styles.orders__select}>
             <Calendar
               value={selectedFromDate}
               onChange={(e) => setSelectedFromDate(e.value)}
               showIcon={true}
               dateFormat="dd.mm.yy"
               placeholder="Выберите дату"
-              className={s.dash__underHeader_input}
+              className={styles.dash__underHeader_input}
             />
           </Box>
         }
         thirdItem={
-          <Box className={s.dash__select}>
+          <Box className={styles.dash__select}>
             <Calendar
               value={selectedToDate}
               onChange={(e) => setSelectedToDate(e.value)}
               showIcon={true}
               dateFormat="dd.mm.yy"
               placeholder="Выберите дату"
-              className={s.dash__underHeader_input}
+              className={styles.dash__underHeader_input}
             />
-            <button onClick={handleInputClear} className={s.orders__btn}>
+            <button onClick={handleInputClear} className={styles.orders__btn}>
               Очистить
             </button>
           </Box>
         }
       />
 
-      <Box className={s.wrapper}>
-        <h2>Отмененные заказы:</h2>
-        {canceledOrders.map(order => (
-          <div key={order.id}>
-            <p>Order ID: {order.id}</p>
-            <p>Created At: {order.created_at}</p>
-            <p>Status: {order.status}</p>
-          </div>
-        ))}
+    <div style={{ display: "flex", padding:"10px" }}>
+      <div className={styles.patientStatistics}>
+        <div className={styles.header}>
+          <div className={styles.title}>sdc</div>
 
-        <h2>Завершенные заказы:</h2>
-        {completedOrders.map(order => (
-          <div key={order.id}>
-            <p>Order ID: {order.id}</p>
-            <p>Created At: {order.created_at}</p>
-            <p>Status: {order.status}</p>
+          <div className={styles.btns}>
+            {Object.keys(data).map((el) => (
+              <div
+                className={clsx(styles.btn, key == el && styles.activeKey)}
+                onClick={() => setKey(el)}
+                key={el}
+              >
+                sc
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
 
-        <h2>Все заказы:</h2>
-        {allOrders.map(order => (
-          <div key={order.id}>
-            <p>Order ID: {order.id}</p>
-            <p>Created At: {order.created_at}</p>
-            <p>Status: {order.status}</p>
+        <div className={styles.table}>
+          <div className={styles.fromToLimit}>
+            {array.map((el) => (
+              <span key={el}>{el + 1}</span>
+            ))}
           </div>
-        ))}
-      </Box>
+
+          <div className={styles.items} key={key}>
+            {data?.[key]?.data.map((el, i) => (
+              <div
+                className={styles.item}
+                style={{
+                  height: `${calc(el?.numberOfPatients, data[key].limit)}%`,
+                }}
+                key={el.label || i}
+              >
+                <div className={styles.line}>
+                  <div></div>
+                </div>
+                <span className={styles.subKey}>{el.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
     </>
   );
-};
-
-export default Dashboard;
+}
