@@ -10,52 +10,24 @@ import {
 } from "public/imports";
 import { SearchIcon } from "@chakra-ui/icons";
 import { Calendar } from "primereact/calendar";
-import { BarChart } from "@mui/x-charts/BarChart";
-import { subDays, subMonths, format } from "date-fns";
 import useDashboardProps from "./useDashboardProps";
 
 const Dashboard = () => {
   const [selectedFromDate, setSelectedFromDate] = useState(null);
   const [selectedToDate, setSelectedToDate] = useState(null);
   const [searchParams, setSearchParams] = useState({ search: "" });
-  const [orderValues, setOrderValues] = useState([]);
   const [orderNumbers, setOrderNumbers] = useState([]);
-  const [xLabels, setXLabels] = useState([]);
-  const [period, setPeriod] = useState("12m"); 
 
-  const { getStats, orders, isLoading, error, filterOrdersByMonth, filterOrdersByPeriod, filterOrdersByValue } = useDashboardProps();
-
+  const { stats } = useDashboardProps();
   const handleInputClear = () => {
     setSelectedFromDate(null);
     setSelectedToDate(null);
   };
 
-  const handleMonthFilter = (month) => {
-    filterOrdersByMonth(month);
-  };
-
-  const handlePeriodChange = (period) => {
-    filterOrdersByPeriod(period);
-  };
-
-  const handleValueFilter = (value) => {
-    filterOrdersByValue(value);
-  };
-
-  useEffect(() => {
-    if (orders.length > 0) {
-      const orderValues = orders.map((order) => order.total_price || 0);
-      const orderNumbers = orders.map((order) => order.order_number || 0);
-      const xLabels = orders.map((order, index) => `Месяц ${index + 1}`);
-
-      setOrderValues(orderValues);
-      setOrderNumbers(orderNumbers);
-      setXLabels(xLabels);
-    }
-  }, [orders]);
-
-  const totalOrders = orderNumbers.length;
-  const totalRevenue = orderValues.reduce((acc, curr) => acc + curr, 0);
+  // Filtering orders
+  const canceledOrders = stats.filter(order => order.status === "отменен");
+  const completedOrders = stats.filter(order => order.status === "завершен");
+  const allOrders = stats; // Assuming stats contains all orders
 
   return (
     <>
@@ -112,57 +84,34 @@ const Dashboard = () => {
           </Box>
         }
       />
-      <Box className={s.month__selector}>
-        {Array.from({ length: 12 }, (_, index) => (
-          <button key={index} onClick={() => handleMonthFilter(index + 1)}>
-            Месяц {index + 1}
-          </button>
+
+      <Box className={s.wrapper}>
+        <h2>Отмененные заказы:</h2>
+        {canceledOrders.map(order => (
+          <div key={order.id}>
+            <p>Order ID: {order.id}</p>
+            <p>Created At: {order.created_at}</p>
+            <p>Status: {order.status}</p>
+          </div>
         ))}
-      </Box>
-      <Box className={s.period__selector}>
-        <button onClick={() => handlePeriodChange("12m")}>12 Месяцев</button>
-        <button onClick={() => handlePeriodChange("6m")}>6 Месяцев</button>
-        <button onClick={() => handlePeriodChange("30d")}>30 Дней</button>
-      </Box>
-      <Box className={s.value__selector}>
-        {Array.from({ length: 5 }, (_, index) => (
-          <button key={index} onClick={() => handleValueFilter((index + 1) * 50000)}>
-            {(index + 1) * 50000}
-          </button>
+
+        <h2>Завершенные заказы:</h2>
+        {completedOrders.map(order => (
+          <div key={order.id}>
+            <p>Order ID: {order.id}</p>
+            <p>Created At: {order.created_at}</p>
+            <p>Status: {order.status}</p>
+          </div>
         ))}
-      </Box>
-      <Box className={s.dash__wrapper}>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>Error: {error.message}</p>
-        ) : (
-          <BarChart
-            width={500}
-            height={300}
-            series={[
-              {
-                data: orderValues,
-                label: "Значения заказов",
-                id: "orderValuesId",
-                yAxisKey: "leftAxisId",
-              },
-              {
-                data: orderNumbers,
-                label: "Номера заказов",
-                id: "orderNumbersId",
-                yAxisKey: "rightAxisId",
-              },
-            ]}
-            xAxis={[{ data: xLabels, scaleType: "band" }]}
-            yAxis={[{ id: "leftAxisId" }, { id: "rightAxisId" }]}
-            rightAxis="rightAxisId"
-          />
-        )}
-      </Box>
-      <Box className={s.summary}>
-        <p>Общее количество заказов: {totalOrders}</p>
-        <p>Общая прибыль: {totalRevenue}</p>
+
+        <h2>Все заказы:</h2>
+        {allOrders.map(order => (
+          <div key={order.id}>
+            <p>Order ID: {order.id}</p>
+            <p>Created At: {order.created_at}</p>
+            <p>Status: {order.status}</p>
+          </div>
+        ))}
       </Box>
     </>
   );
