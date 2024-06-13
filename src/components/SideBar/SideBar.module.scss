@@ -3,6 +3,7 @@
   transition: all 1s;
   @media (max-width: 700px) {
     display: block;
+    border-top: 1px solid #e7e7e7;
   }
   &__main_wrapper {
     display: flex;
@@ -119,7 +120,7 @@
   &__pp {
     position: absolute;
     top: 22px;
-    left: 53px;
+    left: clamp(-5rem, -7.679rem + 13.39vw, 4.375rem);
     z-index: 999;
     @media (max-width: 700px) {
       display: none;

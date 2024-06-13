@@ -61,29 +61,7 @@ const useSideBarProps = () => {
       ),
       path: "/admin/categories",
     },
-    {
-      id: 2,
-      icon: (
-        <ShopIcon
-          width={26}
-          height={26}
-          color={getColorForPath("/admin/orders")}
-        />
-      ),
-      path: "/admin/orders",
-    },
-    {
-      id: 3,
-      icon: (
-        <RestaurantIcon
-          width={26}
-          height={26}
-          color={getColorForPath("/admin/categories")}
-        />
-      ),
-      path: "/admin/categories",
-    },
-  
+   
   ];
 
   const settings = [

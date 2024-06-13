@@ -36,6 +36,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 85vh;
+    overflow: scroll;
   }
   &__tabs_table{
     padding: 16px;

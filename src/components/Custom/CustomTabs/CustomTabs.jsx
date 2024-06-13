@@ -9,7 +9,7 @@ const CustomTabs = ({ tabs, activeTab, onTabChange, ExtraItem }) => {
   };
 
   return (
-    <Tabs index={activeTab} onChange={handleTabClick}>
+    <Tabs className="tabs" index={activeTab} onChange={handleTabClick}>
       <TabList display={"flex"} alignItems={"center"}>
         {tabLabels.map((label, index) => (
           <Tab key={index} onClick={() => handleTabClick(index)}>

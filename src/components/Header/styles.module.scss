@@ -2,6 +2,9 @@
   padding: 13px 16px;
   border-bottom: 1px solid #e7e7e7;
   background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 99;
   &__wrapper{
     display: flex;
     align-items: center;

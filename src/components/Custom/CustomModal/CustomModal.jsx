@@ -23,29 +23,30 @@ export const CustomModal = ({
     <Modal size={"md"} isOpen={isOpenModal} onClose={onCloseModal}>
       <ModalOverlay />
       <ModalContent>
-        {modalTitle ? <ModalHeader>{modalTitle}</ModalHeader> : null}
-
+        {modalTitle && <ModalHeader>{modalTitle}</ModalHeader>}
         <ModalBody>{modalContent}</ModalBody>
-        <ModalFooter
-          width={"100%"}
-          justifyContent={"space-between"}
-          display={"flex"}
-          gap={"10px"}
-        >
-          {secondaryBtnText ? (
-            <CustomBtn
-              BgColor={ModalBtnBgColor}
-              Onclick={onCloseModal}
-              BtnContent={secondaryBtnText}
-            />
-          ) : null}
-          {primaryBtnText ? (
-            <CustomBtn
-              Onclick={onPrimaryBtnClick}
-              BtnContent={primaryBtnText}
-            />
-          ) : null}
-        </ModalFooter>
+        {(primaryBtnText || secondaryBtnText) && (
+          <ModalFooter
+            width={"100%"}
+            justifyContent={"space-between"}
+            display={"flex"}
+            gap={"10px"}
+          >
+            {secondaryBtnText && (
+              <CustomBtn
+                BgColor={ModalBtnBgColor}
+                Onclick={onCloseModal}
+                BtnContent={secondaryBtnText}
+              />
+            )}
+            {primaryBtnText && (
+              <CustomBtn
+                Onclick={onPrimaryBtnClick}
+                BtnContent={primaryBtnText}
+              />
+            )}
+          </ModalFooter>
+        )}
       </ModalContent>
     </Modal>
   );
