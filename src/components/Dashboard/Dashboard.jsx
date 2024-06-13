@@ -25,7 +25,7 @@ export default function Dashboard() {
   const array = Array.from({ length: data[key].limit }, (_, i) => i);
   const [selectedFromDate, setSelectedFromDate] = useState(null);
   const [selectedToDate, setSelectedToDate] = useState(null);
-  const [searchParams, setSearchParams] = useState({ search: "" });
+  // const [searchParams, setSearchParams] = useState({ search: "" });
 
   const { stats, stat } = useDashboardProps();
   const handleInputClear = () => {
