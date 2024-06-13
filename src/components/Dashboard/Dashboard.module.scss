@@ -6,7 +6,6 @@
     display: flex;
     flex-direction: column;
     gap: clamp(2.5rem, 2.045rem + 2.27vw, 3.75rem);
-
     .header {
         display: flex;
         justify-content: space-between;
@@ -37,6 +36,7 @@
                 font-weight: 600;
                 font-size: 12px;
                 line-height: 14.4px;
+
                 &:hover {
                     background: var(--primary-hover);
                     color: #fff;
@@ -50,7 +50,6 @@
         flex: 1;
         display: grid;
         grid-template-columns: 1fr 21fr;
-
 
         .fromToLimit {
             display: flex;
@@ -146,9 +145,11 @@
         justify-content: space-between;
         align-items: center;
         gap: 20px;
+
         @media (max-width:970px) {
             grid-template-columns: repeat(2, 1fr);
         }
+
         @media (max-width:530px) {
             grid-template-columns: 1fr;
         }
@@ -203,4 +204,18 @@
         background-color: #fff1d5;
         border-radius: 8px;
     }
+    &__select{
+        display: flex;
+        gap: 10px;
+    }
+
+    &__underHeader_input {
+        border: 1px solid #e7e7e7;
+        padding: 8px;
+        border-radius: 8px;
+        color-scheme: red !important;
+        cursor: pointer;
+    }
+
+
 }

@@ -39,11 +39,10 @@ export default function Dashboard() {
         title={"Дашборд"}
         headerBtn1={
           <Box className={s.dash__select}>
-            <Calendar
-              value={selectedFromDate}
+            <input
+              type="datetime-local"
               onChange={(e) => setSelectedFromDate(e.value)}
-              showIcon={true}
-              dateFormat="dd.mm.yy"
+              value={selectedFromDate}
               placeholder="Выберите дату"
               className={s.dash__underHeader_input}
             />
@@ -51,11 +50,10 @@ export default function Dashboard() {
         }
         headerBtn2={
           <Box className={s.dash__select}>
-            <Calendar
-              value={selectedToDate}
+            <input
+              type="datetime-local"
               onChange={(e) => setSelectedToDate(e.value)}
-              showIcon={true}
-              dateFormat="dd.mm.yy"
+              value={selectedToDate}
               placeholder="Выберите дату"
               className={s.dash__underHeader_input}
             />

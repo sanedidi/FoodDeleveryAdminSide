@@ -32,8 +32,11 @@
     padding: 10px;
     height: 87vh; 
     @media (max-width: 1550px) {
-      max-height: clamp(12.5rem, 6.818rem + 28.41vw, 28.125rem);
+      // max-height: clamp(12.5rem, 6.818rem + 28.41vw, 28.125rem);
       overflow-y: scroll;
+    }
+    @media (max-width:700px) {
+      height: 64vh;
     }
   }
   &__menu {

@@ -1,12 +1,12 @@
 .mainLayOut {
   display: flex;
   height: 100vh;
-  @media (max-height: 500px) {
+  @media (max-height: 700px) {
     justify-content: space-between;
     height: 100dvh;
     overflow-y: scroll;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 700px) {
     flex-direction: column-reverse;
     justify-content: space-between;
     height: 100dvh;

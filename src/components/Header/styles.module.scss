@@ -15,13 +15,13 @@
     padding-right: 20px;
   }
   &__wrapperLeft{
-    @media (max-width:500px) {
+    @media (max-width:700px) {
       display: none !important;
     }
   }
   &__bur{
     display: none;
-    @media (max-width:500px) {
+    @media (max-width:700px) {
       display: block;
     }
   }
