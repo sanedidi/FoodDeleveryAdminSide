@@ -1,18 +1,24 @@
 export const data = {
-    week: {
-        limit: "5",
+    "12 Месяцев": {
+        limit: "11",
         data: [
-            { label: "Пн", numberOfPatients: "4", },
-            { label: "Вт", numberOfPatients: "4", },
-            { label: "Ср", numberOfPatients: "4", },
-            { label: "Чт", numberOfPatients: "4", },
-            { label: "Пт", numberOfPatients: "4", },
-            { label: "Сб", numberOfPatients: "4", },
-            { label: "Вс", numberOfPatients: "4", },
+            { label: "Январь", numberOfPatients: "1", },
+            { label: "Февраль", numberOfPatients: "3", },
+            { label: "Март", numberOfPatients: "6", },
+            { label: "Апрель", numberOfPatients: "1", },
+            { label: "Май", numberOfPatients: "10", },
+            { label: "Июнь", numberOfPatients: "3", },
+            { label: "Июль", numberOfPatients: "11", },
+            { label: "Август", numberOfPatients: "4", },
+            { label: "Сентябрь", numberOfPatients: "4", },
+            { label: "Октябрь", numberOfPatients: "2", },
+            { label: "Ноябрь", numberOfPatients: "5", },
+            { label: "Декабрь", numberOfPatients: "9", },
         ],
     },
-    month: {
-        limit: "6",
+
+    "1 Месяц": {
+        limit: "11",
         data: [
             { label: "1", numberOfPatients: "3", },
             { label: "2", numberOfPatients: "2", },
@@ -47,21 +53,17 @@ export const data = {
             { label: "31", numberOfPatients: "5", },
         ],
     },
-    year: {
+
+    "7 дней": {
         limit: "11",
         data: [
-            { label: "Январь", numberOfPatients: "1", },
-            { label: "Февраль", numberOfPatients: "3", },
-            { label: "Март", numberOfPatients: "6", },
-            { label: "Апрель", numberOfPatients: "1", },
-            { label: "Май", numberOfPatients: "10", },
-            { label: "Июнь", numberOfPatients: "3", },
-            { label: "Июль", numberOfPatients: "11", },
-            { label: "Август", numberOfPatients: "4", },
-            { label: "Сентябрь", numberOfPatients: "4", },
-            { label: "Октябрь", numberOfPatients: "2", },
-            { label: "Ноябрь", numberOfPatients: "5", },
-            { label: "Декабрь", numberOfPatients: "0", },
+            { label: "Пн", numberOfPatients: "4", },
+            { label: "Вт", numberOfPatients: "4", },
+            { label: "Ср", numberOfPatients: "4", },
+            { label: "Чт", numberOfPatients: "4", },
+            { label: "Пт", numberOfPatients: "4", },
+            { label: "Сб", numberOfPatients: "4", },
+            { label: "Вс", numberOfPatients: "4", },
         ],
     },
 }

@@ -1,3 +1,9 @@
+import {
+  DashIcon1,
+  DashIcon2,
+  DashIcon3,
+  DashIcon4,
+} from "components/SvgComponents/SvgComponents";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import request from "services/httpRequest";
@@ -42,11 +48,15 @@ const useDashboardProps = () => {
     }
   };
 
-
   useEffect(() => {
     getStats(currentPage, pageSize);
   }, [currentPage, pageSize]);
-
+  const stat = [
+    { id: 1, status: "Завершенные", quant: "123,000", icon: <DashIcon1 /> },
+    { id: 2, status: "Общяя сумма", quant: "60,458,000", icon: <DashIcon2 /> },
+    { id: 3, status: "Отмененные", quant: "23,000", icon: <DashIcon3 /> },
+    { id: 4, status: "Все заказы", quant: "2,000,000", icon: <DashIcon4 /> },
+  ];
   return {
     getStats,
     orders,
@@ -57,6 +67,7 @@ const useDashboardProps = () => {
     setPageSize,
     totalPages,
     stats,
+    stat,
   };
 };
 
