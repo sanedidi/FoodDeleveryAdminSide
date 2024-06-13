@@ -120,7 +120,7 @@
   &__pp {
     position: absolute;
     top: 22px;
-    left: clamp(-5rem, -7.679rem + 13.39vw, 4.375rem);
+    left: clamp(-5.625rem, -8.125rem + 12.5vw, 3.125rem);
     z-index: 999;
     @media (max-width: 700px) {
       display: none;
