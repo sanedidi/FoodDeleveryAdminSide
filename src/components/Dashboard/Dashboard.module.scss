@@ -1,12 +1,9 @@
 .patientStatistics {
-    max-width: 772px;
     width: 100%;
     padding: 16px;
     background: #F7F7F7;
     border-radius: 14px;
-    display: flex;
     flex-direction: column;
-    max-height: 351px;
 
     .header {
         display: flex;
@@ -46,8 +43,8 @@
     .table {
         width: 100%;
         flex: 1;
-        display: flex;
-        gap: 10px;
+        display: grid;
+        grid-template-columns: 1fr 21fr;
 
 
         .fromToLimit {
@@ -64,34 +61,32 @@
         }
 
         .items {
-            width: 100%;
             display: flex;
+            justify-content: space-between;
+            gap: 40px;
             align-items: flex-end;
-            justify-content: space-around;
-            gap: 10px;
-            height: 100%;
-
             overflow: scroll;
             scrollbar-width: none;
-
+            
             .item {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 flex: 0 1;
-
+                width: 100%;
                 .line {
-                    width: 19px;
+                    width: 100%;
                     flex-grow: 1;
                     display: flex;
                     align-items: end;
                     &>div {
                 
                         width: 100%;
+                        min-width: 40px;
                         height: 100%;
                         background: linear-gradient(0deg, #FFFFFF 0%, #17B26A 71.5%);
-                        border-top-left-radius: 40px;
-                        border-top-right-radius: 40px;
+                        border-top-left-radius: 6px;
+                        border-top-right-radius: 6px;
                         animation: growHeight 1s forwards;
                     }
                 }
@@ -103,6 +98,13 @@
                 }
             }
         }
+    }
+    .fromToLimit{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
     }
 }
 

@@ -2,7 +2,14 @@ import { data } from "./data";
 import styles from "./Dashboard.module.scss";
 import { useState } from "react";
 import clsx from "clsx";
-import { Box, CustomBtn, CustomInput, FilterIcon, Header, UnderHeader } from "public/imports";
+import {
+  Box,
+  CustomBtn,
+  CustomInput,
+  FilterIcon,
+  Header,
+  UnderHeader,
+} from "public/imports";
 import { SearchIcon } from "@chakra-ui/icons";
 import useDashboardProps from "./useDashboardProps";
 import { Calendar } from "primereact/calendar";
@@ -14,13 +21,14 @@ function calc(part, whole) {
   return (part / whole) * 100;
 }
 
+
 export default function Dashboard() {
   const [key, setKey] = useState(Object.keys(data)?.[0]);
   const array = Array.from({ length: data[key].limit }, (_, i) => i);
   const [selectedFromDate, setSelectedFromDate] = useState(null);
   const [selectedToDate, setSelectedToDate] = useState(null);
   const [searchParams, setSearchParams] = useState({ search: "" });
-  const [orderNumbers, setOrderNumbers] = useState([]);
+  // const [orderNumbers, setOrderNumbers] = useState([]);
 
   const { stats } = useDashboardProps();
   const handleInputClear = () => {
@@ -28,17 +36,19 @@ export default function Dashboard() {
     setSelectedToDate(null);
   };
 
-
   return (
     <>
-    <Header
+      <Header
         title={"Дашборд"}
         headerBtn2={
           <CustomBtn
             BtnContent={
-              <p className={styles.dash__btn}>
+              <p
+                style={{ color: "black", display: "flex", gap: "10px" }}
+                className={styles.dash__btn}
+              >
                 {" "}
-                <FilterIcon /> Фильтр{" "}
+                <FilterIcon /> Фильтр
               </p>
             }
             BgColor={"white"}
@@ -85,50 +95,50 @@ export default function Dashboard() {
         }
       />
 
-    <div style={{ display: "flex", padding:"10px" }}>
-      <div className={styles.patientStatistics}>
-        <div className={styles.header}>
-          <div className={styles.title}>sdc</div>
+      <div style={{ display: "flex", padding: "10px" }}>
+        <div className={styles.patientStatistics}>
+          <div className={styles.header}>
+            <div className={styles.title}>Отчет о продаж</div>
 
-          <div className={styles.btns}>
-            {Object.keys(data).map((el) => (
-              <div
-                className={clsx(styles.btn, key == el && styles.activeKey)}
-                onClick={() => setKey(el)}
-                key={el}
-              >
-                sc
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.table}>
-          <div className={styles.fromToLimit}>
-            {array.map((el) => (
-              <span key={el}>{el + 1}</span>
-            ))}
-          </div>
-
-          <div className={styles.items} key={key}>
-            {data?.[key]?.data.map((el, i) => (
-              <div
-                className={styles.item}
-                style={{
-                  height: `${calc(el?.numberOfPatients, data[key].limit)}%`,
-                }}
-                key={el.label || i}
-              >
-                <div className={styles.line}>
-                  <div></div>
+            <div className={styles.btns}>
+              {Object.keys(data).map((el) => (
+                <div
+                  className={clsx(styles.btn, key == el && styles.activeKey)}
+                  onClick={() => setKey(el)}
+                  key={el}
+                >
+                  {el}
                 </div>
-                <span className={styles.subKey}>{el.label}</span>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.table}>
+            <div className={styles.fromToLimit}>
+              {array.map((el) => (
+                <span key={el}>{el * 10}</span>
+              ))}
+            </div>
+
+            <div className={styles.items} key={key}>
+              {data?.[key]?.data.map((el, i) => (
+                <div
+                  className={styles.item}
+                  style={{
+                    height: `${calc(el?.numberOfPatients, data[key].limit)}%`,
+                  }}
+                  key={el.label || i}
+                >
+                  <div className={styles.line}>
+                    <div></div>
+                  </div>
+                  <span className={styles.subKey}>{el.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 }

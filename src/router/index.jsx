@@ -3,23 +3,7 @@ import { MainLayout } from "../Layouts/MainLayout/MainLayout";
 import React, { lazy } from "react";
 import { authStore } from "../store/auth.store";
 import { observer } from "mobx-react-lite";
-// import { AuthLayout } from "../Layouts/AuthLayout/AuthLayout";
-// import ResetPassword from "modules/Auth/ResetPassword/ResetPassword";
-// import { ResetPasswordStep2 } from "modules/Auth/ResetPassword/Components/ResetPasswordStep2/ResetPasswordStep2";
-// import { ResetPasswordStep3 } from "modules/Auth/ResetPassword/Components/ResetPasswordStep3/ResetPasswordStep3";
-// import { Orders } from "components/Orders";
-// import { Categories } from "components/Categories";
-// // import Locations from "components/Locations/Locations";
-// import Calendar from "components/Calendar/Calendar";
-// import { CategoriesAdd } from "components/Categories/CategoriesAdd";
-// import { Products } from "components/Products";
-// import ProductsAdd from "components/Products/ProductsAdd/ProductsAdd";
-// import { ProductsEdit } from "components/Products/ProductsEdit";
-// import OrdersInfo from "components/Orders/OrdersINfo/OrdersInfo";
-// import { OrdersAdd } from "components/Orders/OrdersAdd";
-// import { OrdersHall } from "components/Orders/OrdersHall";
-// // import Login from "modules/Auth/Login/Login";
-// import Edit from "components/Categories/components/Edit";
+
 const Login = lazy(() => import("../modules/Auth/Login/Login"));
 const ResetPassword = lazy(() =>
   import(
