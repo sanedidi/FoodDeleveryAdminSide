@@ -6,7 +6,6 @@ import {
   MenuComp,
   useState,
   useEffect,
-  axios,
   Box,
   Skeleton, Stack
 } from "public/imports";

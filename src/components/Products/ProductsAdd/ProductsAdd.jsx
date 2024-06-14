@@ -11,6 +11,7 @@ import {
   React,
   useState,
 } from "public/imports";
+import request from "services/httpRequest";
 
 export const ProductsAdd = () => {
   const handleSubmit = async (e) => {
@@ -45,7 +46,7 @@ export const ProductsAdd = () => {
     console.log("Submitting form data:", Object.fromEntries(data.entries()));
 
     try {
-      const response = await axios.post(
+      const response = await request.post(
         "https://food-delivery-api-n6as.onrender.com/v1/product",
         data,
         {

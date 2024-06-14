@@ -1,5 +1,6 @@
-import { toast, axios, useState, useEffect, useNavigate } from "public/imports";
+import { toast, useState, useEffect, useNavigate } from "public/imports";
 import { Calendar } from "primereact/calendar";
+import request from "services/httpRequest";
 
 const useOrdersAddProps = () => {
   const [branchOptions, setBranchOptions] = useState([]);
@@ -24,7 +25,7 @@ const useOrdersAddProps = () => {
   useEffect(() => {
     const fetchBranches = async () => {
       try {
-        const response = await axios.get(
+        const response = await request.get(
           "https://food-delivery-api-n6as.onrender.com/v1/branches"
         );
         const options = response.data.Data.branches.map((branch) => ({
@@ -42,7 +43,7 @@ const useOrdersAddProps = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
+        const response = await request.get(
           "https://food-delivery-api-n6as.onrender.com/v1/products"
         );
         const options = response.data.Data.products.map((prod) => ({
@@ -65,7 +66,7 @@ const useOrdersAddProps = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(
+        const response = await request.get(
           "https://food-delivery-api-n6as.onrender.com/v1/categories",{
             params:{
               limit: 1000000000000,
@@ -158,7 +159,7 @@ const useOrdersAddProps = () => {
     }
 
     try {
-      await axios.post(
+      await request.post(
         "https://food-delivery-api-n6as.onrender.com/v1/order_p",
         {
           ...orderDetails,

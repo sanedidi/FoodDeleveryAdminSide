@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import request from "./httpRequest";
 
 const ProductsService = {
   getProducts: (params) =>
-    axios
+    request
       .get(`https://food-delivery-api-n6as.onrender.com/v1/products`, { params })
       .then((res) => res?.data.product),
       postProduct: (data) =>

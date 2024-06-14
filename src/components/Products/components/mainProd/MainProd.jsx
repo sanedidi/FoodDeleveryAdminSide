@@ -10,12 +10,12 @@ import {
   CustomBtn,
   toast,
   Toaster,
-  axios,
   useNavigate,
   PLusCIrcleIcon,
 } from "public/imports";
 import s from "./MainPros.module.scss";
 import useMainProdProps from "./useMainProdProps";
+import request from "services/httpRequest";
 
 const animatedComponents = makeAnimated();
 
@@ -37,7 +37,7 @@ export const MainProd = () => {
   const [previewURL, setPreviewURL] = useState(null);
 
   useEffect(() => {
-    axios
+    request
       .get("https://food-delivery-api-n6as.onrender.com/v1/branches")
       .then((response) => {
         setBranches(response.data.Data.branches);
@@ -46,7 +46,7 @@ export const MainProd = () => {
         console.error("Error fetching branches:", error);
       });
 
-    axios
+    request
       .get("https://food-delivery-api-n6as.onrender.com/v1/categories")
       .then((response) => {
         setCategories(response.data.Data.category);
@@ -91,7 +91,7 @@ export const MainProd = () => {
     data.append("photo", selectedFile);
 
     try {
-      const response = await axios.post(
+      const response = await request.post(
         "https://food-delivery-api-n6as.onrender.com/v1/product",
         data,
         {

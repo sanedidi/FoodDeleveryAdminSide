@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import {
-  axios,
   Box,
   Link,
   DeleteIcon,
@@ -11,6 +10,7 @@ import {
   useState,
 } from "public/imports";
 import s from "../Categories/Categories.module.scss";
+import request from "services/httpRequest";
 
 const useProductsProps = () => {
   const [products, setProducts] = useState([]);
@@ -27,12 +27,11 @@ const useProductsProps = () => {
   const onOpenModal2 = () => setIsOpenModal2(true);
   const onCloseModal2 = () => setIsOpenModal2(false);
 
-  const API_URL = "https://food-delivery-api-n6as.onrender.com/v1/products";
 
   const getProducts = async (page = 1, limit = 10, search = "") => {
     setIsLoading(true);
     try {
-      const response = await axios.get(API_URL, {
+      const response = await request.get("/products", {
         params: {
           page: !!search.length ? null : page,
           limit: !!search.length ? null : limit,

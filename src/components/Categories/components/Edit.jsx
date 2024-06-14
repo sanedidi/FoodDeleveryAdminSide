@@ -6,7 +6,6 @@ import {
   Lang,
   Link,
   PlusIconDown,
-  axios,
   useNavigate,
   useParams,
 } from "public/imports";
@@ -14,6 +13,7 @@ import React, { useState, useEffect } from "react";
 import s from "../CategoriesAdd/CategoriesAdd.module.scss";
 import { Done } from "@mui/icons-material";
 import { CloseIcon } from "@chakra-ui/icons";
+import request from "services/httpRequest";
 
 const Edit = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const Edit = () => {
   useEffect(() => {
     const fetchCategory = async () => {
       try {
-        const response = await axios.get(
+        const response = await request.get(
           `https://food-delivery-api-n6as.onrender.com/v1/category/${categoryId}`
         );
         const category = response.data.Data;
@@ -69,7 +69,7 @@ const Edit = () => {
     formData.append("photo", productData.photo);
 
     try {
-      await axios.put(
+      await request.put(
         `https://food-delivery-api-n6as.onrender.com/v1/category/${categoryId}`,
         formData,
         {

@@ -1,4 +1,5 @@
-import { toast, axios, useState, useEffect, useNavigate } from "public/imports";
+import { toast, useState, useEffect, useNavigate } from "public/imports";
+import request from "services/httpRequest";
 
 const useOrdersHallProps = () => {
   const [branchOptions, setBranchOptions] = useState([]);
@@ -15,7 +16,7 @@ const useOrdersHallProps = () => {
   useEffect(() => {
     const fetchBranches = async () => {
       try {
-        const response = await axios.get(
+        const response = await request.get(
           "https://food-delivery-api-n6as.onrender.com/v1/branches"
         );
         const options = response.data.Data.branches.map((branch) => ({
@@ -33,7 +34,7 @@ const useOrdersHallProps = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
+        const response = await request.get(
           "https://food-delivery-api-n6as.onrender.com/v1/products"
         );
         const options = response.data.Data.products.map((prod) => ({
@@ -56,7 +57,7 @@ const useOrdersHallProps = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(
+        const response = await request.get(
           "https://food-delivery-api-n6as.onrender.com/v1/categories",
           {
             params: {
@@ -128,7 +129,7 @@ const useOrdersHallProps = () => {
     }
 
     try {
-      await axios.post(
+      await request.post(
         "https://food-delivery-api-n6as.onrender.com/v1/order_h",
         orderDetails
       );

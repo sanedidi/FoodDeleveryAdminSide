@@ -5,7 +5,6 @@ import { Box } from "@chakra-ui/react";
 
 import {
   Lang,
-  axios,
   toast,
   Toaster,
   CustomBtn,
@@ -54,7 +53,7 @@ export const CategoriesAdd = () => {
     formData.append("photo", mainImage);
 
     try {
-      const response = await axios.post(
+      const response = await request.post(
         "https://food-delivery-api-n6as.onrender.com/v1/category",
         formData,
         {

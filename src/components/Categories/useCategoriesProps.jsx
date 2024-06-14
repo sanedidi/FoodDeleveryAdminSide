@@ -10,7 +10,6 @@ import {
   Stack,
   React,
   useDeleteCategory,
-  axios,
   Link,
 } from "public/imports";
 import request from "services/httpRequest";

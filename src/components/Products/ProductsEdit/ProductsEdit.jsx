@@ -8,7 +8,6 @@ import {
   toast,
   Toaster,
   Header,
-  axios,
   React,
   useEffect,
   useNavigate,
@@ -19,6 +18,7 @@ import {
 import s from "./ProductsEdit.module.scss";
 import useProductsEditProps from "./useProductsEditProps";
 import { CloseIcon } from "@chakra-ui/icons";
+import request from "services/httpRequest";
 
 const generateArticul = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
@@ -41,7 +41,7 @@ export const ProductsEdit = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(
+        const response = await request.get(
           `https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`
         );
         const product = response.data.Data;
@@ -56,10 +56,10 @@ export const ProductsEdit = () => {
 
     const fetchCategoriesAndBranches = async () => {
       try {
-        const categoriesResponse = await axios.get(
+        const categoriesResponse = await request.get(
           `https://food-delivery-api-n6as.onrender.com/v1/categories`
         );
-        const branchesResponse = await axios.get(
+        const branchesResponse = await request.get(
           `https://food-delivery-api-n6as.onrender.com/v1/branches`
         );
         setCategories(categoriesResponse.data.Data.category);
@@ -99,7 +99,7 @@ export const ProductsEdit = () => {
     }
 
     try {
-      await axios.put(
+      await request.put(
         `https://food-delivery-api-n6as.onrender.com/v1/product/${productId}`,
         formData,
         {

@@ -14,7 +14,6 @@ import {
   UnderHeader,
   CustomInput,
   CustomTable,
-  axios,
   ReactPaginate,
   toast,
   Toaster,
@@ -26,6 +25,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "components/SvgComponents/SvgComponents";
+import request from "services/httpRequest";
 
 export const Products = () => {
   const {
@@ -56,7 +56,7 @@ export const Products = () => {
 
   const deleteProduct = async () => {
     try {
-      await axios.delete(
+      await request.delete(
         `https://food-delivery-api-n6as.onrender.com/v1/product/${selectedProductId}`
       );
       toast.success("Продукт удален успешно");
