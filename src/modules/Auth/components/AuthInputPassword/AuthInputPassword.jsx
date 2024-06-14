@@ -48,7 +48,7 @@ export const AuthInputPassword = React.forwardRef(
                 type={show ? 'text' : 'password'}
                 id={id}
                 maxLength={maxLength ? maxLength : 20}
-                minLength={minLength ? minLength : 8}
+                minLength={minLength ? minLength : 4}
                 placeholder={placeholder}
                 required={required} 
               />
