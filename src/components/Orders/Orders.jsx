@@ -49,7 +49,7 @@ export const Orders = () => {
     isOpenModal4,
     onCloseModal4,
     count,
-    orderStatus
+    orderStatus,
   } = useOrdersProps();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -219,7 +219,7 @@ export const Orders = () => {
               tabLabels: [
                 <Box className={s.orders__title}>
                   <h2>Все заказы</h2>
-                  <p> {count} </p>
+                  <p> {count.count_of_all_orders} </p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2
@@ -228,7 +228,7 @@ export const Orders = () => {
                   >
                     Самовывоз
                   </h2>
-                  <p></p>
+                  <p>{count.count_of_pre_order}</p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2
@@ -237,19 +237,19 @@ export const Orders = () => {
                   >
                     В зал
                   </h2>
-                  <p></p>
+                  <p>{count.count_for_hall}</p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2 onClick={() => setOrderStatus("новый")}>Новые</h2>
-                  <p></p>
+                  <p>{count.count_of_new_status}</p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2>Завершен</h2>
-                  <p></p>
+                  <p>{count.count_of_completed_status}</p>
                 </Box>,
                 <Box className={s.orders__title}>
                   <h2 onClick={() => setOrderStatus("отменен")}>Отмененные</h2>
-                  <p></p>
+                  <p>{count.count_of_canceled_status}</p>
                 </Box>,
               ],
               tabContents: [
@@ -452,7 +452,7 @@ export const Orders = () => {
         }
         modalContent={
           <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
-            Вы уверены, что хотите отменить этот заказ?
+            Вы уверены, что хотите <br /> отменить этот заказ?
           </Box>
         }
         secondaryBtnText={<Box>Нет</Box>}

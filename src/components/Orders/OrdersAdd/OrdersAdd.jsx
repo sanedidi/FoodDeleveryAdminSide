@@ -15,7 +15,7 @@ import DatePicker from "react-multi-date-picker";
 import useOrdersAddProps from "./useOrdersAddProps";
 import { CLickIcon, PaymeIcon } from "components/SvgComponents/SvgComponents";
 import free from "assets/img/free.png";
-import cash from 'assets/img/cash.png'
+import cash from "assets/img/cash.png";
 export const OrdersAdd = () => {
   const {
     branchOptions,
@@ -134,17 +134,22 @@ export const OrdersAdd = () => {
                 <Box className={s.orders_item}>
                   <h2>Номер телефона</h2>
                   <CustomInput
-                    type="number"
+                    type="text"
                     InputPlaceHolder="Телефон номер клиента"
                     value={orderDetails.customer_phone}
-                    onChange={(e) =>
-                      handleInputChange("customer_phone", e.target.value)
-                    }
+                    onChange={(e) => {
+                      let phoneNumber = e.target.value;
+                      if (!phoneNumber.startsWith("+998")) {
+                        phoneNumber =
+                          "+998" + phoneNumber.replace(/^\+?998?/, "");
+                      }
+                      handleInputChange("customer_phone", phoneNumber);
+                    }}
                   />
                 </Box>
                 <Box className={s.orders__item}>
-                  <input 
-                  className={s.orders__time}
+                  <input
+                    className={s.orders__time}
                     value={orderDetails.delivery_time}
                     onChange={(e) =>
                       handleInputChange("delivery_time", e.target.value)

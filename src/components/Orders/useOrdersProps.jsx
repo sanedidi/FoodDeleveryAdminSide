@@ -7,7 +7,8 @@ import {
   useState,
   useEffect,
   Box,
-  Skeleton, Stack
+  Skeleton,
+  Stack,
 } from "public/imports";
 import s from "./Orders.module.scss";
 import {
@@ -16,7 +17,7 @@ import {
   CashIcon,
   PaymeIcon,
 } from "components/SvgComponents/SvgComponents";
-import cash from 'assets/img/cash.png'
+import cash from "assets/img/cash.png";
 import { CheckIcon, InfoIcon } from "@chakra-ui/icons";
 import request from "services/httpRequest";
 
@@ -34,7 +35,15 @@ export const useOrdersProps = () => {
   const [closeOrderId, setCloseOrderId] = useState(null); //update status
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedOrderType, setSelectedOrderType] = useState(""); // order_type
-  const [count, setCount] = useState("")
+  const [count, setCount] = useState({
+    count_of_all_orders: 0,
+    count_of_pre_order: 0,
+    count_for_hall: 0,
+    count_of_new_status: 0,
+    count_of_completed_status: 0,
+    count_of_canceled_status: 0,
+  });
+
   const [orderStatus, setOrderStatus] = useState("");
   const onOpenModal1 = () => setIsOpenModal1(true);
   const onCloseModal1 = () => setIsOpenModal1(false);
@@ -66,11 +75,10 @@ export const useOrdersProps = () => {
         },
       });
       const fetchedProducts = response.data?.Data?.orders;
-      
-      
+
       if (fetchedProducts === null) {
       }
-      setCount(response.data.Data.count)
+      setCount(response.data.Data.count_of_orders);
       setProducts(fetchedProducts);
       setTotalPages(Math.ceil(response.data?.Data?.count / limit));
     } catch (error) {
@@ -79,12 +87,9 @@ export const useOrdersProps = () => {
     }
   };
 
-
   useEffect(() => {
     getOrders(currentPage, pageSize);
   }, [currentPage, pageSize]); //????????????
-
-  
 
   const columns = [
     {
@@ -328,7 +333,7 @@ export const useOrdersProps = () => {
     isOpenModal4,
     onCloseModal4,
     count,
-    orderStatus
+    orderStatus,
   };
 };
 
