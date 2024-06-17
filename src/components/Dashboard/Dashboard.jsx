@@ -7,6 +7,7 @@ import s from "./Dashboard.module.scss";
 export default function Dashboard() {
   const [selectedFromDate, setSelectedFromDate] = useState(null);
   const [selectedToDate, setSelectedToDate] = useState(null);
+  const [totalOrders, setTotalOrders] = useState(0);
 
   const { orders, isLoading, getStats, error } = useDashboardProps();
 
@@ -51,13 +52,12 @@ export default function Dashboard() {
         );
         break;
       case "view_all":
-        // No need to set fromDate and toDate when viewing all
         break;
       default:
         break;
     }
 
-    toDate = new Date(); // Set toDate to today for all filters
+    toDate = new Date();
 
     const formattedFromDate = fromDate
       ? fromDate.toISOString().split("T")[0]
@@ -67,17 +67,38 @@ export default function Dashboard() {
     setSelectedFromDate(formattedFromDate);
     setSelectedToDate(formattedToDate);
 
-    getStats(formattedFromDate, formattedToDate);
+    getStats(formattedFromDate, formattedToDate)
+      .then((data) => {
+        setTotalOrders(data.totalOrders);
+      })
+      .catch((error) => {
+        console.error("Error fetching stats:", error);
+        setTotalOrders(0);
+      });
   };
 
   const handleFromDateChange = (e) => {
     setSelectedFromDate(e.target.value);
-    getStats(e.target.value, selectedToDate);
+    getStats(e.target.value, selectedToDate)
+      .then((data) => {
+        setTotalOrders(data.totalOrders);
+      })
+      .catch((error) => {
+        console.error("Error fetching stats:", error);
+        setTotalOrders(0);
+      });
   };
 
   const handleToDateChange = (e) => {
     setSelectedToDate(e.target.value);
-    getStats(selectedFromDate, e.target.value);
+    getStats(selectedFromDate, e.target.value)
+      .then((data) => {
+        setTotalOrders(data.totalOrders);
+      })
+      .catch((error) => {
+        console.error("Error fetching stats:", error);
+        setTotalOrders(0);
+      });
   };
 
   useEffect(() => {
@@ -86,13 +107,19 @@ export default function Dashboard() {
 
   useEffect(() => {
     renderChart();
-  }, [orders, isLoading]); // Re-render the chart when orders data or loading state changes
+  }, [orders, isLoading]);
 
   const renderChart = () => {
-    if (isLoading || error) return; // Wait for data to be loaded or handle error state
+    if (isLoading || error) return;
 
     const ctx = document.getElementById("ordersChart");
     if (!ctx) return;
+
+    // Check if orders is an array
+    if (!Array.isArray(orders) || orders.length === 0) {
+      console.warn("No orders data to render.");
+      return;
+    }
 
     const chartData = {
       labels: orders.map((order) => order.created_at),
@@ -107,7 +134,6 @@ export default function Dashboard() {
       ],
     };
 
-    // Check if there's an existing chart instance and destroy it before rendering new chart
     let myChart = Chart.getChart(ctx);
     if (myChart) {
       myChart.destroy();
@@ -181,6 +207,7 @@ export default function Dashboard() {
         </button>
       </Box>
       <div className={s.chartContainer}>
+        <p>Всего заказов: {totalOrders}</p>
         <canvas id="ordersChart"></canvas>
       </div>
     </>

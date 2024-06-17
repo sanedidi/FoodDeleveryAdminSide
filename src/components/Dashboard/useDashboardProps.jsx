@@ -27,11 +27,11 @@ const useDashboardProps = () => {
         },
       });
 
-      const fetchedStats = response.data?.Data?.orders;
+      const fetchedOrders = response.data?.Data?.orders;
+      setOrders(fetchedOrders);
+
+      const fetchedStats = response.data?.Data?.totalOrders;
       setStats(fetchedStats);
-      if (fetchedStats) {
-        setOrders(fetchedStats);
-      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -40,7 +40,12 @@ const useDashboardProps = () => {
   };
 
   useEffect(() => {
-    getStats(currentPage, pageSize);
+    getStats(currentPage, pageSize)
+      .then(() => {
+      })
+      .catch((error) => {
+        console.error("Error fetching stats:", error);
+      });
   }, [currentPage, pageSize]);
 
   const stat = [
