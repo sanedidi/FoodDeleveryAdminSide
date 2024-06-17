@@ -7,8 +7,6 @@ import s from "./Dashboard.module.scss";
 export default function Dashboard() {
   const [selectedFromDate, setSelectedFromDate] = useState(null);
   const [selectedToDate, setSelectedToDate] = useState(null);
-  const [totalOrders, setTotalOrders] = useState(0);
-
   const { orders, isLoading, getStats, error } = useDashboardProps();
 
   const handleInputClear = () => {
@@ -16,11 +14,15 @@ export default function Dashboard() {
     setSelectedToDate(null);
     handleFilter("view_all");
   };
-
+  const filterType = [
+    { filterType: "12_months", label: "За 12 месяцев" },
+    { filterType: "6_months", label: "За 6 месяцев" },
+    { filterType: "30_days", label: "За 30 дней" },
+    { filterType: "7_days", label: "За 7 дней" },
+  ];
   const handleFilter = (filterType) => {
-    let fromDate = null;
-    let toDate = null;
     const today = new Date();
+    let fromDate = null;
 
     switch (filterType) {
       case "12_months":
@@ -57,47 +59,25 @@ export default function Dashboard() {
         break;
     }
 
-    toDate = new Date();
-
     const formattedFromDate = fromDate
       ? fromDate.toISOString().split("T")[0]
       : null;
-    const formattedToDate = toDate.toISOString().split("T")[0];
+    const formattedToDate = new Date().toISOString().split("T")[0];
 
     setSelectedFromDate(formattedFromDate);
     setSelectedToDate(formattedToDate);
 
-    getStats(formattedFromDate, formattedToDate)
-      .then((data) => {
-        setTotalOrders(data.totalOrders);
-      })
-      .catch((error) => {
-        console.error("Error fetching stats:", error);
-        setTotalOrders(0);
-      });
+    getStats(formattedFromDate, formattedToDate);
   };
 
-  const handleFromDateChange = (e) => {
-    setSelectedFromDate(e.target.value);
-    getStats(e.target.value, selectedToDate)
-      .then((data) => {
-        setTotalOrders(data.totalOrders);
-      })
-      .catch((error) => {
-        console.error("Error fetching stats:", error);
-        setTotalOrders(0);
-      });
-  };
+  const handleDateChange = (e, setterFunction, oppositeDate) => {
+    const value = e.target.value;
+    setterFunction(value);
 
-  const handleToDateChange = (e) => {
-    setSelectedToDate(e.target.value);
-    getStats(selectedFromDate, e.target.value)
-      .then((data) => {
-        setTotalOrders(data.totalOrders);
-      })
+    getStats(selectedFromDate, oppositeDate)
+      .then((data) => {})
       .catch((error) => {
-        console.error("Error fetching stats:", error);
-        setTotalOrders(0);
+        console.error("Error fetching dashboard data:", error);
       });
   };
 
@@ -107,52 +87,38 @@ export default function Dashboard() {
 
   useEffect(() => {
     renderChart();
-  }, [orders, isLoading]);
+  }, [orders, isLoading, error]);
 
   const renderChart = () => {
     if (isLoading || error) return;
 
     const ctx = document.getElementById("ordersChart");
-    if (!ctx) return;
-
-    // Check if orders is an array
-    if (!Array.isArray(orders) || orders.length === 0) {
-      console.warn("No orders data to render.");
-      return;
-    }
-
-    const chartData = {
-      labels: orders.map((order) => order.created_at),
-      datasets: [
-        {
-          label: "Продажи",
-          data: orders.map((order) => order.total_price),
-          backgroundColor: "rgba(75, 192, 192, 0.2)",
-          borderColor: "rgba(75, 192, 192, 1)",
-          borderWidth: 1,
-        },
-      ],
-    };
+    if (!ctx || !Array.isArray(orders) || orders.length === 0) return;
 
     let myChart = Chart.getChart(ctx);
-    if (myChart) {
-      myChart.destroy();
-    }
+    if (myChart) myChart.destroy();
 
     new Chart(ctx, {
       type: "bar",
-      data: chartData,
+      data: {
+        labels: orders.map((order) => order.created_at),
+        datasets: [
+          {
+            label: "Продажи",
+            data: orders.map((order) => order.total_price),
+            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            borderColor: "rgba(75, 192, 192, 1)",
+            borderWidth: 1,
+          },
+        ],
+      },
       options: {
         responsive: true,
         plugins: {
-          legend: {
-            display: false,
-          },
+          legend: { display: true },
           tooltip: {
             callbacks: {
-              label: function (tooltipItem) {
-                return tooltipItem.formattedValue;
-              },
+              label: (tooltipItem) => tooltipItem.formattedValue,
             },
           },
         },
@@ -168,14 +134,18 @@ export default function Dashboard() {
           <Box className={s.dash__select}>
             <input
               type="datetime-local"
-              onChange={handleFromDateChange}
+              onChange={(e) =>
+                handleDateChange(e, setSelectedFromDate, selectedToDate)
+              }
               value={selectedFromDate || ""}
               placeholder="Выберите дату"
               className={s.dash__underHeader_input}
             />
             <input
               type="datetime-local"
-              onChange={handleToDateChange}
+              onChange={(e) =>
+                handleDateChange(e, setSelectedToDate, selectedFromDate)
+              }
               value={selectedToDate || ""}
               placeholder="Выберите дату"
               className={s.dash__underHeader_input}
@@ -187,27 +157,19 @@ export default function Dashboard() {
         }
       />
       <Box className={s.dash__select}>
-        <button
-          onClick={() => handleFilter("12_months")}
-          className={s.dash__btn}
-        >
-          За 12 месяцев
-        </button>
-        <button
-          onClick={() => handleFilter("6_months")}
-          className={s.dash__btn}
-        >
-          За 6 месяцев
-        </button>
-        <button onClick={() => handleFilter("30_days")} className={s.dash__btn}>
-          За 30 дней
-        </button>
-        <button onClick={() => handleFilter("7_days")} className={s.dash__btn}>
-          За 7 дней
-        </button>
+        {filterType.map((el) => {
+          return (
+            <button
+              key={el.filterType}
+              onClick={() => handleFilter(el.filterType)}
+              className={s.dash__btn}
+            >
+              {el.label}
+            </button>
+          );
+        })}
       </Box>
       <div className={s.chartContainer}>
-        <p>Всего заказов: {totalOrders}</p>
         <canvas id="ordersChart"></canvas>
       </div>
     </>
