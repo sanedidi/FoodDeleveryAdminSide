@@ -23,6 +23,7 @@
     "@vitejs/plugin-react-swc": "^3.6.0",
     "antd": "^5.17.2",
     "axios": "^1.6.8",
+    "chart.js": "^4.4.3",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.11",
