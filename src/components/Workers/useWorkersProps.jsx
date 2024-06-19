@@ -9,9 +9,9 @@ import {
   Skeleton,
   Stack,
   React,
-  useDeleteCategory,
   Link,
 } from "public/imports";
+import { useDeleteWorker } from "services/categories.service";
 import request from "services/httpRequest";
 
 const useWorkersProps = () => {
@@ -21,26 +21,25 @@ const useWorkersProps = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalPages, setTotalPages] = useState(10);
   const onOpenModal1 = () => setIsOpenModal1(true);
   const onCloseModal1 = () => setIsOpenModal1(false);
   const onOpenModal2 = () => setIsOpenModal2(true);
   const onCloseModal2 = () => setIsOpenModal2(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [totalPages, setTotalPages] = useState(10);
+  const { mutate: deleteCategory } = useDeleteWorker({
+    onSuccess: () => fetchCategories(currentPage, pageSize, searchQuery),
+  });
 
   const handleDeleteCategory = async (categoryId) => {
     deleteCategory(categoryId);
   };
 
-  const { mutate: deleteCategory } = useDeleteCategory({
-    onSuccess: () => fetchCategories(currentPage, pageSize, searchQuery),
-  });
-
   const fetchCategories = async (page, limit, search) => {
     setIsLoading(true);
     try {
-      const response = await request.get(`/catalogs`, {
+      const response = await request.get("/catalogs", {
         params: {
           page: page,
           limit: limit,
@@ -52,7 +51,7 @@ const useWorkersProps = () => {
         setTotalPages(Math.ceil(response.data.Data.count / limit));
       }
     } catch (error) {
-      console.error("Failed to fetch categories", error);
+      console.error("Failed to fetch catalogs", error);
     } finally {
       setIsLoading(false);
     }
@@ -96,67 +95,65 @@ const useWorkersProps = () => {
       ),
       key: "operations",
       width: 20,
-      render: (item) => {
-        return (
-          <div>
-            <MenuComp
-              MenuBtn={
-                <div
-                  boxshadow={"0px 1px 2px rgba(16, 24, 40, 0.05)"}
-                  padding="0px"
-                >
-                  <AiOutlineEllipsis
-                    onClick={() => {
-                      onOpenModal1();
-                    }}
-                    style={{
-                      fontWeight: "900",
-                      fontSize: "30px",
-                      border: "1px solid rgba(231, 231, 231, 1)",
-                      borderRadius: "5px",
-                      background: "#fff",
-                    }}
-                    color="#0E73FC"
-                  />
-                </div>
-              }
-              ListMenu={
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    width: "100%",
-                  }}
-                  className="categories__menu"
+      render: (item) => (
+        <div>
+          <MenuComp
+            MenuBtn={
+              <div
+                boxshadow={"0px 1px 2px rgba(16, 24, 40, 0.05)"}
+                padding="0px"
+              >
+                <AiOutlineEllipsis
                   onClick={() => {
-                    onOpenModal2();
-                    setSelectedCategoryId(item.id);
+                    onOpenModal1();
                   }}
-                >
-                  Удалить
-                  <DeleteIcon color={"#0E73FC"} />
-                </div>
-              }
-              ListMenu1={
-                <Link
-                  to={`/admin/workers/workersEdit/${item.id}`}
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    width: "100%",
+                    fontWeight: "900",
+                    fontSize: "30px",
+                    border: "1px solid rgba(231, 231, 231, 1)",
+                    borderRadius: "5px",
+                    background: "#fff",
                   }}
-                  className="categories__menu"
-                >
-                  Изменить
-                  <EditIcon color={"#0E73FC"} />
-                </Link>
-              }
-            />
-          </div>
-        );
-      },
+                  color="#0E73FC"
+                />
+              </div>
+            }
+            ListMenu={
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+                className="categories__menu"
+                onClick={() => {
+                  onOpenModal2();
+                  setSelectedCategoryId(item.id);
+                }}
+              >
+                Удалить
+                <DeleteIcon color={"#0E73FC"} />
+              </div>
+            }
+            ListMenu1={
+              <Link
+                to={`/admin/workers/workersEdit/${item.id}`}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+                className="categories__menu"
+              >
+                Изменить
+                <EditIcon color={"#0E73FC"} />
+              </Link>
+            }
+          />
+        </div>
+      ),
     },
   ];
 
@@ -183,6 +180,7 @@ const useWorkersProps = () => {
     onCloseModal2,
     handleDeleteCategory,
     setSelectedCategoryId,
+    selectedCategoryId,
     isLoading,
     setIsLoading,
     fetchCategories,

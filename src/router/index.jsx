@@ -23,6 +23,7 @@ const ResetPasswordStep3 = lazy(() =>
 );
 const AuthLayout = lazy(() => import("../Layouts/AuthLayout/AuthLayout"));
 const Orders = lazy(() => import("../components/Orders/Orders"));
+const Butcher = lazy(() => import("../components/Butcher/Butcher"));
 const Locations = lazy(() => import("components/Locations/Locations"));
 const Calendar = lazy(() => import("components/Calendar/Calendar"));
 const CategoriesAdd = lazy(() =>
@@ -31,6 +32,9 @@ const CategoriesAdd = lazy(() =>
 const Products = lazy(() => import("components/Products/Products"));
 const ProductsAdd = lazy(() =>
   import("components/Products/ProductsAdd/ProductsAdd")
+);
+const WorkersAdd = lazy(() =>
+  import("components/Workers/WorkersAdd/WorkersAdd")
 );
 const ProductsEdit = lazy(() =>
   import("components/Products/ProductsEdit/ProductsEdit")
@@ -84,6 +88,7 @@ export const Router = observer(() => {
         <Route path="/admin/fillials/" element={<Locations />} />
         <Route path="/admin/calendar/" element={<Calendar />} />
         <Route path="/admin/categories/add/" element={<CategoriesAdd />} />
+        <Route path="/admin/workers/add/" element={<WorkersAdd />} />
         <Route path="/admin/categories/products/" element={<Products />} />
         <Route
           path="/admin/categories/products/add/"
@@ -99,6 +104,7 @@ export const Router = observer(() => {
         <Route path="/admin/orders/AddHall" element={<OrdersHall />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/workers" element={<Workers />} />
+        <Route path="/admin/workers/butcher" element={<Butcher />} />
         <Route
           path="/admin/workers/workersEdit/:workersId/"
           element={<WorkersEdit />}

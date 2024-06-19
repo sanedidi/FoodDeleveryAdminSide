@@ -99,7 +99,7 @@ const useSideBarProps = () => {
   ];
   const WorkersLinks = [
     { link: "Католог", path: "/admin/workers" },
-    { link: "Мяcник", path: "" },
+    { link: "Мяcник", path: "/admin/workers/butcher" },
   ];
 
   const [activePath, setActivePath] = useState("");
