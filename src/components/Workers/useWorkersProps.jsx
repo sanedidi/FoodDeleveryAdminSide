@@ -140,7 +140,7 @@ const useWorkersProps = () => {
               }
               ListMenu1={
                 <Link
-                  to={`/admin/categories/edit/${item.id}`}
+                  to={`/admin/workers/workersEdit/${item.id}`}
                   style={{
                     display: "flex",
                     justifyContent: "space-between",

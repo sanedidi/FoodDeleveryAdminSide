@@ -35,6 +35,9 @@ const ProductsAdd = lazy(() =>
 const ProductsEdit = lazy(() =>
   import("components/Products/ProductsEdit/ProductsEdit")
 );
+const WorkersEdit = lazy(() =>
+  import("components/Workers/WokersEdit/WorkersEdit")
+);
 const Edit = lazy(() => import("components/Categories/components/Edit"));
 const Categories = lazy(() => import("components/Categories/Categories"));
 const OrdersInfo = lazy(() =>
@@ -96,6 +99,10 @@ export const Router = observer(() => {
         <Route path="/admin/orders/AddHall" element={<OrdersHall />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/workers" element={<Workers />} />
+        <Route
+          path="/admin/workers/workersEdit/:workersId/"
+          element={<WorkersEdit />}
+        />
       </Route>
       <Route path="*" element={<Navigate to="/admin/orders/" />} />
       <Route path="/admin/orders" element={<Navigate to="/admin/orders/" />} />

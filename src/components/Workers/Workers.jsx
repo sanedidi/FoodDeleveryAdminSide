@@ -57,9 +57,9 @@ export const Workers = () => {
         firstItem={
           <CustomInput
             InputPlaceHolder={"Поиск..."}
-            // onChange={(e) => {
-            //   setSearchParams({ search: e.target.value });
-            // }}
+            onChange={(e) => {
+              setSearchParams({ search: e.target.value });
+            }}
             InputIcon={<Search2Icon color={"blue"} />}
           />
         }

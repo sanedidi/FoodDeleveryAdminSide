@@ -42,16 +42,15 @@ export const useCategoriesProps = () => {
     try {
       const response = await request.get(`/categories`, {
         params: {
-          page:  page,
-          limit:  limit,
+          page: page,
+          limit: limit,
           search,
         },
       });
       if (response.data && response.data.Data.categories) {
-      setCategories(response.data.Data.categories);
-      setTotalPages(Math.ceil(response.data.Data.count / limit));
-    }
-
+        setCategories(response.data.Data.categories);
+        setTotalPages(Math.ceil(response.data.Data.count / limit));
+      }
     } catch (error) {
       console.error("Failed to fetch categories", error);
     } finally {
@@ -186,7 +185,7 @@ export const useCategoriesProps = () => {
     setSelectedCategoryId,
     isLoading,
     setIsLoading,
-    fetchCategories
+    fetchCategories,
   };
 };
 

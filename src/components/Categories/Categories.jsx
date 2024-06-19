@@ -27,18 +27,19 @@ import ReactPaginate from "react-paginate";
 
 export const Categories = () => {
   const {
+    handleDeleteCategory,
     isOpenModal2,
     onCloseModal2,
     setSearchQuery,
     columns,
     data,
     selectedCategoryId,
-    handleDeleteCategory,
     isLoading,
     setIsLoading,
     paginationData,
     fetchCategories,
   } = useCategoriesProps();
+
   const { current, totalPages } = paginationData;
   const [searchParams, setSearchParams] = useSearchParams();
   const page = +searchParams.get("page") || 1;
@@ -85,37 +86,36 @@ export const Categories = () => {
       />
       <Box className={s.categories}>
         <Box className={s.categories__under}>
-
-        <UnderHeader
-          firstItem={
-            <CustomInput
-              InputPlaceHolder={"Поиск..."}
-              onChange={(e) => {
-                setSearchParams({ search: e.target.value });
-              }}
-              InputIcon={<Search2Icon color={"blue"} />}
-            />
-          }
-          thirdItem={
-            <CustomBtn
-              onClick={handleDownload} // Corrected onClick function
-              BtnContent={
-                <Box
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "5px",
-                  }}
-                >
-                  <DownloadIcon color={"blue"} />
-                  <p style={{ color: "#000", fontWeight: "500" }}>Скачать</p>
-                </Box>
-              }
-              BgColor={"white"}
-              BtnBorder={"1px solid #E5E9EB"}
-            />
-          }
-        />
+          <UnderHeader
+            firstItem={
+              <CustomInput
+                InputPlaceHolder={"Поиск..."}
+                onChange={(e) => {
+                  setSearchParams({ search: e.target.value });
+                }}
+                InputIcon={<Search2Icon color={"blue"} />}
+              />
+            }
+            thirdItem={
+              <CustomBtn
+                onClick={handleDownload} // Corrected onClick function
+                BtnContent={
+                  <Box
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                    }}
+                  >
+                    <DownloadIcon color={"blue"} />
+                    <p style={{ color: "#000", fontWeight: "500" }}>Скачать</p>
+                  </Box>
+                }
+                BgColor={"white"}
+                BtnBorder={"1px solid #E5E9EB"}
+              />
+            }
+          />
         </Box>
         <Box className={s.categories}>
           <Box className={s.categories__wrapper} ref={categoriesWrapperRef}>
@@ -126,32 +126,32 @@ export const Categories = () => {
             ) : (
               <CustomTable key={isLoading} columns={columns} data={data} />
             )}
-          <Box className={s.products__pagination}>
-            <ReactPaginate
-              previousLabel={
-                <>
-                  <ChevronLeftIcon />
-                </>
-              }
-              nextLabel={
-                <>
-                  <ChevronRightIcon />
-                </>
-              }
-              breakLabel={"..."}
-              breakClassName={"break-me"}
-              pageCount={totalPages}
-              forcePage={current - 1}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={({ selected }) => handlePageChange(selected + 1)}
-              containerClassName={"pagination"}
-              subContainerClassName={"pages pagination"}
-              activeClassName={"activePagination"}
-              className={s.products_pag}
-              initialPage={current - 1}
-            />
-          </Box>
+            <Box className={s.products__pagination}>
+              <ReactPaginate
+                previousLabel={
+                  <>
+                    <ChevronLeftIcon />
+                  </>
+                }
+                nextLabel={
+                  <>
+                    <ChevronRightIcon />
+                  </>
+                }
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={totalPages}
+                forcePage={current - 1}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={({ selected }) => handlePageChange(selected + 1)}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"activePagination"}
+                className={s.products_pag}
+                initialPage={current - 1}
+              />
+            </Box>
           </Box>
         </Box>
       </Box>
