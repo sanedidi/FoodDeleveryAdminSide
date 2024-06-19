@@ -10,7 +10,7 @@ const useOrdersHallProps = () => {
   const [orderDetails, setOrderDetails] = useState({
     payment_type: "",
     products: [],
-    branch_id: "08410b3c-a6f9-40bb-a777-486a86289ee0",
+    branch_id: "",
   });
   const navigate = useNavigate();
   useEffect(() => {

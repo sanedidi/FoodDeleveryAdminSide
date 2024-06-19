@@ -66,7 +66,7 @@ export const OrdersAdd = () => {
         headerBtn1={
           <Select
             options={branchOptions}
-            placeholder="Tomchi Somsa"
+            placeholder="Выберите Филлиал"
             onChange={(option) => handleInputChange("branch_id", option.value)}
           />
         }

@@ -15,6 +15,7 @@ const SideBar = () => {
     activePath,
     setActivePath,
     CatalogLinks,
+    WorkersLinks,
   } = useSideBarProps();
   const location = useLocation();
 
@@ -22,14 +23,17 @@ const SideBar = () => {
 
   const handleLinkClick = (path) => {
     setActivePath(path);
-    setIsClientsActive(path === "/admin/categories" || isActive("/admin/categories"));
+    setIsClientsActive(
+      path === "/admin/categories" || isActive("/admin/workers")
+    );
   };
 
   useEffect(() => {
-    if (!location.pathname.startsWith("/admin/categories")) {
-      setIsClientsActive(false);
-    }
   }, [location.pathname]);
+  const renderLinks =
+    isClientsActive && location.pathname.startsWith("/admin/workers")
+      ? WorkersLinks
+      : CatalogLinks;
 
   return (
     <Box className={s.sidebar}>
@@ -51,9 +55,7 @@ const SideBar = () => {
                     <button
                       className={setIsClientsActive ? s.gg : s.ff}
                       variant="ghost"
-                    >
-                      {/* <FiChevronsRight /> */}
-                    </button>
+                    ></button>
                   )}
                 </Box>
               </Box>
@@ -93,23 +95,26 @@ const SideBar = () => {
               className={s.sidebar__left_btn}
               onClick={() => setIsClientsActive(!isClientsActive)}
             >
-              <h2>Каталог</h2>
+              <h2>
+                {isClientsActive === "/admin/workers"
+                  ? "Сотрудники"
+                  : "Каталог"}
+              </h2>
             </Box>
           </Box>
           <Box className={s.sidebar__sec_links}>
-            {isClientsActive &&
-              CatalogLinks.map((link, index) => (
-                <Link
-                  key={index}
-                  onClick={() => handleLinkClick(link.path)}
-                  className={`${link.path === activePath ? s.ActiveLink : ""} ${
-                    s.sidebar__catalog_links
-                  }`}
-                  to={link.path}
-                >
-                  {link.link}
-                </Link>
-              ))}
+            {renderLinks.map((link, index) => (
+              <Link
+                key={index}
+                onClick={() => handleLinkClick(link.path)}
+                className={`${link.path === activePath ? s.ActiveLink : ""} ${
+                  s.sidebar__catalog_links
+                }`}
+                to={link.path}
+              >
+                {link.link}
+              </Link>
+            ))}
           </Box>
         </Box>
       </Box>

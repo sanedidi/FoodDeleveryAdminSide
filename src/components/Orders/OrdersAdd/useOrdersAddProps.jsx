@@ -11,7 +11,7 @@ const useOrdersAddProps = () => {
   const [selectedFromDate, setSelectedFromDate] = useState(null);
   const [selectedToDate, setSelectedToDate] = useState(null);
   const [orderDetails, setOrderDetails] = useState({
-    branch_id: "08410b3c-a6f9-40bb-a777-486a86289ee0",
+    branch_id: "",
     comment: "",
     customer_name: "",
     customer_phone: "",
@@ -67,10 +67,11 @@ const useOrdersAddProps = () => {
     const fetchCategories = async () => {
       try {
         const response = await request.get(
-          "https://food-delivery-api-n6as.onrender.com/v1/categories",{
-            params:{
+          "https://food-delivery-api-n6as.onrender.com/v1/categories",
+          {
+            params: {
               limit: 1000000000000,
-            }
+            },
           }
         );
         const options = response.data.Data.categories.map((cat) => ({

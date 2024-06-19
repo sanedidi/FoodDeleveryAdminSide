@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  CatalogIcon,
   DateIcon,
   LogOutIcon,
   RestaurantIcon,
@@ -61,13 +62,23 @@ const useSideBarProps = () => {
       ),
       path: "/admin/categories",
     },
-   
+    {
+      id: 4,
+      icon: (
+        <CatalogIcon
+          width={26}
+          height={26}
+          color={getColorForPath("/admin/workers")}
+        />
+      ),
+      path: "/admin/workers",
+    },
   ];
 
   const settings = [
     {
       id: 1,
-      icon: <LogOutIcon onCLick={()=>logout()} />,
+      icon: <LogOutIcon onCLick={() => logout()} />,
     },
     {
       id: 2,
@@ -86,6 +97,10 @@ const useSideBarProps = () => {
     { link: "Категория", path: "/admin/categories" },
     { link: "Товары", path: "/admin/categories/products" },
   ];
+  const WorkersLinks = [
+    { link: "Католог", path: "/admin/workers" },
+    { link: "Мяcник", path: "" },
+  ];
 
   const [activePath, setActivePath] = useState("");
   const [isClientsActive, setIsClientsActive] = useState(false);
@@ -98,6 +113,7 @@ const useSideBarProps = () => {
     setActivePath,
     isClientsActive,
     setIsClientsActive,
+    WorkersLinks,
   };
 };
 
