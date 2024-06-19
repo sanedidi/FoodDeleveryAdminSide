@@ -73,7 +73,7 @@ const useOrdersAddProps = () => {
             }
           }
         );
-        const options = response.data.Data.category.map((cat) => ({
+        const options = response.data.Data.categories.map((cat) => ({
           value: cat.id,
           label: cat.name,
           photo: cat.photo,

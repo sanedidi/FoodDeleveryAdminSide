@@ -246,14 +246,14 @@ export const ProductsEdit = () => {
                         productData.branch_id
                           ? branches.find(
                               (branch) => branch.id === productData.branch_id
-                            )?.address
+                            )?.name
                           : "Выберите Филлиал"
                       }
                       options={
                         Array.isArray(branches)
                           ? branches.map((branch) => ({
                               value: branch.id,
-                              label: `${branch.address}`,
+                              label: `${branch.name}`,
                             }))
                           : []
                       }

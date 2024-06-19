@@ -1,5 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
 import request from "./httpRequest/index";
+
+const fn = (accessToken) => {
+  // Разделите токен
+  const tokenParts = accessToken.split(".");
+  const payload = tokenParts[1];
+
+  // Декодируйте полезную нагрузку
+  const decodedPayload = JSON.parse(atob(payload));
+
+  // Извлеките restaurant_id
+  const restaurantId = decodedPayload.restaurant_id;
+
+  return restaurantId
+};
+
 const authServices = {
   login: (data) => request.post("auth/admin/login ", data),
   register: (data) => request.post("auth/register", data),
@@ -19,6 +34,7 @@ export const useLogin = () => {
     }) => {
       localStorage.setItem("acces_token", acces_token);
       localStorage.setItem("refresh_token", refresh_token);
+      localStorage.setItem("restaurant_id", fn(acces_token));
     },
   });
 };

@@ -27,7 +27,6 @@ const useProductsProps = () => {
   const onOpenModal2 = () => setIsOpenModal2(true);
   const onCloseModal2 = () => setIsOpenModal2(false);
 
-
   const getProducts = async (page = 1, limit = 10, search = "") => {
     setIsLoading(true);
     try {

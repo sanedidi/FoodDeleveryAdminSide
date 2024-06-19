@@ -47,8 +47,8 @@ export const useCategoriesProps = () => {
           search,
         },
       });
-      if (response.data && response.data.Data.category) {
-      setCategories(response.data.Data.category);
+      if (response.data && response.data.Data.categories) {
+      setCategories(response.data.Data.categories);
       setTotalPages(Math.ceil(response.data.Data.count / limit));
     }
 

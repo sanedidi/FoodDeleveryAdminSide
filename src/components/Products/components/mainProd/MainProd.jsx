@@ -49,7 +49,7 @@ export const MainProd = () => {
     request
       .get("https://food-delivery-api-n6as.onrender.com/v1/categories")
       .then((response) => {
-        setCategories(response.data.Data.category);
+        setCategories(response.data.Data.categories);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
@@ -114,7 +114,20 @@ export const MainProd = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+
+    if (name === "articul" && value.trim() === "") {
+      const generatedNumber = generateRandomNumber();
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: generatedNumber,
+      }));
+    } else {
+      setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    }
+  };
+
+  const generateRandomNumber = () => {
+    return Math.floor(100000 + Math.random() * 900000);
   };
 
   return (
@@ -200,12 +213,25 @@ export const MainProd = () => {
             </Box>
             <Box className={s.prod__name}>
               <h2 className={s.prod__bottom_title}>Артикул</h2>
-              <CustomInput
-                InputPlaceHolder="Введите артикул "
-                name="articul"
-                type="number"
-                onChange={handleInputChange}
-              />
+              <div className={s.prod__fill}>
+                <CustomInput
+                  InputPlaceHolder="Введите артикул "
+                  name="articul"
+                  type="number"
+                  value={formData.articul || ""}
+                  onChange={handleInputChange}
+                />
+                <CustomBtn
+                  BgColor={"blue"}
+                  BtnContent={"Генерировать"}
+                  Onclick={() =>
+                    setFormData((prevFormData) => ({
+                      ...prevFormData,
+                      articul: generateRandomNumber(),
+                    }))
+                  }
+                />
+              </div>
             </Box>
             <Box className={s.prod__name}>
               <h2 className={s.prod__bottom_title}>Филлиалы</h2>
@@ -215,7 +241,7 @@ export const MainProd = () => {
                   Array.isArray(branches)
                     ? branches.map((branch) => ({
                         value: branch.id,
-                        label: `${branch.address}`,
+                        label: `${branch.name}`,
                       }))
                     : []
                 }

@@ -17,6 +17,9 @@ import {
 } from "public/imports";
 import { CreateIcon, FolderIcon } from "components/SvgComponents/SvgComponents";
 import { CloseIcon } from "@chakra-ui/icons";
+import request from "services/httpRequest";
+import { get } from "react-hook-form";
+
 export const CategoriesAdd = () => {
   const {
     lang,
@@ -49,8 +52,10 @@ export const CategoriesAdd = () => {
     event.preventDefault();
 
     const formData = new FormData();
+    const restaurant_id = localStorage.getItem("restaurant_id");
     formData.append("name", name);
     formData.append("photo", mainImage);
+    formData.append("restaurant_id", restaurant_id);
 
     try {
       const response = await request.post(
@@ -107,10 +112,10 @@ export const CategoriesAdd = () => {
                 alignItems: "center",
                 color: "red",
                 gap: "10px",
-                border:"1px solid red",
-                padding:"5px",
-                borderRadius:"5px",
-                fontSize:"16px"
+                border: "1px solid red",
+                padding: "5px",
+                borderRadius: "5px",
+                fontSize: "16px",
               }}
             >
               Отменить

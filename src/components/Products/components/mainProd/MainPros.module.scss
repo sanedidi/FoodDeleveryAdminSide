@@ -41,6 +41,7 @@
   &__name {
     display: flex;
     flex-direction: column;
+    gap: 10px;
   }
   &__price {
     display: flex;
@@ -111,6 +112,7 @@
   &__preview {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 160px;
   }
   &__tws {
@@ -119,11 +121,15 @@
       border-radius: 8px;
       border: 1px solid #e7e7e7;
       width: 100%;
-      max-width: 160px;
-      height: 160px;
+      max-width: 120px;
+      height: 120px;
       object-fit: cover;
     }
     display: flex;
+  }
+  &__fill{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
   }
 }
 .switch {
