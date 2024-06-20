@@ -29,7 +29,16 @@ const SideBar = () => {
   };
 
   useEffect(() => {
+    if (
+      location.pathname.startsWith("/admin/categories") ||
+      location.pathname.startsWith("/admin/workers")
+    ) {
+      setIsClientsActive(true);
+    } else {
+      setIsClientsActive(false);
+    }
   }, [location.pathname]);
+
   const renderLinks =
     isClientsActive && location.pathname.startsWith("/admin/workers")
       ? WorkersLinks

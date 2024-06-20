@@ -15,15 +15,10 @@ import {
   PlusIcon,
   Toaster,
   UnderHeader,
-  toast,
   useSearchParams,
 } from "public/imports";
-import { Calendar } from "primereact/calendar";
 import s from "components/Orders/Orders.module.scss";
-import CustomTabs from "components/Custom/CustomTabs/CustomTabs";
 import ReactPaginate from "react-paginate";
-import { PreOrderIcon, ZalIcon } from "components/SvgComponents/SvgComponents";
-import request from "services/httpRequest";
 import useButcherProps from "./useButcherProps";
 
 export const Butcher = () => {
@@ -32,7 +27,6 @@ export const Butcher = () => {
   const {
     data,
     columns,
-    activeTab,
     setActiveTab,
     onCloseModal2,
     isOpenModal1,
@@ -45,9 +39,6 @@ export const Butcher = () => {
     setSelectedOrderType,
     onOpenModal4,
     setOrderStatus,
-    isOpenModal2,
-    isOpenModal4,
-    onCloseModal4,
   } = useButcherProps();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -79,84 +70,12 @@ export const Butcher = () => {
     selectedToDate,
   ]);
 
-  const handleTabChange = (newActiveTab) => {
-    setActiveTab(newActiveTab);
-    let status = "";
-    let orderType = "";
-    switch (newActiveTab) {
-      case 0:
-        status = "";
-        break;
-      case 1:
-        orderType = "Самовывоз";
-        break;
-      case 2:
-        orderType = "зал";
-        break;
-      case 3:
-        status = "новый";
-        break;
-      case 4:
-        status = "завершен";
-        break;
-      case 5:
-        status = "отменен";
-        break;
-      default:
-        break;
-    }
-    setSearchParams({ status, order_type: orderType });
-    setOrderStatus(status);
-    setSelectedOrderType(orderType);
-    getOrders(
-      page,
-      limit,
-      search,
-      orderType,
-      selectedFromDate,
-      selectedToDate,
-      status
-    );
-  };
-
   const handlePageChange = (event) => {
     setSearchParams({
       page: event.selected + 1,
       limit,
       search,
     });
-  };
-
-  const updateOrderStatus = async (orderId, status) => {
-    try {
-      const response = await request.put("order_status", {
-        id: orderId,
-        status,
-      });
-
-      if (response.status === 200) {
-        toast.success("Order status successfully updated");
-        getOrders(page, limit, search);
-      } else {
-        toast.error("Failed to update order status");
-      }
-    } catch (error) {
-      toast.error("An error occurred while updating the order status");
-    }
-  };
-
-  const handleCancelOrder = async () => {
-    if (cancelOrderId) {
-      updateOrderStatus(cancelOrderId, "отменен");
-      onCloseModal2();
-    }
-  };
-
-  const handleEndOrder = async () => {
-    if (closeOrderId) {
-      updateOrderStatus(closeOrderId, "завершен");
-      onCloseModal2();
-    }
   };
 
   return (
@@ -166,7 +85,8 @@ export const Butcher = () => {
         title={"Мясник"}
         headerBtn2={
           <>
-            <Link onClick={onOpenModal4} className="header_btn1">
+            <Link to={''} className="header_btn1"> 
+            {/* sdl;vm;sdlmv;smvsldmv;lsdm */}
               <PlusIcon /> Создать заказ
             </Link>
           </>
@@ -239,50 +159,6 @@ export const Butcher = () => {
           handleEndOrder();
           onCloseModal1();
         }}
-        ModalBtnBgColor={"blue"}
-      />
-      <CustomModal
-        isOpenModal={isOpenModal2}
-        onCloseModal={onCloseModal2}
-        modalTitle={
-          <Box margin={"0 auto"} textAlign={"center"} width={"max-content"}>
-            <CloseIcon fontSize={"45px"} color={"blue"} />
-          </Box>
-        }
-        modalContent={
-          <Box fontWeight={"600"} fontSize={"20px"} textAlign={"center"}>
-            Вы уверены, что хотите <br /> отменить этот заказ?
-          </Box>
-        }
-        secondaryBtnText={<Box>Нет</Box>}
-        ModalBtnBgColor={"blue"}
-        primaryBtnText="Да"
-        onPrimaryBtnClick={handleCancelOrder}
-      />
-      <CustomModal
-        isOpenModal={isOpenModal4}
-        onCloseModal={onCloseModal4}
-        modalTitle={
-          <Box
-            margin={"0 auto"}
-            flexWrap={"500"}
-            textAlign={"center"}
-            width={"max-content"}
-          >
-            Выберите тип заказа
-          </Box>
-        }
-        modalContent={
-          <Box className={s.orders__modal_box}>
-            <Link className={s.orders__modal_btn} to={"/admin/orders/AddHall"}>
-              <ZalIcon />В зал
-            </Link>
-            <Link className={s.orders__modal_btn} to={"/admin/orders/add"}>
-              <PreOrderIcon />
-              Самовывоз
-            </Link>
-          </Box>
-        }
         ModalBtnBgColor={"blue"}
       />
     </>

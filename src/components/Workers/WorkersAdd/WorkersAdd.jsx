@@ -12,13 +12,13 @@ import {
   Header,
   React,
   Link,
+  useState,
 } from "public/imports";
 import { FolderIcon } from "components/SvgComponents/SvgComponents";
 import request from "services/httpRequest";
 
 export const WorkersAdd = () => {
-  const { lang, activeLang, setActiveLang, name, setName } =
-    UseCategoriesAddProps();
+  const [name, setName] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -27,12 +27,7 @@ export const WorkersAdd = () => {
     try {
       const response = await request.post(
         "https://food-delivery-api-n6as.onrender.com/v1/catalog",
-        { name },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        { name }
       );
 
       if (response.data && response.data.errors) {
