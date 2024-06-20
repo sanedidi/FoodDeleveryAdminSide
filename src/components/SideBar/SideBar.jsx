@@ -105,9 +105,9 @@ const SideBar = () => {
               onClick={() => setIsClientsActive(!isClientsActive)}
             >
               <h2>
-                {isClientsActive === "/admin/workers"
-                  ? "Сотрудники"
-                  : "Каталог"}
+                {location.pathname.startsWith("/admin/categories")
+                  ? "Каталог"
+                  : "Сотрудники"}
               </h2>
             </Box>
           </Box>

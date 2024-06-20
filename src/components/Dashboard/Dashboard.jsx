@@ -1,176 +1,123 @@
-import { useState, useEffect } from "react";
-import Chart from "chart.js/auto";
-import { Box, Header } from "public/imports";
+import { data } from "./data";
+import styles from "./Dashboard.module.scss";
+import { useState } from "react";
+import clsx from "clsx";
+import {
+  Box,
+  CustomBtn,
+  CustomInput,
+  DownloadIcon,
+  FilterIcon,
+  Header,
+  Search2Icon,
+  UnderHeader,
+} from "public/imports";
 import useDashboardProps from "./useDashboardProps";
-import s from "./Dashboard.module.scss";
+function calc(part, whole) {
+  if (whole === 0) {
+    return 0;
+  }
+  return (part / whole) * 100;
+}
 
 export default function Dashboard() {
-  const [selectedFromDate, setSelectedFromDate] = useState(null);
-  const [selectedToDate, setSelectedToDate] = useState(null);
-  const { orders, isLoading, getStats, error } = useDashboardProps();
-
-  const handleInputClear = () => {
-    setSelectedFromDate(null);
-    setSelectedToDate(null);
-    handleFilter("view_all");
-  };
-  const filterType = [
-    { filterType: "12_months", label: "За 12 месяцев" },
-    { filterType: "6_months", label: "За 6 месяцев" },
-    { filterType: "30_days", label: "За 30 дней" },
-    { filterType: "7_days", label: "За 7 дней" },
-  ];
-  const handleFilter = (filterType) => {
-    const today = new Date();
-    let fromDate = null;
-
-    switch (filterType) {
-      case "12_months":
-        fromDate = new Date(
-          today.getFullYear() - 1,
-          today.getMonth(),
-          today.getDate()
-        );
-        break;
-      case "6_months":
-        fromDate = new Date(
-          today.getFullYear(),
-          today.getMonth() - 6,
-          today.getDate()
-        );
-        break;
-      case "30_days":
-        fromDate = new Date(
-          today.getFullYear(),
-          today.getMonth(),
-          today.getDate() - 30
-        );
-        break;
-      case "7_days":
-        fromDate = new Date(
-          today.getFullYear(),
-          today.getMonth(),
-          today.getDate() - 7
-        );
-        break;
-      case "view_all":
-        break;
-      default:
-        break;
-    }
-
-    const formattedFromDate = fromDate
-      ? fromDate.toISOString().split("T")[0]
-      : null;
-    const formattedToDate = new Date().toISOString().split("T")[0];
-
-    setSelectedFromDate(formattedFromDate);
-    setSelectedToDate(formattedToDate);
-
-    getStats(formattedFromDate, formattedToDate);
-  };
-
-  const handleDateChange = (e, setterFunction, oppositeDate) => {
-    const value = e.target.value;
-    setterFunction(value);
-
-    getStats(selectedFromDate, oppositeDate)
-      .then((data) => {})
-      .catch((error) => {
-        console.error("Error fetching dashboard data:", error);
-      });
-  };
-
-  useEffect(() => {
-    handleFilter("view_all");
-  }, []);
-
-  useEffect(() => {
-    renderChart();
-  }, [orders, isLoading, error]);
-
-  const renderChart = () => {
-    if (isLoading || error) return;
-
-    const ctx = document.getElementById("ordersChart");
-    if (!ctx || !Array.isArray(orders) || orders.length === 0) return;
-
-    let myChart = Chart.getChart(ctx);
-    if (myChart) myChart.destroy();
-
-    new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: orders.map((order) => order.created_at),
-        datasets: [
-          {
-            label: "Продажи",
-            data: orders.map((order) => order.total_price),
-            backgroundColor: "rgba(75, 192, 192, 0.2)",
-            borderColor: "rgba(75, 192, 192, 1)",
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: true },
-          tooltip: {
-            callbacks: {
-              label: (tooltipItem) => tooltipItem.formattedValue,
-            },
-          },
-        },
-      },
-    });
-  };
-
+  const [key, setKey] = useState(Object.keys(data)?.[0]);
+  const array = Array.from({ length: data[key].limit }, (_, i) => i);
+  const { stat } = useDashboardProps();
   return (
     <>
       <Header
         title={"Дашборд"}
         headerBtn2={
-          <Box className={s.dash__select}>
-            <input
-              type="datetime-local"
-              onChange={(e) =>
-                handleDateChange(e, setSelectedFromDate, selectedToDate)
+          <>
+            {" "}
+            <CustomBtn
+              BgColor={"transparent"}
+              BtnBorder={"1px solid #e7e7e7"}
+              BtnContent={
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "10px" }}
+                >
+                  <FilterIcon />
+                  <p style={{ color: "#000" }}>Фильтр</p>{" "}
+                </div>
               }
-              value={selectedFromDate || ""}
-              placeholder="Выберите дату"
-              className={s.dash__underHeader_input}
-            />
-            <input
-              type="datetime-local"
-              onChange={(e) =>
-                handleDateChange(e, setSelectedToDate, selectedFromDate)
-              }
-              value={selectedToDate || ""}
-              placeholder="Выберите дату"
-              className={s.dash__underHeader_input}
-            />
-            <button onClick={handleInputClear} className={s.dash__btn}>
-              Очистить
-            </button>
-          </Box>
+            />{" "}
+          </>
         }
       />
-      <Box className={s.dash__select}>
-        {filterType.map((el) => {
-          return (
-            <button
-              key={el.filterType}
-              onClick={() => handleFilter(el.filterType)}
-              className={s.dash__btn}
+      <Box className={styles.dash__top}>
+        {stat.map((el) => (
+          <Box className={styles.dash__item} key={el.id}>
+            <Box
+              className={
+                el.id === 1
+                  ? styles.dash__id1
+                  : el.id === 2
+                  ? styles.dash__id2
+                  : el.id === 3
+                  ? styles.dash__id3
+                  : el.id === 4
+                  ? styles.dash__id4
+                  : styles.default_classname
+              }
             >
-              {el.label}
-            </button>
-          );
-        })}
+              {el.icon}
+            </Box>
+            <Box className={styles.dash__info}>
+              <h2 className={styles.dash__info_title}>{el.status}</h2>
+              <p>{el.quant}</p>
+            </Box>
+          </Box>
+        ))}
       </Box>
-      <div className={s.chartContainer}>
-        <canvas id="ordersChart"></canvas>
+
+      <div className={styles.ss}>
+        <div className={styles.patientStatistics}>
+          <div className={styles.header}>
+            <div className={styles.title}>Отчет по продажам</div>
+
+            <div className={styles.btns}>
+              {Object.keys(data).map((el) => (
+                <div
+                  className={clsx(styles.btn, key == el && styles.activeKey)}
+                  onClick={() => setKey(el)}
+                  key={el}
+                >
+                  {el}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.table}>
+            <div className={styles.fromToLimit}>
+              {array.map((el) => (
+                <span key={el}>{el + 1}</span>
+              ))}
+            </div>
+
+            <div className={styles.items} key={key}>
+              {data?.[key]?.data.map((el, i) => (
+                <div
+                  className={styles.item}
+                  style={{
+                    height:
+                      el?.numberOfPatients != "0"
+                        ? `${calc(el?.numberOfPatients, data[key].limit)}%`
+                        : null,
+                  }}
+                  key={el.label || i}
+                >
+                  <div className={styles.line}>
+                    <div></div>
+                  </div>
+                  <span className={styles.subKey}>{el.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
