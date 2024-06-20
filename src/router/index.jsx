@@ -52,6 +52,9 @@ const OrdersHall = lazy(() =>
   import("components/Orders/OrdersHall/OrdersHall")
 );
 const Workers = lazy(() => import("components/Workers/Workers"));
+const ButcherAdd = lazy(() =>
+  import("components/Butcher/ButcherAdd/ButcherAdd")
+);
 const Dashboard = lazy(() => import("components/Dashboard/Dashboard"));
 export const Router = observer(() => {
   const isAuth = authStore.isAuth;
@@ -105,6 +108,10 @@ export const Router = observer(() => {
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/workers" element={<Workers />} />
         <Route path="/admin/workers/butcher" element={<Butcher />} />
+        <Route
+          path="/admin/workers/butcher/butcherAdd"
+          element={<ButcherAdd />}
+        />
         <Route
           path="/admin/workers/workersEdit/:workersId/"
           element={<WorkersEdit />}

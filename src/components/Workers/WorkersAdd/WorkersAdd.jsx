@@ -56,15 +56,15 @@ export const WorkersAdd = () => {
         <Header
           title={
             <HeaderBox
-              path={"/admin/categories"}
-              gg={"Категории"}
+              path={"/admin/workers"}
+              gg={"Каталог"}
               hh={"Создать"}
               icon={<FolderIcon />}
             />
           }
           headerBtn2={
             <Link
-              to={"/admin/categories"}
+              to={"/admin/workers"}
               style={{
                 display: "flex",
                 alignItems: "center",

@@ -85,8 +85,10 @@ export const Butcher = () => {
         title={"Мясник"}
         headerBtn2={
           <>
-            <Link to={''} className="header_btn1"> 
-            {/* sdl;vm;sdlmv;smvsldmv;lsdm */}
+            <Link
+              to={"/admin/workers/butcher/butcherAdd"}
+              className="header_btn1"
+            >
               <PlusIcon /> Создать заказ
             </Link>
           </>
