@@ -3,11 +3,13 @@
   flex-direction: column;
   gap: 10px;
   background-color: #fff;
+
   &__calendar {
     border: 1px solid #e7e7e7;
     padding: 7px;
     border-radius: 8px;
     text-align: center;
+
     :hover {
       box-shadow: none !important;
     }
@@ -19,15 +21,18 @@
     justify-content: space-between;
     height: 81vh;
   }
+
   &__tabs_table {
     padding: 16px;
     overflow: scroll;
   }
+
   &__underHeader_input {
     border: 1px solid #e7e7e7;
     padding: 7px;
     border-radius: 6px;
   }
+
   &__wrapper {
     border-radius: 8px;
     height: 86vh;
@@ -38,6 +43,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
+
     p {
       display: flex;
       align-items: center;
@@ -52,6 +58,7 @@
       color: #fff;
     }
   }
+
   &__main {
     display: flex;
     align-items: center;
@@ -65,15 +72,18 @@
     background-color: #fff !important;
     outline: none;
   }
+
   &__select {
     display: flex;
     align-items: center;
     gap: 10px;
+
     input {
       width: 100%;
       max-width: 260px !important;
     }
   }
+
   &__modal_btn {
     display: flex;
     flex-direction: column;
@@ -84,6 +94,7 @@
     width: 150px;
     border-radius: 8px;
   }
+
   &__btn {
     background-color: #0e73f6;
     color: #fff;
@@ -91,10 +102,12 @@
     border-radius: 8px;
     font-size: 14px;
   }
+
   &__customer_num {
     color: #0e73f6;
   }
-  &__modal_box{
+
+  &__modal_box {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -103,5 +116,12 @@
     font-weight: 500;
     font-size: 20px;
     text-align: center;
+  }
+
+  &__tabs_wrapper_but {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 86vh;
   }
 }

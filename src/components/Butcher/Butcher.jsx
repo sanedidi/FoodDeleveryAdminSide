@@ -108,7 +108,7 @@ export const Butcher = () => {
         />
         <Box className={s.orders__wrapper}>
           <Box className={s.orders__tabs}>
-            <Box className={s.orders__tabs_wrapper}>
+            <Box  className={s.orders__tabs_wrapper_but}>
               <Box className={s.orders__tabs_table}>
                 <CustomTable columns={columns} data={data} />
               </Box>

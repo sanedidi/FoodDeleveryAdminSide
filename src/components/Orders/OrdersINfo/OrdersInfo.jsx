@@ -99,7 +99,7 @@ const OrdersInfo = () => {
                     <p className={s.orders__li}>
                       {orderData?.Data?.customer_phone}
                     </p>
-                  </Box>
+                    </Box>
                 </Box>
               </Box>
              
