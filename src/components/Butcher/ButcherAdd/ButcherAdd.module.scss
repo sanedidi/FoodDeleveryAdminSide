@@ -1,0 +1,49 @@
+.add {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__title {
+        color: #1A2024;
+        font-size: 18px;
+        font-weight: 600;
+        border-bottom: 1px solid #e7e7e7;
+        padding-bottom: 5px;
+    }
+
+    &__items {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+        h2 {
+            color: #48535B;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        select {
+            padding: 10px;
+            border: 1px solid #e7e7e7;
+            border-radius: 4px;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    &__validate{
+        color: red;
+    }
+
+}

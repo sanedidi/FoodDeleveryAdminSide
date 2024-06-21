@@ -1,13 +1,22 @@
-import { FolderIcon, Header, HeaderBox, Link } from "public/imports";
 import React, { useState, useEffect } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import {
+  CustomBtn,
+  CustomInput,
+  FolderIcon,
+  Header,
+  HeaderBox,
+  Link,
+  Toaster,
+  toast,
+  useNavigate,
+} from "public/imports";
 import request from "services/httpRequest";
+import s from "./ButcherAdd.module.scss";
 
 const ButcherAdd = () => {
   const [catalogs, setCatalogs] = useState([]);
-  const [catalogId, setCatalogId] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [pricePerKilo, setPricePerKilo] = useState(0);
-  const [totalSum, setTotalSum] = useState(0);
 
   useEffect(() => {
     const fetchCatalogs = async () => {
@@ -22,28 +31,63 @@ const ButcherAdd = () => {
     fetchCatalogs();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const navigate = useNavigate();
 
-    try {
-      const response = await request.post("/butcher", {
-        catalog_id: catalogId,
-        full_name: fullName,
-        price_per_kilo: pricePerKilo,
-        total_sum: totalSum,
-      });
+  const validationSchema = yup.object({
+    catalogId: yup
+      .string()
+      .required(<div className={s.add__validate}>Выберите каталог</div>),
+    fullName: yup
+      .string()
+      .required(<div className={s.add__validate}>Введите имя сотрудника</div>),
+    pricePerKilo: yup
+      .number()
+      .typeError(<div className={s.add__validate}>Введите число</div>)
+      .positive(<div className={s.add__validate}>Введите цену</div>)
+      .required(
+        <div className={s.add__validate}>Введите цену за килограмм</div>
+      ),
+    totalSum: yup
+      .number()
+      .typeError(<div className={s.add__validate}>Введите число</div>)
+      .positive(
+        <div className={s.add__validate}>Сумма должна быть положительной</div>
+      )
+      .required(<div className={s.add__validate}>Введите остаток</div>),
+  });
 
-      if (response.status === 200) {
-        alert("Мясник успешно добавлен!");
+  const formik = useFormik({
+    initialValues: {
+      catalogId: "",
+      fullName: "",
+      pricePerKilo: 0,
+      totalSum: 0,
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      try {
+        const response = await request.post("/butcher", {
+          catalog_id: values.catalogId,
+          full_name: values.fullName,
+          price_per_kilo: values.pricePerKilo,
+          total_sum: values.totalSum,
+        });
+
+        if (response.status === 201) {
+          toast.success("Мясник успешно добавлен");
+          setTimeout(() => {
+            navigate("/admin/workers/butcher");
+          }, 1000);
+        }
+      } catch (error) {
+        toast.error("Произошла ошибка при добавлении мясника.");
       }
-    } catch (error) {
-      console.error("Ошибка при добавлении мясника:", error);
-      alert("Произошла ошибка при добавлении мясника.");
-    }
-  };
+    },
+  });
 
   return (
     <div>
+      <Toaster />
       <Header
         title={
           <HeaderBox
@@ -71,48 +115,71 @@ const ButcherAdd = () => {
           </Link>
         }
       />
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Catalog ID:</label>
-          <select
-            value={catalogId}
-            onChange={(e) => setCatalogId(e.target.value)}
-          >
-            <option value="">Выберите каталог</option>
-            {catalogs.map((catalog) => (
-              <option key={catalog.id} value={catalog.id}>
-                {catalog.name}
+      <div className={s.add}>
+        <h2 className={s.add__title}>Сотрудник</h2>
+        <form onSubmit={formik.handleSubmit}>
+          <div className={s.add__item}>
+            <h2>Имя сотрудника</h2>
+            <CustomInput
+              value={formik.values.fullName}
+              onChange={formik.handleChange}
+              name="fullName"
+              InputPlaceHolder={"Имя сотрудника"}
+            />
+            {formik.errors.fullName && formik.touched.fullName && (
+              <div className={s.error}>{formik.errors.fullName}</div>
+            )}
+          </div>
+          <div className={s.add__item}>
+            <h2>Каталог</h2>
+            <select
+              value={formik.values.catalogId}
+              onChange={formik.handleChange}
+              name="catalogId"
+            >
+              <option className={s.add__val} value="">
+                Выберите каталог
               </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Full Name:</label>
-          <input
-            type="text"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Price per Kilo:</label>
-          <input
-            type="number"
-            value={pricePerKilo}
-            onChange={(e) => setPricePerKilo(parseFloat(e.target.value))}
-          />
-        </div>
-        <div>
-          <label>Total Sum:</label>
-          <input
-            type="number"
-            value={totalSum}
-            onChange={(e) => setTotalSum(parseFloat(e.target.value))}
-          />
-        </div>
-        <button type="submit">Создать</button>
-      </form>
+              {catalogs.map((catalog) => (
+                <option key={catalog.id} value={catalog.id}>
+                  {catalog.name}
+                </option>
+              ))}
+            </select>
+            {formik.errors.catalogId && formik.touched.catalogId && (
+              <div className={s.error}>{formik.errors.catalogId}</div>
+            )}
+          </div>
+
+          <div className={s.add__items}>
+            <div className={s.add__item}>
+              <h2>Цена товар 1КГ</h2>
+              <CustomInput
+                value={formik.values.pricePerKilo}
+                onChange={formik.handleChange}
+                name="pricePerKilo"
+                type={"number"}
+              />
+              {formik.errors.pricePerKilo && formik.touched.pricePerKilo && (
+                <div className={s.error}>{formik.errors.pricePerKilo}</div>
+              )}
+            </div>
+            <div className={s.add__item}>
+              <h2>Остаток</h2>
+              <CustomInput
+                value={formik.values.totalSum}
+                onChange={formik.handleChange}
+                name="totalSum"
+                type={"number"}
+              />
+              {formik.errors.totalSum && formik.touched.totalSum && (
+                <div className={s.error}>{formik.errors.totalSum}</div>
+              )}
+            </div>
+          </div>
+          <CustomBtn type={"submit"} BtnContent={"Создать"} BgColor={"blue"} />
+        </form>
+      </div>
     </div>
   );
 };

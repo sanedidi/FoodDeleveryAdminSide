@@ -28,6 +28,7 @@
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.11",
     "file-saver": "^2.0.5",
+    "formik": "^2.4.6",
     "framer-motion": "^11.1.7",
     "html-to-image": "^1.11.11",
     "html2canvas": "^1.4.1",
@@ -49,7 +50,8 @@
     "react-select": "^5.8.0",
     "react-table": "^7.8.0",
     "sass": "^1.76.0",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
