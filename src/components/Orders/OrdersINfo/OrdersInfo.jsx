@@ -50,7 +50,7 @@ const OrdersInfo = () => {
                     style={{ textTransform: "uppercase" }}
                     className={s.orders__li}
                   >
-                    {orderData?.Data.status}-Заказ получен в Вендор
+                    {orderData?.Data.status}
                   </li>
                   {/* <li className={s.orders__li}>
                       {orderData?.Data.status}-Заказ подтвержден
@@ -99,12 +99,6 @@ const OrdersInfo = () => {
                     <p className={s.orders__li}>
                       {orderData?.Data?.customer_phone}
                     </p>
-                  </Box>
-                  <Box className={s.orders__ul}>
-                    <li className={s.orders__li}>
-                      {orderData?.Data?.customer_name}
-                    </li>
-                    <p className={s.orders__li}>{orderData?.Data?.phone}</p>
                   </Box>
                 </Box>
               </Box>
