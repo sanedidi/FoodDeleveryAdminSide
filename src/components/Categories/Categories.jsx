@@ -126,7 +126,8 @@ export const Categories = () => {
             ) : (
               <CustomTable key={isLoading} columns={columns} data={data} />
             )}
-            <Box className={s.products__pagination}>
+          </Box>
+            <Box className={s.categories__pagination}>
               <ReactPaginate
                 previousLabel={
                   <>
@@ -152,7 +153,6 @@ export const Categories = () => {
                 initialPage={current - 1}
               />
             </Box>
-          </Box>
         </Box>
       </Box>
 

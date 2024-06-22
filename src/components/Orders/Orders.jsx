@@ -161,6 +161,61 @@ export const Orders = () => {
     }
   };
 
+  const tabLabels = [
+    {
+      title: "Все заказы",
+      count: count.count_of_all_orders,
+    },
+    {
+      title: "Самовывоз",
+      count: count.count_of_pre_order,
+    },
+    {
+      title: "В зал",
+      count: count.count_for_hall,
+    },
+    {
+      title: "Новые",
+      count: count.count_of_new_status,
+    },
+    {
+      title: "Завершен",
+      count: count.count_of_completed_status,
+    },
+    {
+      title: "Отмененные",
+      count: count.count_of_canceled_status,
+    },
+  ];
+
+  const tabContents = Array(6).fill(
+    <Box className={s.orders__tabs}>
+      <Box className={s.orders__tabs_wrapper}>
+        <Box className={s.orders__tabs_table}>
+          <CustomTable columns={columns} data={data} />
+        </Box>
+      </Box>
+      <Box className={s.orders__tabs_pag}>
+        <ReactPaginate
+          previousLabel={<ChevronLeftIcon />}
+          nextLabel={<ChevronRightIcon />}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={totalPages}
+          current={current}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageChange}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"activePagination"}
+          className={s.products_pag}
+          initialPage={page - 1}
+        />
+      </Box>
+    </Box>
+  );
+
   return (
     <>
       <Toaster />
@@ -213,206 +268,30 @@ export const Orders = () => {
             </Box>
           }
         />
-        <Box className={s.orders__wrapper}>
-          <CustomTabs
-            tabs={{
-              tabLabels: [
-                <Box className={s.orders__title}>
-                  <h2>Все заказы</h2>
-                  <p> {count.count_of_all_orders} </p>
-                </Box>,
-                <Box className={s.orders__title}>
-                  <h2
-                    style={{ fontWeight: "500" }}
-                    onClick={() => handleTabChange(4)}
-                  >
-                    Самовывоз
-                  </h2>
-                  <p>{count.count_of_pre_order}</p>
-                </Box>,
-                <Box className={s.orders__title}>
-                  <h2
-                    style={{ fontWeight: "500" }}
-                    onClick={() => handleTabChange(5)}
-                  >
-                    В зал
-                  </h2>
-                  <p>{count.count_for_hall}</p>
-                </Box>,
-                <Box className={s.orders__title}>
-                  <h2 onClick={() => setOrderStatus("новый")}>Новые</h2>
-                  <p>{count.count_of_new_status}</p>
-                </Box>,
-                <Box className={s.orders__title}>
-                  <h2>Завершен</h2>
-                  <p>{count.count_of_completed_status}</p>
-                </Box>,
-                <Box className={s.orders__title}>
-                  <h2 onClick={() => setOrderStatus("отменен")}>Отмененные</h2>
-                  <p>{count.count_of_canceled_status}</p>
-                </Box>,
-              ],
-              tabContents: [
-                <Box className={s.orders__tabs}>
-                  <Box className={s.orders__tabs_wrapper}>
-                    <Box className={s.orders__tabs_table}>
-                      <CustomTable columns={columns} data={data} />
-                    </Box>
-                    <Box className={s.orders__tabs_pag}>
-                      <ReactPaginate
-                        previousLabel={<ChevronLeftIcon />}
-                        nextLabel={<ChevronRightIcon />}
-                        breakLabel={"..."}
-                        breakClassName={"break-me"}
-                        pageCount={totalPages}
-                        current={current}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageChange}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"activePagination"}
-                        className={s.products_pag}
-                        initialPage={page - 1}
-                      />
-                    </Box>
-                  </Box>
-                </Box>,
-                <Box className={s.orders__tabs}>
-                  <Box className={s.orders__tabs_wrapper}>
-                    <Box className={s.orders__tabs_table}>
-                      <CustomTable columns={columns} data={data} />
-                    </Box>
-                    <Box className={s.orders__tabs_pag}>
-                      <ReactPaginate
-                        previousLabel={<ChevronLeftIcon />}
-                        nextLabel={<ChevronRightIcon />}
-                        breakLabel={"..."}
-                        breakClassName={"break-me"}
-                        pageCount={totalPages}
-                        current={current}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageChange}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"activePagination"}
-                        className={s.products_pag}
-                        initialPage={page - 1}
-                      />
-                    </Box>
-                  </Box>
-                </Box>,
-                <Box className={s.orders__tabs}>
-                  <Box className={s.orders__tabs_wrapper}>
-                    <Box className={s.orders__tabs_table}>
-                      <CustomTable columns={columns} data={data} />
-                    </Box>
-                    <Box className={s.orders__tabs_pag}>
-                      <ReactPaginate
-                        previousLabel={<ChevronLeftIcon />}
-                        nextLabel={<ChevronRightIcon />}
-                        breakLabel={"..."}
-                        breakClassName={"break-me"}
-                        pageCount={totalPages}
-                        current={current}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageChange}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"activePagination"}
-                        className={s.products_pag}
-                        initialPage={page - 1}
-                      />
-                    </Box>
-                  </Box>
-                </Box>,
-                <Box className={s.orders__tabs}>
-                  <Box className={s.orders__tabs_wrapper}>
-                    <Box className={s.orders__tabs_table}>
-                      <CustomTable columns={columns} data={data} />
-                    </Box>
-                    <Box className={s.orders__tabs_pag}>
-                      <ReactPaginate
-                        previousLabel={<ChevronLeftIcon />}
-                        nextLabel={<ChevronRightIcon />}
-                        breakLabel={"..."}
-                        breakClassName={"break-me"}
-                        pageCount={totalPages}
-                        current={current}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageChange}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"activePagination"}
-                        className={s.products_pag}
-                        initialPage={page - 1}
-                      />
-                    </Box>
-                  </Box>
-                </Box>,
-                <Box className={s.orders__tabs}>
-                  <Box className={s.orders__tabs_wrapper}>
-                    <Box className={s.orders__tabs_table}>
-                      <CustomTable columns={columns} data={data} />
-                    </Box>
-                    <Box className={s.orders__tabs_pag}>
-                      <ReactPaginate
-                        previousLabel={<ChevronLeftIcon />}
-                        nextLabel={<ChevronRightIcon />}
-                        breakLabel={"..."}
-                        breakClassName={"break-me"}
-                        pageCount={totalPages}
-                        current={current}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageChange}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"activePagination"}
-                        className={s.products_pag}
-                        initialPage={page - 1}
-                      />
-                    </Box>
-                  </Box>
-                </Box>,
-                <Box className={s.orders__tabs}>
-                  <Box className={s.orders__tabs_wrapper}>
-                    <Box className={s.orders__tabs_table}>
-                      <CustomTable columns={columns} data={data} />
-                    </Box>
-                    <Box className={s.orders__tabs_pag}>
-                      <ReactPaginate
-                        previousLabel={<ChevronLeftIcon />}
-                        nextLabel={<ChevronRightIcon />}
-                        breakLabel={"..."}
-                        breakClassName={"break-me"}
-                        pageCount={totalPages}
-                        current={current}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageChange}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"activePagination"}
-                        className={s.products_pag}
-                        initialPage={page - 1}
-                      />
-                    </Box>
-                  </Box>
-                </Box>,
-              ],
-            }}
-            activeTab={activeTab}
-            onTabChange={(newActiveTab) => {
-              setActiveTab(newActiveTab);
-              handleTabChange(newActiveTab);
-            }}
-          />
-        </Box>
       </Box>
+      <CustomTabs
+        tabs={{
+          tabLabels: tabLabels.map((tab, index) => (
+            <Box className={s.orders__title} key={index}>
+              <h2
+                style={{
+                  fontWeight: index === 1 || index === 2 ? "500" : "normal",
+                }}
+                onClick={() => handleTabChange(index)}
+              >
+                {tab.title}
+              </h2>
+              <p>{tab.count}</p>
+            </Box>
+          )),
+          tabContents: tabContents,
+        }}
+        activeTab={activeTab}
+        onTabChange={(newActiveTab) => {
+          setActiveTab(newActiveTab);
+          handleTabChange(newActiveTab);
+        }}
+      />
       <CustomModal
         isOpenModal={isOpenModal1}
         onCloseModal={onCloseModal1}

@@ -24,21 +24,35 @@
   &__pagination {
     margin-top: auto;
   }
+
   &__edit {
     display: flex;
     align-items: center;
   }
 }
 
-.orders{
-  &__tabs_wrapper{
+.orders {
+  &__tabs {
+    height: 100%;
+  }
+
+  &__tabs_wrapper {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 86vh;
+    height: 100%;
     overflow: scroll;
   }
-  &__tabs_table{
+
+  &__tabs_table {
     padding: 16px;
+  }
+
+  &__tabs_pag {
+    position: sticky;
+    bottom: 0;
+    margin-top: auto;
+    background-color: #fff;
+    z-index: 9999;
   }
 }

@@ -10,6 +10,7 @@ import {
   Box,
   React,
   useState,
+  toast,
 } from "public/imports";
 import request from "services/httpRequest";
 
@@ -24,7 +25,7 @@ export const ProductsAdd = () => {
       !formData.branch_id ||
       !selectedFile
     ) {
-      alert("Please fill in all the required fields.");
+      toast.error("Please fill in all the required fields.");
       return;
     }
 
@@ -33,7 +34,7 @@ export const ProductsAdd = () => {
       isNaN(formData.sale_price) ||
       isNaN(formData.quantity)
     ) {
-      alert("Please enter valid numeric values for price and quantity.");
+      toast.error("Please enter valid numeric values for price and quantity.");
       return;
     }
 
@@ -42,8 +43,6 @@ export const ProductsAdd = () => {
       data.append(key, formData[key]);
     }
     data.append("photo", selectedFile);
-
-    console.log("Submitting form data:", Object.fromEntries(data.entries()));
 
     try {
       const response = await request.post(
@@ -55,12 +54,9 @@ export const ProductsAdd = () => {
           },
         }
       );
-      console.log("Product created:", response.data);
+      toast.success("Продукт создан!!!");
     } catch (error) {
-      console.error(
-        "Error creating product:",
-        error.response ? error.response.data : error.message
-      );
+      toast.error("Заполните все поля");
     }
   };
   return (

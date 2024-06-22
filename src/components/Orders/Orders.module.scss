@@ -3,7 +3,6 @@
   flex-direction: column;
   gap: 10px;
   background-color: #fff;
-
   &__calendar {
     border: 1px solid #e7e7e7;
     padding: 7px;
@@ -18,8 +17,7 @@
   &__tabs_wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 81vh;
+    height: 100%;
   }
 
   &__tabs_table {
@@ -35,7 +33,7 @@
 
   &__wrapper {
     border-radius: 8px;
-    height: 86vh;
+    height: 100%;
     overflow: scroll;
   }
 
@@ -123,5 +121,16 @@
     flex-direction: column;
     justify-content: space-between;
     height: 86vh;
+  }
+
+  &__tabs_pag {
+    position: sticky;
+    bottom: 0;
+    margin-top: auto;
+    background-color: #fff;
+    z-index: 999;
+  }
+  &__tabs{
+    height: 100%;
   }
 }
