@@ -71,6 +71,7 @@ export const Workers = () => {
             <CustomTable columns={columns} data={data} />
           </Box>
         </Box>
+      </Box>
         <Box className={s.orders__tabs_pag}>
           <ReactPaginate
             previousLabel={<ChevronLeftIcon />}
@@ -89,7 +90,6 @@ export const Workers = () => {
             initialPage={page - 1}
           />
         </Box>
-      </Box>
       <CustomModal
         isOpenModal={isOpenModal2}
         onCloseModal={onCloseModal2}

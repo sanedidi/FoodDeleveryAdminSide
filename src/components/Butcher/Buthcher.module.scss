@@ -19,10 +19,13 @@
 }
 
 .orders {
-    &__tabs{
+    height: 100%;
+
+    &__tabs {
 
         height: 100%;
     }
+
     &__tabs_wrapper {
         display: flex;
         flex-direction: column;

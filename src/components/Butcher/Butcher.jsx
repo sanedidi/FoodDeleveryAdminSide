@@ -17,7 +17,7 @@ import {
   UnderHeader,
   useSearchParams,
 } from "public/imports";
-import s from "components/Orders/Orders.module.scss";
+import s from "./Buthcher.module.scss";
 import ReactPaginate from "react-paginate";
 import useButcherProps from "./useButcherProps";
 
@@ -106,32 +106,28 @@ export const Butcher = () => {
             />
           }
         />
-        <Box className={s.orders__wrapper}>
-          <Box className={s.orders__tabs}>
-            <Box  className={s.orders__tabs_wrapper_but}>
-              <Box className={s.orders__tabs_table}>
-                <CustomTable columns={columns} data={data} />
-              </Box>
-              <Box className={s.orders__tabs_pag}>
-                <ReactPaginate
-                  previousLabel={<ChevronLeftIcon />}
-                  nextLabel={<ChevronRightIcon />}
-                  breakLabel={"..."}
-                  breakClassName={"break-me"}
-                  pageCount={totalPages}
-                  current={current}
-                  marginPagesDisplayed={2}
-                  pageRangeDisplayed={5}
-                  onPageChange={handlePageChange}
-                  containerClassName={"pagination"}
-                  subContainerClassName={"pages pagination"}
-                  activeClassName={"activePagination"}
-                  className={s.products_pag}
-                  initialPage={page - 1}
-                />
-              </Box>
-            </Box>
+        <Box className={s.orders__tabs}>
+          <Box className={s.orders__tabs_wrapper}>
+              <CustomTable columns={columns} data={data} />
           </Box>
+        </Box>
+        <Box className={s.orders__tabs_pag}>
+          <ReactPaginate
+            previousLabel={<ChevronLeftIcon />}
+            nextLabel={<ChevronRightIcon />}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={totalPages}
+            current={current}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageChange}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"activePagination"}
+            className={s.products_pag}
+            initialPage={page - 1}
+          />
         </Box>
       </Box>
       <CustomModal
