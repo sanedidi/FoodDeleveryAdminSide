@@ -24,28 +24,46 @@ export const WorkersAdd = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const restaurant_id = localStorage.getItem("restaurant_id");
+    if (!restaurant_id || !name) {
+      toast.error("Все поля обязательны для заполнения.");
+      return;
+    }
+    const formData = {
+      name: name,
+      restaurant_id: restaurant_id,
+    };
+
     try {
-      const response = await request.post(
-        "https://food-delivery-api-n6as.onrender.com/v1/catalog",
-        { name }
-      );
+      const response = await request.post("/catalog", formData);
 
       if (response.data && response.data.errors) {
         const errors = response.data.errors;
 
-        switch (true) {
-          case errors.name === "":
-            toast.error("Введите название");
-            break;
-          default:
-            toast.error("Ошибка при создании категории");
+        if (errors.name === "") {
+          toast.error("Введите название");
+        } else {
+          toast.error("Ошибка при создании категории");
         }
       } else {
         toast.success("Категория успешно создана");
         navigate("/admin/workers/");
       }
     } catch (error) {
-      toast.error("Ошибка: " + error.message);
+      if (error.response && error.response.data) {
+        const { status, data } = error.response;
+        if (status === 400) {
+          toast.error(`Ошибка 400: ${data.description}`);
+        } else if (status === 404) {
+          toast.error("Ошибка 404: Не найдено");
+        } else if (status === 500) {
+          toast.error("Ошибка 500: Внутренняя ошибка сервера");
+        } else {
+          toast.error(`Ошибка: ${error.message}`);
+        }
+      } else {
+        toast.error(`Ошибка: ${error.message}`);
+      }
     }
   };
 
@@ -95,7 +113,6 @@ export const WorkersAdd = () => {
                 <Box className={s.categoriesAdd__bottom_lang}>
                   <Lang />
                 </Box>
-
                 <Box className={s.categoriesAdd__right}>
                   <CustomInput
                     type="text"
