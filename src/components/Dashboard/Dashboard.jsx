@@ -125,7 +125,7 @@ export default function Dashboard() {
           <div className={styles.table}>
             <div className={styles.fromToLimit}>
               {array.map((el) => (
-                <span key={el}>{el + 1}</span>
+                <span key={el}>{el * 150}</span>
               ))}
             </div>
 

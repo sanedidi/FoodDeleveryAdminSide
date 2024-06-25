@@ -22,7 +22,6 @@ export const Workers = () => {
     columns,
     data,
     handleDeleteCategory,
-    isLoading,
     isOpenModal2,
     onCloseModal2,
     paginationData,
