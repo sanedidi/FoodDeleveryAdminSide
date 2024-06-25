@@ -7,7 +7,7 @@ const DashboardService = {
       .get(`/dashboard`, {
         params,
       })
-      .then((res) => res?.data?.Data?.orders),
+      .then((res) => res?.data?.Data),
   getMonthly_orders: (params) =>
     request
       .get(`/monthly_orders`, {

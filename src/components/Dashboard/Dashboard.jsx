@@ -20,7 +20,6 @@ export default function Dashboard() {
     weekly_orders,
     yearly_orders,
   } = useDashboardProps();
-
   const [key, setKey] = useState("12 Месяцев");
   const [data, setData] = useState({});
 
@@ -44,7 +43,7 @@ export default function Dashboard() {
       },
       "Показать все": {
         limit: DashAll?.limit || 10,
-        data: DashAll || [],
+        data: DashAll?.orders || [],
       },
     };
 
@@ -105,7 +104,6 @@ export default function Dashboard() {
           </Box>
         ))}
       </Box>
-
       <div className={styles.ss}>
         <div className={styles.patientStatistics}>
           <div className={styles.header}>
