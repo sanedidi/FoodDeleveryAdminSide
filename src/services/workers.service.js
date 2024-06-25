@@ -8,12 +8,14 @@ const DashboardService = {
   //         params,
   //       })
   //       .then((res) => res?.data?.Data),
-  getDash: (params) =>
-    request
+  getDash: (params) => {
+    console.log("getDash", params);
+    return request
       .get("/catalogs", {
-        params,
+        ...params,
       })
-      .then((res) => res?.data.Data.catalogs),
+      .then((res) => res?.data?.Data);
+  },
 };
 
 export const useGetAllWorkersService = (params) => {

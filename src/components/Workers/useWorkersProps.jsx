@@ -8,6 +8,7 @@ import {
   MenuComp,
   Skeleton,
   Stack,
+  React,
   Link,
 } from "public/imports";
 import { useDeleteWorker } from "services/categories.service";
@@ -23,41 +24,30 @@ const useWorkersProps = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(10);
-  
+  const [newState, setNewState] = useState();
   const onOpenModal1 = () => setIsOpenModal1(true);
   const onCloseModal1 = () => setIsOpenModal1(false);
   const onOpenModal2 = () => setIsOpenModal2(true);
   const onCloseModal2 = () => setIsOpenModal2(false);
 
-  const { data: queryData, refetch } = useGetAllWorkersService();
+  const { data: queryData, refetch } = useGetAllWorkersService(newState);
 
-  const { mutate: deleteWorker } = useDeleteWorker({
+  const { mutate: deleteCategory } = useDeleteWorker({
     onSuccess: () => refetch(),
   });
 
-  const getWorkers = async ({ page, limit, search }) => {
-    try {
-      setIsLoading(true);
-      const response = await fetchWorkers({ page, limit, search });
-      const totalCount = response?.data?.Data?.count || 0;
-      setTotalPages(Math.ceil(totalCount / limit));
-    } catch (error) {
-      console.error("Error fetching workers:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const fetchWorkers = async ({ page, limit, search }) => {
-    // Implement your logic to fetch workers here
-    // Example using useGetAllWorkersService:
-    const response = await useGetAllWorkersService({ page, limit, search });
-    return response;
-  };
-
   const handleDeleteCategory = async (categoryId) => {
-    deleteWorker(categoryId);
+    deleteCategory(categoryId);
   };
+
+  useEffect(() => {
+    refetch();
+  }, [currentPage, pageSize, searchQuery, newState]);
+
+  useEffect(() => {
+    const pageCount = Math.ceil(queryData?.count / 10);
+    setTotalPages(pageCount);
+  }, [queryData]);
 
   const skeleton = (
     <Stack>
@@ -159,7 +149,7 @@ const useWorkersProps = () => {
     data: isLoading
       ? skeleton
       : (queryData &&
-          queryData.map((item, index) => ({
+          queryData?.catalogs?.map((item, index) => ({
             key: item?.id || index,
             number: (currentPage - 1) * pageSize + index + 1,
             ...item,
@@ -183,7 +173,7 @@ const useWorkersProps = () => {
     selectedCategoryId,
     isLoading,
     setIsLoading,
-    getWorkers, 
+    setNewState,
   };
 };
 

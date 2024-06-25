@@ -26,7 +26,7 @@ export const Workers = () => {
     onCloseModal2,
     paginationData,
     selectedCategoryId,
-    getWorkers,
+    setNewState,
   } = useWorkersProps();
 
   const { current, totalPages } = paginationData;
@@ -40,8 +40,8 @@ export const Workers = () => {
   };
 
   useEffect(() => {
-    getWorkers({ page, limit, search });
-  }, [page, limit, search]);
+    setNewState({ page, limit, search });
+  }, []);
 
   return (
     <>

@@ -61,11 +61,9 @@ export const useDeleteCategory = () => {
     },
   });
 };
-export const useDeleteWorker = () => {
+export const useDeleteWorker = (mutateParams) => {
   return useMutation({
     mutationFn: (workerId) => CategoriesService.deleteWorker(workerId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["category"] });
-    },
+    ...mutateParams
   });
 };
