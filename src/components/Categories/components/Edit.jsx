@@ -21,7 +21,7 @@ const Edit = () => {
   const [productData, setProductData] = useState({
     id: categoryId,
     name: "",
-    photo: null,
+    photo: null, 
     imagePreview: null,
   });
 

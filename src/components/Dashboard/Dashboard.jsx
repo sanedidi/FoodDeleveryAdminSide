@@ -1,18 +1,9 @@
-import { data } from "./data";
+import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.scss";
-import { useState } from "react";
 import clsx from "clsx";
-import {
-  Box,
-  CustomBtn,
-  CustomInput,
-  DownloadIcon,
-  FilterIcon,
-  Header,
-  Search2Icon,
-  UnderHeader,
-} from "public/imports";
+import { Box, CustomBtn, FilterIcon, Header } from "public/imports";
 import useDashboardProps from "./useDashboardProps";
+
 function calc(part, whole) {
   if (whole === 0) {
     return 0;
@@ -21,16 +12,59 @@ function calc(part, whole) {
 }
 
 export default function Dashboard() {
-  const [key, setKey] = useState(Object.keys(data)?.[0]);
-  const array = Array.from({ length: data[key].limit }, (_, i) => i);
-  const { stat } = useDashboardProps();
+  const {
+    stat,
+    DashAll,
+    monthly_orders,
+    semiannual_orders,
+    weekly_orders,
+    yearly_orders,
+  } = useDashboardProps();
+
+  const [key, setKey] = useState("12 Месяцев");
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const fetchedData = {
+      ["12 Месяцев"]: {
+        limit: yearly_orders?.limit || 10,
+        data: yearly_orders || [],
+      },
+      "1 Месяц": {
+        limit: monthly_orders?.limit || 10,
+        data: monthly_orders || [],
+      },
+      "7 дней": {
+        limit: weekly_orders?.limit || 10,
+        data: weekly_orders || [],
+      },
+      "6 месяцев": {
+        limit: semiannual_orders?.limit || 10,
+        data: semiannual_orders || [],
+      },
+      "Показать все": {
+        limit: DashAll?.limit || 10,
+        data: DashAll || [],
+      },
+    };
+
+    setData(fetchedData);
+  }, [
+    DashAll,
+    monthly_orders,
+    semiannual_orders,
+    weekly_orders,
+    yearly_orders,
+  ]);
+
+  const array = Array.from({ length: data[key]?.limit || 0 }, (_, i) => i);
+
   return (
     <>
       <Header
         title={"Дашборд"}
         headerBtn2={
           <>
-            {" "}
             <CustomBtn
               BgColor={"transparent"}
               BtnBorder={"1px solid #e7e7e7"}
@@ -39,10 +73,10 @@ export default function Dashboard() {
                   style={{ display: "flex", alignItems: "center", gap: "10px" }}
                 >
                   <FilterIcon />
-                  <p style={{ color: "#000" }}>Фильтр</p>{" "}
+                  <p style={{ color: "#000" }}>Фильтр</p>
                 </div>
               }
-            />{" "}
+            />
           </>
         }
       />
@@ -103,8 +137,8 @@ export default function Dashboard() {
                   className={styles.item}
                   style={{
                     height:
-                      el?.numberOfPatients != "0"
-                        ? `${calc(el?.numberOfPatients, data[key].limit)}%`
+                      el?.order_count != "0"
+                        ? `${calc(el?.order_count, data[key].limit)}%`
                         : null,
                   }}
                   key={el.label || i}
@@ -112,7 +146,7 @@ export default function Dashboard() {
                   <div className={styles.line}>
                     <div></div>
                   </div>
-                  <span className={styles.subKey}>{el.label}</span>
+                  <span className={styles.subKey}>{el.day}</span>
                 </div>
               ))}
             </div>
