@@ -32,7 +32,6 @@ const ButcherAdd = () => {
   }, []);
 
   const navigate = useNavigate();
-
   const validationSchema = yup.object({
     catalogId: yup
       .string()
@@ -55,7 +54,7 @@ const ButcherAdd = () => {
       )
       .required(<div className={s.add__validate}>Введите остаток</div>),
   });
-
+  const restaurant_id = localStorage.getItem("restaurant_id");
   const formik = useFormik({
     initialValues: {
       catalogId: "",
@@ -71,6 +70,7 @@ const ButcherAdd = () => {
           full_name: values.fullName,
           price_per_kilo: values.pricePerKilo,
           total_sum: values.totalSum,
+          restaurant_id,
         });
 
         if (response.status === 201) {
