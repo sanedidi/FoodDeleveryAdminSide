@@ -26,7 +26,7 @@ export const Workers = () => {
     onCloseModal2,
     paginationData,
     selectedCategoryId,
-    fetchCategories,
+    getWorkers,
   } = useWorkersProps();
 
   const { current, totalPages } = paginationData;
@@ -40,7 +40,7 @@ export const Workers = () => {
   };
 
   useEffect(() => {
-    fetchCategories(page, limit, search);
+    getWorkers({ page, limit, search });
   }, [page, limit, search]);
 
   return (
@@ -71,24 +71,23 @@ export const Workers = () => {
           </Box>
         </Box>
       </Box>
-        <Box className={s.orders__tabs_pag}>
-          <ReactPaginate
-            previousLabel={<ChevronLeftIcon />}
-            nextLabel={<ChevronRightIcon />}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={totalPages}
-            current={current}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageChange}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"activePagination"}
-            className={s.products_pag}
-            initialPage={page - 1}
-          />
-        </Box>
+      <Box className={s.orders__tabs_pag}>
+        <ReactPaginate
+          previousLabel={<ChevronLeftIcon />}
+          nextLabel={<ChevronRightIcon />}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={totalPages}
+          forcePage={current - 1}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageChange}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"activePagination"}
+          className={s.products_pag}
+        />
+      </Box>
       <CustomModal
         isOpenModal={isOpenModal2}
         onCloseModal={onCloseModal2}

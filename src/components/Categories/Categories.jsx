@@ -53,7 +53,7 @@ export const Categories = () => {
         canvas.toBlob((blob) => {
           const link = document.createElement("a");
           link.href = URL.createObjectURL(blob);
-          link.download = "categories.png";
+          link.download = "products.png";
           link.click();
         }, "image/png");
       });
@@ -67,12 +67,6 @@ export const Categories = () => {
   useEffect(() => {
     fetchCategories(page, limit, search);
   }, [page, limit, search]);
-  const handleRefresh = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  };
 
   return (
     <>
@@ -98,7 +92,7 @@ export const Categories = () => {
             }
             thirdItem={
               <CustomBtn
-                onClick={handleDownload} // Corrected onClick function
+                Onclick={handleDownload}
                 BtnContent={
                   <Box
                     style={{
@@ -127,32 +121,32 @@ export const Categories = () => {
               <CustomTable key={isLoading} columns={columns} data={data} />
             )}
           </Box>
-            <Box className={s.categories__pagination}>
-              <ReactPaginate
-                previousLabel={
-                  <>
-                    <ChevronLeftIcon />
-                  </>
-                }
-                nextLabel={
-                  <>
-                    <ChevronRightIcon />
-                  </>
-                }
-                breakLabel={"..."}
-                breakClassName={"break-me"}
-                pageCount={totalPages}
-                forcePage={current - 1}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={({ selected }) => handlePageChange(selected + 1)}
-                containerClassName={"pagination"}
-                subContainerClassName={"pages pagination"}
-                activeClassName={"activePagination"}
-                className={s.products_pag}
-                initialPage={current - 1}
-              />
-            </Box>
+          <Box className={s.categories__pagination}>
+            <ReactPaginate
+              previousLabel={
+                <>
+                  <ChevronLeftIcon />
+                </>
+              }
+              nextLabel={
+                <>
+                  <ChevronRightIcon />
+                </>
+              }
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={totalPages}
+              forcePage={current - 1}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={({ selected }) => handlePageChange(selected + 1)}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"activePagination"}
+              className={s.products_pag}
+              initialPage={current - 1}
+            />
+          </Box>
         </Box>
       </Box>
 

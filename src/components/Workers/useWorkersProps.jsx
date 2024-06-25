@@ -8,11 +8,10 @@ import {
   MenuComp,
   Skeleton,
   Stack,
-  React,
   Link,
 } from "public/imports";
 import { useDeleteWorker } from "services/categories.service";
-import request from "services/httpRequest";
+import { useGetAllWorkersService } from "services/workers.service";
 
 const useWorkersProps = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
@@ -24,42 +23,41 @@ const useWorkersProps = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(10);
+  
   const onOpenModal1 = () => setIsOpenModal1(true);
   const onCloseModal1 = () => setIsOpenModal1(false);
   const onOpenModal2 = () => setIsOpenModal2(true);
   const onCloseModal2 = () => setIsOpenModal2(false);
-  const { mutate: deleteCategory } = useDeleteWorker({
-    onSuccess: () => fetchCategories(currentPage, pageSize, searchQuery),
+
+  const { data: queryData, refetch } = useGetAllWorkersService();
+
+  const { mutate: deleteWorker } = useDeleteWorker({
+    onSuccess: () => refetch(),
   });
 
-  const handleDeleteCategory = async (categoryId) => {
-    deleteCategory(categoryId);
-  };
-
-  const fetchCategories = async (page, limit, search) => {
-    setIsLoading(true);
+  const getWorkers = async ({ page, limit, search }) => {
     try {
-      const response = await request.get("/catalogs", {
-        params: {
-          page: page,
-          limit: limit,
-          search,
-        },
-      });
-      if (response.data && response.data.Data.catalogs) {
-        setCategories(response.data.Data.catalogs);
-        setTotalPages(Math.ceil(response.data.Data.count / limit));
-      }
+      setIsLoading(true);
+      const response = await fetchWorkers({ page, limit, search });
+      const totalCount = response?.data?.Data?.count || 0;
+      setTotalPages(Math.ceil(totalCount / limit));
     } catch (error) {
-      console.error("Failed to fetch catalogs", error);
+      console.error("Error fetching workers:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchCategories(currentPage, pageSize, searchQuery);
-  }, [currentPage, pageSize, searchQuery]);
+  const fetchWorkers = async ({ page, limit, search }) => {
+    // Implement your logic to fetch workers here
+    // Example using useGetAllWorkersService:
+    const response = await useGetAllWorkersService({ page, limit, search });
+    return response;
+  };
+
+  const handleDeleteCategory = async (categoryId) => {
+    deleteWorker(categoryId);
+  };
 
   const skeleton = (
     <Stack>
@@ -160,11 +158,13 @@ const useWorkersProps = () => {
   return {
     data: isLoading
       ? skeleton
-      : categories.map((item, index) => ({
-          key: item?.id || index,
-          number: (currentPage - 1) * pageSize + index + 1,
-          ...item,
-        })),
+      : (queryData &&
+          queryData.map((item, index) => ({
+            key: item?.id || index,
+            number: (currentPage - 1) * pageSize + index + 1,
+            ...item,
+          }))) ||
+        [],
     paginationData: {
       current: currentPage,
       pageSize: pageSize,
@@ -183,7 +183,7 @@ const useWorkersProps = () => {
     selectedCategoryId,
     isLoading,
     setIsLoading,
-    fetchCategories,
+    getWorkers, 
   };
 };
 

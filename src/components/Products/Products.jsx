@@ -26,8 +26,11 @@ import {
   ChevronRightIcon,
 } from "components/SvgComponents/SvgComponents";
 import request from "services/httpRequest";
+import { useRef } from "react";
+import html2canvas from "html2canvas";
 
 export const Products = () => {
+  const categoriesWrapperRef = useRef(null);
   const {
     data,
     columns,
@@ -46,13 +49,6 @@ export const Products = () => {
   const search = searchParams.get("search") || "";
 
   const { current, totalPages } = paginationData;
-
-  const handleRefresh = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 100);
-  };
 
   const deleteProduct = async () => {
     try {
@@ -75,6 +71,18 @@ export const Products = () => {
     getProducts(page, limit, search);
   }, [page, limit, search]);
 
+  const handleDownload = () => {
+    if (categoriesWrapperRef.current) {
+      html2canvas(categoriesWrapperRef.current).then((canvas) => {
+        canvas.toBlob((blob) => {
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "products.png";
+          link.click();
+        }, "image/png");
+      });
+    }
+  };
   return (
     <>
       <Header
@@ -100,6 +108,7 @@ export const Products = () => {
           <CustomBtn
             BgColor={"white"}
             type={"button"}
+            Onclick={handleDownload}
             BtnBorder={"1px solid #E5E9EB"}
             BtnContent={
               <Box
@@ -114,30 +123,30 @@ export const Products = () => {
       />
       <Box className={s.orders__tabs}>
         <Box className={s.orders__tabs_wrapper}>
-          <Box className={s.orders__tabs_table}>
+          <Box ref={categoriesWrapperRef} className={s.orders__tabs_table}>
             <CustomTable columns={columns} data={data} />
           </Box>
         </Box>
-          <Box className={s.orders__tabs_pag}>
-            <ReactPaginate
-              previousLabel={<ChevronLeftIcon />}
-              nextLabel={<ChevronRightIcon />}
-              breakLabel={"..."}
-              breakClassName={"break-me"}
-              pageCount={totalPages}
-              current={current}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageChange}
-              containerClassName={"pagination"}
-              subContainerClassName={"pages pagination"}
-              activeClassName={"activePagination"}
-              className={s.products_pag}
-              initialPage={page - 1}
-            />
-          </Box>
+        <Box className={s.orders__tabs_pag}>
+          <ReactPaginate
+            previousLabel={<ChevronLeftIcon />}
+            nextLabel={<ChevronRightIcon />}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={totalPages}
+            current={current}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageChange}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"activePagination"}
+            className={s.products_pag}
+            initialPage={page - 1}
+          />
+        </Box>
       </Box>
-      
+
       <>
         <CustomModal
           isOpenModal={isOpenModal2}
