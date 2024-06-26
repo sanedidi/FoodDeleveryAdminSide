@@ -7,7 +7,7 @@ import s from "./OrdersInfo.module.scss";
 const OrdersInfo = () => {
   const { id } = useParams();
   const { data: orderData } = useGetOrderByIdService(id);
-
+  const filter = (sum) => sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   return (
     <>
       <Header
@@ -133,10 +133,17 @@ const OrdersInfo = () => {
                 {orderData?.Data?.order_products.map((product, index) => (
                   <ul key={index} className={s.orders__li}>
                     <li>
-                      {product.quantity} шт. - {product.name} - {product.price} сум
+                      {product.quantity} шт. - {product.name} -{" "}
+                      {filter(product.price)} сум
                     </li>
                   </ul>
                 ))}
+                <div
+                  style={{ fontWeight: "600", fontSize: "17px" }}
+                  className={s.orders__li}
+                >
+                  Всего: {filter(orderData?.Data?.total_price)} сум
+                </div>
               </Box>
             </Box>
           ) : (

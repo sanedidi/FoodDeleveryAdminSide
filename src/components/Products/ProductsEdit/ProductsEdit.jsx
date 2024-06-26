@@ -90,11 +90,10 @@ export const ProductsEdit = () => {
 
     const formData = new FormData();
 
-    // Append all fields from productData to formData
     for (const key in productData) {
       if (key === "photo") {
         if (typeof productData.photo === "object") {
-          formData.append("photo", productData.photo); // Append new photo binary data
+          formData.append("photo", productData.photo); 
         } else if (
           typeof productData.photo === "string" &&
           productData.photo.trim() !== ""
@@ -120,7 +119,7 @@ export const ProductsEdit = () => {
       setTimeout(() => {
         navigate("/admin/categories/products/");
       }, 1000);
-      setProductData({ ...productData, photo: null }); // Reset photo state after successful update
+      setProductData({ ...productData, photo: null }); 
     } catch (error) {
       toast.error("Что-то пошло не так. Попробуйте еще раз!");
     }

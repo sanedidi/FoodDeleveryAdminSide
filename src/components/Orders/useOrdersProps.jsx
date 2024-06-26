@@ -53,7 +53,7 @@ export const useOrdersProps = () => {
   const onCloseModal2 = () => setIsOpenModal2(false);
   const onOpenModal4 = () => setIsOpenModal4(true);
   const onCloseModal4 = () => setIsOpenModal4(false);
-
+  const filter = (sum) => sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   const getOrders = async (
     page = 1,
     limit = 10,
@@ -91,7 +91,7 @@ export const useOrdersProps = () => {
 
   useEffect(() => {
     getOrders(currentPage, pageSize);
-  }, [currentPage, pageSize]); //????????????
+  }, [currentPage, pageSize]); 
 
   const columns = [
     {
@@ -104,12 +104,6 @@ export const useOrdersProps = () => {
       title: "ID заказа",
       key: "order_number",
       dataIndex: "order_number",
-      width: 0,
-    },
-    {
-      title: "ID заказа",
-      key: "status",
-      dataIndex: "status",
       width: 0,
     },
     {
