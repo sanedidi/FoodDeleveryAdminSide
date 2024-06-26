@@ -50,7 +50,7 @@ const useDashboardProps = () => {
         {
           id: 4,
           status: "Все заказы",
-          quant: DashAll?.count_of_orders?.count_of_completed_status,
+          quant: DashAll?.count_of_orders?.count_of_all_orders,
           icon: <DashIcon4 />,
         },
       ]);
