@@ -15,11 +15,13 @@ import {
   CLickIcon,
   CancelIcon,
   CashIcon,
+  CheckIcon,
   PaymeIcon,
 } from "components/SvgComponents/SvgComponents";
 import cash from "assets/img/cash.png";
-import { CheckIcon, InfoIcon } from "@chakra-ui/icons";
+import { InfoIcon } from "@chakra-ui/icons";
 import request from "services/httpRequest";
+import free from "assets/img/free.png";
 
 export const useOrdersProps = () => {
   const [isOpenModal1, setIsOpenModal1] = useState(false); //modal
@@ -176,10 +178,10 @@ export const useOrdersProps = () => {
             paymentLabel = <CLickIcon />;
             break;
           case "free":
-            paymentLabel = <CashIcon />;
+            paymentLabel = <img src={free} alt="free" />;
             break;
           default:
-            paymentLabel = paymentType;
+            paymentLabel = <CheckIcon />;
         }
         return (
           <p

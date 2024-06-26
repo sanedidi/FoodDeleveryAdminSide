@@ -21,19 +21,19 @@ import { CheckIcon, InfoIcon } from "@chakra-ui/icons";
 import request from "services/httpRequest";
 
 export const useButcherProps = () => {
-  const [isOpenModal1, setIsOpenModal1] = useState(false); //modal
-  const [isOpenModal2, setIsOpenModal2] = useState(false); //modal
-  const [isOpenModal4, setIsOpenModal4] = useState(false); //modal
-  const [products, setProducts] = useState([]); //get`
-  const [totalPages, setTotalPages] = useState(10); //pagination
-  const [currentPage, setCurrentPage] = useState(1); //pagination
-  const [pageSize, setPageSize] = useState(10); //pagination
-  const [activeTab, setActiveTab] = useState(0); // tabs
+  const [isOpenModal1, setIsOpenModal1] = useState(false);
+  const [isOpenModal2, setIsOpenModal2] = useState(false);
+  const [isOpenModal4, setIsOpenModal4] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [totalPages, setTotalPages] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [activeTab, setActiveTab] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [cancelOrderId, setCancelOrderId] = useState(null); //update status
-  const [closeOrderId, setCloseOrderId] = useState(null); //update status
+  const [cancelOrderId, setCancelOrderId] = useState(null);
+  const [closeOrderId, setCloseOrderId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedOrderType, setSelectedOrderType] = useState(""); // order_type
+  const [selectedOrderType, setSelectedOrderType] = useState("");
 
   const [orderStatus, setOrderStatus] = useState("");
   const onOpenModal1 = () => setIsOpenModal1(true);
@@ -68,7 +68,7 @@ export const useButcherProps = () => {
 
   useEffect(() => {
     getOrders(currentPage, pageSize);
-  }, [currentPage, pageSize]); //????????????
+  }, [currentPage, pageSize]);
 
   const columns = [
     {
@@ -78,7 +78,7 @@ export const useButcherProps = () => {
       width: 0,
     },
     {
-      title: "Сотруник",
+      title: "Сотрудник",
       key: "full_name",
       dataIndex: "full_name",
       width: 60,
@@ -168,7 +168,6 @@ export const useButcherProps = () => {
                   onClick={() => {
                     onOpenModal2();
                     setCancelOrderId(item.id);
-                    // setSelectedCategoryId(item.id);
                   }}
                 >
                   <CancelIcon />
@@ -177,7 +176,7 @@ export const useButcherProps = () => {
               }
               ListMenu3={
                 <Link
-                  to={`${item.id}`} //mlovmnksvlksdnvlksdnvlksdlvksnd
+                  to={`${item.id}`}
                   style={{
                     height: "30px",
                     display: "flex",

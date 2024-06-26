@@ -14,6 +14,7 @@ import {
   useGetGroups,
   useUpdateGroupById,
 } from 'services/groups.service';
+import toast from 'react-hot-toast';
 
 export const useGroupsProps = () => {
   const [activeGroup, setActiveGroup] = useState('');
@@ -74,7 +75,7 @@ export const useGroupsProps = () => {
           onClose();
         },
         onError: (error) => {
-          alert(error?.response?.data);
+          toast.error(error?.response?.data);
         },
       },
     );

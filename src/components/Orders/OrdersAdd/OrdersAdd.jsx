@@ -236,9 +236,9 @@ export const OrdersAdd = () => {
               </button>
               <button
                 className={
-                  orderDetails.payment_type === "payme" ? s.active : ""
+                  orderDetails.payment_type === "наличные" ? s.active : ""
                 }
-                onClick={() => handleInputChange("payment_type", "payme")}
+                onClick={() => handleInputChange("payment_type", "наличные")}
               >
                 <img src={cash} alt="" />
               </button>

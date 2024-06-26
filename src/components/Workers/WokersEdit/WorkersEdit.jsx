@@ -6,6 +6,8 @@ import {
   Header,
   Lang,
   Link,
+  Toaster,
+  toast,
 } from "public/imports";
 import s from "components/Categories/CategoriesAdd/CategoriesAdd.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
@@ -56,16 +58,17 @@ const WorkersEdit = () => {
         }
       );
 
-      alert("Работник успешно обновлен!");
+      toast.success("Работник успешно обновлен!");
       navigate("/admin/workers");
     } catch (error) {
       console.error("Ошибка при обновлении работника", error);
-      alert("Что-то пошло не так, попробуйте еще раз!");
+      toast.error("Что-то пошло не так, попробуйте еще раз!");
     }
   };
 
   return (
     <>
+      <Toaster />
       <Header
         title="Редактировать работника"
         headerBtn1={

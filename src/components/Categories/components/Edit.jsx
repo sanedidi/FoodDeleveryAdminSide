@@ -6,6 +6,8 @@ import {
   Lang,
   Link,
   PlusIconDown,
+  Toaster,
+  toast,
   useNavigate,
   useParams,
 } from "public/imports";
@@ -21,7 +23,7 @@ const Edit = () => {
   const [productData, setProductData] = useState({
     id: categoryId,
     name: "",
-    photo: null, 
+    photo: null,
     imagePreview: null,
   });
 
@@ -35,7 +37,7 @@ const Edit = () => {
         setProductData({
           id: categoryId,
           name: category.name,
-          photo: category.photo,
+          photo: null,
           imagePreview: category.photo,
         });
       } catch (error) {
@@ -66,7 +68,9 @@ const Edit = () => {
     const formData = new FormData();
     formData.append("id", categoryId);
     formData.append("name", productData.name);
-    formData.append("photo", productData.photo);
+    if (productData.photo) {
+      formData.append("photo", productData.photo);
+    }
 
     try {
       await request.put(
@@ -78,17 +82,18 @@ const Edit = () => {
           },
         }
       );
-      alert("Категория успешно обновлена!");
+      toast.success("Категория успешно обновлена!");
       setTimeout(() => {
         navigate("/admin/categories/");
       }, 1000);
     } catch (error) {
-      alert("Что-то пошло не так, попробуйте еще раз!");
+      toast.error("Что-то пошло не так, попробуйте еще раз!");
     }
   };
 
   return (
     <>
+      <Toaster />
       <Header
         title={"Редактировать "}
         headerBtn1={

@@ -25,8 +25,9 @@ export const Workers = () => {
     isOpenModal2,
     onCloseModal2,
     paginationData,
-    selectedCategoryId,
+    selectedProductId,
     setNewState,
+    setCurrentPage,
   } = useWorkersProps();
 
   const { current, totalPages } = paginationData;
@@ -35,13 +36,15 @@ export const Workers = () => {
   const limit = +searchParams.get("limit") || 10;
   const search = searchParams.get("search") || "";
 
-  const handlePageChange = (selectedPage) => {
-    setSearchParams({ ...searchParams, page: selectedPage });
+  const handlePageChange = ({ selected }) => {
+    const newPage = selected + 1;
+    setSearchParams({ ...searchParams, page: newPage });
+    setCurrentPage(newPage);
   };
 
   useEffect(() => {
     setNewState({ page, limit, search });
-  }, []);
+  }, [page, limit, search]);
 
   return (
     <>
@@ -105,7 +108,7 @@ export const Workers = () => {
         ModalBtnBgColor={"blue"}
         primaryBtnText="Да"
         onPrimaryBtnClick={() => {
-          handleDeleteCategory(selectedCategoryId);
+          handleDeleteCategory(selectedProductId);
           onCloseModal2();
         }}
       />

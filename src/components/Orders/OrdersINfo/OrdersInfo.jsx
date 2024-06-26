@@ -75,8 +75,12 @@ const OrdersInfo = () => {
                   <li className={s.orders__li}>{orderData?.Data.created_at}</li>
                 </Box>
                 <Box className={s.orders__item}>
-                  <h2 className={s.orders__title}>{orderData.Data.order_type}</h2>
-                  <li className={s.orders__li}>{orderData?.Data.delivery_time}</li>
+                  <h2 className={s.orders__title}>
+                    {orderData.Data.order_type}
+                  </h2>
+                  <li className={s.orders__li}>
+                    {orderData?.Data.delivery_time}
+                  </li>
                 </Box>
               </Box>
               <Box className={s.orders__status}>
@@ -99,10 +103,10 @@ const OrdersInfo = () => {
                     <p className={s.orders__li}>
                       {orderData?.Data?.customer_phone}
                     </p>
-                    </Box>
+                  </Box>
                 </Box>
               </Box>
-             
+
               <Box className={s.orders__items}>
                 <Box className={s.orders__item}>
                   <h2 className={s.orders__title}>Ресторан</h2>
@@ -123,10 +127,16 @@ const OrdersInfo = () => {
                   </li>
                 </Box>
               </Box>
-             
+
               <Box className={s.orders__status}>
                 <h2 className={s.orders__title}> Позиции </h2>
-                {orderData?.Data?.quantity}
+                {orderData?.Data?.order_products.map((product, index) => (
+                  <ul key={index} className={s.orders__li}>
+                    <li>
+                      {product.quantity} шт. - {product.name} - {product.price} сум
+                    </li>
+                  </ul>
+                ))}
               </Box>
             </Box>
           ) : (

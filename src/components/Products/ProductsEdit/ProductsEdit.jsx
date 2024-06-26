@@ -17,12 +17,7 @@ import {
 } from "public/imports";
 import s from "./ProductsEdit.module.scss";
 import useProductsEditProps from "./useProductsEditProps";
-import { CloseIcon } from "@chakra-ui/icons";
 import request from "services/httpRequest";
-
-const generateArticul = () => {
-  return Math.floor(100000 + Math.random() * 900000).toString();
-};
 
 export const ProductsEdit = () => {
   const {
@@ -62,7 +57,7 @@ export const ProductsEdit = () => {
         const branchesResponse = await request.get(
           `https://food-delivery-api-n6as.onrender.com/v1/branches`
         );
-        setCategories(categoriesResponse.data.Data.category);
+        setCategories(categoriesResponse.data.Data.categories);
         setBranches(branchesResponse.data.Data.branches);
       } catch (error) {
         console.error("Ошибка при получении категорий или филиалов:", error);
@@ -94,8 +89,21 @@ export const ProductsEdit = () => {
     e.preventDefault();
 
     const formData = new FormData();
+
+    // Append all fields from productData to formData
     for (const key in productData) {
-      formData.append(key, productData[key]);
+      if (key === "photo") {
+        if (typeof productData.photo === "object") {
+          formData.append("photo", productData.photo); // Append new photo binary data
+        } else if (
+          typeof productData.photo === "string" &&
+          productData.photo.trim() !== ""
+        ) {
+          formData.append("image_url", productData.photo); // Append existing image_url
+        }
+      } else {
+        formData.append(key, productData[key]); // Append other fields normally
+      }
     }
 
     try {
@@ -112,11 +120,12 @@ export const ProductsEdit = () => {
       setTimeout(() => {
         navigate("/admin/categories/products/");
       }, 1000);
-      setProductData({ ...productData, photo: null });
+      setProductData({ ...productData, photo: null }); // Reset photo state after successful update
     } catch (error) {
-      toast.error("Что то пошло не так попробуйте еще раз!");
+      toast.error("Что-то пошло не так. Попробуйте еще раз!");
     }
   };
+
   return (
     <>
       <Header
