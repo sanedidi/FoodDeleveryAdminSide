@@ -16,6 +16,9 @@ const ResetPasswordStep2 = lazy(() =>
     "../modules/Auth/ResetPassword/Components/ResetPasswordStep2/ResetPasswordStep2"
   )
 );
+const ButcherReminded = lazy(() =>
+  import("components/Butcher/ButcherReminded/ButcherReminded")
+);
 const ResetPasswordStep3 = lazy(() =>
   import(
     "../modules/Auth/ResetPassword/Components/ResetPasswordStep3/ResetPasswordStep3"
@@ -103,6 +106,10 @@ export const Router = observer(() => {
         />
         <Route path="/admin/categories/edit/:categoryId/" element={<Edit />} />
         <Route path="/admin/orders/info/:id/" element={<OrdersInfo />} />
+        <Route
+          path="/admin/butcher/reminded/:categoryId/"
+          element={<ButcherReminded />}
+        />
         <Route path="/admin/orders/add" element={<OrdersAdd />} />
         <Route path="/admin/orders/AddHall" element={<OrdersHall />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />

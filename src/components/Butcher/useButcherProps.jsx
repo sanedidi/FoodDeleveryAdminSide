@@ -133,7 +133,7 @@ export const useButcherProps = () => {
               }
               ListMenu={
                 <Link
-                  to={""}
+                  to={`/admin/butcher/reminded/${item.id}`}
                   style={{
                     height: "30px",
                     display: "flex",
@@ -145,7 +145,7 @@ export const useButcherProps = () => {
                   }}
                   className="categories__menu"
                   onClick={() => {
-                    onOpenModal1();
+                    // onOpenModal1();
                     setCloseOrderId(item.id);
                   }}
                 >
