@@ -18,32 +18,35 @@ const ButcherReminded = () => {
     amount_in_kilo: "",
     butcher_id: categoryId,
     calculated_price_per_kilo: 0,
-    restaurant_id: "",
+    price_per_kilo: "",
   });
   const [inputError, setInputError] = useState("");
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    const fetchButcherInfo = async () => {
-      try {
-        const response = await request.get(`/butcher/${categoryId}`);
+    request
+      .get(`/butcher/${categoryId}`)
+      .then((response) => {
         setButcherInfo(response.data.Data);
-      } catch (error) {
+        setNewButcher((prevButcher) => ({
+          ...prevButcher,
+          price_per_kilo: response.data.Data.price_per_kilo,
+        }));
+      })
+      .catch((error) => {
         console.error("Error fetching butcher info:", error);
         setError(true);
         toast.error("Failed to fetch butcher information");
-      }
-    };
-
-    fetchButcherInfo();
+      });
   }, [categoryId]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    let amountInKilo, pricePerKilo, calculatedPrice;
 
     if (name === "amount_in_kilo") {
-      const amountInKilo = parseFloat(value);
+      amountInKilo = parseFloat(value);
 
-      // Validation logic
       if (isNaN(amountInKilo) || amountInKilo <= 0) {
         setInputError(
           "Введите положительное число для количества в килограммах"
@@ -52,14 +55,31 @@ const ButcherReminded = () => {
         setInputError("");
       }
 
-      const pricePerKilo = parseFloat(butcherInfo.price_per_kilo);
-      const calculatedPrice =
+      pricePerKilo = parseFloat(newButcher.price_per_kilo);
+      calculatedPrice =
         amountInKilo * pricePerKilo + parseFloat(butcherInfo?.total_sum);
+      setTotal(calculatedPrice);
       setNewButcher((prevButcher) => ({
         ...prevButcher,
         amount_in_kilo: value,
-        calculated_price_per_kilo: calculatedPrice,
+        calculated_price_per_kilo: pricePerKilo,
       }));
+    } else if (name === "price_per_kilo") {
+      pricePerKilo = parseFloat(value);
+      amountInKilo = parseFloat(newButcher.amount_in_kilo);
+
+      if (!isNaN(pricePerKilo) && pricePerKilo > 0) {
+        calculatedPrice =
+          amountInKilo * pricePerKilo + parseFloat(butcherInfo?.total_sum);
+        setTotal(calculatedPrice);
+        setNewButcher((prevButcher) => ({
+          ...prevButcher,
+          price_per_kilo: value,
+          calculated_price_per_kilo: pricePerKilo,
+        }));
+      } else {
+        setInputError("Введите положительное число для цены за килограмм");
+      }
     } else {
       setNewButcher((prevButcher) => ({
         ...prevButcher,
@@ -67,7 +87,6 @@ const ButcherReminded = () => {
       }));
     }
   };
-
   const filter = (num) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   };
@@ -80,13 +99,13 @@ const ButcherReminded = () => {
       return;
     }
 
+    const pricePerKilo = parseFloat(newButcher.price_per_kilo);
+
     request
       .post("meat_price", {
         amount_in_kilo: parseFloat(newButcher.amount_in_kilo),
         butcher_id: newButcher.butcher_id,
-        calculated_price_per_kilo: parseFloat(
-          newButcher.calculated_price_per_kilo
-        ),
+        calculated_price_per_kilo: pricePerKilo,
       })
       .then((response) => {
         toast.success("Мясник успешно добавлен!");
@@ -135,10 +154,11 @@ const ButcherReminded = () => {
         <div className={s.add__item}>
           <h2>Имя сотрудника</h2>
           <CustomInput
-            value={butcherInfo.full_name}
+            defaultValue={butcherInfo.full_name}
+            // value={butcherInfo.full_name}
             name="fullName"
-            disabled={true}
             InputPlaceHolder={"Имя сотрудника"}
+            disabled={true}
           />
         </div>
         <div className={s.add__item}>
@@ -146,7 +166,6 @@ const ButcherReminded = () => {
           <CustomInput
             value={butcherInfo?.CatalogData?.name}
             name="fullName"
-            disabled={true}
             InputPlaceHolder={"Каталог"}
           />
         </div>
@@ -154,9 +173,10 @@ const ButcherReminded = () => {
           <div className={s.add__item}>
             <h2>Цена товар 1КГ</h2>
             <CustomInput
-              value={butcherInfo.price_per_kilo}
-              name="fullName"
-              disabled={true}
+              type="number"
+              value={newButcher.price_per_kilo}
+              name="price_per_kilo"
+              onChange={handleInputChange}
               InputPlaceHolder={"Цена товар 1КГ"}
             />
           </div>
@@ -165,14 +185,13 @@ const ButcherReminded = () => {
             <CustomInput
               value={filter(butcherInfo?.total_sum)}
               name="fullName"
-              disabled={true}
               InputPlaceHolder={"Остаток"}
             />
           </div>
         </div>
         <form onSubmit={handleSubmit}>
           <div className={s.add__item}>
-            <h2> Добавить товар КГ</h2>
+            <h2>Добавить товар КГ</h2>
             <CustomInput
               type="number"
               name="amount_in_kilo"
@@ -188,12 +207,10 @@ const ButcherReminded = () => {
             <h2>Общий остаток</h2>
             <CustomInput
               type="text"
-              name="calculated_price_per_kilo"
-              value={filter(newButcher.calculated_price_per_kilo)}
-              onChange={handleInputChange}
+              name="total"
+              value={filter(total)}
               InputPlaceHolder="Общий остаток"
-              required
-              disabled={true}
+              readOnly
             />
           </div>
           <CustomBtn

@@ -1,0 +1,1 @@
+import{j as r}from"./index-DSiRzrbg.js";import{H as e}from"./MainProd-DW19dvKP.js";import"./index-C0teDyxI.js";const i=()=>r.jsxs(r.Fragment,{children:[r.jsx(e,{title:"Календарь"}),r.jsx("div",{children:"Calendar"})]});export{i as default};
