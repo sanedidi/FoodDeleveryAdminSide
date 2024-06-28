@@ -42,31 +42,12 @@ const OrdersInfo = () => {
               <Box className={s.orders__status}>
                 <h2 className={s.orders__title}>Статус</h2>
                 <Box className={s.orders__list}>
-                  {/* <ul>
-                    <li className={s.orders__li}>
-                      {orderData?.Data.created_at}-Заказ начат
-                    </li> */}
                   <li
                     style={{ textTransform: "uppercase" }}
                     className={s.orders__li}
                   >
                     {orderData?.Data.status}
                   </li>
-                  {/* <li className={s.orders__li}>
-                      {orderData?.Data.status}-Заказ подтвержден
-                    </li>
-                  </ul>
-                  <ul>
-                    <li className={s.orders__li}>
-                      {orderData?.Data.created_at}-Заказ начат
-                    </li>
-                    <li className={s.orders__li}>
-                      {orderData?.Data.order_time}-Заказ получен в ПБО
-                    </li>
-                    <li className={s.orders__li}>
-                      {orderData?.Data.status}-Заказ подтвержден
-                    </li>
-                  </ul> */}
                 </Box>
               </Box>
               <Box className={s.orders__items}>

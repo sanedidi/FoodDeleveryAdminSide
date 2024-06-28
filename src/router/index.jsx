@@ -1,3 +1,4 @@
+// Router.js
 import { Navigate, Route, Routes } from "react-router-dom";
 import { MainLayout } from "../Layouts/MainLayout/MainLayout";
 import React, { lazy } from "react";
@@ -26,6 +27,7 @@ const ResetPasswordStep3 = lazy(() =>
 );
 const AuthLayout = lazy(() => import("../Layouts/AuthLayout/AuthLayout"));
 const Orders = lazy(() => import("../components/Orders/Orders"));
+
 const Butcher = lazy(() => import("../components/Butcher/Butcher"));
 const Locations = lazy(() => import("components/Locations/Locations"));
 const Calendar = lazy(() => import("components/Calendar/Calendar"));
@@ -45,6 +47,10 @@ const ProductsEdit = lazy(() =>
 const WorkersEdit = lazy(() =>
   import("components/Workers/WokersEdit/WorkersEdit")
 );
+const ButcherInfo = lazy(() =>
+  import("components/Butcher/ButcherInfo/ButcherInfo")
+);
+
 const Edit = lazy(() => import("components/Categories/components/Edit"));
 const Categories = lazy(() => import("components/Categories/Categories"));
 const OrdersInfo = lazy(() =>
@@ -59,6 +65,7 @@ const ButcherAdd = lazy(() =>
   import("components/Butcher/ButcherAdd/ButcherAdd")
 );
 const Dashboard = lazy(() => import("components/Dashboard/Dashboard"));
+
 export const Router = observer(() => {
   const isAuth = authStore.isAuth;
   const role = JSON.parse(localStorage.getItem("auth"));
@@ -105,6 +112,10 @@ export const Router = observer(() => {
           element={<ProductsEdit />}
         />
         <Route path="/admin/categories/edit/:categoryId/" element={<Edit />} />
+        <Route
+          path="/admin/ButcherInfo/edit/:categoryId"
+          element={<ButcherInfo />}
+        />
         <Route path="/admin/orders/info/:id/" element={<OrdersInfo />} />
         <Route
           path="/admin/butcher/reminded/:categoryId/"
@@ -129,4 +140,5 @@ export const Router = observer(() => {
     </Routes>
   );
 });
+
 export default Router;
