@@ -1,0 +1,21 @@
+.del{
+    padding: 16px;
+
+    &__cards{
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    &__card{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+    &__title{
+        font-size: 18px;
+        font-weight: 600;
+        padding: 10px;
+        border-bottom: 1px solid #e7e7e7;
+    }
+}

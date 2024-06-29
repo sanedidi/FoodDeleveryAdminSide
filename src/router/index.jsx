@@ -4,6 +4,7 @@ import { MainLayout } from "../Layouts/MainLayout/MainLayout";
 import React, { lazy } from "react";
 import { authStore } from "../store/auth.store";
 import { observer } from "mobx-react-lite";
+// import ButcherDelete from "components/Butcher/ButcherDelete/ButcherDelete";
 
 const Login = lazy(() => import("../modules/Auth/Login/Login"));
 const ResetPassword = lazy(() =>
@@ -27,6 +28,9 @@ const ResetPasswordStep3 = lazy(() =>
 );
 const AuthLayout = lazy(() => import("../Layouts/AuthLayout/AuthLayout"));
 const Orders = lazy(() => import("../components/Orders/Orders"));
+const ButcherDelete = lazy(() =>
+  import("../components/Butcher/ButcherDelete/ButcherDelete")
+);
 
 const Butcher = lazy(() => import("../components/Butcher/Butcher"));
 const Locations = lazy(() => import("components/Locations/Locations"));
@@ -120,6 +124,10 @@ export const Router = observer(() => {
         <Route
           path="/admin/butcher/reminded/:categoryId/"
           element={<ButcherReminded />}
+        />
+        <Route
+          path="/admin/butcher/delete/:categoryId/"
+          element={<ButcherDelete />}
         />
         <Route path="/admin/orders/add" element={<OrdersAdd />} />
         <Route path="/admin/orders/AddHall" element={<OrdersHall />} />

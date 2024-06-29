@@ -155,7 +155,7 @@ export const useButcherProps = () => {
               }
               ListMenu1={
                 <Link
-                  to={""}
+                  to={`/admin/butcher/delete/${item.id}`}
                   style={{
                     height: "30px",
                     display: "flex",

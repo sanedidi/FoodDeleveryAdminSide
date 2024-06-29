@@ -155,7 +155,7 @@ const ButcherReminded = () => {
           <h2>Имя сотрудника</h2>
           <CustomInput
             defaultValue={butcherInfo.full_name}
-            // value={butcherInfo.full_name}
+            value={butcherInfo.full_name}
             name="fullName"
             InputPlaceHolder={"Имя сотрудника"}
             disabled={true}

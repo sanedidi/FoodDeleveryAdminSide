@@ -72,7 +72,7 @@ const ButcherInfo = () => {
           <Box className={clsx(s.orders__items, s.noGrid)}>
             <Box width={"100%"} className={s.orders__item}>
               <h2 className={clsx(s.orders__title, s.noBorder)}>
-                Общий остаток: {meatPrice?.remaining_balance}
+                Общий остаток: {meatPrice?.ButcherData?.total_sum}
               </h2>
             </Box>
           </Box>
@@ -103,13 +103,13 @@ const ButcherInfo = () => {
       </Box>
     );
   };
-  console.log(addStockInfo)
+  console.log(addStockInfo);
   return (
     <>
       <Toaster />
       <Header
-       title={`Информация о
-      ${  addStockInfo?.meat_price[0]?.ButcherData?.full_name || "not found"}
+        title={`Информация о
+      ${addStockInfo?.meat_price[0]?.ButcherData?.full_name || "not found"}
       `}
         headerBtn1={
           <Link
