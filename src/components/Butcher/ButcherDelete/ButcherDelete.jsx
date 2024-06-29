@@ -36,8 +36,9 @@ const ButcherDelete = () => {
 
   const handleBalanceReduction = async () => {
     try {
-      const response = await request.put(`/balance_reduction/${data.meat_price_id}`, {
+      const response = await request.post(`/delete_balance`, {
         updated_balance: totalRemainingBalance,
+        butcher_id: categoryId,
       });
       console.log("Balance reduction successful:", response.data);
     } catch (error) {
@@ -92,7 +93,10 @@ const ButcherDelete = () => {
               </div>
               <div className={s.del__item}>
                 <h2>Каталог</h2>
-                <CustomInput disabled={true} value={data.CatalogData?.name || ""} />
+                <CustomInput
+                  disabled={true}
+                  value={data.CatalogData?.name || ""}
+                />
               </div>
               <div className={s.del__items}>
                 <div className={s.del__item}>
