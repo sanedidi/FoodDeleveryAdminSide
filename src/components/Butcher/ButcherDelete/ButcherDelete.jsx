@@ -7,6 +7,7 @@ import {
   HeaderBox,
   Link,
   Toaster,
+  toast,
   useParams,
 } from "public/imports";
 import request from "services/httpRequest";
@@ -40,9 +41,9 @@ const ButcherDelete = () => {
         updated_balance: totalRemainingBalance,
         butcher_id: categoryId,
       });
-      console.log("Balance reduction successful:", response.data);
+      toast.success("Остаток удален!");
     } catch (error) {
-      console.error("Error reducing balance:", error);
+      toast.error("Повторите попытку!");
     }
   };
 
@@ -120,6 +121,7 @@ const ButcherDelete = () => {
                 <CustomInput value={totalRemainingBalance} disabled={true} />
               </div>
               <CustomBtn
+                BgColor={"blue"}
                 Onclick={handleBalanceReduction}
                 BtnContent={"Подтвердить удаление"}
               />
