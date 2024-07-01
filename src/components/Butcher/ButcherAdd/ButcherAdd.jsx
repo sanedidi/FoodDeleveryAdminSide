@@ -121,7 +121,7 @@ const ButcherAdd = () => {
           <div className={s.add__item}>
             <h2>Имя сотрудника</h2>
             <CustomInput
-              value={formik.values.fullName}
+              defaultValue={formik.values.fullName}
               onChange={formik.handleChange}
               name="fullName"
               InputPlaceHolder={"Имя сотрудника"}
@@ -155,7 +155,7 @@ const ButcherAdd = () => {
             <div className={s.add__item}>
               <h2>Цена товар 1КГ</h2>
               <CustomInput
-                value={formik.values.pricePerKilo}
+                defaultValue={formik.values.pricePerKilo}
                 onChange={formik.handleChange}
                 name="pricePerKilo"
                 type={"number"}

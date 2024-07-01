@@ -6,6 +6,7 @@ import {
   CustomInput,
   Header,
   Link,
+  useNavigate,
   useParams,
 } from "public/imports";
 import request from "services/httpRequest";
@@ -43,7 +44,7 @@ const ButcherReminded = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     let amountInKilo, pricePerKilo, calculatedPrice;
-
+    const naviagate = useNavigate();
     if (name === "amount_in_kilo") {
       amountInKilo = parseFloat(value);
 
@@ -109,6 +110,9 @@ const ButcherReminded = () => {
       })
       .then((response) => {
         toast.success("Мясник успешно добавлен!");
+        setTimeout(() => {
+          navigate("/admin/workers/butcher");
+        }, 1000);
       })
       .catch((error) => {
         console.error("Error creating butcher:", error);
@@ -195,7 +199,7 @@ const ButcherReminded = () => {
             <CustomInput
               type="number"
               name="amount_in_kilo"
-              value={newButcher.amount_in_kilo}
+              defaultValue={newButcher.amount_in_kilo}
               onChange={handleInputChange}
               InputPlaceHolder="Добавить товар КГ"
               required
