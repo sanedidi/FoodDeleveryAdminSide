@@ -174,7 +174,7 @@ const ButcherReminded = () => {
             <h2>Цена товар 1КГ</h2>
             <CustomInput
               type="number"
-              value={newButcher.price_per_kilo}
+              defaultValue={newButcher.price_per_kilo}
               name="price_per_kilo"
               onChange={handleInputChange}
               InputPlaceHolder={"Цена товар 1КГ"}

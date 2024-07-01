@@ -3,8 +3,6 @@ import s from "./ButcherInfo.module.scss";
 import toast, { Toaster } from "react-hot-toast";
 import {
   Box,
-  CustomBtn,
-  CustomInput,
   Header,
   Link,
   useParams,
@@ -17,20 +15,22 @@ const ButcherInfo = () => {
   const [addStockInfo, setAddStockInfo] = useState(null);
   const [deleteStockInfo, setDeleteStockInfo] = useState(null);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     fetchButcherInfo("добавить");
     fetchButcherInfo("удалить");
-  }, [categoryId]);
+  }, []); // Empty dependency array to fetch data once on mount
 
   const fetchButcherInfo = (status) => {
     request
       .get(
-        `/meat_prices?butcher_id=${categoryId}&status=${encodeURIComponent(
+        `/meat_prices?limit=1000&butcher_id=${categoryId}&status=${encodeURIComponent(
           status
         )}`
       )
       .then((response) => {
+        console.log(`Response for ${status}:`, response);
         if (status === "добавить") {
           setAddStockInfo(response.data.Data);
         } else if (status === "удалить") {
@@ -41,6 +41,9 @@ const ButcherInfo = () => {
         console.error(`Error fetching ${status} butcher info:`, error);
         setError(true);
         toast.error(`Failed to fetch ${status} butcher information`);
+      })
+      .finally(() => {
+        setLoading(false); // Update loading state after fetch
       });
   };
 
@@ -50,66 +53,61 @@ const ButcherInfo = () => {
     );
   }
 
-  if (!addStockInfo || !deleteStockInfo) {
+  if (loading) {
     return <div>Загрузка...</div>;
   }
 
   const renderStockInfo = (info, title) => {
-    const meatPrice = info?.meat_price[0];
-    if (!meatPrice) {
+    if (!info || !info.meat_price || info.meat_price.length === 0) {
       return <div>Нет информации остатков для {title}</div>;
     }
 
     return (
       <Box className={s.orders}>
         <Box className={s.orders__wrapper}>
-          <Box className={s.orders__status}>
-            <h2 className={clsx(s.orders__title, s.noBorder)}>
-              Каталог:{" "}
-              {meatPrice?.ButcherData?.CatalogData?.name || "not found"}
-            </h2>
-          </Box>
           <Box className={clsx(s.orders__items, s.noGrid)}>
             <Box width={"100%"} className={s.orders__item}>
               <h2 className={clsx(s.orders__title, s.noBorder)}>
-                Общий остаток: {meatPrice?.ButcherData?.total_sum}
+                Общий остаток:{" "}
+                {info.meat_price.reduce(
+                  (sum, item) => (item?.ButcherData?.total_sum || 0),
+                  0
+                )}
               </h2>
             </Box>
           </Box>
           <Box className={s.orders__boxes}>
-            <Box>
+            <Box className={s.orders__sss}>
               <h2>{title}</h2>
-              <div className={s.orders__box}>
-                <ul>
-                  <li>
-                    <span>Дата:</span> {meatPrice?.created_at}
-                  </li>
-                  <li>
-                    <span>Остаток:</span> {meatPrice?.remaining_balance}
-                  </li>
-                  <li>
-                    <span>Общий остаток:</span>{" "}
-                    {meatPrice?.ButcherData?.total_sum}
-                  </li>
-                  <li>
-                    <span>Цена за 1 кг:</span>{" "}
-                    {meatPrice?.ButcherData?.price_per_kilo}
-                  </li>
-                </ul>
-              </div>
+              {info.meat_price.map((meatPrice, index) => (
+                <div key={index} className={s.orders__box}>
+                  <ul>
+                    <li>
+                      <span>Дата:</span> {meatPrice?.created_at}
+                    </li>
+                    <li>
+                      <span>Остаток:</span> {meatPrice?.updated_balance}
+                    </li>
+                    <li>
+                      <span>Цена за 1 кг:</span>{" "}
+                      {meatPrice?.ButcherData?.price_per_kilo} сум
+                    </li>
+                  </ul>
+                </div>
+              ))}
             </Box>
           </Box>
         </Box>
       </Box>
     );
   };
-  console.log(addStockInfo);
+
   return (
     <>
       <Toaster />
       <Header
         title={`Информация о
-      ${addStockInfo?.meat_price[0]?.ButcherData?.full_name || "not found"}
+      ${addStockInfo?.meat_price?.[0]?.ButcherData?.full_name || "not found"}
       `}
         headerBtn1={
           <Link

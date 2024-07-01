@@ -85,9 +85,10 @@ export const useButcherProps = () => {
     },
     {
       title: "Каталог",
-      key: "catalog_id",
-      dataIndex: "catalog_id",
       width: 120,
+      render: (item) => {
+        return <h2> {item.CatalogData.name}</h2>;
+      },
     },
     {
       title: "Цена продажи",

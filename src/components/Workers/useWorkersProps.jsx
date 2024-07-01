@@ -72,16 +72,10 @@ const useWorkersProps = () => {
       width: 120,
     },
     {
-      title: "Категория",
-      dataIndex: "category_id",
-      key: "category_id",
+      title: "Время создания",
+      dataIndex: "created_at",
+      key: "created_at",
       width: 120,
-      render: (categoryId) => {
-        const product = catalogs.find(
-          (prod) => prod.category_id === categoryId
-        );
-        return product ? product.name : "";
-      },
     },
     {
       title: (

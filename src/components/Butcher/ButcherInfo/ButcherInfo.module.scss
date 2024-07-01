@@ -1,8 +1,7 @@
 .orders {
     background-color: #fff;
     width: 100%;
-    max-width: 700px;
-    margin: 13px;
+
 
     &__wrapper {
         width: 100%;
@@ -43,10 +42,13 @@
     &__items {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 10px;
+        gap: 10px 10px;
     }
 
     &__item {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
         padding: 10px;
         border-radius: 8px;
         border: 1px solid#D2D2D2;
@@ -58,34 +60,41 @@
         gap: 10px;
     }
 
-    &__boxes {
+    &__sss {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
 
-        &>div {
-            border: 1px solid #D2D2D2;
-            padding: 16px;
-            border-radius: 8px;
+    &__box {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        border: 1px solid #D2D2D2;
+        padding: 16px;
+        border-radius: 8px;
 
-            &>div {
-                li {
-                    span {
-                        color: #989A99;
-                    }
-
-                    list-style: inside;
-                    color: #D2D2D2;
-                }
-            }
-        }
-
-        h2 {
-            border-bottom: 1px solid #D2D2D2;
-            padding-bottom: 10px;
-            font-size: 16px;
-            color: #000;
-            font-weight: 500;
+        ul {
+            display: flex;
+            flex-direction: column;
         }
     }
+
+    &__boxes {
+        display: flex;
+        flex-direction: column;
+    }
+
+    h2 {
+        border-bottom: 1px solid #D2D2D2;
+        padding-bottom: 10px;
+        font-size: 16px;
+        color: #000;
+        font-weight: 500;
+    }
+
 }
+
 
 
 .noBorder {
@@ -100,7 +109,16 @@
 
 
 .aa {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    display: flex;
+    width: 100%;
+    gap: 5px;
+    padding: 16px;
+}
+
+
+
+li {
+    span {
+        font-weight: 600;
+    }
 }

@@ -17,6 +17,7 @@ const ButcherDelete = () => {
   const { categoryId } = useParams();
   const [data, setData] = useState(null);
   const [totalRemainingBalance, setTotalRemainingBalance] = useState(0);
+  const [reductionAmount, setReductionAmount] = useState(0);
 
   useEffect(() => {
     const fetchButcherInfo = async () => {
@@ -37,8 +38,8 @@ const ButcherDelete = () => {
 
   const handleBalanceReduction = async () => {
     try {
-      const response = await request.post(`/delete_balance`, {
-        updated_balance: totalRemainingBalance,
+      await request.post(`/delete_balance`, {
+        updated_balance: reductionAmount,
         butcher_id: categoryId,
       });
       toast.success("Остаток удален!");
@@ -49,6 +50,7 @@ const ButcherDelete = () => {
 
   const handleInputChange = (event) => {
     const reductionAmount = parseFloat(event.target.value);
+    setReductionAmount(reductionAmount);
     const remainingBalance = data?.total_sum || 0;
     setTotalRemainingBalance(remainingBalance - reductionAmount);
   };
@@ -106,7 +108,7 @@ const ButcherDelete = () => {
                 </div>
                 <div className={s.del__item}>
                   <h2>Остаток</h2>
-                  <CustomInput disabled={true} value={data.total_sum} />
+                  <CustomInput value={data.total_sum} disabled={true} />
                 </div>
               </div>
               <div className={s.del__item}>
